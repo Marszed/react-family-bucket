@@ -1,0 +1,331 @@
+/**
+ * Created by marszed on 2017/4/24.
+ */
+import React from "react";
+import {Link} from "react-router";
+import env from "CONFIG/env";
+import INTERFACE from "INTERFACE/config";
+import {asyncAwaitCall} from 'HTTP';
+import pureRender from "pure-render-decorator";
+import {injectIntl} from "react-intl";
+import {langPackageInject, cookie, setLocalStorage} from 'LIB/tool';
+import ValidateTool from 'LIB/validationRules';
+import Header from 'COMPONENT/account/header';
+
+
+@pureRender
+class Login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            password: '',
+            verifyCode: '',
+            isVerify: 'none',
+            rememberState: false,
+            validateInfo: 'empty',
+            language: langPackageInject(),
+            verifyCodeSrc: ''
+        };
+    }
+    //render后
+    componentDidMount() {
+        const email = cookie("email");
+        if (email) {
+            this.setState({
+                email: email
+            });
+            if (email) {
+                this.setState({
+                    rememberState: true
+                });
+                // 已有邮箱账号，判断此邮箱账号是否需要显示验证码
+                this.showCodeImageVerify(email);
+            }
+        }
+    }
+    submit = (event) => {
+        event.preventDefault();
+        //登录验证
+        if (!this.validateEmail(this.state.email) || !this.validatePassword(this.state.password) || !this.validateVerifyCode(this.state.verifyCode)) {
+            return false;
+        }
+
+        let responseHandler = async function (){
+            let response = await asyncAwaitCall({
+                url: {value: INTERFACE.LOGIN, key: 'LOGIN'},
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                dataSerialize: true,
+                data: {
+                    account: this.state.email,
+                    password: this.state.password,
+                    verifyCode: this.state.verifyCode,
+                    language: this.state.language
+                }
+            });
+            if (response.errType) {
+                // 系统异常, 网络原因等
+                if (response.errType === 'broken'){
+                    return false;
+                }
+                // 接口调用返回非0000
+                this.setState({
+                    verifyCode: ""
+                });
+                //验证码不正确,定位到验证码
+                if (response.data.header && response.data.header.code === "E1200"){
+                    this.refs.verifyCode.focus();
+                }
+                if (response.data.data && response.data.data.showCode) {
+                    this.setState({
+                        isVerify: "block",
+                        verifyCodeSrc: env.config.origin + INTERFACE.CODEIMAGE + this.state.email + "&v=" + (new Date()).getTime()
+                    });
+                }
+            } else {
+                // 设置本地登陆成功标识
+                setLocalStorage("isLogin", true);
+                // 设置语言
+                cookie('language', response.data.data.userInfo.accountLanguage, {expires: 360});
+                // 设置接口验证TOKEN
+                window.localStorage.setItem("token", response.data.data.token);
+                // 设置记住账号
+                if (this.state.rememberState) {
+                    cookie("email", this.state.email, {expires: 30});
+                } else {
+                    cookie("email", "");
+                }
+                // 设置经纪公司账户信息
+                const responseUserInfo = response.data.data.userInfo;
+                const userInfo = {
+                    agencyType: responseUserInfo.agencyType,
+                    accountId: responseUserInfo.accountId,
+                    accountLanguage: responseUserInfo.accountLanguage,
+                    agencyId: responseUserInfo.agencyId,
+                    gender: responseUserInfo.gender,
+                    email: responseUserInfo.email,
+                    firstName: responseUserInfo.firstName,
+                    isAdmin: responseUserInfo.isAdmin,
+                    lastName: responseUserInfo.lastName,
+                    lastTime: responseUserInfo.lastTime, // 第一次登陆lastTime为空，作为第一次登陆的标识
+                    name: responseUserInfo.firstName + " " + responseUserInfo.lastName,
+                    countryName: responseUserInfo.countryName,
+                    country: responseUserInfo.country,
+                    mobilePhone: responseUserInfo.mobilePhone,
+                    title: responseUserInfo.title,
+                    state: responseUserInfo.state,
+                    profileImage: responseUserInfo.profileImage
+                };
+                const companyInfo = {
+                    "companyCountryName": responseUserInfo.companyCountryName,
+                    "companyEmail": responseUserInfo.companyEmail,
+                    "companyPhone": responseUserInfo.companyPhone,
+                    "companyMobilePhone": responseUserInfo.companyMobilePhone,
+                    "companyName": responseUserInfo.companyName,
+                    "companyFileKey": responseUserInfo.companyFileKey,
+                    "companyLogo": responseUserInfo.companyLogo,
+                    "companyCountry": responseUserInfo.companyCountry,
+                    "companyAddr": responseUserInfo.companyAddr,
+                    "companyUniqueid": responseUserInfo.companyUniqueid,
+                    "siteUrl": responseUserInfo.siteUrl,
+                    "companyDescription": responseUserInfo.companyDescription
+                };
+                setLocalStorage("userInfo", userInfo);
+                setLocalStorage("companyInfo", companyInfo);
+                // 第一次登陆 重定向到第一次登陆页进行密码修改
+                if (userInfo && (!userInfo.lastTime || userInfo.lastTime === null) ) {
+                    this.props.router.push('firstLogin');
+                } else {
+                    // 不是第一次登陆 重定向到工作台
+                    this.props.router.push({
+                        pathname: 'dashboard',
+                        query: {isFresh: 1}
+                    });
+                }
+            }
+        }.bind(this)();
+    };
+
+    changeVerifyCodeImg(email) {
+        this.setState({
+            verifyCodeSrc: env.config.origin + INTERFACE.CODEIMAGE + (email || this.state.email) + "&v=" + (new Date()).getTime(),
+            verifyCode: ''
+        });
+    }
+
+    showCodeImageVerify(email){
+        // true 需要验证码 false 不需要验证码
+        let responseHandler = async function () {
+            let response = await asyncAwaitCall({
+                url: {value: INTERFACE.SHOWCODEIMAGE, key: 'SHOWCODEIMAGE'},
+                method: 'get',
+                params: {
+                    account: email || this.state.email
+                },
+                loading: false
+            });
+            if (!response.errType && response.data.data) {
+                this.setState({
+                    isVerify: "block",
+                    verifyCodeSrc: env.config.origin + INTERFACE.CODEIMAGE + (email || this.state.email) + "&v=" + (new Date()).getTime()
+                });
+            }
+        }.bind(this)();
+    }
+
+    //记住账号
+    rememberAccount() {
+        let rememberState = !this.state.rememberState;
+        this.setState({rememberState: rememberState});
+    }
+
+
+    //邮箱输入
+    changeEmail(type, event) {
+        this.setState({email: event.target.value});
+        if (type === 'blur'){
+            this.showCodeImageVerify(event.target.value);
+        }
+    }
+
+    validateEmail(value) {
+        if (ValidateTool.isEmpty(value)) {
+            this.setState({validateInfo: "validateEmail1"});
+            return false;
+        }
+        if (!ValidateTool.isEmail(value)) {
+            this.setState({validateInfo: "validateEmail2"});
+            return false;
+        }
+        this.setState({validateInfo: "empty"});
+        return true;
+    }
+
+    //密码输入
+    changePassword(event) {
+        this.setState({password: event.target.value});
+        // this.validatePassword(event.target.value);
+    }
+
+    validatePassword(value) {
+        if (ValidateTool.isEmpty(value)) {
+            this.setState({validateInfo: "validatePassword"});
+            return false;
+        }
+        this.setState({validateInfo: "empty"});
+        return true;
+    }
+
+    //验证码输入
+    changeVerifyCode(event) {
+        this.setState({verifyCode: event.target.value});
+    }
+
+    validateVerifyCode(value) {
+        if (this.state.isVerify === 'block' && ValidateTool.isEmpty(value)) {
+            this.setState({validateInfo: "validateVerifyCode1"});
+            return false;
+        }
+        this.setState({validateInfo: "empty"});
+        return true;
+    }
+
+    render() {
+        const {messages} = this.props.intl;
+        let checkedClass = this.state.rememberState ? "float_lf ipx_checkbox checked" : "float_lf ipx_checkbox";
+        let verifyCodeImg = this.state.isVerify === 'block' ? <img className="ipx_sign_logo" src={this.state.verifyCodeSrc}/> : '';
+        return (
+            <div>
+                <Header/>
+                <form onSubmit={this.submit}>
+                    <div className="login_main">
+                        <div className="login_mainBox">
+                            <div className="ipx_signbox">
+                                <h1>{messages.agency + messages.login}</h1>
+                                <div className="ipx_sign_return">{messages[this.state.validateInfo]}</div>
+                                <dl className="ipx_sign_dl">
+                                    <dd className="clearfix">
+                                        <label className="ipx_sign_label">
+                                            <i className="iconfont icon-email"/>
+                                        </label>
+                                        <input
+                                            type='text'
+                                            name='email'
+                                            className='ipxTxt'
+                                            value={this.state.email}
+                                            onChange={this.changeEmail.bind(this, 'change')}
+                                            onBlur={this.changeEmail.bind(this, 'blur')}
+                                            placeholder={messages.email}
+                                        />
+                                    </dd>
+                                    <dd className="clearfix">
+                                        <label className="ipx_sign_label">
+                                            <i className="iconfont icon-key"/>
+                                        </label>
+                                        <input
+                                            type='password'
+                                            name='password'
+                                            className='ipxTxt'
+                                            value={this.state.password}
+                                            onChange={this.changePassword.bind(this)}
+                                            onBlur={this.changePassword.bind(this)}
+                                            placeholder={messages.password}
+                                        />
+                                    </dd>
+                                    <dd className="clearfix" style={{display: this.state.isVerify}}>
+                                        <label className="ipx_sign_label">
+                                            <i className="iconfont icon-verificode"/>
+                                        </label>
+                                        <input type="text"
+                                               className="ipxTxt"
+                                               name='verifyCode'
+                                               ref='verifyCode'
+                                               value={this.state.verifyCode}
+                                               onChange={this.changeVerifyCode.bind(this)}
+                                               onBlur={this.changeVerifyCode.bind(this)}
+                                               placeholder={messages.verifyCode}
+                                               style={{"width": "150px"}}/>
+                                        <div className="verificode_img" onClick={this.changeVerifyCodeImg.bind(this)}>
+                                            {verifyCodeImg}
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <div className="ipx_signbox_td clearfix">
+                                    <label className={checkedClass} onClick={this.rememberAccount.bind(this)}>
+                                        <i className="iconfont icon-succeed"/>&nbsp;&nbsp;
+                                        <span className="text-elps">
+                                        {messages.rememberAccount}
+                                    </span>
+                                    </label>
+                                    <Link to="/forgetPassword" className="float_rt">{messages.forgetPassword}?</Link>
+                                </div>
+                                <button className="ipx_btn ipx_blue_btn ipx_XL_btn" type="submit" onClick={this.submit}>{messages.loginSpace}</button>
+                                <p className="ipx_sign_tips">
+                                    <Link to="/register" activeClassName="active">
+                                        {messages.registerNow}
+                                    </Link>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div className="login_foot">
+                    <ul>
+                        <li><a href="http://ipx.net" target="_blank">{'IPX' + messages.homePage}</a></li>
+                        <li><a href="http://ipx.net/about_us" target="_blank">{messages.aboutUs}</a></li>
+                    </ul>
+                    <p>
+                        <span>Copyright © 2017</span>
+                        <a href="http://ipx.net" target="_blank">IPX.net</a>
+                        <span> {messages.rightReserved}</span>
+                    </p>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default injectIntl(Login);
