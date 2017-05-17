@@ -88,18 +88,6 @@ class Menu extends React.Component {
                         </span>
                     </li>
                 </Link>
-                <Link to="/agentSetting" className="ipx_dev_nav_box" activeClassName="active">
-                    <li>
-                        <i className="iconfont icon-tie"/>
-                        <span>
-                            <b/>
-                            <FormattedMessage
-                                id='agentSetting'
-                                tagName="cite"
-                                defaultMessage='agentSetting!'/>
-                        </span>
-                    </li>
-                </Link>
                 <Link to="/personSetting" className="ipx_dev_nav_box" activeClassName="active">
                     <li>
                         <i className="iconfont icon-setting"/>
@@ -109,19 +97,6 @@ class Menu extends React.Component {
                                 id='personSetting'
                                 tagName="cite"
                                 defaultMessage='personSetting!'/>
-                        </span>
-                    </li>
-                </Link>
-                <Link to="/companySetting" className="ipx_dev_nav_box" activeClassName="active">
-                    <li>
-                        <i className="iconfont icon-card"/>
-                        <span>
-                            <b/>
-                            <FormattedMessage
-                                id='companySetting'
-                                tagName="cite"
-                                defaultMessage='companySetting!'
-                            />
                         </span>
                     </li>
                 </Link>

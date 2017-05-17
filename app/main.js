@@ -193,26 +193,6 @@ const routes = <Route path="/" component={App}>
                    }}/>
         </Route>
     </Route>
-    <Route path={ROUTER.AGENTSETTING}
-           getComponent={(nextState, callback) => {
-               require.ensure([], (require) => {
-                   callback(null, require("./components/agent/home")['default']);
-               }, "agent");
-           }}>
-            <IndexRedirect to={'/' + ROUTER.AGENTSETTING + '/' + ROUTER.LIST}/>
-            <Route path={ROUTER.LIST}
-                   getComponent={(nextState, callback) => {
-                       require.ensure([], (require) => {
-                           callback(null, require("./components/agent/list")['default']);
-                       }, "list");
-                   }}/>
-            <Route path={ROUTER.DISABLED}
-                   getComponent={(nextState, callback) => {
-                       require.ensure([], (require) => {
-                           callback(null, require("./components/agent/disabled")['default']);
-                       }, "disabled");
-                   }}/>
-    </Route>
     <Route path={ROUTER.PERSONSETTING}
            getComponent={(nextState, callback) => {
                require.ensure([], (require) => {
@@ -244,12 +224,6 @@ const routes = <Route path="/" component={App}>
                require.ensure([], (require) => {
                    callback(null, require("./components/personSetting/modifyEmail")['default']);
                }, "modifyEmail");
-           }}/>
-    <Route path={ROUTER.COMPANYSETTING}
-           getComponent={(nextState, callback) => {
-               require.ensure([], (require) => {
-                   callback(null, require("./components/companySetting/home")['default']);
-               }, "companySetting");
            }}/>
     <Route path="*"
            getComponent={(nextState, callback) => {

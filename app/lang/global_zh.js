@@ -28,7 +28,7 @@ export default {
     validateVerifyCode2: '验证码不正确',
     rightReserved: '版权所有',
     // 注册模块
-    agencyRegister: '经纪公司注册',
+    agentRegister: '经纪人注册',
     contacts: '联系人',
     firstName: '姓',
     lastName: '名',
@@ -386,4 +386,3 @@ export default {
     companySetting: '公司设置',
     close: '关闭'
 };
-

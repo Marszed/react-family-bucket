@@ -28,7 +28,7 @@ export default {
     validateVerifyCode2: 'E验证码不正确',
     rightReserved: 'E版权所有',
     // 注册模块
-    agencyRegister: 'E经纪公司注册',
+    agentRegister: 'E经纪人注册',
     contacts: 'E联系人',
     firstName: 'E姓',
     lastName: 'E名',
@@ -386,4 +386,3 @@ export default {
     companySetting: 'E公司设置',
     close: 'E关闭'
 };
-

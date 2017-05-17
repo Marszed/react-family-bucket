@@ -244,7 +244,7 @@ class Login extends React.Component {
                     <div className="login_main">
                         <div className="login_mainBox">
                             <div className="ipx_signbox">
-                                <h1>{messages.agency + messages.login}</h1>
+                                <h1>{messages.agent + messages.login}</h1>
                                 <div className="ipx_sign_return">{messages[this.state.validateInfo]}</div>
                                 <dl className="ipx_sign_dl">
                                     <dd className="clearfix">

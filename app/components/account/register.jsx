@@ -286,7 +286,7 @@ class Register extends React.Component {
                 <form onSubmit={this.submit}>
                     <div className="ipx_signbox">
                         <img className="ipx_sign_logo" src={require('../../asset/img/ipx_lf_logo2.png')}/>
-                        <h1>{messages.agencyRegister}</h1>
+                        <h1>{messages.agentRegister}</h1>
                         <dl className="ipx_sign_dl">
                             <dd className={this.state.nameClass}>
                                 <label className="ipx_sign_label">
