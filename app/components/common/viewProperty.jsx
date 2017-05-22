@@ -1,7 +1,7 @@
 /**
  * Created by marszed on 2017/1/24.
  */
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {formatMoney} from 'LIB/tool';
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
@@ -55,6 +55,7 @@ class ViewProperty extends React.Component {
     );
     render = () => {
         const {messages, countryName} = this.props;
+        const {query} = this.context.router.location;
         const {detail} = this.state;
         const staticMessages = {
             aspectName: [messages.EAST, messages.WEST, messages.SOUTH, messages.NORTH, messages.SOUTHEAST, messages.NORTHEAST, messages.SOUTHWEST, messages.NORTHWEST, messages.EAST_WEST, messages.NORTH_SOUTH, messages.central],
@@ -197,7 +198,9 @@ class ViewProperty extends React.Component {
                                     <td className="proj_tit_td">{obj.fileName}</td>
                                     <td>{obj.fileType || ""}</td>
                                     <td>{obj.fileSize}M</td>
-                                    <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td>
+                                    {
+                                        query.authorizeNumber && Number(query.authorizeNumber) !== 0 ? <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td> : <td className="grey_txt666">{messages.downLoadToAuth}</td>
+                                    }
                                 </tr>
                             )) : null
                     }
@@ -206,5 +209,9 @@ class ViewProperty extends React.Component {
         </div>;
     };
 }
+
+ViewProperty.contextTypes = {
+    router: PropTypes.object.isRequired
+};
 
 export default ViewProperty;

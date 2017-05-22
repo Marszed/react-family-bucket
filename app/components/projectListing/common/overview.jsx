@@ -1,7 +1,7 @@
 /**
  * Created by marszed on 2017/1/24.
  */
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import pureRender from "pure-render-decorator";
@@ -32,6 +32,16 @@ class Overview extends React.Component {
             length: 10,
             projectList: this.props.project.projectList
         };
+    }
+
+    componentWillMount() {
+        if (Number(this.context.router.location.query.isFresh) === 1) {
+            this.props.router.push({
+                pathname: '/projectListing/1/country.000/overview',
+                query: {isFresh: 0}
+            });
+            setTimeout(() => (window.location.reload(true)));
+        }
     }
 
     componentDidMount() {
@@ -159,13 +169,9 @@ class Overview extends React.Component {
             }
         }.bind(this)();
     }
-    // 授权经纪人
+    // 查看项目详情
     gaveAgencyHandler = (obj) => {
-        // 弹出经纪人授权弹窗
-        this.setState({
-            agentData: obj,
-            agentTime: (new Date()).getTime()
-        });
+        this.context.router.push({pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}});
     };
     // 已阅读并且同意协议
     agreementHandler = (flag) => {
@@ -216,20 +222,15 @@ class Overview extends React.Component {
                                                     <td className="proj_l_box_rt">
                                                         <div className="proj_l_box_top clearfix">
                                                             <h3 className="text-elps"><a href="#">{obj.title}</a></h3>
-                                                            {
-                                                                obj.bonus && obj.bonus !== null ?
-                                                                    <span className="proj_l_box_discount"><i
-                                                                        className="iconfont icon-Discount"/>{messages.bonus}</span> : ''
-                                                            }
                                                             <ul className="proj_box_toplist">
                                                                 <li>
-                                                                    <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, title: encode64(obj.title)}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
+                                                                    <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
                                                                 </li>
                                                                 <li>
-                                                                    <Link to={{pathname: "projectListing/view/sales/" + obj.projectId, query: {projectType: obj.projectType, title: encode64(obj.title)}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
+                                                                    <Link to={{pathname: "projectListing/view/sales/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
                                                                 </li>
                                                                 <li>
-                                                                    <Link to={{pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, title: encode64(obj.title)}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
+                                                                    <Link to={{pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -253,13 +254,6 @@ class Overview extends React.Component {
                                                                     <tr>
                                                                         <td><strong>{messages.purchaseCount}</strong></td>
                                                                         <td><strong className="ipxblue_txt">{obj.noSoldNum}</strong></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><strong>{messages.commission}</strong></td>
-                                                                        <td>
-                                                                            <strong>{obj.commissionType === 1 ? ((obj.commissionMoney / 1000).toFixed(2) + 'k') :
-                                                                                obj.commissionMoney + '%'}</strong> <i className="iconfont icon-wenhao"/>
-                                                                        </td>
                                                                     </tr>
                                                                 </table>
                                                             </div>
@@ -309,7 +303,7 @@ class Overview extends React.Component {
                                                                     </span>
                                                                     <button onClick={this.gaveAgencyHandler.bind(this, obj)}
                                                                             className={"ipx_btn ipx_M_btn float_rt " + (obj.authorizeNumber === 0 || obj.authorizeNumber === null ? 'ipx_bluebd_btn' : 'ipx_white_btn')}>
-                                                                            {obj.authorizeNumber === 0 || obj.authorizeNumber === null ? messages.gaveAgency : (messages.authorized + obj.authorizeNumber + messages.person)}
+                                                                            {obj.authorizeNumber === 0 || obj.authorizeNumber === null ? messages.view : (messages.available)}
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -330,21 +324,17 @@ class Overview extends React.Component {
                                                         <h3 className="float_lf text-elps">
                                                             <a href="javascript:;" title={obj.title}>{obj.title}</a>
                                                         </h3>
-                                                        {
-                                                            obj.bonus && obj.bonus !== null ? <span className="float_rt"><i
-                                                                    className="iconfont icon-Discount"/>{messages.bonus}</span> : ''
-                                                        }
                                                     </div>
                                                     <div className="proj_box_m_img">
                                                         <ul className="proj_box_m_imglist">
                                                             <li>
-                                                                <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, title: encode64(obj.title)}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
+                                                                <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
                                                             </li>
                                                             <li>
-                                                                <Link to={{pathname: "projectListing/view/sales/" + obj.projectId, query: {projectType: obj.projectType, title: encode64(obj.title)}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
+                                                                <Link to={{pathname: "projectListing/view/sales/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
                                                             </li>
                                                             <li>
-                                                                <Link to={{pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, title: encode64(obj.title)}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
+                                                                <Link to={{pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
                                                             </li>
                                                         </ul>
                                                         <b className="proj_box_M_tag">{messages['projectType' + obj.projectType]}</b>
@@ -360,10 +350,10 @@ class Overview extends React.Component {
                                                             className={"iconfont" + (obj.favoriteFlag === 1 ? ' icon-favorite2' : ' icon-favorite1')}/> {messages.marked}</span>
                                                     </div>
                                                     <div className="proj_box_m_btn clearfix">
-                                                     <span className="float_lf">{obj.commissionType === 0 ? obj.commissionMoney + '%' : obj.commissionMoney} <i className="iconfont icon-wenhao"/></span>
+                                                     <span className="float_lf">{obj.currencyName + ' ' + obj.minPrice + ' - ' + obj.maxPrice}</span>
                                                         <button onClick={this.gaveAgencyHandler.bind(this, obj)}
                                                                 className={"ipx_btn ipx_M_btn float_rt " + (obj.authorizeNumber === 0 || obj.authorizeNumber === null ? 'ipx_bluebd_btn' : 'ipx_white_btn')}>
-                                                            {obj.authorizeNumber === 0 || obj.authorizeNumber === null ? messages.gaveAgency : (messages.authorized + obj.authorizeNumber + messages.person)}
+                                                            {obj.authorizeNumber === 0 || obj.authorizeNumber === null ? messages.view : (messages.available)}
                                                             </button>
                                                     </div>
                                                     {
@@ -386,5 +376,9 @@ class Overview extends React.Component {
         );
     }
 }
+
+Overview.contextTypes = {
+    router: PropTypes.object.isRequired
+};
 
 export default connect((store) => (store))(injectIntl(Overview));

@@ -62,7 +62,7 @@ class Menu extends React.Component {
                 <CompanyLogo/>
             </div>
             <div className="ipx_dev_nav">
-                <Link to="/dashboard" className="ipx_dev_nav_box" activeClassName="active">
+                {/*<Link to="/dashboard" className="ipx_dev_nav_box" activeClassName="active">
                     <li>
                         <i className="iconfont icon-dashboard"/>
                         <span>
@@ -74,7 +74,7 @@ class Menu extends React.Component {
                             />
                         </span>
                     </li>
-                </Link>
+                </Link>*/}
                 <Link to="/projectListing" className="ipx_dev_nav_box" activeClassName="active">
                     <li>
                         <i className="iconfont icon-projects"/>

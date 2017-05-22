@@ -31,7 +31,7 @@ class PersonInfo extends React.Component {
             userInfo: objCopy(this.props.global.userInfo) || userInfo || {},
             uploadFileConfig: getUploader({
                 "numberLimit": 1,
-                "action": '/agency/sys/account/pic',
+                "action": '/agent/sys/personal/profileImage',
                 "fileSize": 8,
                 "accept": "image/jpeg,image/png"
             })
@@ -51,12 +51,8 @@ class PersonInfo extends React.Component {
             let response = await asyncAwaitCall({
                 url: {value: INTERFACE.ACCOUNTEDIT, key: 'ACCOUNTEDIT'},
                 method: 'post',
-                headers: {
-                    'Content-Type':	'application/x-www-form-urlencoded'
-                },
-                dataSerialize: true,
                 data: {
-                    title: this.state.userInfo.title,
+                    nick: this.state.userInfo.nick,
                     gender: this.state.userInfo.gender,
                     firstName: this.state.userInfo.firstName,
                     lastName: this.state.userInfo.lastName,
@@ -70,7 +66,7 @@ class PersonInfo extends React.Component {
                     state: 1
                 }));
                 //维护redux中的用户个人信息
-                setLocalStorage('userInfo', this.state.companyInfo);
+                setLocalStorage('userInfo', this.state.userInfo);
                 this.props.dispatch(setUserInfo(this.state.userInfo));
             }
         }.bind(this)();
@@ -78,7 +74,7 @@ class PersonInfo extends React.Component {
 
     changeJobTitle = (event) => {
         let info = this.state.userInfo ;
-        info.title = event.target.value;
+        info.nick = event.target.value;
         this.setState({userInfo: info});
     };
 
@@ -290,7 +286,7 @@ class PersonInfo extends React.Component {
                         <div className="ipx_setting_tr">
                             <h4>{messages.jobTitle}</h4>
                             <input type="text" className="ipxTxt width66per" ref="jobTitle"
-                                   value={this.state.userInfo.title || ""}
+                                   value={this.state.userInfo.nick || ""}
                                    onChange={this.changeJobTitle.bind(this)}
                                    placeholder={messages.inputJobTitle}/>
                         </div>

@@ -31,10 +31,7 @@ class SecuritySetting extends React.Component {
             confirmPasswordClass: 'clearfix',
             confirmPasswordInfo: '',
             isDisplay: false,
-            userInfo: getLocalStorage("userInfo") || {},
-            newEmail: '',
-            newEmailClass: 'clearfix',
-            newEmailInfo: ''
+            userInfo: getLocalStorage("userInfo") || {}
         };
     }
 
@@ -90,11 +87,6 @@ class SecuritySetting extends React.Component {
     changeNewPassword = (event) => {
         this.setState({newPassword: event.target.value});
         this.validateNew(event.target.value);
-    };
-
-    changeNewEmail = (event) => {
-        this.setState({newEmail: event.target.value});
-        this.validateEmail(event.target.value);
     };
 
     changeConfirmPassword = (event) => {
@@ -161,63 +153,6 @@ class SecuritySetting extends React.Component {
             });
             return true;
         }
-    };
-
-    sendMail() {
-        let newEmail = this.state.newEmail;
-        console.log("修改登录邮箱:" + newEmail);
-        if (!this.validateEmail(this.state.newEmail)) {
-            return false;
-        }
-        let responseHandler = async function () {
-            let response = await asyncAwaitCall({
-                url: {value: INTERFACE.ACCOUNTCHANGE, key: 'ACCOUNTCHANGE'},
-                method: 'put',
-                params: {
-                    account: this.state.newEmail
-                }
-            });
-            if (!response.errType) {
-                this.setState({newEmail: ""});
-                this.props.dispatch(showToast({
-                    content: this.props.intl.messages.modifyEmailSuccess,
-                    state: 1
-                }));
-            }
-        }.bind(this)();
-    }
-
-    validateEmail = (newEmail) => {
-        if (ValidateTool.isEmpty(newEmail)) {
-            console.log("请输入邮箱.");
-            this.setState({
-                newEmailClass: "clearfix warning",
-                newEmailInfo: this.props.intl.messages.validateEmail1
-            });
-            this.setState({validateInfo: "validateEmail1"});
-            return false;
-        }
-        if (!ValidateTool.isEmail(newEmail)) {
-            console.log("请输入合适的邮箱格式.");
-            this.setState({
-                newEmailClass: "clearfix warning",
-                newEmailInfo: this.props.intl.messages.validateEmail2
-            });
-            return false;
-        }
-        if (newEmail === this.state.userInfo.email) {
-            console.log("新邮箱地址不能为当前邮箱地址.");
-            this.setState({
-                newEmailClass: "clearfix warning",
-                newEmailInfo: this.props.intl.messages.validateNewEmail
-            });
-            return false;
-        }
-        this.setState({
-            newEmailClass: "clearfix",
-            newEmailInfo: ""
-        });
-        return true;
     };
 
     displayPassword = () => (
@@ -296,32 +231,6 @@ class SecuritySetting extends React.Component {
                             <button className="ipx_btn ipx_blue_btn ipx_XL_btn" type="submit" onClick={this.submit}>{messages.modifySpace}</button>
                         </div>
                     </form>
-
-                    <div className="ipx_setting_email">
-                        <h1>{messages.modify + messages.email}</h1>
-                        <p>
-                            {messages.nowEmail}
-                            &nbsp;<span style={{color: "#009fa4"}}>{userInfo.email}</span>
-                            {messages.modifyEmailInfo}
-                        </p>
-                        <dl className="ipx_sign_dl">
-                            <dd className={this.state.newEmailClass}>
-                                <label className="ipx_sign_label">
-                                    <i className="iconfont icon-email"/>
-                                </label>
-                                <input type="text"
-                                       value={this.state.newEmail}
-                                       onChange={this.changeNewEmail.bind(this)}
-                                       onBlur={this.changeNewEmail.bind(this)}
-                                       placeholder={this.props.intl.messages.inputNewEmail}
-                                       className="ipxTxt"/>
-                            </dd>
-                            <p className="warningTxt">
-                                {this.state.newEmailInfo}
-                            </p>
-                        </dl>
-                        <button className="ipx_btn ipx_blue_btn ipx_XL_btn" onClick={this.sendMail.bind(this)}>{messages.sendEmail}</button>
-                    </div>
                 </div>
             </div>
         );

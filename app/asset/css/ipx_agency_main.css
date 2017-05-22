@@ -302,6 +302,7 @@
 .ipx_dev_nav li.ipxred_txt span:after {content:"●"; font-size:16px; position:absolute; right:-14px; top:-32px; color:#eb7366}
 /*左侧个人模块*/
 .ipx_dev_personal {width:100%; position:absolute; bottom:0; left:0; text-align:center}
+.ipx_dev_personal a {cursor: default;}
 .ipx_dev_personal img {display:block; width:50px; height:50px; margin:0 auto 5px}
 .ipx_dev_personal h2 {height:30px; line-height:30px}
 .ipx_dev_personal h2 a {font-size:14px; color:#fff; text-decoration:none;}
@@ -914,12 +915,12 @@ transition: background-color .4s ease,border .4s ease,opacity .4s ease}
 .pop_record_img>ul {position:relative; z-index:1}
 .pop_record_img>ul>li {display:block; width:800px; height:600px; text-align:center}
 .pop_record_img>ul>li>img {max-width:800px; max-height:600px;}
-.pop_record_img>a {display:block; width:40px; height:40px; line-height:43px; border-radius:20px; text-align:center; font-size:20px; color:#666; background:#fff; position:absolute; z-index:2; opacity:0.8}
-.pop_record_img>a:hover {opacity:1; color:#00afb4}
-.pop_record_img>a.icon-lArrow {top:50%; left:15px; margin:-20px 0 0 0;}
-.pop_record_img>a.icon-rArrow {top:50%; right:15px; margin:-20px 0 0 0;}
-.pop_record_img>a.icon-delete {width:28px; height:28px; line-height:28px; top:15px; right:50px; font-size:14px;}
-.pop_record_img>a.icon-close {width:28px; height:28px; line-height:30px; top:15px; right:15px; font-size:14px;}
+.pop_record_img>span {display:block; width:40px; height:40px; line-height:43px; border-radius:20px; text-align:center; font-size:20px; color:#666; background:#fff; position:absolute; z-index:2; opacity:0.8}
+.pop_record_img>span:hover {opacity:1; color:#00afb4}
+.pop_record_img>span.icon-lArrow {top:50%; left:15px; margin:-20px 0 0 0;}
+.pop_record_img>span.icon-rArrow {top:50%; right:15px; margin:-20px 0 0 0;}
+.pop_record_img>span.icon-delete {width:28px; height:28px; line-height:28px; top:15px; right:50px; font-size:14px;}
+.pop_record_img>span.icon-close {width:28px; height:28px; line-height:30px; top:15px; right:15px; font-size:14px;}
 /*弹出信息提示框*/
 .ipx_pop_tips {position:fixed; top:50%; right:-1000px; height:50px; background:#00afb4; color:#fff; margin-top:-25px; padding:0 0 0 3px; box-shadow:3px 3px 3px rgba(0,0,0,.15);-moz-transition: right .2s ease-in; -webkit-transition: right .2s ease-in; -o-transition: right .2s ease-in; transition: right .2s ease-in; cursor:default}
 .ipx_pop_tips_show {right:0; }

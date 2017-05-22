@@ -4,14 +4,15 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import {isEqual} from 'LIB/tool';
+import {isEqual, getLocalStorage} from 'LIB/tool';
 import {injectIntl} from 'react-intl';
 
 class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            params: this.props.params
+            params: this.props.params,
+            userInfo: getLocalStorage('userInfo')
         };
     }
 
@@ -35,11 +36,13 @@ class Header extends React.Component {
             <div className="dev_cont_titleBg">
                 <h1 className="float_lf">{messages.projectListing}</h1>
                 <ul>
-                    <li className={Number(this.state.params.type) === 1 ? 'active' : ''}>
-                        <Link to="/projectListing/1/country.000/overview">{messages.all}</Link>
-                    </li>
+                    {
+                        this.state.userInfo && this.state.userInfo.allFlag === true ? <li className={Number(this.state.params.type) === 1 ? 'active' : ''}>
+                            <Link to="/projectListing/1/country.000/overview">{messages.ipxMarket}</Link>
+                        </li>: null
+                    }
                     <li className={Number(this.state.params.type) === 2 ? 'active' : ''}>
-                        <Link to="/projectListing/2/country.000/overview">{messages.authorized + ' '}<span>({this.state.projectList ? this.state.projectList.authorizeNumber : 0})</span></Link>
+                        <Link to="/projectListing/2/country.000/overview">{messages.available + ' '}<span>({this.state.projectList ? this.state.projectList.authorizeNumber : 0})</span></Link>
                     </li>
                     <li className={Number(this.state.params.type) === 3 ? 'active' : ''}>
                         <Link to="/projectListing/3/country.000/overview">{messages.bookmarked + ' '}<span>({this.state.projectList ? this.state.projectList.favoriteNumber : 0})</span></Link>

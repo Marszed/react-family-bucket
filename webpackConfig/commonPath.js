@@ -17,6 +17,6 @@ module.exports = {
     template: path.join(src, 'index.html'), // 打包入口模板页
     staticDir: path.join(rootPath, 'static'), // 无需处理的静态资源目录
     favicon: path.join(src, 'favicon.ico'), // favicon.ico
-    port: 13330, // web 服务监听端口
+    port: 15556, // web 服务监听端口
     ipConfig: "172.23.1.13" || "127.0.0.1" // 本机ip地址
 };

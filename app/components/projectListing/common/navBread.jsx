@@ -384,9 +384,6 @@ class NavBread extends React.Component {
                         Number(params.type) === 1 ? <RadioType name="viewType"/> : ''
                     }
                     <SelectOrder name="orderByDirection" onChange={this.onChange.bind(this)}/>
-                    {
-                        Number(params.type) === 1 ? <RadioAuthorize name="type" onChange={this.onChange.bind(this)}/> : ''
-                    }
                 </td>
             </tr>
         </table>);

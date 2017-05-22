@@ -68,6 +68,7 @@ class Document extends React.Component {
 
     render = () => {
         const {messages} = this.props.intl;
+        const {query} = this.context.router.location;
         return <div className="proj_creat_img">
             {/*没有文档数据展示暂无数据*/}
             {
@@ -102,7 +103,9 @@ class Document extends React.Component {
                             <td className="proj_tit_td">{obj.fileName}</td>
                             <td>{obj.fileType || ""}</td>
                             <td>{obj.fileSize}M</td>
-                            <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td>
+                            {
+                                query.authorizeNumber && Number(query.authorizeNumber) !== 0 ? <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td> : <td className="grey_txt666">{messages.downLoadToAuth}</td>
+                            }
                         </tr>
                     )) : null
                 }
@@ -123,7 +126,9 @@ class Document extends React.Component {
                                 <td className="proj_tit_td">{obj.fileName}</td>
                                 <td>{obj.fileType || ""}</td>
                                 <td>{obj.fileSize}M</td>
-                                <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td>
+                                {
+                                    query.authorizeNumber && Number(query.authorizeNumber) !== 0 ? <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td> : <td className="grey_txt666">{messages.downLoadToAuth}</td>
+                                }
                             </tr>
                         )) : null
                 }
@@ -146,7 +151,9 @@ class Document extends React.Component {
                                         <td className="proj_tit_td">{obj.fileName}</td>
                                         <td>{obj.fileType || ""}</td>
                                         <td>{obj.fileSize}M</td>
-                                        <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td>
+                                        {
+                                            query.authorizeNumber && Number(query.authorizeNumber) !== 0 ? <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td> : <td className="grey_txt666">{messages.downLoadToAuth}</td>
+                                        }
                                     </tr>
                                 )) : null
                         }
@@ -170,7 +177,9 @@ class Document extends React.Component {
                                         <td className="proj_tit_td">{obj.fileName}</td>
                                         <td>{obj.fileType || ""}</td>
                                         <td>{obj.fileSize}M</td>
-                                        <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td>
+                                        {
+                                            query.authorizeNumber && Number(query.authorizeNumber) !== 0 ? <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td> : <td className="grey_txt666">{messages.downLoadToAuth}</td>
+                                        }
                                     </tr>
                                 )) : null
                         }
@@ -194,7 +203,9 @@ class Document extends React.Component {
                                         <td className="proj_tit_td">{obj.fileName}</td>
                                         <td>{obj.fileType || ""}</td>
                                         <td>{obj.fileSize}M</td>
-                                        <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td>
+                                        {
+                                            query.authorizeNumber && Number(query.authorizeNumber) !== 0 ? <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td> : <td className="grey_txt666">{messages.downLoadToAuth}</td>
+                                        }
                                     </tr>
                                 )) : null
                         }

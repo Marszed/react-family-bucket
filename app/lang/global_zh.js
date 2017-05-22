@@ -154,6 +154,7 @@ export default {
     save: '保存',
     saveSpace: '保 存',
     // 项目列表
+    saleTime: '开售时间',
     bonus: '优惠政策',
     propertyList: '不动产列表',
     pinChart: '销控图',
@@ -196,6 +197,7 @@ export default {
     landContract: '土地合同',
     buildingContract: '建房合同',
     video: '视频',
+    downLoadToAuth: '下载需授权',
     // 不动产列表
     listUpdateTime: '列表更新时间',
     projectId: '项目ID',
@@ -299,6 +301,10 @@ export default {
     newPassword: '新密码',
     confirmPassword: '确认密码',
     displayPassword: '显示密码',
+    // 导出
+    exportPropertyList: '导出不动产列表',
+    checkAll: '全选',
+    reset: '重置',
     // 通用
     confirm: '确认',
     defaultPassword: '默认密码',

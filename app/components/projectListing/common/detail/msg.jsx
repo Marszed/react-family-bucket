@@ -64,6 +64,7 @@ class Msg extends React.Component {
                             </ul>
                             <ul className="preview_info float_rt">
                                 <li><span className="preview_info_attr">{messages.zipCode}</span><span className="preview_info_value">{this.state.zipCode}</span></li>
+                                <li><span className="preview_info_attr">{messages.saleTime}</span><span className="preview_info_value">{this.state.zipCode}</span></li>
                                 <li><span className="preview_info_attr">{messages.targetDistance}</span><span className="preview_info_value">{this.state.targetDistance} km</span></li>
                             </ul>
                         </div>
@@ -98,7 +99,7 @@ class Msg extends React.Component {
                             </div>
                             <div className="proj_preview_h4box">
                                 <h4>{messages.preferentialPolicy}</h4>
-                                <p className="proj_preview_h4cont">{messages.periodValidity}：<strong>{!this.state.bonus || this.state.bonus === null ? '-' : (this.state.bonus.startTime.replace(/-/g, '/') - this.state.bonus.endTime.replace(/-/g, '/'))}</strong></p>
+                                <p className="proj_preview_h4cont">{messages.periodValidity}：<strong>{!this.state.bonus || this.state.bonus === null ? '-' : (this.state.bonus.startTime.replace(/-/g, '/') + ' - ' +this.state.bonus.endTime.replace(/-/g, '/'))}</strong></p>
                                 <div className="proj_preview_h4cont" dangerouslySetInnerHTML={{__html: !this.state.bonus || this.state.bonus === null ? null : this.state.bonus.content}}></div>
                             </div>
                             <div className="proj_preview_h4box">

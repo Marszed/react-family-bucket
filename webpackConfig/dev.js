@@ -10,14 +10,7 @@ const rootPath = path.resolve(__dirname, '..'), // 项目根目录
     env = process.env.NODE_ENV.trim(); // 当前环境
 
 
-const commonPath = {
-    rootPath: rootPath,
-    dist: path.join(rootPath, 'build'), // build 后输出目录
-    template: path.join(src, 'index.html'), // 打包入口模板页
-    staticDir: path.join(rootPath, 'static'), // 无需处理的静态资源目录
-    favicon: path.join(src, 'favicon.ico'), // favicon.ico
-    port: 13330
-};
+const commonPath = require('./commonPath');
 
 let compiler = webpack(config);
 

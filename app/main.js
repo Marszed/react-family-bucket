@@ -97,31 +97,19 @@ const routes = <Route path="/" component={App}>
                    callback(null, require("./components/account/firstLogin")['default']);
                }, "firstLogin");
            }}/>
-    <Route path={ROUTER.REGISTER}
-           getComponent={(nextState, callback) => {
-               require.ensure([], (require) => {
-                   callback(null, require("./components/account/register")['default']);
-               }, "register");
-           }}/>
-    <Route path={ROUTER.REGISTERSUCCESS + '/:userName'}
-           getComponent={(nextState, callback) => {
-               require.ensure([], (require) => {
-                   callback(null, require("./components/account/registerSuccess")['default']);
-               }, "registerSuccess");
-           }}/>
     <Route path={ROUTER.FORGETPASSWORD}
            getComponent={(nextState, callback) => {
                require.ensure([], (require) => {
                    callback(null, require("./components/account/forgetPassword")['default']);
                }, "forgetPassword");
            }}/>
-    <Route path={ROUTER.DASHBOARD}
+    {/*<Route path={ROUTER.DASHBOARD}
            onEnter={globalAuth.bind(this, "login")}
            getComponent={(nextState, callback) => {
                require.ensure([], (require) => {
                    callback(null, require("./components/dashboard/dashboard")['default']);
                }, "dashboard");
-           }}/>
+           }}/>*/}
     <Route path={ROUTER.PROJECTLISTING}
            onEnter={globalAuth.bind(this, "login")}
            getComponent={(nextState, callback) => {

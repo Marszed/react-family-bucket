@@ -5,7 +5,7 @@
 export default {
     "AGENCY": 'agency', // 经纪公司
     "REGISTER": '/agent/sys/apply', // 注册
-    "LOGIN": '/agent/sys/login', // 登录
+    "LOGIN": '/agent/login', // 登录
     "FIRST": '/agent/sys/password/first', // 首次登录修改密码
     "HOME": '/agent/sys/home', // 工作台
     "FORGET": '/agent/sys/password/forget', // 忘记密码
@@ -21,10 +21,10 @@ export default {
     "AGENTDISABLED": '/agent/agent/', // 警用启用经纪人
     "COMPANYINFO": '/agent/sys/company/view/', // 公司信息查询
     "COMPANY": '/agent/sys/agent/edit', // 公司信息跟新
-    "ACCOUNTEDIT": '/agent/sys/account/edit', // 个人信息更新
-    "PASSWORDCHANGE": '/agent/sys/password/change', // 个人信息-密码修改
+    "ACCOUNTEDIT": '/agent/sys/personal', // 个人信息更新
+    "PASSWORDCHANGE": '/agent/sys/personal/password/change', // 个人信息-密码修改
     "ACCOUNTCHANGE": '/agent/sys/account/change', // 个人信息-邮箱修改
-    "LANGUAGECHANGE": '/agent/sys/change/', // 个人信息-语言修改
+    "LANGUAGECHANGE": '/agent/sys/personal/change/', // 个人信息-语言修改
     "CONFIRMEMAIL": '/agent/sys/account/confirm', // 个人信息-重置邮箱
     "COUNTRY": '/agent/region/list', // 获取区域信息中的国家列表
     "PROJECTLIST": '/agent/project/list/', // 不动产项目列表查询

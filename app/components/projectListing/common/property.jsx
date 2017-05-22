@@ -12,6 +12,7 @@ import Search from 'COMPONENT/common/form/Search';
 import Select from 'COMPONENT/common/form/Select';
 import Slider from 'COMPONENT/common/form/Slider';
 import ViewProperty from 'COMPONENT/common/viewProperty';
+import ExportProperty from 'COMPONENT/common/exportProperty';
 
 // 不动产配置
 import getPropertyMay from './getPropertyMap';
@@ -162,6 +163,10 @@ class Property extends React.Component {
         this.refs.viewProperty.getPropsData(obj)
     );
 
+    exportHandler = () => (
+        this.refs.exportProperty.closeHandler(false)
+    );
+
     render = () => {
         // 没有拿到项目类型，渲染空模板
         if (!this.state.projectType){
@@ -286,6 +291,7 @@ class Property extends React.Component {
         return (
             <div>
                 <ViewProperty ref="viewProperty" messages={messages} countryName={this.state.userInfo.countryNameShort} params={this.context.router.params} query={this.props.location.query}/>
+                <ExportProperty ref="exportProperty" messages={messages}/>
                 <div className="agency_screen_titbox">
                     <div className="proj_screen_cont_tr clearfix ipx_ant">
                         <div className="proj_screen_cont_td">
@@ -329,7 +335,7 @@ class Property extends React.Component {
                                 }}/>
                         <div className="proj_screen_cont_td float_rt">
                             <h3>&nbsp;</h3>
-                            <button className="ipx_L_btn ipx_bluebd_btn ipx_btn"><i className="iconfont icon-exportexl"/>{messages.exportFile}</button>
+                            <button className="ipx_L_btn ipx_bluebd_btn ipx_btn" onClick={this.exportHandler}><i className="iconfont icon-exportexl"/>{messages.exportFile}</button>
                             <p className="proj_screen_update_time">{messages.listUpdateTime} : {this.state.lastTime ? (new Date(this.state.lastTime + 8 * 1000 * 60 * 60)).toISOString().slice(0, 10) : '-'}</p>
                         </div>
                     </div>

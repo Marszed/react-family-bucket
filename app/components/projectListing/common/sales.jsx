@@ -78,6 +78,7 @@ class Sales extends React.Component {
         const {messages} = this.props.intl;
         const {params} = this.context.router;
         const statusClass = ['ipxblue_bg', 'ipxyellow_bg', 'ipxred_bg'];
+        console.log(this.state.list);
         return (
             <div>
                 <ViewProperty ref="viewProperty" messages={messages} countryName="AU" propertyDetail={this.state.propertyDetail} params={this.context.router.params} query={this.props.location.query}/>
@@ -123,33 +124,37 @@ class Sales extends React.Component {
                 <div className="agency_sellgrid_Area">
                     {
                         this.state.list && this.state.list.length ? <div className="agency_sellgrid_box" style={{fontSize: this.state.fontSize + 'px'}}>
-                            <ul className="agency_sellgrid_ul">
-                                {
-                                    this.state.list.map((obj, index) => (
-                                        (( ((Number(obj.propertyStatus) === 3 && this.state.statusObj.sold) ||
-                                        (Number(obj.propertyStatus) === 2 && this.state.statusObj.reserved) ||
-                                        (Number(obj.propertyStatus) === 1 && this.state.statusObj.available)) &&
-                                        ((Number(obj.isAbroad) === Number(this.state.isAbroad)) || this.state.isAbroad === -1))) ? <li key={obj.propertyId} className={statusClass[Number(obj.propertyStatus) - 1]} onClick={this.viewPropertyDetail.bind(this, obj)}>
-                                                <h2>#{obj.lot}</h2>
-                                                <ol className={this.state.fontSize <= 36 ? 'hide' : ''}>
-                                                    <li title={messages.beds + ': ' + obj.bed}><i className="iconfont icon-bedroom"/> {obj.bed}</li>
-                                                    <li title={messages.studys + ': ' + obj.study}><i className="iconfont icon-bookroom"/> {obj.study}</li>
-                                                    <li title={messages.carSpace + ': ' + obj.carSpace}><i className="iconfont icon-Garage"/> {obj.carSpace}</li>
-                                                    <li title={messages.baths + ': ' + obj.bath}><i className="iconfont icon-washroom"/> {obj.bath}</li>
-                                                    {/*建筑面积(公寓，独栋别墅，联排别墅用)*/}
-                                                    {
-                                                        (params.projectType === 1 || params.projectType === 2 || params.projectType === 3) ? <li title={messages.constructionArea + ': ' + (obj.constructionArea)}>{obj.constructionArea} {obj.areaUnit}</li> : null
-                                                    }
-                                                    {/*土地面积(土地，独栋别墅用)*/}
-                                                    {
-                                                        (params.projectType === 2 || params.projectType === 4) ? <li title={messages.landArea + ': ' + (obj.landArea)}>{obj.landArea} {obj.areaUnit}</li> : null
-                                                    }
-                                                </ol>
-                                                <p className={this.state.fontSize <= 36 ? 'hide' : ''}>{obj.currencyName} {obj.price ? formatMoney(obj.price) : ''}</p>
-                                            </li> : <li className="white_bg" key={'white_' + index} style={{fontSize: this.state.fontSize + 'px'}}/>
-                                    ))
-                                }
-                            </ul>
+                            {
+                                this.state.list.map((option) => (
+                                    <ul className="agency_sellgrid_ul" key={option.floorLevel}>
+                                        {
+                                            option.results.map((obj, index) => (
+                                                (( ((Number(obj.propertyStatus) === 3 && this.state.statusObj.sold) ||
+                                                (Number(obj.propertyStatus) === 2 && this.state.statusObj.reserved) ||
+                                                (Number(obj.propertyStatus) === 1 && this.state.statusObj.available)) &&
+                                                ((Number(obj.isAbroad) === Number(this.state.isAbroad)) || this.state.isAbroad === -1))) ? <li key={obj.propertyId} className={statusClass[Number(obj.propertyStatus) - 1]} onClick={this.viewPropertyDetail.bind(this, obj)}>
+                                                        <h2>#{obj.lot}</h2>
+                                                        <ol className={this.state.fontSize <= 36 ? 'hide' : ''}>
+                                                            <li title={messages.beds + ': ' + obj.bed}><i className="iconfont icon-bedroom"/> {obj.bed}</li>
+                                                            <li title={messages.studys + ': ' + obj.study}><i className="iconfont icon-bookroom"/> {obj.study}</li>
+                                                            <li title={messages.carSpace + ': ' + obj.carSpace}><i className="iconfont icon-Garage"/> {obj.carSpace}</li>
+                                                            <li title={messages.baths + ': ' + obj.bath}><i className="iconfont icon-washroom"/> {obj.bath}</li>
+                                                            {/*建筑面积(公寓，独栋别墅，联排别墅用)*/}
+                                                            {
+                                                                (params.projectType === 1 || params.projectType === 2 || params.projectType === 3) ? <li title={messages.constructionArea + ': ' + (obj.constructionArea)}>{obj.constructionArea} {obj.areaUnit}</li> : null
+                                                            }
+                                                            {/*土地面积(土地，独栋别墅用)*/}
+                                                            {
+                                                                (params.projectType === 2 || params.projectType === 4) ? <li title={messages.landArea + ': ' + (obj.landArea)}>{obj.landArea} {obj.areaUnit}</li> : null
+                                                            }
+                                                        </ol>
+                                                        <p className={this.state.fontSize <= 36 ? 'hide' : ''}>{obj.currencyName} {obj.price ? formatMoney(obj.price) : ''}</p>
+                                                    </li> : <li className="white_bg" key={'white_' + index} style={{fontSize: this.state.fontSize + 'px'}}/>
+                                            ))
+                                        }
+                                    </ul>
+                                ))
+                            }
                         </div> : <NoData/>
                     }
                 </div>

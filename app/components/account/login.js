@@ -114,10 +114,11 @@ class Login extends React.Component {
                     name: responseUserInfo.firstName + " " + responseUserInfo.lastName,
                     countryName: responseUserInfo.countryName,
                     country: responseUserInfo.country,
-                    mobilePhone: responseUserInfo.mobilePhone,
-                    title: responseUserInfo.title,
+                    mobilePhone: responseUserInfo.accountMobile,
+                    nick: responseUserInfo.nick,
                     state: responseUserInfo.state,
-                    profileImage: responseUserInfo.profileImage
+                    profileImage: responseUserInfo.profileImage,
+                    allFlag: responseUserInfo.allFlag // 项目列表是否显示IPX市场
                 };
                 const companyInfo = {
                     "companyCountryName": responseUserInfo.companyCountryName,
@@ -135,7 +136,12 @@ class Login extends React.Component {
                 };
                 setLocalStorage("userInfo", userInfo);
                 setLocalStorage("companyInfo", companyInfo);
-                // 第一次登陆 重定向到第一次登陆页进行密码修改
+                // TODO 去除第一次登陆
+                this.props.router.push({
+                    pathname: '/projectListing/1/country.000/overview',
+                    query: {isFresh: 1}
+                });
+                /*// 第一次登陆 重定向到第一次登陆页进行密码修改
                 if (userInfo && (!userInfo.lastTime || userInfo.lastTime === null) ) {
                     this.props.router.push('firstLogin');
                 } else {
@@ -144,7 +150,7 @@ class Login extends React.Component {
                         pathname: 'dashboard',
                         query: {isFresh: 1}
                     });
-                }
+                }*/
             }
         }.bind(this)();
     };
@@ -300,14 +306,9 @@ class Login extends React.Component {
                                         {messages.rememberAccount}
                                     </span>
                                     </label>
-                                    <Link to="/forgetPassword" className="float_rt">{messages.forgetPassword}?</Link>
+                                    {/*<Link to="/forgetPassword" className="float_rt">{messages.forgetPassword}?</Link>*/}
                                 </div>
                                 <button className="ipx_btn ipx_blue_btn ipx_XL_btn" type="submit" onClick={this.submit}>{messages.loginSpace}</button>
-                                <p className="ipx_sign_tips">
-                                    <Link to="/register" activeClassName="active">
-                                        {messages.registerNow}
-                                    </Link>
-                                </p>
                             </div>
                         </div>
                     </div>
