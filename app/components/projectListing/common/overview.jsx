@@ -36,7 +36,7 @@ class Overview extends React.Component {
 
     componentWillMount() {
         if (Number(this.context.router.location.query.isFresh) === 1) {
-            this.props.router.push({
+            this.context.router.push({
                 pathname: '/projectListing/1/country.000/overview',
                 query: {isFresh: 0}
             });
