@@ -99,7 +99,7 @@ export default class Slider extends React.Component {
 
         let itemNodes = this.state.items.map((item, idx) => (<SliderItem item={item} count={count} key={'item' + idx} />));
 
-        let arrowsNode = <SliderArrow turn={this.turn.bind(this)}/>;
+        let arrowsNode = <SliderArrow turn={this.turn.bind(this)} speed={this.props.speed}/>;
 
         let dotsNode = <SliderDot turn={this.turn.bind(this)} count={count} nowLocal={this.state.nowLocal} />;
 

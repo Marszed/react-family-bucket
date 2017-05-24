@@ -154,6 +154,7 @@ export default {
     save: 'E保存',
     saveSpace: 'E保 存',
     // 项目列表
+    saleTime: 'E开售时间',
     bonus: 'E优惠政策',
     propertyList: 'E不动产列表',
     pinChart: 'E销控图',
@@ -196,6 +197,7 @@ export default {
     landContract: 'E土地合同',
     buildingContract: 'E建房合同',
     video: 'E视频',
+    downLoadToAuth: 'E下载需授权',
     // 不动产列表
     listUpdateTime: 'E列表更新时间',
     projectId: 'E项目ID',
@@ -299,6 +301,10 @@ export default {
     newPassword: 'E新密码',
     confirmPassword: 'E确认密码',
     displayPassword: 'E显示密码',
+    // 导出
+    exportPropertyList: 'E导出不动产列表',
+    checkAll: 'E全选',
+    reset: 'E重置',
     // 通用
     confirm: 'E确认',
     defaultPassword: 'E默认密码',
