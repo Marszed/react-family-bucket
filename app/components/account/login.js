@@ -138,7 +138,7 @@ class Login extends React.Component {
                 setLocalStorage("companyInfo", companyInfo);
                 // TODO 去除第一次登陆
                 this.props.router.push({
-                    pathname: '/projectListing/1/country.000/overview',
+                    pathname: '/projectListing/' + (responseUserInfo.allFlag ? 1 : 2) + '/country.000/overview',
                     query: {isFresh: 1}
                 });
                 /*// 第一次登陆 重定向到第一次登陆页进行密码修改

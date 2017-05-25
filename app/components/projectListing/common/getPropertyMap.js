@@ -38,7 +38,7 @@
 // houseView: 房屋景观
 // rentalGuarrante: 包租百分比
 // estRate 预计租金
-const propertyMap = ((messages) => {
+const propertyMap = (messages) => {
     let allItem = {
         lot: {
             state: 1,
@@ -952,7 +952,7 @@ const propertyMap = ((messages) => {
         // 模板文件下载地址
         excelFilePath: '/xlsx/'
     };
-});
+};
 
 export default propertyMap;
 

@@ -291,7 +291,7 @@ class Property extends React.Component {
         return (
             <div>
                 <ViewProperty ref="viewProperty" messages={messages} countryName={this.state.userInfo.countryNameShort} params={this.context.router.params} query={this.props.location.query}/>
-                <ExportProperty ref="exportProperty" messages={messages}/>
+                <ExportProperty ref="exportProperty" messages={messages} propertyMap={this.state.propertyMap} params={this.props.params} query={this.props.router.location.query}/>
                 <div className="agency_screen_titbox">
                     <div className="proj_screen_cont_tr clearfix ipx_ant">
                         <div className="proj_screen_cont_td">

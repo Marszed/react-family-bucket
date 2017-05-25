@@ -2,31 +2,73 @@
  * Created by marszed on 2017/1/24.
  */
 import React from 'react';
-import {arrayCopy} from 'LIB/tool';
+import {arrayCopy, decode64} from 'LIB/tool';
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
 
 class ExportProperty extends React.Component {
     constructor(props){
         super(props);
+        const data = this.getDefault();
         this.state = {
-            baseInfo: [{key: 'lot', value: true}],
-            baseAll: true,
-            otherAll: false,
-            otherInfo: [{key: 'price', value: false}],
+            baseInfo: data.baseInfo,
+            baseAll: data.baseAll,
+            otherAll: data.otherAll,
+            otherInfo: data.otherInfo,
             hide: true
         };
     }
+    getDefault = () => {
+        const countryNameShot = 'AU';
+        const {query} = this.props;
+        const data = this.props.propertyMap[countryNameShot][query.projectType];
+        let baseInfo = [], otherInfo = [];
+        for (let key in data) {
+            if (data.hasOwnProperty(key)){
+                if (data[key].unit === '$' || data[key].unit === '%'){
+                    otherInfo.push({
+                        'key': key,
+                        'value': false
+                    });
+                } else {
+                    baseInfo.push({
+                        'key': key,
+                        'value': true
+                    });
+                }
+            }
+        }
+        return {
+            baseInfo: baseInfo,
+            otherInfo: otherInfo,
+            baseAll: true,
+            otherAll: false
+        };
+    };
 
-    exportHandler = (obj) => {
-        // TODO
-        alert('TODO 导出接口联调');
-        return false;
-        const {params} = this.props;
+    exportHandler = () => {
+        const {params, query} = this.props;
+        let fieldNames = [];
+        this.state.baseInfo.map((obj) => {
+            if (obj.value){
+                fieldNames.push(obj.key);
+            }
+        });
+        this.state.otherInfo.map((obj) => {
+            if (obj.value){
+                fieldNames.push(obj.key);
+            }
+        });
+        console.log(fieldNames);
         let responseHandler = async function () {
             let response = await asyncAwaitCall({
-                url: {value: INTERFACE.PROPERTYDETAIL + params.projectId + '/' + obj.propertyId, key: 'PROPERTYDETAIL'},
-                method: 'post'
+                url: {value: INTERFACE.EXPORT, key: 'EXPORT'},
+                method: 'post',
+                data: {
+                    projectId: params.projectId,
+                    projectName: decode64(query.title),
+                    fieldNames: fieldNames
+                }
             });
             if (!response.errType) {
                 //TODO 新开窗口下载文件
@@ -72,7 +114,7 @@ class ExportProperty extends React.Component {
         if (countTrue === this.state[type].length){
             temp[type.replace('Info', 'All')] = true;
         }
-        if (countFalse === this.state[type].length){
+        if (countFalse){
             temp[type.replace('Info', 'All')] = false;
         }
         temp[type] = array;
@@ -80,15 +122,23 @@ class ExportProperty extends React.Component {
     };
     // 重置
     resetHandler = () => {
+        const data = this.getDefault();
         this.setState({
-            baseInfo: [{key: 'lot', value: true}],
-            baseAll: true,
-            otherAll: false,
-            otherInfo: [{key: 'price', value: false}]
+            baseInfo: data.baseInfo,
+            baseAll: data.baseAll,
+            otherAll: data.otherAll,
+            otherInfo: data.otherInfo
         });
     };
     render = () => {
         const {messages} = this.props;
+        let tempBaseInfo = [], tempOtherInfo = [];
+        for (let i = 0, len = this.state.baseInfo.length; i < len; i += 2) {
+            tempBaseInfo.push(this.state.baseInfo.slice(i, i + 2));
+        }
+        for (let i = 0, len = this.state.otherInfo.length; i < len; i += 2) {
+            tempOtherInfo.push(this.state.otherInfo.slice(i, i + 2));
+        }
         return <div className={"ipx_pop" + (this.state.hide ? ' hide' : '')}>
             <div className="ipx_pop_box property_export_pop">
                 <div className="ipx_pop_head">
@@ -105,13 +155,17 @@ class ExportProperty extends React.Component {
                                 <td><label className={"ipx_checkbox" + (this.state.baseAll ? ' checked' : '')} onClick={this.checkAllHandler.bind(this, 'baseInfo', !this.state.baseAll)}><i className="iconfont icon-succeed"/> <span className="text-elps">{messages.checkAll}</span> </label></td>
                                 <td>&nbsp;</td>
                             </tr>
-                            <tr>
-                                {
-                                    this.state.baseInfo.map((obj, index) => (
-                                        <td key={obj.key}><label className={"ipx_checkbox" + (obj.value ? ' checked' : '')} onClick={this.checkHandler.bind(this, 'baseInfo', obj.key, !obj.value)}><i className="iconfont icon-succeed"/> <span className="text-elps">{messages[obj.key]}</span> </label></td>
-                                    ))
-                                }
-                            </tr>
+                            {
+                                tempBaseInfo.map((option) => (
+                                    <tr>
+                                        {
+                                            option.map((obj, index) => (
+                                                <td key={obj.key}><label className={"ipx_checkbox" + (obj.value ? ' checked' : '')} onClick={this.checkHandler.bind(this, 'baseInfo', obj.key, !obj.value)}><i className="iconfont icon-succeed"/> <span className="text-elps">{messages[obj.key]}</span> </label></td>
+                                            ))
+                                        }
+                                    </tr>
+                                ))
+                            }
                         </table>
                         <table className="Property_info_rt" cellPadding="0" cellSpacing="0">
                             <tr>
@@ -121,13 +175,17 @@ class ExportProperty extends React.Component {
                                 <td><label className={"ipx_checkbox" + (this.state.otherAll ? ' checked' : '')} onClick={this.checkAllHandler.bind(this, 'otherInfo', !this.state.otherAll)}><i className="iconfont icon-succeed"/> <span className="text-elps">{messages.checkAll}</span> </label></td>
                                 <td>&nbsp;</td>
                             </tr>
-                            <tr>
-                                {
-                                    this.state.otherInfo.map((obj, index) => (
-                                        <td key={obj.key}><label className={"ipx_checkbox" + (obj.value ? ' checked' : '')} onClick={this.checkHandler.bind(this, 'otherInfo', obj.key, !obj.value)}><i className="iconfont icon-succeed"/> <span className="text-elps">{messages[obj.key]}</span> </label></td>
-                                    ))
-                                }
-                            </tr>
+                            {
+                                tempOtherInfo.map((option) => (
+                                    <tr>
+                                        {
+                                            option.map((obj, index) => (
+                                                <td key={obj.key}><label className={"ipx_checkbox" + (obj.value ? ' checked' : '')} onClick={this.checkHandler.bind(this, 'otherInfo', obj.key, !obj.value)}><i className="iconfont icon-succeed"/> <span className="text-elps">{messages[obj.key]}</span> </label></td>
+                                            ))
+                                        }
+                                    </tr>
+                                ))
+                            }
                         </table>
                     </div>
                 </div>

@@ -33,6 +33,7 @@ export default {
     "DOCUMENT": '/agent/project/doc/', // 获取项目详情中的文档列表
     "PROGRESS": '/agent/project/progress/', // 查询不动产项目进度数据列表
     "PROPERTY": '/agent/property/list/', // 获取项目不动产列表
+    "EXPORT": '/agent/property/export', // 不动产列表导出
     "PROPERTYDETAIL": '/agent/property/', // 获取项目不动产详情
     "CHART": '/agent/property/sales/chart/', // 展示项目销控图
     "REGION": '/agent/region/sub/list/' // 获取区域信息中的子级区域列表

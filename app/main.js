@@ -73,7 +73,7 @@ import App from './components/app.jsx';
  */
 let globalAuth = (option, nextState, replace) => {
     // 登录拦截
-    if (0 && !window.localStorage.getItem("userInfo")) {
+    if (!window.localStorage.getItem("isLogin") || !window.localStorage.getItem("userInfo")) {
         replace({pathname: '/'});
     }
 };
@@ -182,6 +182,7 @@ const routes = <Route path="/" component={App}>
         </Route>
     </Route>
     <Route path={ROUTER.PERSONSETTING}
+           onEnter={globalAuth.bind(this, "login")}
            getComponent={(nextState, callback) => {
                require.ensure([], (require) => {
                    callback(null, require("./components/personSetting/home")['default']);
