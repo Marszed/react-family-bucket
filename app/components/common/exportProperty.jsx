@@ -5,6 +5,7 @@ import React from 'react';
 import {arrayCopy, decode64} from 'LIB/tool';
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
+import env from 'CONFIG/env';
 
 class ExportProperty extends React.Component {
     constructor(props){
@@ -15,13 +16,16 @@ class ExportProperty extends React.Component {
             baseAll: data.baseAll,
             otherAll: data.otherAll,
             otherInfo: data.otherInfo,
-            hide: true
+            hide: true,
+            country: ''
         };
     }
-    getDefault = () => {
-        const countryNameShot = 'AU';
+    getDefault = (type) => {
+        if (!type){
+            return {};
+        }
         const {query} = this.props;
-        const data = this.props.propertyMap[countryNameShot][query.projectType];
+        const data = this.props.propertyMap[type || this.state.country][query.projectType];
         let baseInfo = [], otherInfo = [];
         for (let key in data) {
             if (data.hasOwnProperty(key)){
@@ -48,37 +52,29 @@ class ExportProperty extends React.Component {
 
     exportHandler = () => {
         const {params, query} = this.props;
-        let fieldNames = [];
+        let propertiesFields = [], propertiesFieldsParams = '';
         this.state.baseInfo.map((obj) => {
             if (obj.value){
-                fieldNames.push(obj.key);
+                propertiesFields.push(obj.key);
             }
         });
         this.state.otherInfo.map((obj) => {
             if (obj.value){
-                fieldNames.push(obj.key);
+                propertiesFields.push(obj.key);
             }
         });
-        console.log(fieldNames);
-        let responseHandler = async function () {
-            let response = await asyncAwaitCall({
-                url: {value: INTERFACE.EXPORT, key: 'EXPORT'},
-                method: 'post',
-                data: {
-                    projectId: params.projectId,
-                    projectName: decode64(query.title),
-                    fieldNames: fieldNames
-                }
-            });
-            if (!response.errType) {
-                //TODO 新开窗口下载文件
-            }
-        }.bind(this)();
+        propertiesFields.map((obj, index) => (
+            propertiesFieldsParams += index === (propertiesFields.length - 1) ? obj : (obj + ',')
+        ));
+        window.open(env.config.origin + INTERFACE.EXPORT + '/xls' + '?projectId=' + params.projectId + '&projectName=' + encodeURI(decode64(query.title)) + '&propertiesFields=' + propertiesFieldsParams);
     };
     closeHandler = (flag) => (
         this.setState({
             hide: flag
         })
+    );
+    setCountryHandler = (country) => (
+        this.resetHandler(country)
     );
     // 全选
     checkAllHandler = (type, flag) => {
@@ -121,8 +117,8 @@ class ExportProperty extends React.Component {
         this.setState(temp);
     };
     // 重置
-    resetHandler = () => {
-        const data = this.getDefault();
+    resetHandler = (type) => {
+        const data = this.getDefault(type || this.state.country);
         this.setState({
             baseInfo: data.baseInfo,
             baseAll: data.baseAll,
@@ -131,6 +127,9 @@ class ExportProperty extends React.Component {
         });
     };
     render = () => {
+        if (!this.state.baseInfo){
+            return null;
+        }
         const {messages} = this.props;
         let tempBaseInfo = [], tempOtherInfo = [];
         for (let i = 0, len = this.state.baseInfo.length; i < len; i += 2) {

@@ -34,9 +34,6 @@ class Property extends React.Component {
             pageLength: 1000,
             hasNextPage: true,
             des: true,
-            userInfo: {
-                countryNameShort: 'AU'
-            },
             key: "lot",
             list: [],
             left: "0px",
@@ -66,9 +63,7 @@ class Property extends React.Component {
                     list: temp,
                     listCopy: temp,
                     lastTime: data.lastTime,
-                    userInfo: {
-                        countryNameShort: data.country.toUpperCase()
-                    },
+                    country: data.country.toUpperCase(),
                     hasNextPage: data.page.hasNextPage,
                     pageStart: data.hasNextPage ? (this.state.pageStart + 1) : this.state.pageStart,
                     currencyName: data.page.list[0] ? data.page.list[0].currencyName : ""
@@ -163,30 +158,31 @@ class Property extends React.Component {
         this.refs.viewProperty.getPropsData(obj)
     );
 
-    exportHandler = () => (
-        this.refs.exportProperty.closeHandler(false)
-    );
+    exportHandler = () => {
+        this.refs.exportProperty.closeHandler(false);
+        this.refs.exportProperty.setCountryHandler(this.state.country);
+    };
 
     render = () => {
         // 没有拿到项目类型，渲染空模板
-        if (!this.state.projectType){
+        if (!this.state.country){
             return <NoData/>;
         }
 
         const {messages} = this.props.intl;
-        const {userInfo, projectType, propertyMap: getPropertyMap} = this.state;
+        const {projectType, propertyMap: getPropertyMap} = this.state;
         const propertyStatusClass = ['ipxblue_txt', 'ipxyellow_txt', 'ipxred_txt'];
 
         //------获取配置表中，当前项目所属国家所属类型下的所有字段-----start
         let propertyMap = JSON.parse(JSON.stringify(getPropertyMap)),
             keysCountry = [];
-        for (let key in propertyMap[userInfo.countryNameShort][projectType]) {
-            if ((propertyMap[userInfo.countryNameShort][projectType]).hasOwnProperty(key)){
+        for (let key in propertyMap[this.state.country][projectType]) {
+            if ((propertyMap[this.state.country][projectType]).hasOwnProperty(key)){
                 keysCountry.push(key);
             }
         }
-        propertyMap[userInfo.countryNameShort].keys = keysCountry;
-        if (!propertyMap[userInfo.countryNameShort].keys.length){
+        propertyMap[this.state.country].keys = keysCountry;
+        if (!propertyMap[this.state.country].keys.length){
             this.setState({
                 propertyMap: propertyMap
             });
@@ -205,11 +201,11 @@ class Property extends React.Component {
                 {
                     // 面积单位
                     (obj === 'internalArea' || obj === 'balconyArea' || obj === 'landArea' || obj === 'constructionArea') ?
-                        propertyMap.areaUnit[userInfo.countryNameShort] :
+                        propertyMap.areaUnit[this.state.country] :
                         (
                             // 长度单位
                             (obj === 'width' || obj === 'length') ?
-                                propertyMap.LengthUnit[userInfo.countryNameShort] : ''
+                                propertyMap.LengthUnit[this.state.country] : ''
                         )
                 }
                 <div className={"sortArrow" + ( this.state.key === obj ? (this.state.des === true ? " sortArrow_des" : " sortArrow_asc") : "")}>
@@ -234,10 +230,10 @@ class Property extends React.Component {
             <span>{obj[key] !== undefined ? (formatMoney(obj[key], 2) + ' ' + (obj.currencyName)) : null}</span>
         );
         const spanArea = (obj, key) => (
-            <span>{obj[key] + ' ' + (propertyMap.areaUnit[userInfo.countryNameShort]).replace('(', '').replace(')', '')}</span>
+            <span>{obj[key] + ' ' + (propertyMap.areaUnit[this.state.country]).replace('(', '').replace(')', '')}</span>
         );
         const spanLength = (obj, key) => (
-            <span>{obj[key] + 'b ' + propertyMap.LengthUnit[userInfo.countryNameShort].replace('(', '').replace(')', '')}</span>
+            <span>{obj[key] + 'b ' + propertyMap.LengthUnit[this.state.country].replace('(', '').replace(')', '')}</span>
         );
         const spanPercent = (obj, key) => (
             <span>{obj[key] !== undefined ? (obj[key] + ' %') : null}</span>
@@ -290,7 +286,7 @@ class Property extends React.Component {
 
         return (
             <div>
-                <ViewProperty ref="viewProperty" messages={messages} countryName={this.state.userInfo.countryNameShort} params={this.context.router.params} query={this.props.location.query}/>
+                <ViewProperty ref="viewProperty" messages={messages} countryName={this.state.country} params={this.context.router.params} query={this.props.location.query}/>
                 <ExportProperty ref="exportProperty" messages={messages} propertyMap={this.state.propertyMap} params={this.props.params} query={this.props.router.location.query}/>
                 <div className="agency_screen_titbox">
                     <div className="proj_screen_cont_tr clearfix ipx_ant">

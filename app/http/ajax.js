@@ -78,6 +78,10 @@ export function asyncAwaitCall(obj) {
             // to methods of that instance.
             baseURL: obj.baseURL || env.config.origin,
 
+            // `responseType` indicates the type of data that the server will respond with
+            // options are 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
+            responseType: obj.responseType || 'json', // default
+
             // Override timeout default for the library
             // Now all requests will wait 32 seconds before timing out
             timeout: obj.timeout || 32 * 1000,
