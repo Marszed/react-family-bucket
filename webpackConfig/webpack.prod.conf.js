@@ -56,12 +56,15 @@ config.plugins.push(
     }),
     new webpack.optimize.UglifyJsPlugin({
         compress: {
-            warnings: false
+            warnings: false,
+            drop_debugger: true,
+            drop_console: true
         }
     }),
     new webpack.optimize.CommonsChunkPlugin({
         // 公共代码分离打包
-        names: ['vendor','mainifest']
+        names: ['vendor','mainifest'],
+        minChunks: 1
     }),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.MinChunkSizePlugin({
