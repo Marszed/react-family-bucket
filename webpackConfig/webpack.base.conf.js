@@ -8,7 +8,8 @@ let webpack = require('webpack'),
 module.exports = {
     entry: {
         polyfill: [
-            'babel-polyfill'
+            'babel-polyfill',
+            'intl'
         ],
         // ================================
         // 框架 / 类库 分离打包
