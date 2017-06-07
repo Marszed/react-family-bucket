@@ -64,7 +64,7 @@ config.plugins.push(
     new webpack.optimize.CommonsChunkPlugin({
         // 公共代码分离打包
         names: ['vendor','mainifest', 'polyfill'],
-        minChunks: 1
+        minChunks: 3
     }),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.MinChunkSizePlugin({
