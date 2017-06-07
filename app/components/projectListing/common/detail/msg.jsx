@@ -36,9 +36,9 @@ class Msg extends React.Component {
     render = () => {
         const {messages} = this.props.intl;
         let noSoldWidth = 100 * (this.state.available / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2);
-        noSoldWidth = noSoldWidth < 12 ? 12 : noSoldWidth > 87 ? 87 : noSoldWidth;
+        noSoldWidth = noSoldWidth < 12 ? 12 : noSoldWidth > 84 ? 84 : noSoldWidth;
         let soldWidth = 100 * ((this.state.available + this.state.reserved) / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2);
-        soldWidth = soldWidth < 24 ? 24 : soldWidth;
+        soldWidth = soldWidth < 24 ? 24 : soldWidth > 92 ? 92 : soldWidth;
         const projectType = [messages.projectType1, messages.projectType2, messages.projectType3, messages.projectType4];
         return !this.state.projectId ? <div className="ipx_proj_preview_cont"><div className="agency_preview_box"><NoData/></div></div> : <div className="ipx_proj_preview_cont"><div className="agency_preview_box">
                 <InlineSlider speed={1.5} delay={3} pause={true} autoplay={false} dots={false} arrows={true} items={this.state.picList}/>
@@ -85,13 +85,15 @@ class Msg extends React.Component {
                                 <h4>{messages.abroadFlag}</h4>
                                 <span className="ipxblue_txt">{this.state.isAbroad === true ? messages.purchase : (this.state.isAbroad === false ? messages.purchaseFalse : '-')}</span>
                             </div>
-                            <div className="proj_preview_h4box">
-                                <h4>{messages.quantity}</h4>
-                                <span className="ipxblue_txt">30%</span>
-                                <div className="proj_preview_h4cont">
-                                    {messages.abroadTip1}{this.state.abroadPercent ? (this.state.abroadPercent + '%') : this.state.abroadNumber}{messages.abroadTip2}
-                                </div>
-                            </div>
+                            {
+                                this.state.isAbroad === true?
+                                    <div className="proj_preview_h4box">
+                                        <h4>{messages.quantity}</h4>
+                                        <div className="proj_preview_h4cont">
+                                            {messages.abroadTip1}{this.state.abroadPercent ? (this.state.abroadPercent + '%') : this.state.abroadNumber}{messages.abroadTip2}
+                                        </div>
+                                    </div> : ""
+                            }
                             <div className="proj_preview_h4box">
                                 <h4>{messages.intentMoney}</h4>
                                 <span className="ipxblue_txt">{this.state.currencyName} {this.state.reservationFee}</span>

@@ -120,7 +120,7 @@ class Overview extends React.Component {
             if (!response.errType) {
                 let res = response.data.data;
                 this.setState({
-                    start: res.page.hasNextPag ? this.state.start + 1 : this.state.start,
+                    start: res.page.hasNextPage ? this.state.start + 1 : this.state.start,
                     hasNextPage: res.page.hasNextPage,
                     projectList: {
                         total: res.page.total,

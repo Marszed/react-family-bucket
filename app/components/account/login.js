@@ -191,9 +191,10 @@ class Login extends React.Component {
 
     //邮箱输入
     changeEmail(type, event) {
-        this.setState({email: event.target.value});
+        let email = String(event.target.value).trim();
+        this.setState({email: email});
         if (type === 'blur'){
-            this.showCodeImageVerify(event.target.value);
+            this.showCodeImageVerify(email);
         }
     }
 
