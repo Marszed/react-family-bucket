@@ -87,7 +87,7 @@ class PersonInfo extends React.Component {
 
     changeTelephone = (event) => {
         let info = this.state.userInfo ;
-        info.mobilePhone = event.target.value;
+        info.mobilePhone = this.state.areaCode + ' ' + event.target.value;
         this.setState({userInfo: info});
         this.validateTelephone(event.target.value);
     };
@@ -236,6 +236,8 @@ class PersonInfo extends React.Component {
         const {messages} = this.props.intl;
         const gentlemanClassName = "ipx_radio" + (Number(this.state.userInfo.gender) === 1 ? " checked" : "");
         const ladyClassName = "ipx_radio" + (Number(this.state.userInfo.gender) === 2 ? " checked" : "");
+        let mobilePhone = String(this.state.userInfo.mobilePhone).split(' ');
+        mobilePhone = String(this.state.userInfo.mobilePhone).substring(String(mobilePhone[0]).length + 1,String(this.state.userInfo.mobilePhone).length);
         return (
             <div className="ipx_setting_box">
                 <div className="clearfix">
@@ -316,7 +318,7 @@ class PersonInfo extends React.Component {
                                        onBlur={this.changeTelephone.bind(this)}
                                        style={{"width": 260 + "px", "marginLeft": 10 + 'px'}}
                                        placeholder={messages.telephone}
-                                       value={this.state.userInfo.mobilePhone} />
+                                       value={mobilePhone} />
                                 <p className="warningTxt">{this.state.telephoneInfo}</p>
                             </div>
                             <div className="ipx_setting_td width50per">

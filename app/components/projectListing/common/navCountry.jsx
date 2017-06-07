@@ -125,6 +125,7 @@ class NavCountry extends React.Component {
             });
             if (!response.errType) {
                 let country = response.data.data;
+                country.shift();
                 country.unshift({
                     "dicCode": 'country.000',
                     "nameShort": 'ALL',

@@ -116,7 +116,7 @@ export default {
     browsed: '最近浏览',
     // 项目查询表单
     propertyMinMax: '项目规模（总套数）',
-    screen: '刷选',
+    screen: '筛选',
     searchProjectName: '搜索项目名',
     search: '搜索',
     searchSpace: '搜 索',
