@@ -1,4 +1,8 @@
 /**
+ * Created by Marszed on 2017/2/2.
+ */
+const windowOrigin = window.location.href;
+/**
  * 接口调用地址配置
  * @type {{pro: {origin: string}, qa: {origin: string}, sit: {origin: string}}}
  */
