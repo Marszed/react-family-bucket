@@ -101,7 +101,7 @@ class Msg extends React.Component {
                             </div>
                             <div className="proj_preview_h4box">
                                 <h4>{messages.termNumber}</h4>
-                                <span className="ipxblue_txt">{this.state.termNumber}{messages.termNumberUnit} <i className="iconfont icon-wenhao" title={messages.termNumberTip}/></span>
+                                <span className="ipxblue_txt">{this.state.termNumber}{messages.termNumberUnit} <i className="iconfont icon-wenhao" title={Number(this.state.termNumber) === 1?messages.termNumberTip1:messages.termNumberTip2}/></span>
                             </div>
                             <div className="proj_preview_h4box">
                                 <h4>{messages.preferentialPolicy}</h4>

@@ -426,7 +426,7 @@
 /*-----------------------------------右侧大标题模块-----------------------------------------------------*/
 .dev_cont_title {height:60px; box-shadow:0 2px 4px rgba(0,0,0,.1);  position:relative; z-index:3}
 .dev_cont_titleBg {height:60px; padding:0 30px; background:#fff; box-shadow:0 1px 0px #eee; position:relative; z-index:2}
-.dev_cont_titleBg>h1.float_lf {font-size:20px; height:60px; line-height:60px; color:#333; max-width:40%}
+.dev_cont_titleBg>h1.float_lf {font-size:18px; height:60px; line-height:60px; color:#333; max-width:50%}
 .dev_cont_titleBg>ul {overflow:hidden; height:60px; line-height:60px; margin-left:30px; float:left}
 .dev_cont_titleBg>ul li {float:left; height:60px; font-size:15px; font-weight:bold; margin:0 5px}
 .dev_cont_titleBg>ul li a {color:#777; display:block; height:58px; padding:0 10px}
@@ -779,7 +779,7 @@ ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:1
 .cms_data_table td.cms_data_contrl a {display:inline-block; margin:0 2px}
 .cms_data_table tr:nth-child(odd) td {background:#f8f8f8}
 .cms_data_table tr:hover td {background:#fffae9}
-.company_person_head {width:40px; height:40px; border-radius:20px; overflow:hidden; margin:0 20px 0 32%;display:inline-block; *display:inline; *zoom:1; vertical-align:middle}
+.company_person_head {width:40px; height:40px; border-radius:20px; overflow:hidden; margin:0 20px 0 10%;display:inline-block; *display:inline; *zoom:1; }
 .company_person_head img {max-width:40px; max-height:40px; }
 .company_person_name {display:inline-block; *display:inline; *zoom:1; vertical-align:middle; font-weight:bold}
 
