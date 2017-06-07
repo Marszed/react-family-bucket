@@ -1,13 +1,15 @@
 process.traceDeprecation = true;
 process.noDeprecation = true;
 
-require("babel-polyfill");
 let webpack = require('webpack'),
     NyanProgressPlugin = require('nyan-progress-webpack-plugin'),
     commonPath = require('./commonPath');
 
 module.exports = {
     entry: {
+        polyfill: [
+            'babel-polyfill'
+        ],
         // ================================
         // 框架 / 类库 分离打包
         // ================================
