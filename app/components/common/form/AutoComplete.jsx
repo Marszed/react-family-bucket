@@ -58,6 +58,7 @@ class Radio extends React.Component {
                 });
                 if (!response.errType) {
                     let country = response.data.data;
+                    country.shift();
                     country.unshift({
                         "dicCode": 'country.000',
                         "nameShort": 'ALL',
@@ -78,7 +79,7 @@ class Radio extends React.Component {
             const {messages} = this.props.intl;
             let temp = this.getDefaultProps(messages, nextProps.params);
             this.setState(temp);
-            if (!this.props.project.country || !this.state.dataSourceObj1.length){
+            if (!this.props.project.country){
                 this.getCountryCode().then((response) => {
                     if (response !== 'error'){
                         this.getRegionList('', 1, nextProps.params.country, response);

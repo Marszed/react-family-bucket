@@ -4,8 +4,8 @@
   "description": "react project auto build",
   "main": "app/main.js",
   "scripts": {
-    "start": "export NODE_ENV=development && node webpackConfig/dev.js",
-    "build": "export NODE_ENV=production && node webpackConfig/prod.js"
+    "start": "cross-env NODE_ENV=development node webpackConfig/dev.js",
+    "build": "cross-env NODE_ENV=production node webpackConfig/prod.js"
   },
   "author": "marszed",
   "license": "ISC",
@@ -42,6 +42,7 @@
     "browser-sync-webpack-plugin": "^1.0.1",
     "clean-webpack-plugin": "^0.1.15",
     "copy-webpack-plugin": "^4.0.1",
+    "cross-env": "^5.0.0",
     "css-loader": "~0.24.0",
     "eventsource-polyfill": "^0.9.6",
     "express": "~4.13.4",

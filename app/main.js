@@ -5,6 +5,7 @@
 /**
  * react及其插件
  */
+import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {Router, Route, hashHistory, IndexRedirect} from 'react-router';

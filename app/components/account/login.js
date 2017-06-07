@@ -245,11 +245,11 @@ class Login extends React.Component {
         let verifyCodeImg = this.state.isVerify === 'block' ? <img className="ipx_sign_logo" src={this.state.verifyCodeSrc}/> : '';
         return (
             <div>
-                <Header/>
                 <form onSubmit={this.submit}>
                     <div className="login_main">
                         <div className="login_mainBox">
-                            <div className="ipx_signbox">
+                            <Header/>
+                            <div className="ipx_loginBox">
                                 <h1>{messages.agent + messages.login}</h1>
                                 <div className="ipx_sign_return">{messages[this.state.validateInfo]}</div>
                                 <dl className="ipx_sign_dl">

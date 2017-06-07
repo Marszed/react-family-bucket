@@ -35,6 +35,10 @@ class Msg extends React.Component {
 
     render = () => {
         const {messages} = this.props.intl;
+        let noSoldWidth = 100 * (this.state.available / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2);
+        noSoldWidth = noSoldWidth < 12 ? 12 : noSoldWidth > 87 ? 87 : noSoldWidth;
+        let soldWidth = 100 * ((this.state.available + this.state.reserved) / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2);
+        soldWidth = soldWidth < 24 ? 24 : soldWidth;
         const projectType = [messages.projectType1, messages.projectType2, messages.projectType3, messages.projectType4];
         return !this.state.projectId ? <div className="ipx_proj_preview_cont"><div className="agency_preview_box"><NoData/></div></div> : <div className="ipx_proj_preview_cont"><div className="agency_preview_box">
                 <InlineSlider speed={1.5} delay={3} pause={true} autoplay={false} dots={false} arrows={true} items={this.state.picList}/>
@@ -44,13 +48,13 @@ class Msg extends React.Component {
                         <div className="sellsPerformance">
                             <ul>
                                 <li className="ipxblue_txt" style={{left: 0 + '%'}}>{messages.noSoldNum} {this.state.available}</li>
-                                <li className="ipxyellow_txt" style={{left: 100 * (this.state.noSoldNum / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}>{messages.reservedNum} {this.state.reserved}</li>
-                                <li className="ipxred_txt" style={{left: 100 * ((this.state.noSoldNum + this.state.reservedNum) / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}>{messages.soldNum} {this.state.sold}</li>
+                                <li className="ipxyellow_txt" style={{left: noSoldWidth + '%'}}>{messages.reservedNum} {this.state.reserved}</li>
+                                <li className="ipxred_txt" style={{left: soldWidth + '%'}}>{messages.soldNum} {this.state.sold}</li>
                             </ul>
                             <div className="sellper_chart">
                                 <span className="sell_available" style={{width: 100 * (this.state.available / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
-                                <span className="sell_booking" style={{width: 100 * (this.state.reservedNum / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
-                                <span className="sell_sold" style={{width: 100 * (this.state.soldNum / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
+                                <span className="sell_booking" style={{width: 100 * (this.state.reserved / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
+                                <span className="sell_sold" style={{width: 100 * (this.state.sold / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
                             </div>
                         </div>
                         <h4 className="agency_previw_h4">{messages.baseInfo}</h4>
