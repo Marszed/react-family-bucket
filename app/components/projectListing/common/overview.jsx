@@ -254,13 +254,13 @@ class Overview extends React.Component {
                                                             <h3 className="text-elps"><a href="#">{obj.title}</a></h3>
                                                             <ul className="proj_box_toplist">
                                                                 <li>
-                                                                    <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
+                                                                    <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
                                                                 </li>
                                                                 <li>
-                                                                    <Link to={{pathname: "projectListing/view/sales/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
+                                                                    <Link to={{pathname: "projectListing/view/sales/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
                                                                 </li>
                                                                 <li>
-                                                                    <Link to={{pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
+                                                                    <Link to={{pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -279,7 +279,7 @@ class Overview extends React.Component {
                                                                     </tr>
                                                                     <tr>
                                                                         <td><strong>{messages.area}</strong></td>
-                                                                        <td>{obj.minArea} - {obj.maxArea} m2</td>
+                                                                        <td>{obj.minArea !== null ? obj.minArea -  obj.maxArea : 0 } m2</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td><strong>{messages.purchaseCount}</strong></td>
@@ -358,13 +358,13 @@ class Overview extends React.Component {
                                                     <div className="proj_box_m_img" style={{height: obj.lineHeight ? (obj.lineHeight + 'px') : 'auto'}}>
                                                         <ul className="proj_box_m_imglist">
                                                             <li>
-                                                                <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
+                                                                <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
                                                             </li>
                                                             <li>
-                                                                <Link to={{pathname: "projectListing/view/sales/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
+                                                                <Link to={{pathname: "projectListing/view/sales/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
                                                             </li>
                                                             <li>
-                                                                <Link to={{pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
+                                                                <Link to={{pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
                                                             </li>
                                                         </ul>
                                                         <b className="proj_box_M_tag">{messages['projectType' + obj.projectType]}</b>
