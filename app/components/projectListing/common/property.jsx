@@ -5,7 +5,7 @@ import React, {PropTypes} from "react";
 import {injectIntl} from "react-intl";
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
-import {formatMoney, keySort, objCopy, arrayCopy, debounce} from 'LIB/tool';
+import {formatMoney, keySort, objCopy, arrayCopy, debounce, langPackageInject} from 'LIB/tool';
 import NoData from 'COMPONENT/common/noData';
 
 import Search from 'COMPONENT/common/form/Search';
@@ -24,9 +24,12 @@ let beforeScrollTop = 0;
 class Property extends React.Component {
     constructor(props) {
         super(props);
-        const {messages} = this.props.intl;
-        let propertyMap = getPropertyMay(messages); // 不动产配置注入
+        let messages = objCopy(this.props.intl.messages);
+        let propertyMap = getPropertyMay(messages, {}); // 不动产配置注入
         this.state = {
+            countryNameShort: '',
+            messages: messages,
+            propertyArray: [],
             searchOption: {}, // 刷选条件
             projectType: this.props.location.query.projectType,
             propertyMap: propertyMap,
@@ -40,6 +43,47 @@ class Property extends React.Component {
             top: "0px"
         };
     }
+
+    getDefault = (data) => {
+        let req = [], res =[];
+        if (data.foremost){
+            data.foremost.map((obj) => {
+                req.push(obj);
+            });
+        }
+        if (data.secondary){
+            data.secondary.map((obj) => {
+                req.push(obj);
+            });
+        }
+        if (data.landInfo){
+            data.landInfo.map((obj) => {
+                req.push(obj);
+            });
+        }
+        if (data.basicInfo){
+            data.basicInfo.map((obj) => {
+                req.push(obj);
+            });
+        }
+        if (data.supplement){
+            data.supplement.map((obj) => {
+                req.push(obj);
+            });
+        }
+        // 排序下
+        if (data.order){
+            data.order.map((obj) => {
+                req.map((option) => {
+                    if(option.key == obj){
+                        res.push(option);
+                        return false;
+                    }
+                });
+            });
+        }
+        return res;
+    };
 
     componentDidMount = () => (
         this.getPropertyList()
@@ -59,14 +103,28 @@ class Property extends React.Component {
             if (!response.errType) {
                 const {data} = response.data;
                 const temp = (data.page.list).sort(keySort(this.state.key, this.state.des));
+                const countryNameShort = data.country.toUpperCase();
+                let messages = objCopy(this.props.intl.messages);
+                const zhFlag = (langPackageInject()).indexOf('zh') === -1; //  true 英文 false 中文
+                if(zhFlag){
+                    if (countryNameShort == 'US'){
+                        messages.ownerCrop = 'HOA';
+                    }
+                    if (countryNameShort == 'AU'){
+                        messages.ownerCrop = 'Body Corporation';
+                        messages.buildPrice = 'House Price';
+                    }
+                }
                 this.setState({
                     list: temp,
                     listCopy: temp,
                     lastTime: data.lastTime,
-                    country: data.country.toUpperCase(),
+                    messages: messages,
+                    countryNameShort: countryNameShort,
+                    currencyName: (langPackageInject()).indexOf('zh') === -1 ? this.state.propertyMap.monUnit.en[countryNameShort] : this.state.propertyMap.monUnit.zh[countryNameShort],
                     hasNextPage: data.page.hasNextPage,
                     pageStart: data.hasNextPage ? (this.state.pageStart + 1) : this.state.pageStart,
-                    currencyName: data.page.list[0] ? data.page.list[0].currencyName : ""
+                    propertyArray: this.getDefault(this.state.propertyMap[countryNameShort][this.state.projectType])
                 });
             }
         }.bind(this)();
@@ -160,142 +218,136 @@ class Property extends React.Component {
 
     exportHandler = () => {
         this.refs.exportProperty.closeHandler(false);
-        this.refs.exportProperty.setCountryHandler(this.state.country);
+        this.refs.exportProperty.setCountryHandler(this.state.countryNameShort);
     };
 
     render = () => {
         // 没有拿到项目类型，渲染空模板
-        if (!this.state.country){
+        if (!this.state.countryNameShort){
             return <NoData/>;
         }
 
-        const {messages} = this.props.intl;
-        const {projectType, propertyMap: getPropertyMap} = this.state;
+        const {messages} = this.state;
+        const {propertyArray} = this.state;
         const propertyStatusClass = ['ipxblue_txt', 'ipxyellow_txt', 'ipxred_txt'];
 
-        //------获取配置表中，当前项目所属国家所属类型下的所有字段-----start
-        let propertyMap = JSON.parse(JSON.stringify(getPropertyMap)),
-            keysCountry = [];
-        for (let key in propertyMap[this.state.country][projectType]) {
-            if ((propertyMap[this.state.country][projectType]).hasOwnProperty(key)){
-                keysCountry.push(key);
-            }
-        }
-        propertyMap[this.state.country].keys = keysCountry;
-        if (!propertyMap[this.state.country].keys.length){
-            this.setState({
-                propertyMap: propertyMap
-            });
-        }
-        const keys = keysCountry;
-        //------获取配置表中，当前项目所属国家所属类型下的所有字段-----end
-
         // 表头
-        let keysMap = {};
-        let thead = keys.map((obj, index) => {
-            keysMap[obj] = true;
-            return <span style={{left: index === 0 ? this.state.left : ''}}
-                         className={index === 0 ? 'proj_propty_lot' : ''}
-                         onClick={this.listSort.bind(this, obj, !this.state.des)}>
-                        {messages[obj]}
+        let thead = propertyArray.map((obj, index) => {
+            return <span style={{left: index == 0 ? this.state.left : ''}}
+                         className={index == 0 ? 'proj_propty_lot propty_pricelist_span_lot' : ('propty_pricelist_span_' + (obj.key))}
+                         onClick={this.listSort.bind(this, obj.key, !this.state.des)}>
+                        {messages[obj.key]}
                 {
                     // 面积单位
-                    (obj === 'internalArea' || obj === 'balconyArea' || obj === 'landArea' || obj === 'constructionArea') ?
-                        propertyMap.areaUnit[this.state.country] :
+                    (obj.unit === 'area') ?
+                        (' (' + this.state.propertyMap.areaUnit[this.state.countryNameShort] + ')') :
                         (
                             // 长度单位
-                            (obj === 'width' || obj === 'length') ?
-                                propertyMap.LengthUnit[this.state.country] : ''
+                            (obj.unit === 'len') ?
+                                (' (' +  this.state.propertyMap.lengthUnit[this.state.countryNameShort] + ')') :
+                                // 百分比
+                                (
+                                    (obj.unit === 'percent') ? ' (%)' : (
+                                            // 金额
+                                            (obj.unit === 'mon') ? (' (' + this.state.currencyName + ')') : ''
+                                        )
+                                )
                         )
                 }
-                <div className={"sortArrow" + ( this.state.key === obj ? (this.state.des === true ? " sortArrow_des" : " sortArrow_asc") : "")}>
+                <div className={"sortArrow" + ( this.state.key == obj.key ? (this.state.des == true ? " sortArrow_des" : " sortArrow_asc") : "")}>
                         <i className="iconfont icon-upArrow"/>
                         <i className="iconfont icon-downArrow"/>
                     </div>
-                </span>;
+                </span>
         });
 
         // 表体
-        const spanTd = (obj, key) => (<span>{obj[key]}</span>);
-        const spanAbroad = (obj, key) => (
-            <span>{obj[key] === true ? messages.isAbroadYes : messages.isAbroadNo}</span>
-        );
+        let tbody = '';
+        const spanTd = (obj,key) => { return (
+            <span className={'propty_pricelist_span_' + key}>{obj[key] !== undefined ? obj[key] : ''}</span>
+        )};
+        const spanAbroad = (obj,key) => { return (
+            <span className={'propty_pricelist_span_' + key}>{obj[key] == true ? messages.isAbroadYes : messages.isAbroadNo}</span>
+        )};
         const spanPropertyStatus = (obj, key) => (
-            <span className={propertyStatusClass[obj[key] - 0 - 1]}>{propertyMap.propertyStatusWord[obj[key] - 0 - 1]}</span>
+            <span className={propertyStatusClass[obj[key] - 0 - 1] + (' propty_pricelist_span_' + key)}>{this.state.propertyMap.propertyStatusWord[obj[key] - 0 - 1]}</span>
         );
-        const spanYesNo = (obj, key) => (
-            <span>{obj[key] === true ? messages.yes : messages.no}</span>
-        );
-        const spanPrice = (obj, key) => (
-            <span>{obj[key] !== undefined ? (formatMoney(obj[key], 2) + ' ' + (obj.currencyName)) : null}</span>
-        );
-        const spanArea = (obj, key) => (
-            <span>{obj[key] + ' ' + (propertyMap.areaUnit[this.state.country]).replace('(', '').replace(')', '')}</span>
-        );
-        const spanLength = (obj, key) => (
-            <span>{obj[key] + 'b ' + propertyMap.LengthUnit[this.state.country].replace('(', '').replace(')', '')}</span>
-        );
-        const spanPercent = (obj, key) => (
-            <span>{obj[key] !== undefined ? (obj[key] + ' %') : null}</span>
-        );
-        const spanAspectName = (obj, key) => (
-            <span>{propertyMap.aspectName[obj[key] - 0 - 1]}</span>
-        );
-        const spanHouseViewName = (obj, key) => (
-            <span>{propertyMap.houseViewName[obj[key] - 0 - 1]}</span>
-        );
-        const spanLot = (obj, key) => (
-            <span style={{left: this.state.left}} className={"proj_propty_lot " + propertyStatusClass[obj.propertyStatus - 0 - 1]}>
+        const spanYesNo = (obj,key) => { return (
+            <span className={'propty_pricelist_span_' + key}>{obj[key] == true ? messages.yes : messages.no}</span>
+        )};
+        const spanPrice = (obj,key) => {return (
+            <span className={'propty_pricelist_span_' + key}>{obj[key] !== undefined ? (formatMoney(obj[key], 2) +' '+ (obj.currencyName)) : ''}</span>
+        )};
+        const spanArea = (obj,key) => {return (
+            <span className={'propty_pricelist_span_' + key}>{obj[key] !== undefined ? (obj[key] +' '+ (this.state.propertyMap.areaUnit[this.state.countryNameShort])) : ''}</span>
+        )};
+        const spanLength = (obj,key) => {return (
+            <span className={'propty_pricelist_span_' + key}>{obj[key] !== undefined ? (obj[key] +' '+ this.state.propertyMap.lengthUnit[this.state.countryNameShort]) : ''}</span>
+        )};
+        const spanPercent = (obj,key) => {return (
+            <span className={'propty_pricelist_span_' + key}>{obj[key] !== undefined ? (obj[key] +' %') : ''}</span>
+        )};
+        const spanAspectName = (obj,key) => {return (
+            <span className={'propty_pricelist_span_' + key}>{this.state.propertyMap.aspectName[obj[key]-0-1]}</span>
+        )};
+        const spanHouseViewName = (obj,key) => {return (
+            <span className={'propty_pricelist_span_' + key}>{this.state.propertyMap.houseViewName[obj[key]-0-1]}</span>
+        )};
+        const spanLot = (obj,key) => { return (
+            <span style={{left: this.state.left}} className="proj_propty_lot propty_pricelist_span_lot">
                 {obj[key]}
                 <ul>
                     <li onClick={this.viewPropertyDetail.bind(this, obj)}><i className="iconfont icon-check"/> {messages.view}</li>
                 </ul>
             </span>
-        );
-        const tbody = this.state.list && this.state.list.length ? this.state.list.map((obj) => (<div className="proj_propty_tr clearfix" key={obj.propertyId}>
-                {
-                    keys.map((key) => {
-                        if (key === 'lot'){
-                            return spanLot(obj, key);
-                        } if (key === 'price' || key === 'landPrice' || key === 'buildPrice' || key === 'estimatedCancelRates'
-                            || key === 'waterRates' || key === 'ownerCrop' || key === 'insurance' || key === 'transactionFee'
-                            || key === 'titleInsurance'){
-                            return spanPrice(obj, key); // 价格
-                        } else if (key === 'internalArea' || key === 'balconyArea' || key === 'landArea' || key === 'constructionArea'){
-                            return spanArea(obj, key); // 面积
-                        } else if (key === 'width' || key === 'length') {
-                            return spanLength(obj, key); // 长度
-                        } else if (key === 'estimatedStampDuty' || key === 'propertyTax' || key === 'rentalGuarrante') {
-                            return spanPercent(obj, key); // 百分比
-                        } else if (key === 'isDisplay'){
-                            return spanYesNo(obj, key);
-                        } else if (key === 'isAbroad'){
-                            return spanAbroad(obj, key);
-                        } else if (key === 'aspect'){
-                            return spanAspectName(obj, key);
-                        } else if (key === 'houseView'){
-                            return spanHouseViewName(obj, key);
-                        } else if (key === 'propertyStatus'){
-                            return spanPropertyStatus(obj, key);
-                        } else {
-                            return spanTd(obj, key);
-                        }
-                    })
-                }
-            </div>)) : null;
+        )};
+
+        if (this.state.list && this.state.list.length) {
+            tbody = this.state.list.map((obj) => {
+                return (<div className="proj_propty_tr clearfix" key={obj.propertyId}>
+                    {
+                        propertyArray.map((option)=>{
+                            if(option.key == 'lot'){
+                                return spanLot(obj,option.key);
+                            } else if(option.unit === 'mon'){
+                                return spanPrice(obj,option.key); // 价格
+                            } else if (option.unit === 'area'){
+                                return spanArea(obj,option.key); // 面积
+                            } else if (option.unit === 'len') {
+                                return spanLength(obj,option.key); // 长度
+                            } else if (option.unit === 'percent') {
+                                return spanPercent(obj,option.key); // 百分比
+                            } else if(option.key == 'isDisplay'){
+                                return spanYesNo(obj,option.key);
+                            } else if(option.key == 'isAbroad'){
+                                return spanAbroad(obj,option.key);
+                            } else if (option.key == 'aspect'){
+                                return spanAspectName(obj,option.key);
+                            } else if (option.key == 'houseView'){
+                                return spanHouseViewName(obj,option.key);
+                            } else if (option.key == 'propertyStatus') {
+                                return spanPropertyStatus(obj,option.key);
+                            } else {
+                                return spanTd(obj,option.key);
+                            }
+                        })
+                    }
+                </div>);
+            });
+        }
 
         return (
             <div>
                 <ViewProperty ref="viewProperty" messages={messages} countryName={this.state.country} params={this.context.router.params} query={this.props.location.query}/>
                 <ExportProperty ref="exportProperty" messages={messages} propertyMap={this.state.propertyMap} params={this.props.params} query={this.props.router.location.query}/>
                 <div className="agency_screen_titbox">
-                    <div className="proj_screen_cont_tr clearfix ipx_ant">
+                    <div className="proj_screen_cont_tr proj_screen_cont_td clearfix ipx_ant">
                         <div className="proj_screen_cont_td">
                             <h3>{messages.lot}</h3>
                             <Search name="lot" className="agency_titbox_searchlot" onChange={this.onChange.bind(this)} onSubmit={() => (false)} placeholder={messages.lot}/>
                         </div>
                         <Slider name="priceMinMax" onChange={this.onChange.bind(this)} data={{
-                            markUnit: "$",
+                            markUnit: "k",
                             min: 1,
                             max: 500,
                             defaultValue: [1, 500],

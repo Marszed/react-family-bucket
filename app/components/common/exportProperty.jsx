@@ -20,16 +20,56 @@ class ExportProperty extends React.Component {
             country: ''
         };
     }
+    getDefaultObj = (data) => {
+        let req = {}, res ={};
+        if (data.foremost){
+            data.foremost.map((obj) => {
+                req[obj.key] = obj;
+            });
+        }
+        if (data.secondary){
+            data.secondary.map((obj) => {
+                req[obj.key] = obj;
+            });
+        }
+        if (data.landInfo){
+            data.landInfo.map((obj) => {
+                req[obj.key] = obj;
+            });
+        }
+        if (data.basicInfo){
+            data.basicInfo.map((obj) => {
+                req[obj.key] = obj;
+            });
+        }
+        if (data.supplement){
+            data.supplement.map((obj) => {
+                req[obj.key] = obj;
+            });
+        }
+        // 排序下
+        if (data.order){
+            data.order.map((obj) => {
+                for(let key in req){
+                    if(key == obj){
+                        res[key] = req[key];
+                        return false;
+                    }
+                }
+            });
+        }
+        return res;
+    };
     getDefault = (type) => {
         if (!type){
             return {};
         }
         const {query} = this.props;
-        const data = this.props.propertyMap[type || this.state.country][query.projectType];
+        const data = this.getDefaultObj(this.props.propertyMap[type || this.state.country][query.projectType]);
         let baseInfo = [], otherInfo = [];
         for (let key in data) {
             if (data.hasOwnProperty(key)){
-                if (data[key].unit === '$' || data[key].unit === '%'){
+                if (data[key].unit === 'mon' || data[key].unit === 'percent'){
                     otherInfo.push({
                         'key': key,
                         'value': false
@@ -49,7 +89,6 @@ class ExportProperty extends React.Component {
             otherAll: false
         };
     };
-
     exportHandler = () => {
         const {params, query} = this.props;
         let propertiesFields = [], propertiesFieldsParams = '';
@@ -118,8 +157,15 @@ class ExportProperty extends React.Component {
     };
     // 重置
     resetHandler = (type) => {
-        const data = this.getDefault(type || this.state.country);
+        let country = '';
+        if (typeof type === 'string'){
+            country = type;
+        } else {
+            country = this.state.country
+        }
+        const data = this.getDefault(country);
         this.setState({
+            country: country,
             baseInfo: data.baseInfo,
             baseAll: data.baseAll,
             otherAll: data.otherAll,
@@ -146,7 +192,7 @@ class ExportProperty extends React.Component {
                 </div>
                 <div className="ipx_pop_body">
                     <div className="Property_details_info">
-                        <table className="Property_info_lf" cellPadding="0" cellSpacing="0">
+                        <table className="Property_info_lf" cellPadding="0" cellSpacing="0" style={{textAlign: 'left'}}>
                             <tr>
                                 <th colSpan="2" style={{'textAlign': 'left'}}>{messages.baseInfo}</th>
                             </tr>
@@ -166,7 +212,7 @@ class ExportProperty extends React.Component {
                                 ))
                             }
                         </table>
-                        <table className="Property_info_rt" cellPadding="0" cellSpacing="0">
+                        <table className="Property_info_rt" cellPadding="0" cellSpacing="0" style={{textAlign: 'left'}}>
                             <tr>
                                 <th colSpan="2" style={{'textAlign': 'left'}}>{messages.otherCharges}</th>
                             </tr>
