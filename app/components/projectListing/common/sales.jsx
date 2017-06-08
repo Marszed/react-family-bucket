@@ -79,6 +79,24 @@ class Sales extends React.Component {
         const {params} = this.context.router;
         const statusClass = ['ipxblue_bg', 'ipxyellow_bg', 'ipxred_bg'];
         console.log(this.state.list);
+        let select = this.props.location.query.countryCode === "country.004"?
+            <Select name="isAbroad" onChange={this.onChange.bind(this)} key={this.state.updateKey}
+                    data={{
+                        list: [
+                            {
+                                value: 0,
+                                content: messages.arbitrarily
+                            },
+                            {
+                                value: 1,
+                                content: messages.purchaseFalse
+                            },
+                            {
+                                value: 2,
+                                content: messages.purchase
+                            }
+                        ]
+                    }}/> : "";
         return (
             <div>
                 <ViewProperty ref="viewProperty" messages={messages} countryName="AU" propertyDetail={this.state.propertyDetail} params={this.context.router.params} query={this.props.location.query}/>
@@ -92,23 +110,7 @@ class Sales extends React.Component {
                             <label onClick={this.onChange.bind(this, 'sold')} className={"ipx_checkbox" + (this.state.statusObj.sold ? ' checked' : '')}><i className={"iconfont icon-succeed" + (this.state.statusObj.sold ? ' ipxred_bg' : '')}/> <span className="text-elps ipxred_txt"><strong>{messages.sold}</strong></span> </label>
                         </div>
                     </div>
-                    <Select name="isAbroad" onChange={this.onChange.bind(this)} key={this.state.updateKey}
-                            data={{
-                                list: [
-                                    {
-                                        value: 0,
-                                        content: messages.arbitrarily
-                                    },
-                                    {
-                                        value: 1,
-                                        content: messages.purchaseFalse
-                                    },
-                                    {
-                                        value: 2,
-                                        content: messages.purchase
-                                    }
-                                ]
-                            }}/>
+                    {select}
                     <Slider name="fontSize" onChange={this.onChange.bind(this)} data={{
                         markUnit: "%",
                         min: 12,

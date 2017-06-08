@@ -173,11 +173,18 @@ class Login extends React.Component {
                 },
                 loading: false
             });
-            if (!response.errType && response.data.data) {
-                this.setState({
-                    isVerify: "block",
-                    verifyCodeSrc: env.config.origin + INTERFACE.CODEIMAGE + (email || this.state.email) + "&v=" + (new Date()).getTime()
-                });
+
+            if(!response.errType) {
+                if(response.data.data){
+                    this.setState({
+                        isVerify: "block",
+                        verifyCodeSrc: env.config.origin + INTERFACE.CODEIMAGE + (email || this.state.email) + "&v=" + (new Date()).getTime()
+                    });
+                } else {
+                    this.setState({
+                        isVerify: "none"
+                    });
+                }
             }
         }.bind(this)();
     }
