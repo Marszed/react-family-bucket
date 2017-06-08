@@ -5,12 +5,6 @@ let express = require('express'),
   config = require('./webpack.dev.conf.js'),
   app = express();
 
-console.log('=========================>>>>');
-console.log('=========================>>>>');
-console.log('=========================>>>>');
-console.log('=========================>>>>');
-console.log(process.env.NODE_ENV);
-
 const rootPath = path.resolve(__dirname, '..'), // 项目根目录
     src = path.join(rootPath, 'app'), // 开发源码目录
     env = process.env.NODE_ENV.trim(); // 当前环境

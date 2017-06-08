@@ -20,12 +20,12 @@ class Header extends React.Component {
     render(){
         const languageMessage = this.state.language.indexOf('en') !== -1 ? '切换为中文' : 'Switch to English';
         return (
-            <div className={this.props.hide ? null : "login_header"}>
-                {
-                    this.props.hide ? null : <a href="http://ipx.net" className="float_lf" target="_blank"><img src={Logo}/></a>
-                }
-                <a className="ipx_sign_language" href="javascript:;" onClick={this.changeLanguage}>{languageMessage}</a>
-            </div>
+        <div className={this.props.hide ? null : "login_header"}>
+            {
+                this.props.hide ? null : <a href="http://ipx.net" className="float_lf ipxLogin_logo" target="_blank"><img src={Logo}/></a>
+            }
+            <a className="ipx_sign_language" href="javascript:;" onClick={this.changeLanguage}>{languageMessage}</a>
+        </div>
         );
     }
 }

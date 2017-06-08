@@ -5,14 +5,12 @@
 /**
  * react及其插件
  */
-import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {Router, Route, hashHistory, IndexRedirect} from 'react-router';
 import store from 'REDUX/store/global'; // redux store引入
 import 'ASSET/css/DanUI.css'; // 公共样式引入
-// import 'ASSET/scss/global.scss'; // 公共样式引入
 import 'ASSET/css/ipx_agency_main.css';
 import 'ASSET/css/ipxfont.css';
 import 'ASSET/css/jslider.css';

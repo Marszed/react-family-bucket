@@ -1,6 +1,71 @@
 @charset "utf-8";
 
+/*-------------------------------不动产商注册登录---------------------------------------------------*/
+.login_header .ipx_sign_language {position:absolute; top:36px; right:40px; color:#7b9eae; background:#fff}
+.login_header .ipx_sign_language:hover {background:#f8f8f8}
+.login_main {width:100%; height:600px;
+    background: -moz-linear-gradient(top, #fdfefe 0%, #ecf3f4 50%, #ecf3f4 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfefe), color-stop(50%,#ecf3f4), color-stop(100%,#ecf3f4));
+    background: -webkit-linear-gradient(top, #fdfefe 0%,#ecf3f4 50%,#ecf3f4 100%);
+    background: -o-linear-gradient(top, #fdfefe 0%,#ecf3f4 50%,#ecf3f4 100%);
+    background: -ms-linear-gradient(top, #fdfefe 0%,#ecf3f4 50%,#ecf3f4 100%);
+    background: linear-gradient(to bottom, #fdfefe 0%,#ecf3f4 50%,#ecf3f4 100%);
+}
+.login_mainBox {width:1200px; height:600px; margin:0 auto; position:relative}
+.login_mainBox a.ipxLogin_logo.float_lf {margin:36px 0 0 20px}
+.ipx_sign_language {position:absolute; z-index:3; left:200px; top:36px; color:#7b9eae; display:inline-block; *display:inline; *zoom:1; padding:8px 10px; font-size:14px}
+.ipx_sign_language:hover {background:rgba(100,100,100,.1)}
+/*登录框*/
+.ipx_loginBox {margin:0; position:absolute; right:0; left:auto; top:60px; padding:30px 50px; background:#fff; border-radius:3px; box-shadow:0 0px 15px rgba(0,0,0,.1); z-index:2}
+.ipx_loginBox h1 {font-size:20px; text-align:center; color:#333; margin-bottom:30px}
+.ipx_sign_return {color:#eb7366; margin-bottom:20px; font-size:13px}
+.ipx_loginBox>button.ipx_btn {margin:30px auto 0}
+.ipx_sign_tips a {color:#666}
+.ipx_sign_tips a:hover {color:#00afb4}
+.ipx_sign_dl {margin:0 0 25px}
+.ipx_sign_dl dd {margin-bottom:10px; position:relative}
+.ipx_sign_dl dd .ipx_sign_label {width:40px; height:42px; float:left;line-height:42px;}
+.ipx_sign_dl dd i.iconfont {font-size:20px; color:#666; }
+.ipx_sign_dl dd input.ipxTxt {width:300px; float:left; font-size:16px; color:#00afb4; font-weight:bold}
+.ipx_sign_dl dd.warning input.ipxTxt {border-color:#ff978c; color:#eb7366}
+.ipx_sign_dl dd.warning .ipx_select>div {border-color:#ff978c; color:#eb7366}
+.ipx_sign_dl dd.warning p.warningTxt {text-align:left; width:186px; line-height:20px; background:#eb7366; border-radius:4px; color:#fff; margin:0; padding:8px; position:absolute; right:104%; top:3px; z-index:1; box-shadow:2px 3px 3px rgba(0,0,0,.1)}
+.ipx_sign_dl dd.warning p.warningTxt:before {content:" "; width:0; height:0; border:solid 5px rgba(255,255,255,0); border-left-color:#eb7366; position:absolute; right:-10px; top:12px}
+.ipx_sign_dl dd .verificode_img {width:140px; height:42px; background:#e4e4e4; border-radius:3px; float:left; margin-left:10px}
+.ipx_sign_dl dd .ipx_sign_Areacode {width:80px!important}
+.ipx_sign_dl dd .ipx_sign_CotryNum {width:210px!important; margin-left:10px}
+.ipx_signbox_td,.ipx_sign_return {width:300px; font-size:13px; padding:0 0 0 40px}
+.ipx_signbox_td a.float_rt {color:#00afb4; padding-right:3px}
+.ipx_loginBox button.ipx_btn {display:block; width:220px; margin:40px auto 0}
+.ipx_loginBox .ipx_sign_tips {font-size:13px; margin:15px auto;  text-align:center; }
+/*注册框*/
+.ipx_signBox {top:10px;}
+.ipx_signBox .ipx_sign_dl dd {margin-bottom:5px}
+.ipx_signBox>button.ipx_btn {margin:30px auto 0}
+/*忘记密码*/
+.forgetPassword {right:10%;}
+/*动画部分*/
+.animationbox {position:absolute; top:0; left:0; width:1200px; height:600px; z-index:1}
+.amtn_3people {top:135px; left:0; position:absolute; }
+.amtn_agency {top:135px; left:-24px; position:absolute}
+
+.login_foot {font-size:13px}
+.login_foot>ul {font-size:0; text-align:center; width:100%; color:#666; margin-top:25px}
+.login_foot>ul li {display:inline-block; margin:0 10px; font-size:13px}
+.login_foot>p {text-align:center; margin:15px auto; color:#666}
+.login_foot a {color:#666}
+.login_foot a:hover {color:#00afb4}
+
+.ipx_signbox_succeed {width:700px; margin-left:-350px; left:50%; box-sizing:border-box}
+.ipx_signbox_succeed h2 {font-size:14px; color:#333; margin-bottom:20px}
+.ipx_signbox_succeed p.ipx_sign_message {font-size:13px; color:#333}
+
+.ipx_sign_body {position:absolute;top:0;left:0;right:0;bottom:0;overflow:auto;background:url(../img/signinbg.jpg) no-repeat top #3f4040}
+.ipxsign_title {font-size: 14px; margin: 0 0 30px;}
+.ipx_sign_logo{margin:0 auto;display:block;margin-bottom:40px}
+
 /*不动产商注册登录----------------------------------------------------------------------------------------*/
+/*
 .login_header {width:1200px; height:100px; margin:0 auto; background:#fff; position:relative}
 .login_header>a.float_lf {margin:36px 0 0 20px}
 .login_header .ipx_sign_language {position:absolute; top:36px; right:40px; color:#7b9eae; background:#fff}
@@ -50,6 +115,7 @@
 .ipx_sign_return {color:#eb7366; margin-bottom:20px}
 .ipx_signbox_td,.ipx_sign_return {width:300px; font-size:13px; padding:0 0 0 40px}
 .ipx_signbox_td a.float_rt {color:#00afb4; padding-right:3px}
+*/
 
 
 /*-----------------------------------------------后台首页模块-------------------------------------------------*/
@@ -360,17 +426,17 @@
 /*-----------------------------------右侧大标题模块-----------------------------------------------------*/
 .dev_cont_title {height:60px; box-shadow:0 2px 4px rgba(0,0,0,.1);  position:relative; z-index:3}
 .dev_cont_titleBg {height:60px; padding:0 30px; background:#fff; box-shadow:0 1px 0px #eee; position:relative; z-index:2}
-.dev_cont_titleBg>h1.float_lf {font-size:20px; height:60px; line-height:60px; color:#333; max-width:40%}
+.dev_cont_titleBg>h1.float_lf {font-size:18px; height:60px; line-height:60px; color:#333; max-width:50%}
 .dev_cont_titleBg>ul {overflow:hidden; height:60px; line-height:60px; margin-left:30px; float:left}
 .dev_cont_titleBg>ul li {float:left; height:60px; font-size:15px; font-weight:bold; margin:0 5px}
-.dev_cont_titleBg>ul li a {color:#777; display:block; height:58px; padding:0 10px}
+.dev_cont_titleBg>ul li a {color:#777; display:block; height:58px; padding:0 10px;}
 .dev_cont_titleBg>ul li a:hover {color:#333}
 .dev_cont_titleBg>ul li.active a,.dev_cont_titleBg>ul a.active {color:#00afb4; border-bottom:solid 2px #00afb4}
 .dev_cont_titleBg>ul li a span {font-weight:normal; font-size:14px}
 .dev_cont_titleBg>ol {padding:0 30px 0 0}
 .dev_cont_titleBg>ol li,.dev_cont_titleBg>ol a {display:inline-block; height:60px; font-size:14px; line-height:60px; margin-left:20px; color:#666; cursor:pointer}
 .dev_cont_titleBg>ol li i, .dev_cont_titleBg>ol a i {vertical-align:middle; font-size:18px; margin-right:5px; color:#888}
-.dev_cont_titleBg>ol li.active, .dev_cont_titleBg>ol a.active {border-bottom:solid 2px #00afb4; color:#00afb4; font-weight:bold}
+.dev_cont_titleBg>ol li.active, .dev_cont_titleBg>ol a.active {border-bottom:solid 2px #00afb4; color:#00afb4; font-weight:bold;text-decoration:none;}
 .dev_cont_titleBg>ol li.active i,.dev_cont_titleBg>ol a.active i {color:#00afb4; font-weight:normal}
 /*二级菜单*/
 .dev_cont_subtitle {height:60px; background:#f8f8f8; box-shadow:0 2px 4px rgba(0,0,0,.1); position:relative; z-index:2}
@@ -713,7 +779,7 @@ ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:1
 .cms_data_table td.cms_data_contrl a {display:inline-block; margin:0 2px}
 .cms_data_table tr:nth-child(odd) td {background:#f8f8f8}
 .cms_data_table tr:hover td {background:#fffae9}
-.company_person_head {width:40px; height:40px; border-radius:20px; overflow:hidden; margin:0 20px 0 32%;display:inline-block; *display:inline; *zoom:1; vertical-align:middle}
+.company_person_head {width:40px; height:40px; border-radius:20px; overflow:hidden; margin:0 20px 0 10%;display:inline-block; *display:inline; *zoom:1; }
 .company_person_head img {max-width:40px; max-height:40px; }
 .company_person_name {display:inline-block; *display:inline; *zoom:1; vertical-align:middle; font-weight:bold}
 
@@ -852,7 +918,7 @@ transition: background-color .4s ease,border .4s ease,opacity .4s ease}
 .ipx_pop_head span.float_rt {font-size:13px; margin-right:20px}
 .ipx_pop_head a.float_rt {width:49px; height:49px; text-align:center; line-height:49px; color:#666}
 .ipx_pop_head a.float_rt:hover {background:#f0f0f0}
-.ipx_pop_body {padding:30px; box-sizing:border-box; font-size:13px}
+.ipx_pop_body {padding:30px; box-sizing:border-box; font-size:13px;text-align: center;}
 .ipx_pop_foot {padding:0 30px 20px 30px;}
 .ipx_pop_foot button {margin-right:15px}
 .ipx_pop_bg {position:fixed; width:100%; height:100%; background:#000; opacity:.2; filter:alpha(opacity=20); z-index:0}

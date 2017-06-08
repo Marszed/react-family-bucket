@@ -104,7 +104,7 @@ class Menu extends React.Component {
             <div className="ipx_dev_personal">
                 <a href="javascript:"><img src={userInfo.profileImage || defaulthead}/></a>
                 <h2><a href="javascript:">{userInfo.firstName + " " + userInfo.lastName}</a></h2>
-                <h3 title=""><FormattedMessage id='vendor'/></h3>
+                <h3 title=""><FormattedMessage id='agent'/></h3>
                 <ul className="dev_persn_menu">
                     <li title={this.props.intl.messages.logout} onClick={() => (
                         this.setState({

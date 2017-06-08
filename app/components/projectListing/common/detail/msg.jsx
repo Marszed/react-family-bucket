@@ -35,6 +35,10 @@ class Msg extends React.Component {
 
     render = () => {
         const {messages} = this.props.intl;
+        let noSoldWidth = 100 * (this.state.available / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2);
+        noSoldWidth = noSoldWidth < 12 ? 12 : noSoldWidth > 84 ? 84 : noSoldWidth;
+        let soldWidth = 100 * ((this.state.available + this.state.reserved) / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2);
+        soldWidth = soldWidth < 24 ? 24 : soldWidth > 92 ? 92 : soldWidth;
         const projectType = [messages.projectType1, messages.projectType2, messages.projectType3, messages.projectType4];
         return !this.state.projectId ? <div className="ipx_proj_preview_cont"><div className="agency_preview_box"><NoData/></div></div> : <div className="ipx_proj_preview_cont"><div className="agency_preview_box">
                 <InlineSlider speed={1.5} delay={3} pause={true} autoplay={false} dots={false} arrows={true} items={this.state.picList}/>
@@ -44,13 +48,13 @@ class Msg extends React.Component {
                         <div className="sellsPerformance">
                             <ul>
                                 <li className="ipxblue_txt" style={{left: 0 + '%'}}>{messages.noSoldNum} {this.state.available}</li>
-                                <li className="ipxyellow_txt" style={{left: 100 * (this.state.noSoldNum / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}>{messages.reservedNum} {this.state.reserved}</li>
-                                <li className="ipxred_txt" style={{left: 100 * ((this.state.noSoldNum + this.state.reservedNum) / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}>{messages.soldNum} {this.state.sold}</li>
+                                <li className="ipxyellow_txt" style={{left: noSoldWidth + '%'}}>{messages.reservedNum} {this.state.reserved}</li>
+                                <li className="ipxred_txt" style={{left: soldWidth + '%'}}>{messages.soldNum} {this.state.sold}</li>
                             </ul>
                             <div className="sellper_chart">
                                 <span className="sell_available" style={{width: 100 * (this.state.available / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
-                                <span className="sell_booking" style={{width: 100 * (this.state.reservedNum / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
-                                <span className="sell_sold" style={{width: 100 * (this.state.soldNum / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
+                                <span className="sell_booking" style={{width: 100 * (this.state.reserved / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
+                                <span className="sell_sold" style={{width: 100 * (this.state.sold / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
                             </div>
                         </div>
                         <h4 className="agency_previw_h4">{messages.baseInfo}</h4>
@@ -81,13 +85,15 @@ class Msg extends React.Component {
                                 <h4>{messages.abroadFlag}</h4>
                                 <span className="ipxblue_txt">{this.state.isAbroad === true ? messages.purchase : (this.state.isAbroad === false ? messages.purchaseFalse : '-')}</span>
                             </div>
-                            <div className="proj_preview_h4box">
-                                <h4>{messages.quantity}</h4>
-                                <span className="ipxblue_txt">30%</span>
-                                <div className="proj_preview_h4cont">
-                                    {messages.abroadTip1}{this.state.abroadPercent ? (this.state.abroadPercent + '%') : this.state.abroadNumber}{messages.abroadTip2}
-                                </div>
-                            </div>
+                            {
+                                this.state.isAbroad === true?
+                                    <div className="proj_preview_h4box">
+                                        <h4>{messages.quantity}</h4>
+                                        <div className="proj_preview_h4cont">
+                                            {messages.abroadTip1}{this.state.abroadPercent ? (this.state.abroadPercent + '%') : this.state.abroadNumber}{messages.abroadTip2}
+                                        </div>
+                                    </div> : ""
+                            }
                             <div className="proj_preview_h4box">
                                 <h4>{messages.intentMoney}</h4>
                                 <span className="ipxblue_txt">{this.state.currencyName} {this.state.reservationFee}</span>
@@ -95,7 +101,7 @@ class Msg extends React.Component {
                             </div>
                             <div className="proj_preview_h4box">
                                 <h4>{messages.termNumber}</h4>
-                                <span className="ipxblue_txt">{this.state.termNumber}{messages.termNumberUnit} <i className="iconfont icon-wenhao" title={messages.termNumberTip}/></span>
+                                <span className="ipxblue_txt">{this.state.termNumber}{messages.termNumberUnit} <i className="iconfont icon-wenhao" title={Number(this.state.termNumber) === 1?messages.termNumberTip1:messages.termNumberTip2}/></span>
                             </div>
                             <div className="proj_preview_h4box">
                                 <h4>{messages.preferentialPolicy}</h4>

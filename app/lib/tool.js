@@ -268,7 +268,7 @@ export function langPackageInject() {
         return cookie('language');
     }
 
-    switch (window.navigator.language.toLowerCase().split(/[_-]+/)[0]) {
+    switch ((window.navigator.language || window.navigator.browserLanguage).toLowerCase().split(/[_-]+/)[0]) {
         case 'en':
             return 'en_US';
         case 'zh':
