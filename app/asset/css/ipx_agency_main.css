@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+body *{
+    box-sizing: content-box;
+}
 /*-------------------------------不动产商注册登录---------------------------------------------------*/
 .login_header .ipx_sign_language {position:absolute; top:36px; right:40px; color:#7b9eae; background:#fff}
 .login_header .ipx_sign_language:hover {background:#f8f8f8}
