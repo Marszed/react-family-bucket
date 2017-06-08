@@ -1,6 +1,7 @@
 import React from "react";
+import {injectIntl} from 'react-intl';
 
-export default class Confirm extends React.Component {
+class Confirm extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -10,6 +11,7 @@ export default class Confirm extends React.Component {
     }
 
     render() {
+        const {messages} = this.props.intl;
         return (
             <div className={"ipx_pop " + (this.props.hide ? "hide" : "")}>
                 <div className="ipx_pop_box ipx_pop_confirm">
@@ -24,11 +26,11 @@ export default class Confirm extends React.Component {
                     <div className="ipx_pop_foot">
                         <button className="ipx_btn ipx_M_btn ipx_red_btn width33per"
                                 onClick={this.handle.bind(this, true)}>
-                            确认
+                            {messages.deleteResourceTip}
                         </button>
                         <button className="ipx_btn ipx_M_btn ipx_grey_btn width33per"
                                 onClick={this.handle.bind(this, false)}>
-                            取消
+                            {messages.cancel}
                         </button>
                     </div>
                 </div>
@@ -39,3 +41,5 @@ export default class Confirm extends React.Component {
     }
 }
 
+
+export default injectIntl(Confirm);

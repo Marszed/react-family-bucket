@@ -358,7 +358,7 @@ export default {
     baseInfo: '基本信息',
     otherCharges: '其他费用',
     salesStatus: '销售状况',
-    deleteResourceTip: '请注意',
+    deleteResourceTip: '确认',
     noData: '暂无数据',
     ensure: '确定',
     ensureSpace: '确 定',
