@@ -338,8 +338,6 @@ export default {
     landCost: 'E土地费用',
     transactionValue: 'E款项值',
     transactionDescription: 'E款项说明',
-    abroadTip1: 'E本项目当中所有项目的',
-    abroadTip2: 'E允许海外人士购买',
     projectIntro: 'E项目介绍',
     transactionProgress: 'E交易流程',
     periodValidity: 'E有效期',

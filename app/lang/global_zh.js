@@ -338,8 +338,6 @@ export default {
     landCost: '土地费用',
     transactionValue: '款项值',
     transactionDescription: '款项说明',
-    abroadTip1: '本项目当中所有项目的',
-    abroadTip2: '允许海外人士购买',
     projectIntro: '项目介绍',
     transactionProgress: '交易流程',
     periodValidity: '有效期',
