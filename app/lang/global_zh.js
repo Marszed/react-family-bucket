@@ -163,7 +163,7 @@ export default {
     list: '列表',
     thumbnail: '缩略图',
     priceRange: '价格区间',
-    area: '面积',
+    area: '面积区间',
     purchaseCount: '可购数',
     commission: '佣金',
     noSoldNum: '可售',

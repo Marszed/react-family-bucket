@@ -249,7 +249,7 @@ class Overview extends React.Component {
                                                                     </tr>
                                                                     <tr>
                                                                         <td><strong>{messages.area}</strong></td>
-                                                                        <td>{obj.minArea} - {obj.maxArea} m2</td>
+                                                                        <td>{obj.minArea !== null ? obj.minArea -  obj.maxArea : 0 } m2</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td><strong>{messages.purchaseCount}</strong></td>

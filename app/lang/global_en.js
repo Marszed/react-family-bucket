@@ -163,7 +163,7 @@ export default {
     list: 'E列表',
     thumbnail: 'E缩略图',
     priceRange: 'E价格区间',
-    area: 'E面积',
+    area: 'E面积区间',
     purchaseCount: 'E可购数',
     commission: 'E佣金',
     noSoldNum: 'E可售',
