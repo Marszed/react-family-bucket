@@ -449,7 +449,7 @@ body *{
 .proj_screen_start dt>i {font-size:20px; margin-right:3px; vertical-align:middle}
 .proj_screen_start dt>span {font-size:14px; color:#666; font-weight:bold; vertical-align:middle}
 .proj_screen_start a {float:left; line-height:60px; height:58px; margin:0 5px; padding:0 10px; color:#a6adad; display: block}
-.proj_screen_start a.active {color:#00afb4!important; border-bottom:solid 2px #00afb4}
+.proj_screen_start a.active {color:#00afb4!important; border-bottom:solid 2px #00afb4;text-decoration: none;}
 .proj_screen_start a.active>span {font-weight:bold}
 .proj_screen_start a>i {font-size:30px; margin-right:3px; vertical-align:middle}
 .proj_screen_start a>i.icon-earth1 {font-size:24px}

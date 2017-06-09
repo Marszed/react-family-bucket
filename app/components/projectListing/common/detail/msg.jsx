@@ -40,23 +40,43 @@ class Msg extends React.Component {
         let soldWidth = 100 * ((this.state.available + this.state.reserved) / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2);
         soldWidth = soldWidth < 24 ? 24 : soldWidth > 92 ? 92 : soldWidth;
         const projectType = [messages.projectType1, messages.projectType2, messages.projectType3, messages.projectType4];
+        let sellsPerformance ;
+        if (this.state.reserved + this.state.available + this.state.sold === 0){
+            sellsPerformance =
+                <div className="sellsPerformance">
+                    <ul>
+                        <li className="ipxblue_txt" style={{left: 0 + '%'}}>{messages.noSoldNum} {this.state.available}</li>
+                        <li className="ipxyellow_txt" style={{left: 34 + '%'}}>{messages.reservedNum} {this.state.reserved}</li>
+                        <li className="ipxred_txt" style={{left: 67 + '%'}}>{messages.soldNum} {this.state.sold}</li>
+                    </ul>
+                    <div className="sellper_chart">
+                        <span className="sell_available" style={{width: 34 + '%'}}/>
+                        <span className="sell_booking" style={{width: 33 + '%'}}/>
+                        <span className="sell_sold" style={{width: 33 + '%'}}/>
+                    </div>
+                </div>;
+        } else {
+            sellsPerformance =
+                <div className="sellsPerformance">
+                    <ul>
+                        <li className="ipxblue_txt" style={{left: 0 + '%'}}>{messages.noSoldNum} {this.state.available}</li>
+                        <li className="ipxyellow_txt" style={{left: noSoldWidth + '%'}}>{messages.reservedNum} {this.state.reserved}</li>
+                        <li className="ipxred_txt" style={{left: soldWidth + '%'}}>{messages.soldNum} {this.state.sold}</li>
+                    </ul>
+                    <div className="sellper_chart">
+                        <span className="sell_available" style={{width: 100 * (this.state.available / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
+                        <span className="sell_booking" style={{width: 100 * (this.state.reserved / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
+                        <span className="sell_sold" style={{width: 100 * (this.state.sold / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
+                    </div>
+                </div>;
+        }
+
         return !this.state.projectId ? <div className="ipx_proj_preview_cont"><div className="agency_preview_box"><NoData/></div></div> : <div className="ipx_proj_preview_cont"><div className="agency_preview_box">
                 <InlineSlider speed={1.5} delay={3} pause={true} autoplay={false} dots={false} arrows={true} items={this.state.picList}/>
                 <div className="agency_preview_info">
                     <div className="agency_prevw_infoLf">
                         <h4 className="agency_previw_h4">{messages.salesStatus}</h4>
-                        <div className="sellsPerformance">
-                            <ul>
-                                <li className="ipxblue_txt" style={{left: 0 + '%'}}>{messages.noSoldNum} {this.state.available}</li>
-                                <li className="ipxyellow_txt" style={{left: noSoldWidth + '%'}}>{messages.reservedNum} {this.state.reserved}</li>
-                                <li className="ipxred_txt" style={{left: soldWidth + '%'}}>{messages.soldNum} {this.state.sold}</li>
-                            </ul>
-                            <div className="sellper_chart">
-                                <span className="sell_available" style={{width: 100 * (this.state.available / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
-                                <span className="sell_booking" style={{width: 100 * (this.state.reserved / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
-                                <span className="sell_sold" style={{width: 100 * (this.state.sold / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
-                            </div>
-                        </div>
+                        {sellsPerformance}
                         <h4 className="agency_previw_h4">{messages.baseInfo}</h4>
                         <div className="agency_info_attr_box clearfix">
                             <ul className="preview_info float_lf">
@@ -85,15 +105,6 @@ class Msg extends React.Component {
                                 <h4>{messages.abroadFlag}</h4>
                                 <span className="ipxblue_txt">{this.state.isAbroad === true ? messages.purchase : (this.state.isAbroad === false ? messages.purchaseFalse : '-')}</span>
                             </div>
-                            {
-                                this.state.isAbroad === true?
-                                    <div className="proj_preview_h4box">
-                                        <h4>{messages.quantity}</h4>
-                                        <div className="proj_preview_h4cont">
-                                            {messages.abroadTip1}{this.state.abroadPercent ? (this.state.abroadPercent + '%') : this.state.abroadNumber}{messages.abroadTip2}
-                                        </div>
-                                    </div> : ""
-                            }
                             <div className="proj_preview_h4box">
                                 <h4>{messages.intentMoney}</h4>
                                 <span className="ipxblue_txt">{this.state.currencyName} {this.state.reservationFee}</span>

@@ -63,7 +63,7 @@ config.plugins.push(
     }),
     new webpack.optimize.CommonsChunkPlugin({
         // 公共代码分离打包
-        names: ['vendor','mainifest', 'polyfill'],
+        names: ['vendor','mainifest'],
         minChunks: 1
     }),
     new webpack.optimize.AggressiveMergingPlugin(),
@@ -72,7 +72,6 @@ config.plugins.push(
     }),
     new ExtractTextPlugin({
         filename: '[name].[contenthash:6].css',
-        disable: false,
         allChunks: true
     }),
     new HtmlWebpackPlugin({

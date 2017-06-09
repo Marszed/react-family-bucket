@@ -306,17 +306,10 @@ class PersonInfo extends React.Component {
                         <div className="ipx_setting_tr clearfix">
                             <div className={"ipx_setting_td width50per " + (this.state.mobilePhone ? "warning" : "")}>
                                 <h4>{messages.telephone}</h4>
-                                <input type="text"
-                                       className="ipxTxt ipx_sign_Areacode"
-                                       placeholder={messages.areaCode}
-                                       value={this.state.areaCode}
-                                       readOnly="readonly"
-                                       style={{"width": 80 + "px"}}
-                                       maxLength="8"/>
                                 <input type="text" className="ipxTxt"
                                        onChange={this.changeTelephone.bind(this)}
                                        onBlur={this.changeTelephone.bind(this)}
-                                       style={{"width": 260 + "px", "marginLeft": 10 + 'px'}}
+                                       style={{"width": 320 + "px"}}
                                        placeholder={messages.telephone}
                                        value={mobilePhone} />
                                 <p className="warningTxt">{this.state.telephoneInfo}</p>
