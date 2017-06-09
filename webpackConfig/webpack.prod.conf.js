@@ -63,7 +63,7 @@ config.plugins.push(
     }),
     new webpack.optimize.CommonsChunkPlugin({
         // 公共代码分离打包
-        names: ['vendor','mainifest', 'polyfill'],
+        names: ['polyfill','vendor','mainifest'],
         minChunks: 1
     }),
     new webpack.optimize.AggressiveMergingPlugin(),
