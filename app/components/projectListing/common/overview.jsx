@@ -14,9 +14,6 @@ import {asyncAwaitCall} from 'HTTP';
 import NavBread from './navBread';
 import NoData from 'COMPONENT/common/noData';
 import DefaultImg from 'ASSET/img/defaultProject.jpg';
-import Agreement from './agreement';
-import GaveAgency from './gaveAgency';
-
 
 //前一次滚动的垂直距离,用于判断垂直还是水平滚动
 let beforeScrollTop = 0;
@@ -57,6 +54,13 @@ class Overview extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        let projectList = objCopy(this.state.projectList), nextProjectList = objCopy(nextProps.project.projectList);
+        if (projectList && projectList.list){
+            projectList.list.map((obj) => (delete obj.lineHeight));
+        }
+        if (nextProjectList && nextProjectList.list){
+            nextProjectList.list.map((obj) => (delete obj.lineHeight));
+        }
         // 路由变化
         if (nextProps.params && !isEqual(nextProps.params, this.state.params)) {
             console.log('params======>>>>>>>>>>>');
@@ -66,8 +70,7 @@ class Overview extends React.Component {
             });
         }
         // 项目列表数据变化
-        if (nextProps.project.projectList && !isEqual(nextProps.project.projectList, this.state.projectList)) {
-            console.log('---------121321321321');
+        if (nextProps.project.projectList && !isEqual(nextProjectList, projectList)) {
             this.setState({
                 projectList: nextProps.project.projectList
             });
@@ -164,13 +167,24 @@ class Overview extends React.Component {
                     content: (option.favoriteFlag !== 1 ? '' : messages.cancel) + messages.marked + messages.success,
                     state: 1
                 }));
-                let temp = objCopy(this.state.projectList);
-                temp.list.map((obj) => {
-                    if (obj.projectId === option.projectId){
-                        obj.favoriteFlag = option.favoriteFlag === 1 ? 0 : 1;
-                        return false;
-                    }
-                });
+                let temp = objCopy(this.state.projectList), array = [];
+                // 如果是已收藏列，需要移除
+                if (this.props.params.type == 3){
+                    temp.list.map((obj) => {
+                        if (obj.projectId !== option.projectId){
+                            array.push(obj);
+                        }
+                    });
+                    temp.list = array;
+                    temp.total -= 1;
+                } else {
+                    temp.list.map((obj) => {
+                        if (obj.projectId === option.projectId){
+                            obj.favoriteFlag = option.favoriteFlag === 1 ? 0 : 1;
+                            return false;
+                        }
+                    });
+                }
                 temp.favoriteNumber = option.favoriteFlag === 1 ? (temp.favoriteNumber - 1) : (temp.favoriteNumber + 1);
                 this.props.dispatch(setProjectList(temp));
             }
@@ -179,16 +193,6 @@ class Overview extends React.Component {
     // 查看项目详情
     gaveAgencyHandler = (obj) => {
         this.context.router.push({pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}});
-    };
-    // 已阅读并且同意协议
-    agreementHandler = (flag) => {
-        if (flag === false){
-            this.props.dispatch(showToast({
-                content: this.props.intl.messages.agreementTip2,
-                state: 2
-            }));
-        }
-        this.refs.agreement.hideHandler(flag);
     };
     // 滚动加载
     onScroll(event){
@@ -204,23 +208,22 @@ class Overview extends React.Component {
             }, 'append');
         }
     }
-
     // 图片自适应
     imageAutoSize = (e) => {
-        const lineHeight = e.target.height;
-        if(lineHeight == this.state.lineHeight){
+        const lineHeight = 3 * (e.target.width) / 4;
+        if(lineHeight == this.state.lineHeight || lineHeight > 300){
             return false;
         }
         this.setState({
             lineHeight: lineHeight
         });
-        this.autoImage();
+        this.autoImage('', lineHeight);
     };
-    autoImage = (list) => {
+    autoImage = (list, lineHeight) => {
         let projectList = objCopy(list || this.state.projectList);
         projectList.list.map((obj) => {
             if (!obj.lineHeight){
-                obj.lineHeight = this.state.lineHeight;
+                obj.lineHeight = lineHeight || this.state.lineHeight;
             }
         });
         this.setState({
@@ -399,8 +402,6 @@ class Overview extends React.Component {
                     }
                     <p className={"loadmore " + (this.state.loadMoreState ? '' : 'hide')}>{messages.loadMore}</p>
                 </div>
-                <Agreement ref="agreement" messages={messages} submit={this.agreementHandler.bind(this)}/>
-                <GaveAgency data={this.state.agentData} messages={messages} agentTime={this.state.agentTime}/>
             </div>
         );
     }

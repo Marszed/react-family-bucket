@@ -258,10 +258,11 @@ class NavCountry extends React.Component {
                                     data={{
                                         markUnit: "k",
                                         min: 1,
-                                        max: 500,
-                                        defaultValue: [1, 500],
+                                        max: 5000,
+                                        defaultValue: [1, 5000],
                                         markMin: 1,
-                                        markMax: 500,
+                                        markMax: 5000,
+                                        step: 10,
                                         title: messages.propertyPrice + ' （' + messages.auDollar + '）',
                                         childStyle: {width: 300 + 'px'}
                                     }}/>

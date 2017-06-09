@@ -814,6 +814,11 @@ cite{font-style: normal;}
 .font_20px {font-size:20px}
 .font_22px {font-size:22px}
 .font_24px {font-size:24px}
+.zIndex_1 {z-index: 1000}
+.zIndex_2 {z-index: 2000}
+.zIndex_3 {z-index: 3000}
+.zIndex_4 {z-index: 4000}
+.zIndex_5 {z-index: 5000}
 
 .width100per {width:100% !important}
 .width98per {width:98% !important}

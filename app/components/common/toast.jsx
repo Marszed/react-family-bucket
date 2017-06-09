@@ -24,7 +24,7 @@ class Toast extends React.Component {
         // state = 1 成功 state = 2 失败
         let {toast} = this.props;
 
-        return <div className={"ipx_pop_tips" + (toast && toast.state === 2 ? " ipx_pop_tips_error" : "") + (toast && toast.content ? " ipx_pop_tips_show" : "")}>
+        return <div className={"zIndex_2 ipx_pop_tips" + (toast && toast.state === 2 ? " ipx_pop_tips_error" : "") + (toast && toast.content ? " ipx_pop_tips_show" : "")}>
             <i className={"iconfont" + (toast && toast.state === 2 ? " icon-cross" : " icon-succeed")}/>
             <span>{toast ? toast.content : ""}</span>
             <a className="ipx_pop_tips_close" onClick={this.closeHandler.bind(this)}>
