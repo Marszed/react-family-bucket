@@ -256,7 +256,7 @@ class NavCountry extends React.Component {
                             <SelectCheck name="projectTypes" onChange={this.onChange.bind(this)} data={{title: messages.projectTypes}}/>
                             <Slider name="propertyPriceMinMax" onChange={this.onChange.bind(this)}
                                     data={{
-                                        markUnit: "$",
+                                        markUnit: "k",
                                         min: 1,
                                         max: 500,
                                         defaultValue: [1, 500],

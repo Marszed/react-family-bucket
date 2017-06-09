@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+body *{
+    box-sizing: content-box;
+}
 /*-------------------------------不动产商注册登录---------------------------------------------------*/
 .login_header .ipx_sign_language {position:absolute; top:36px; right:40px; color:#7b9eae; background:#fff}
 .login_header .ipx_sign_language:hover {background:#f8f8f8}
@@ -462,6 +465,7 @@
 .proj_screen_cont_lf .proj_screen_cont_td {width:200px; margin:0 auto; float:none}
 .proj_screen_cont_rt {float:left; width:65%; padding:25px 0 20px;}
 .proj_screen_cont_tr {}
+.proj_screen_cont_tr_mb0 .proj_screen_cont_td{margin-bottom: 0}
 .proj_screen_cont_td {float:left; margin-right:15px; margin-bottom:30px}
 .proj_screen_cont_td>h3 {font-size:12px; color:#999; font-weight:normal; margin-bottom:6px}
 .proj_screen_cont_td>.ipx_select>div>.checked {color:#00afb4; font-weight:bold}

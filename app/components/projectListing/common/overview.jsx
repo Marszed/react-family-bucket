@@ -5,7 +5,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import pureRender from "pure-render-decorator";
-import {isEqual, objCopy, encode64, formatMoney} from 'LIB/tool';
+import {isEqual, objCopy, encode64, formatMoney, debounce} from 'LIB/tool';
 import {injectIntl} from 'react-intl';
 import {setCountry, setProjectList} from 'REDUX/actions/project';
 import {showToast} from 'REDUX/actions/global';
@@ -49,6 +49,11 @@ class Overview extends React.Component {
             countryCode: this.state.params.country,
             type: this.state.params.type
         }, 'init');
+        window.addEventListener('resize', debounce(() => (this.autoImage()), 300));
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.autoImage);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -62,9 +67,11 @@ class Overview extends React.Component {
         }
         // 项目列表数据变化
         if (nextProps.project.projectList && !isEqual(nextProps.project.projectList, this.state.projectList)) {
+            console.log('---------121321321321');
             this.setState({
                 projectList: nextProps.project.projectList
             });
+            this.autoImage(nextProps.project.projectList);
         }
         // 搜索条件变化
         if (nextProps.project.searchOption && !isEqual(nextProps.project.searchOption, this.state.searchOption)) {
@@ -198,6 +205,29 @@ class Overview extends React.Component {
         }
     }
 
+    // 图片自适应
+    imageAutoSize = (e) => {
+        const lineHeight = e.target.height;
+        if(lineHeight == this.state.lineHeight){
+            return false;
+        }
+        this.setState({
+            lineHeight: lineHeight
+        });
+        this.autoImage();
+    };
+    autoImage = (list) => {
+        let projectList = objCopy(list || this.state.projectList);
+        projectList.list.map((obj) => {
+            if (!obj.lineHeight){
+                obj.lineHeight = this.state.lineHeight;
+            }
+        });
+        this.setState({
+            projectList: projectList
+        });
+    };
+
     render() {
         const {messages} = this.props.intl;
         return (
@@ -325,7 +355,7 @@ class Overview extends React.Component {
                                                             <a href="javascript:;" title={obj.title}>{obj.title}</a>
                                                         </h3>
                                                     </div>
-                                                    <div className="proj_box_m_img">
+                                                    <div className="proj_box_m_img" style={{height: obj.lineHeight ? (obj.lineHeight + 'px') : 'auto'}}>
                                                         <ul className="proj_box_m_imglist">
                                                             <li>
                                                                 <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
@@ -338,9 +368,8 @@ class Overview extends React.Component {
                                                             </li>
                                                         </ul>
                                                         <b className="proj_box_M_tag">{messages['projectType' + obj.projectType]}</b>
-                                                        <img className="proj_box_coverimg"
-                                                             src={obj.frontImage || DefaultImg}/>
-                                                        <span className="v_align_mid"/>
+                                                        <img className="proj_box_coverimg" src={obj.frontImage || DefaultImg} onLoad={this.imageAutoSize}/>
+                                                        <span className="v_align_mid" style={{lineHeight: obj.lineHeight ? (obj.lineHeight + 'px') : 'auto'}}/>
                                                     </div>
                                                     <div className="proj_box_m_info clearfix">
                                                 <span className="float_lf">{obj.countryName}
