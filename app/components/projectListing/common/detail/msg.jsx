@@ -105,15 +105,6 @@ class Msg extends React.Component {
                                 <h4>{messages.abroadFlag}</h4>
                                 <span className="ipxblue_txt">{this.state.isAbroad === true ? messages.purchase : (this.state.isAbroad === false ? messages.purchaseFalse : '-')}</span>
                             </div>
-                            {
-                                this.state.isAbroad === true?
-                                    <div className="proj_preview_h4box">
-                                        <h4>{messages.quantity}</h4>
-                                        <div className="proj_preview_h4cont">
-                                            {messages.abroadTip1}{this.state.abroadPercent ? (this.state.abroadPercent + '%') : this.state.abroadNumber}{messages.abroadTip2}
-                                        </div>
-                                    </div> : ""
-                            }
                             <div className="proj_preview_h4box">
                                 <h4>{messages.intentMoney}</h4>
                                 <span className="ipxblue_txt">{this.state.currencyName} {this.state.reservationFee}</span>
