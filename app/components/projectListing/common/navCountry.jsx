@@ -125,7 +125,11 @@ class NavCountry extends React.Component {
             });
             if (!response.errType) {
                 let country = response.data.data;
-                country.shift();
+                country.forEach((countryDate) => {
+                    if (countryDate.dicCode === "country.000"){
+                        country.splice(country.indexOf(countryDate), 1);
+                    }
+                });
                 country.unshift({
                     "dicCode": 'country.000',
                     "nameShort": 'ALL',
