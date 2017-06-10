@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {isEqual, objCopy, langPackageInject} from 'LIB/tool';
 import {injectIntl} from 'react-intl';
-import {setCountry, setSearchOption} from 'REDUX/actions/project';
+import {setCountry, setSearchOption, setFormBox} from 'REDUX/actions/project';
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
 import pureRender from "pure-render-decorator";
@@ -69,6 +69,12 @@ class NavCountry extends React.Component {
             let temp = {};
             temp[nextProps.global.formSelect.key] = nextProps.global.formSelect.value;
             this.setState(temp);
+        }
+        // 刷选表单伸缩展开
+        if (nextProps.project.formBox && (nextProps.project.formBox !== this.state.expendPX)) {
+            this.setState({
+                expendPX: nextProps.project.formBox
+            });
         }
         // 下拉列表更新
         if (nextProps.global.formSelect && nextProps.global.formSelect.key && !isEqual(nextProps.global.formSelect.key, this.state[nextProps.global.formSelect.key])) {
@@ -145,11 +151,11 @@ class NavCountry extends React.Component {
     }
 
     // 展开查询表单
-    expendForm(type, e) {
-        e && e.stopPropagation();
-        this.setState({
-            expendPX: type ? 60 : -1000
-        });
+    expendForm(e) {
+        e.stopPropagation();
+        if (this.props.project.formBox !== 60){
+            this.props.dispatch(setFormBox(60));
+        }
     }
 
     // 数据收集
@@ -223,13 +229,13 @@ class NavCountry extends React.Component {
         const {messages} = this.props.intl;
 
         return <div className="dev_cont_subtitle">
-            <div className="dev_cont_sub_screen" onMouseLeave={this.expendForm.bind(this, false)}>
+            <div className="dev_cont_sub_screen">
                 <dl className="proj_screen_start">
                     <dt><i className="iconfont icon-screen"/><span>{messages.screen}</span></dt>
                     {
                         this.state.country ? this.state.country.map((obj) => (
                                 <Link className={obj.dicCode === this.state.params.country ? 'active' : ''}
-                                      onMouseEnter={this.expendForm.bind(this, this.state.params.country === obj.dicCode)}
+                                      onMouseEnter={this.expendForm.bind(this)}
                                       to={"/projectListing/" + this.state.params.type + '/' + obj.dicCode + "/overview"}>
                                     <i className={"iconfont " + this.state.countryIcon[obj.dicCode]}/>
                                     <span>{obj.dicValue}</span>
