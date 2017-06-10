@@ -221,145 +221,42 @@ class Overview extends React.Component {
     };
     autoImage = (list, lineHeight) => {
         let projectList = objCopy(list || this.state.projectList);
-        projectList.list.map((obj) => {
-            if (!obj.lineHeight){
-                obj.lineHeight = lineHeight || this.state.lineHeight;
-            }
-        });
-        this.setState({
-            projectList: projectList
-        });
+        if (projectList.list && projectList.list.length){
+            projectList.list.map((obj) => {
+                if (!obj.lineHeight){
+                    obj.lineHeight = lineHeight || this.state.lineHeight;
+                }
+            });
+            this.setState({
+                projectList: projectList
+            });
+        }
     };
 
     render() {
         const {messages} = this.props.intl;
         return (
-            <div>
-                <div className="agency_proj_cont" style={{top: Number(this.state.params.type) === 1 ? '120px' : '60px'}} onScroll={this.onScroll.bind(this)}>
-                    <NavBread params={this.state.params}/>
-                    {
-                        this.state.formRadioType === 1 ?
-                            <div className="project_listbox clearfix">
-                                {
-                                    this.state.projectList && this.state.projectList.list ? this.state.projectList.list.map((obj) => (
-                                            <table className="project_l_box" cellPadding="0" cellSpacing="0" key={obj.projectId}>
-                                                <tr>
-                                                    <td width="320">
-                                                        <div className="proj_l_box_lf">
-                                                            <img src={obj.frontImage || DefaultImg}/>
-                                                            <span
-                                                                className="proj_l_imgtag">{messages['projectType' + obj.projectType]}</span>
-                                                            <span className="v_align_mid"/>
-                                                        </div>
-                                                    </td>
-                                                    <td className="proj_l_box_rt">
-                                                        <div className="proj_l_box_top clearfix">
-                                                            <h3 className="text-elps"><a href="#">{obj.title}</a></h3>
-                                                            <ul className="proj_box_toplist">
-                                                                <li>
-                                                                    <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
-                                                                </li>
-                                                                <li>
-                                                                    <Link to={{pathname: "projectListing/view/sales/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
-                                                                </li>
-                                                                <li>
-                                                                    <Link to={{pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div className="proj_l_box_bottom">
-                                                            <div className="float_lf">
-                                                        <span className="proj_l_box_address">{obj.countryName}
-                                                            - {obj.regionFirstName} - {obj.detailAddr}</span>
-                                                                <table>
-                                                                    <tr>
-                                                                        <td><strong>{messages.priceRange}</strong></td>
-                                                                        <td>{obj.currencyName} {formatMoney(obj.minPrice)} - {obj.currencyName} {formatMoney(obj.maxPrice)}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><strong>{messages.targetDistance}</strong></td>
-                                                                        <td>{(obj.targetDistance + 'km') || ''}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><strong>{messages.area}</strong></td>
-                                                                        <td>{obj.minArea !== null ? obj.minArea -  obj.maxArea : 0 } m2</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><strong>{messages.purchaseCount}</strong></td>
-                                                                        <td><strong className="ipxblue_txt">{obj.noSoldNum}</strong></td>
-                                                                    </tr>
-                                                                </table>
-                                                            </div>
-                                                            <div className="float_rt">
-                                                                <div className="sellsPerformance">
-                                                                    <ul>
-                                                                        {
-                                                                            obj.noSoldNum && obj.noSoldNum !== 0 ?
-                                                                                <li className="ipxblue_txt" style={{left: 0 + '%'}}>{messages.noSoldNum + ' ' + obj.noSoldNum}</li> : ''
-                                                                        }
-                                                                        {
-                                                                            obj.reservedNum && obj.reservedNum !== 0 ? <li className="ipxyellow_txt"
-                                                                                                                           style={{left: 100 * (obj.noSoldNum / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}>
-                                                                                    {messages.reservedNum + ' ' + obj.reservedNum}</li> : ''
-                                                                        }
-                                                                        {
-                                                                            obj.soldNum && obj.soldNum !== 0 ? <li className="ipxred_txt"
-                                                                                                                   style={{left: 100 * ((obj.noSoldNum + obj.reservedNum) / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}>
-                                                                                    {messages.soldNum + ' ' + obj.soldNum}</li> : ''
-                                                                        }
-
-                                                                    </ul>
-                                                                    <div className="sellper_chart">
-                                                                        {
-                                                                            obj.noSoldNum && obj.noSoldNum !== 0 ? <span className="sell_available"
-                                                                                                                         style={{width: 100 * (obj.noSoldNum / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}/> : ''
-                                                                        }
-                                                                        {
-                                                                            obj.reservedNum && obj.reservedNum !== 0 ? <span className="sell_booking"
-                                                                                                                             style={{width: 100 * (obj.reservedNum / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}/> : ''
-                                                                        }
-                                                                        {
-                                                                            obj.soldNum && obj.soldNum !== 0 ? <span className="sell_sold"
-                                                                                                                     style={{width: 100 * (obj.soldNum / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}/> : ''
-                                                                        }
-                                                                    </div>
-                                                                </div>
-                                                                {
-                                                                    (Number(this.state.params.type) !== 1 || this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix">
-                                                                            <span className="float_lf">{obj.propertyNum || 0} {messages.meetConditionsTip}</span>
-                                                                            <i className="iconfont icon-list01 float_rt"/>
-                                                                        </div> : null
-                                                                }
-                                                                <div className="proj_l_box_button clearfix">
-                                                                    <span onClick={this.collect.bind(this, obj)} className={"float_lf" + (obj.favoriteFlag === 1 ? ' checked' : '')}>
-                                                                        <i className={"iconfont" + (obj.favoriteFlag === 1 ? ' icon-favorite2' : ' icon-favorite1')}/> {messages.marked}
-                                                                    </span>
-                                                                    <button onClick={this.gaveAgencyHandler.bind(this, obj)}
-                                                                            className={"ipx_btn ipx_M_btn float_rt " + (obj.authorizeNumber === 0 || obj.authorizeNumber === null ? 'ipx_bluebd_btn' : 'ipx_white_btn')}>
-                                                                            {obj.authorizeNumber === 0 || obj.authorizeNumber === null ? messages.view : (messages.available)}
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        )) : <NoData/>
-                                }
-                            </div>
-                            :
-                            <div className="project_gridbox clearfix">
-                                {
-                                    this.state.projectList && this.state.projectList.list ? this.state.projectList.list.map((obj) => (
-                                            <div className="project_box" key={obj.projectId}>
-                                                <div className="project_box_main">
-                                                    <div className="proj_box_head clearfix">
-                                                        <h3 className="float_lf text-elps">
-                                                            <a href="javascript:;" title={obj.title}>{obj.title}</a>
-                                                        </h3>
+            <div className="agency_proj_cont" style={{top: Number(this.state.params.type) === 1 ? '120px' : '60px'}} onScroll={this.onScroll.bind(this)}>
+                <NavBread params={this.state.params}/>
+                {
+                    this.state.formRadioType === 1 ?
+                        <div className="project_listbox clearfix">
+                            {
+                                this.state.projectList && this.state.projectList.list ? this.state.projectList.list.map((obj) => (
+                                        <table className="project_l_box" cellPadding="0" cellSpacing="0" key={obj.projectId}>
+                                            <tr>
+                                                <td width="320">
+                                                    <div className="proj_l_box_lf">
+                                                        <img src={obj.frontImage || DefaultImg}/>
+                                                        <span
+                                                            className="proj_l_imgtag">{messages['projectType' + obj.projectType]}</span>
+                                                        <span className="v_align_mid"/>
                                                     </div>
-                                                    <div className="proj_box_m_img" style={{height: obj.lineHeight ? (obj.lineHeight + 'px') : 'auto'}}>
-                                                        <ul className="proj_box_m_imglist">
+                                                </td>
+                                                <td className="proj_l_box_rt">
+                                                    <div className="proj_l_box_top clearfix">
+                                                        <h3 className="text-elps"><a href="#">{obj.title}</a></h3>
+                                                        <ul className="proj_box_toplist">
                                                             <li>
                                                                 <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
                                                             </li>
@@ -370,38 +267,141 @@ class Overview extends React.Component {
                                                                 <Link to={{pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
                                                             </li>
                                                         </ul>
-                                                        <b className="proj_box_M_tag">{messages['projectType' + obj.projectType]}</b>
-                                                        <img className="proj_box_coverimg" src={obj.frontImage || DefaultImg} onLoad={this.imageAutoSize}/>
-                                                        <span className="v_align_mid" style={{lineHeight: obj.lineHeight ? (obj.lineHeight + 'px') : 'auto'}}/>
                                                     </div>
-                                                    <div className="proj_box_m_info clearfix">
+                                                    <div className="proj_l_box_bottom">
+                                                        <div className="float_lf">
+                                                        <span className="proj_l_box_address">{obj.countryName}
+                                                            - {obj.regionFirstName} - {obj.detailAddr}</span>
+                                                            <table>
+                                                                <tr>
+                                                                    <td><strong>{messages.priceRange}</strong></td>
+                                                                    <td>{obj.currencyName} {formatMoney(obj.minPrice)} - {obj.currencyName} {formatMoney(obj.maxPrice)}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><strong>{messages.targetDistance}</strong></td>
+                                                                    <td>{(obj.targetDistance + 'km') || ''}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><strong>{messages.area}</strong></td>
+                                                                    <td>{obj.minArea !== null ? obj.minArea -  obj.maxArea : 0 } m2</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><strong>{messages.purchaseCount}</strong></td>
+                                                                    <td><strong className="ipxblue_txt">{obj.noSoldNum}</strong></td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                        <div className="float_rt">
+                                                            <div className="sellsPerformance">
+                                                                <ul>
+                                                                    {
+                                                                        obj.noSoldNum && obj.noSoldNum !== 0 ?
+                                                                            <li className="ipxblue_txt" style={{left: 0 + '%'}}>{messages.noSoldNum + ' ' + obj.noSoldNum}</li> : ''
+                                                                    }
+                                                                    {
+                                                                        obj.reservedNum && obj.reservedNum !== 0 ? <li className="ipxyellow_txt"
+                                                                                                                       style={{left: 100 * (obj.noSoldNum / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}>
+                                                                                {messages.reservedNum + ' ' + obj.reservedNum}</li> : ''
+                                                                    }
+                                                                    {
+                                                                        obj.soldNum && obj.soldNum !== 0 ? <li className="ipxred_txt"
+                                                                                                               style={{left: 100 * ((obj.noSoldNum + obj.reservedNum) / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}>
+                                                                                {messages.soldNum + ' ' + obj.soldNum}</li> : ''
+                                                                    }
+
+                                                                </ul>
+                                                                <div className="sellper_chart">
+                                                                    {
+                                                                        obj.noSoldNum && obj.noSoldNum !== 0 ? <span className="sell_available"
+                                                                                                                     style={{width: 100 * (obj.noSoldNum / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}/> : ''
+                                                                    }
+                                                                    {
+                                                                        obj.reservedNum && obj.reservedNum !== 0 ? <span className="sell_booking"
+                                                                                                                         style={{width: 100 * (obj.reservedNum / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}/> : ''
+                                                                    }
+                                                                    {
+                                                                        obj.soldNum && obj.soldNum !== 0 ? <span className="sell_sold"
+                                                                                                                 style={{width: 100 * (obj.soldNum / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}/> : ''
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                            {
+                                                                (Number(this.state.params.type) !== 1 || this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix">
+                                                                        <span className="float_lf">{obj.propertyNum || 0} {messages.meetConditionsTip}</span>
+                                                                        <i className="iconfont icon-list01 float_rt"/>
+                                                                    </div> : null
+                                                            }
+                                                            <div className="proj_l_box_button clearfix">
+                                                                    <span onClick={this.collect.bind(this, obj)} className={"float_lf" + (obj.favoriteFlag === 1 ? ' checked' : '')}>
+                                                                        <i className={"iconfont" + (obj.favoriteFlag === 1 ? ' icon-favorite2' : ' icon-favorite1')}/> {messages.marked}
+                                                                    </span>
+                                                                <button onClick={this.gaveAgencyHandler.bind(this, obj)}
+                                                                        className={"ipx_btn ipx_M_btn float_rt " + (obj.authorizeNumber === 0 || obj.authorizeNumber === null ? 'ipx_bluebd_btn' : 'ipx_white_btn')}>
+                                                                    {obj.authorizeNumber === 0 || obj.authorizeNumber === null ? messages.view : (messages.available)}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    )) : <NoData/>
+                            }
+                        </div>
+                        :
+                        <div className="project_gridbox clearfix">
+                            {
+                                this.state.projectList && this.state.projectList.list ? this.state.projectList.list.map((obj) => (
+                                        <div className="project_box" key={obj.projectId}>
+                                            <div className="project_box_main">
+                                                <div className="proj_box_head clearfix">
+                                                    <h3 className="float_lf text-elps">
+                                                        <a href="javascript:;" title={obj.title}>{obj.title}</a>
+                                                    </h3>
+                                                </div>
+                                                <div className="proj_box_m_img" style={{height: obj.lineHeight ? (obj.lineHeight + 'px') : 'auto'}}>
+                                                    <ul className="proj_box_m_imglist">
+                                                        <li>
+                                                            <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link to={{pathname: "projectListing/view/sales/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link to={{pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
+                                                        </li>
+                                                    </ul>
+                                                    <b className="proj_box_M_tag">{messages['projectType' + obj.projectType]}</b>
+                                                    <img className="proj_box_coverimg" src={obj.frontImage || DefaultImg} onLoad={this.imageAutoSize}/>
+                                                    <span className="v_align_mid" style={{lineHeight: obj.lineHeight ? (obj.lineHeight + 'px') : 'auto'}}/>
+                                                </div>
+                                                <div className="proj_box_m_info clearfix">
                                                 <span className="float_lf">{obj.countryName}
                                                     - {obj.regionFirstName}</span>
-                                                        <span onClick={this.collect.bind(this, obj)}
-                                                              className={"float_rt" + (obj.favoriteFlag === 1 ? ' checked' : '')}><i
-                                                            className={"iconfont" + (obj.favoriteFlag === 1 ? ' icon-favorite2' : ' icon-favorite1')}/> {messages.marked}</span>
-                                                    </div>
-                                                    <div className="proj_box_m_btn clearfix">
-                                                     <span className="float_lf">{obj.currencyName + ' ' + obj.minPrice + ' - ' + obj.maxPrice}</span>
-                                                        <button onClick={this.gaveAgencyHandler.bind(this, obj)}
-                                                                className={"ipx_btn ipx_M_btn float_rt " + (obj.authorizeNumber === 0 || obj.authorizeNumber === null ? 'ipx_bluebd_btn' : 'ipx_white_btn')}>
-                                                            {obj.authorizeNumber === 0 || obj.authorizeNumber === null ? messages.view : (messages.available)}
-                                                            </button>
-                                                    </div>
-                                                    {
-                                                        (Number(this.state.params.type) !== 1 || this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix">
-                                                                <span className="float_lf">{obj.propertyNum || 0} {messages.meetConditionsTip}</span>
-                                                                <i className="iconfont icon-list01 float_rt"/>
-                                                            </div> : null
-                                                    }
+                                                    <span onClick={this.collect.bind(this, obj)}
+                                                          className={"float_rt" + (obj.favoriteFlag === 1 ? ' checked' : '')}><i
+                                                        className={"iconfont" + (obj.favoriteFlag === 1 ? ' icon-favorite2' : ' icon-favorite1')}/> {messages.marked}</span>
                                                 </div>
+                                                <div className="proj_box_m_btn clearfix">
+                                                    <span className="float_lf">{obj.currencyName + ' ' + obj.minPrice + ' - ' + obj.maxPrice}</span>
+                                                    <button onClick={this.gaveAgencyHandler.bind(this, obj)}
+                                                            className={"ipx_btn ipx_M_btn float_rt " + (obj.authorizeNumber === 0 || obj.authorizeNumber === null ? 'ipx_bluebd_btn' : 'ipx_white_btn')}>
+                                                        {obj.authorizeNumber === 0 || obj.authorizeNumber === null ? messages.view : (messages.available)}
+                                                    </button>
+                                                </div>
+                                                {
+                                                    (Number(this.state.params.type) !== 1 || this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix">
+                                                            <span className="float_lf">{obj.propertyNum || 0} {messages.meetConditionsTip}</span>
+                                                            <i className="iconfont icon-list01 float_rt"/>
+                                                        </div> : null
+                                                }
                                             </div>
-                                        )) : <NoData/>
-                                }
-                            </div>
-                    }
-                    <p className={"loadmore " + (this.state.loadMoreState ? '' : 'hide')}>{messages.loadMore}</p>
-                </div>
+                                        </div>
+                                    )) : <NoData/>
+                            }
+                        </div>
+                }
+                <p className={"loadmore " + (this.state.loadMoreState ? '' : 'hide')}>{messages.loadMore}</p>
             </div>
         );
     }

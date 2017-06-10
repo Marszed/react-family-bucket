@@ -166,8 +166,7 @@ class Radio extends React.Component {
     };
 
     // 自动完成选中
-    onSelect = (type, value) => {
-        console.log(type, value);
+    onSelect = (type, value, e) => {
         if (type === 1){
             this.state.dataSourceObj1.map((obj) => {
                 if (value === obj.dicValue){
@@ -204,31 +203,46 @@ class Radio extends React.Component {
         return (
             <div className="proj_screen_cont_td ipx_ant_area">
                 <h3>{this.state.title}</h3>
-                <AutoComplete
-                    dataSource={this.state.dataSource1}
-                    className="ipx_select"
-                    style={{
-                        width: 200,
-                        marginBottom: 10 + 'px'
-                    }}
-                    value={this.state.value1}
-                    disabled={this.state.disabled1}
-                    onSelect={this.onSelect.bind(this, 1)}
-                    filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-                    placeholder={this.state.placeholder}
-                />
-                <AutoComplete
-                    dataSource={this.state.dataSource2}
-                    className="ipx_select"
-                    style={{
-                        width: 200
-                    }}
-                    value={this.state.value2}
-                    disabled={this.state.disabled2}
-                    onSelect={this.onSelect.bind(this, 2)}
-                    filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-                    placeholder={this.state.placeholder}
-                />
+                <div id="IPXArea1" style={{
+                    marginBottom: 10 + 'px',
+                    width: 200,
+                    position: 'relative',
+                    height: 40
+                }}>
+                    <AutoComplete
+                        dataSource={this.state.dataSource1}
+                        className="ipx_select"
+                        style={{
+                            width: 200
+                        }}
+                        value={this.state.value1}
+                        disabled={this.state.disabled1}
+                        onSelect={this.onSelect.bind(this, 1)}
+                        getPopupContainer={() => document.getElementById('IPXArea1')}
+                        filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                        placeholder={this.state.placeholder}
+                    />
+                </div>
+                <div id="IPXArea2" style={{
+                    marginBottom: 10 + 'px',
+                    width: 200,
+                    position: 'relative',
+                    height: 40
+                }}>
+                    <AutoComplete
+                        dataSource={this.state.dataSource2}
+                        className="ipx_select"
+                        style={{
+                            width: 200
+                        }}
+                        value={this.state.value2}
+                        disabled={this.state.disabled2}
+                        onSelect={this.onSelect.bind(this, 2)}
+                        getPopupContainer={() => document.getElementById('IPXArea2')}
+                        filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                        placeholder={this.state.placeholder}
+                    />
+                </div>
             </div>
         );
     }
