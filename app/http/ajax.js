@@ -56,7 +56,9 @@ export function asyncAwaitCall(obj) {
     //从localStorage中取出token
     let token = window.localStorage.getItem("token");
     //TODO 登录不需要token,获取验证码和判断账号是否需要验证码都不需要token
-    if (!token && obj.url.value.indexOf("login") === -1 && obj.url.value.indexOf("code") === -1) {
+    if (!token && obj.url.value.indexOf("login") === -1
+                && obj.url.value.indexOf("code") === -1
+                && obj.url.value.indexOf("region") === -1) {
         window.localStorage.clear();
         window.location = '/';
     }
