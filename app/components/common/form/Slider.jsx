@@ -88,8 +88,7 @@ class _Slider extends React.Component {
             this.props.onChange('commissionType', this.state.commissionType);
         }
         if(this.state.defaultValue instanceof Array){
-            this.props.onChange(this.props.name.replace('Max', ''), option[0]);
-            this.props.onChange(this.props.name.replace('Min', ''), option[1]);
+            this.props.onChange(this.props.name.replace('Min', ''), option[1], this.props.name.replace('Max', ''), option[0]);
         } else {
             this.props.onChange(this.props.name, option);
         }
