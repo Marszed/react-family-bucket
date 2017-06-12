@@ -4,7 +4,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import pureRender from "pure-render-decorator";
-import {isEqual, objCopy} from 'LIB/tool';
+import {isEqual, objCopy, setLocalStorage} from 'LIB/tool';
 import {injectIntl} from 'react-intl';
 import {setSearchOption} from 'REDUX/actions/project';
 import {setAutoComplete, setFormSlider, setFormRadioAuthorize, setFormSelectOrder, setFormSearch, setFormRadio, setFormSelect, setFormSelectCheck} from 'REDUX/actions/global';
@@ -44,6 +44,11 @@ class NavBread extends React.Component {
                 searchOption: nextProps.project.searchOption
             });
         }
+    }
+
+    componentWillUnmount() {
+        // 缓存筛选条件
+        setLocalStorage('searchParams', this.state.params);
     }
 
     // 数据收集

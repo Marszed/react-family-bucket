@@ -131,10 +131,13 @@ class Property extends React.Component {
     };
 
     // 数据收集
-    onChange = (name, value) => {
-        let temp = {};
+    onChange = (name, value, _name, _value) => {
+        let temp = {}, temp2 = {};
         temp[name] = name === 'isAbroad' ? (value ? !!(value - 1) : undefined) : value;
-        const searchOptionReset = Object.assign(objCopy(this.state.searchOption), temp);
+        if(_name && _value){
+            temp2[_name] = _name === 'isAbroad' ? (_value ? !!(_value - 1) : undefined) : _value;
+        }
+        const searchOptionReset = Object.assign(objCopy(this.state.searchOption), temp, temp2);
         this.setState({
             searchOption: searchOptionReset
         });
@@ -152,7 +155,7 @@ class Property extends React.Component {
                 flag = false;
             }
             // 价钱
-            if (option.priceMin && (option.priceMin > obj.price || option.priceMax < obj.price)) {
+            if ((option.priceMin && option.priceMax) && (option.priceMin*1000 > obj.price || option.priceMax*1000 < obj.price)) {
                 flag = false;
             }
             // 卧室数量

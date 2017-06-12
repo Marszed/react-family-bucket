@@ -105,7 +105,35 @@ class ExportProperty extends React.Component {
         propertiesFields.map((obj, index) => (
             propertiesFieldsParams += index === (propertiesFields.length - 1) ? obj : (obj + ',')
         ));
-        window.open(env.config.origin + INTERFACE.EXPORT + '/xls' + '?projectId=' + params.projectId + '&projectName=' + encodeURI(decode64(query.title)) + '&propertiesFields=' + propertiesFieldsParams);
+        // window.open(env.config.origin + INTERFACE.EXPORT + '/xls' + '?projectId=' + params.projectId + '&projectName=' + encodeURI(decode64(query.title)) + '&propertiesFields=' + propertiesFieldsParams);
+
+        let token = window.localStorage.getItem("token");
+        let responseHandler =  function (){
+            let xmlRequest = new XMLHttpRequest();
+            xmlRequest.open("post", env.config.origin + INTERFACE.EXPORT + '/xls', true);
+            xmlRequest.responseType = "blob";
+            xmlRequest.setRequestHeader("Content-Type", "application/json");
+            xmlRequest.setRequestHeader("Authorization",  'bearer ' + token);
+            xmlRequest.onreadystatechange = function(e) {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = this.response;
+                    var url = window.URL.createObjectURL(response);
+                    var tempLink = document.createElement('a');
+                    tempLink.href = url;
+                    tempLink.setAttribute('download', decode64(query.title) + '.xls');
+                    tempLink.click();
+                }
+            }
+            xmlRequest.send(JSON.stringify(
+                {
+                    "propertiesFields": propertiesFields,
+                    "projectId" : params.projectId,
+                    "projectName" : decode64(query.title)
+                })
+            );
+        }.bind(this)();
+
+
     };
     closeHandler = (flag) => (
         this.setState({

@@ -185,7 +185,7 @@ class PersonInfo extends React.Component {
              }));
              */
             if (info.file.response.header && info.file.response.header.code === '0000'){
-                const temp = Object.assign(objCopy(this.state.userInfo), {profileImage: objCopy(info.file.response).data});
+                const temp = Object.assign(objCopy(this.state.userInfo), {profileImage: objCopy(info.file.response).data + "?v=" + (new Date()).getTime()});
                 // 从接口返回中取出url替换loading
                 this.setState({
                     userInfo: temp

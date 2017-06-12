@@ -224,7 +224,6 @@ class Radio extends React.Component {
                     />
                 </div>
                 <div id="IPXArea2" style={{
-                    marginBottom: 10 + 'px',
                     width: 200,
                     position: 'relative',
                     height: 40

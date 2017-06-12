@@ -6,6 +6,8 @@ import {injectIntl} from "react-intl";
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
 import NoData from 'COMPONENT/common/noData';
+import FixSlider from 'COMPONENT/common/fixSlider/slider';
+
 
 class Document extends React.Component {
     constructor(props) {
@@ -65,6 +67,21 @@ class Document extends React.Component {
             }
         }.bind(this)();
     };
+    viewHandle(index, array) {
+        let temp = [];
+        if (array.length) {
+            for (let i = 0, len = array.length; i < len; i++) {
+                temp.push({
+                    "id": array[i].resourceId,
+                    "fileName": array[i].fileKey,
+                    "url": array[i].resourceUrl
+                });
+            }
+            if(this.refs.slider){
+                this.refs.slider.updateSilderHandle(temp, index);
+            }
+        }
+    }
 
     render = () => {
         const {messages} = this.props.intl;
@@ -77,8 +94,8 @@ class Document extends React.Component {
             {/*户型图*/}
             <ul className="clearfix">
                 {
-                    this.state.resourceList2 ? this.state.resourceList2.map((obj) => (
-                        <li key={obj.resourceId}>
+                    this.state.resourceList2 ? this.state.resourceList2.map((obj, index) => (
+                        <li key={obj.resourceId} onClick={this.viewHandle.bind(this, index, this.state.resourceList2)}>
                             <div className="proj_creat_imgbox">
                                 <img src={obj.resourceUrl}/>
                             </div>
@@ -87,6 +104,9 @@ class Document extends React.Component {
                     )) : null
                 }
             </ul>
+            {
+                this.state.resourceList2 && this.state.resourceList2.length ? <FixSlider speed={1.5} delay={3} ref="slider" pause={true} autoplay={false} dots={false} noDelete={true} arrows={true}/> : null
+            }
             {/*户型图-pdf*/}
             <table className="proj_file_list" cellPadding="0" cellSpacing="0">
                 <tr className="proj_file_list_head">
