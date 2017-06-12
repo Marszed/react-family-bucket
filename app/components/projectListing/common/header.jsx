@@ -4,6 +4,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {setFormBox} from 'REDUX/actions/project';
+import {setFormRadioType} from 'REDUX/actions/global';
 import {Link} from 'react-router';
 import {isEqual, getLocalStorage} from 'LIB/tool';
 import {injectIntl} from 'react-intl';
@@ -22,6 +23,10 @@ class Header extends React.Component {
             this.setState({
                 params: nextProps.params
             });
+            this.props.dispatch(setFormRadioType({
+                key: 'viewType',
+                value: 0
+            }));
         }
         if (nextProps.project.projectList && !isEqual(nextProps.project.projectList, this.state.projectList)) {
             this.setState({
