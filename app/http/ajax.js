@@ -61,7 +61,6 @@ export function asyncAwaitCall(obj) {
         window.location = '/';
     }
     let headers = Object.assign(obj.headers || {}, {Authorization: 'bearer ' + token});
-    // let headers = obj.headers;
     return new Promise(function (resolve) {
         // ==========发起请求前-开启loading=============
         loadingHandler(obj, true);

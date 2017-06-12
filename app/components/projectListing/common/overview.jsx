@@ -7,16 +7,13 @@ import {Link} from 'react-router';
 import pureRender from "pure-render-decorator";
 import {isEqual, objCopy, encode64, formatMoney, debounce} from 'LIB/tool';
 import {injectIntl} from 'react-intl';
-import {setCountry, setProjectList} from 'REDUX/actions/project';
+import {setCountry, setProjectList, setFormBox} from 'REDUX/actions/project';
 import {showToast} from 'REDUX/actions/global';
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
 import NavBread from './navBread';
 import NoData from 'COMPONENT/common/noData';
 import DefaultImg from 'ASSET/img/defaultProject.jpg';
-import Agreement from './agreement';
-import GaveAgency from './gaveAgency';
-
 
 //前一次滚动的垂直距离,用于判断垂直还是水平滚动
 let beforeScrollTop = 0;
@@ -57,6 +54,13 @@ class Overview extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        let projectList = objCopy(this.state.projectList), nextProjectList = objCopy(nextProps.project.projectList);
+        if (projectList && projectList.list){
+            projectList.list.map((obj) => (delete obj.lineHeight));
+        }
+        if (nextProjectList && nextProjectList.list){
+            nextProjectList.list.map((obj) => (delete obj.lineHeight));
+        }
         // 路由变化
         if (nextProps.params && !isEqual(nextProps.params, this.state.params)) {
             console.log('params======>>>>>>>>>>>');
@@ -66,8 +70,7 @@ class Overview extends React.Component {
             });
         }
         // 项目列表数据变化
-        if (nextProps.project.projectList && !isEqual(nextProps.project.projectList, this.state.projectList)) {
-            console.log('---------121321321321');
+        if (nextProps.project.projectList && !isEqual(nextProjectList, projectList)) {
             this.setState({
                 projectList: nextProps.project.projectList
             });
@@ -164,13 +167,24 @@ class Overview extends React.Component {
                     content: (option.favoriteFlag !== 1 ? '' : messages.cancel) + messages.marked + messages.success,
                     state: 1
                 }));
-                let temp = objCopy(this.state.projectList);
-                temp.list.map((obj) => {
-                    if (obj.projectId === option.projectId){
-                        obj.favoriteFlag = option.favoriteFlag === 1 ? 0 : 1;
-                        return false;
-                    }
-                });
+                let temp = objCopy(this.state.projectList), array = [];
+                // 如果是已收藏列，需要移除
+                if (this.props.params.type == 3){
+                    temp.list.map((obj) => {
+                        if (obj.projectId !== option.projectId){
+                            array.push(obj);
+                        }
+                    });
+                    temp.list = array;
+                    temp.total -= 1;
+                } else {
+                    temp.list.map((obj) => {
+                        if (obj.projectId === option.projectId){
+                            obj.favoriteFlag = option.favoriteFlag === 1 ? 0 : 1;
+                            return false;
+                        }
+                    });
+                }
                 temp.favoriteNumber = option.favoriteFlag === 1 ? (temp.favoriteNumber - 1) : (temp.favoriteNumber + 1);
                 this.props.dispatch(setProjectList(temp));
             }
@@ -179,16 +193,6 @@ class Overview extends React.Component {
     // 查看项目详情
     gaveAgencyHandler = (obj) => {
         this.context.router.push({pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}});
-    };
-    // 已阅读并且同意协议
-    agreementHandler = (flag) => {
-        if (flag === false){
-            this.props.dispatch(showToast({
-                content: this.props.intl.messages.agreementTip2,
-                state: 2
-            }));
-        }
-        this.refs.agreement.hideHandler(flag);
     };
     // 滚动加载
     onScroll(event){
@@ -204,159 +208,61 @@ class Overview extends React.Component {
             }, 'append');
         }
     }
-
     // 图片自适应
     imageAutoSize = (e) => {
-        const lineHeight = e.target.height;
-        if(lineHeight == this.state.lineHeight){
+        const lineHeight = 3 * (e.target.width) / 4;
+        if(lineHeight == this.state.lineHeight || lineHeight > 300){
             return false;
         }
         this.setState({
             lineHeight: lineHeight
         });
-        this.autoImage();
+        this.autoImage('', lineHeight);
     };
-    autoImage = (list) => {
+    autoImage = (list, lineHeight) => {
         let projectList = objCopy(list || this.state.projectList);
-        projectList.list.map((obj) => {
-            if (!obj.lineHeight){
-                obj.lineHeight = this.state.lineHeight;
-            }
-        });
-        this.setState({
-            projectList: projectList
-        });
+        if (projectList.list && projectList.list.length){
+            projectList.list.map((obj) => {
+                if (!obj.lineHeight){
+                    obj.lineHeight = lineHeight || this.state.lineHeight;
+                }
+            });
+            this.setState({
+                projectList: projectList
+            });
+        }
+    };
+    // 展开缩进筛选表单
+    formBoxHandler = () => {
+        if (this.props.project.formBox !== -1000){
+            this.props.dispatch(setFormBox(-1000));
+        }
     };
 
     render() {
         const {messages} = this.props.intl;
         return (
-            <div>
-                <div className="agency_proj_cont" style={{top: Number(this.state.params.type) === 1 ? '120px' : '60px'}} onScroll={this.onScroll.bind(this)}>
-                    <NavBread params={this.state.params}/>
-                    {
-                        this.state.formRadioType === 1 ?
-                            <div className="project_listbox clearfix">
-                                {
-                                    this.state.projectList && this.state.projectList.list ? this.state.projectList.list.map((obj) => (
-                                            <table className="project_l_box" cellPadding="0" cellSpacing="0" key={obj.projectId}>
-                                                <tr>
-                                                    <td width="320">
-                                                        <div className="proj_l_box_lf">
-                                                            <img src={obj.frontImage || DefaultImg}/>
-                                                            <span
-                                                                className="proj_l_imgtag">{messages['projectType' + obj.projectType]}</span>
-                                                            <span className="v_align_mid"/>
-                                                        </div>
-                                                    </td>
-                                                    <td className="proj_l_box_rt">
-                                                        <div className="proj_l_box_top clearfix">
-                                                            <h3 className="text-elps"><a href="#">{obj.title}</a></h3>
-                                                            <ul className="proj_box_toplist">
-                                                                <li>
-                                                                    <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
-                                                                </li>
-                                                                <li>
-                                                                    <Link to={{pathname: "projectListing/view/sales/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
-                                                                </li>
-                                                                <li>
-                                                                    <Link to={{pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div className="proj_l_box_bottom">
-                                                            <div className="float_lf">
-                                                        <span className="proj_l_box_address">{obj.countryName}
-                                                            - {obj.regionFirstName} - {obj.detailAddr}</span>
-                                                                <table>
-                                                                    <tr>
-                                                                        <td><strong>{messages.priceRange}</strong></td>
-                                                                        <td>{obj.currencyName} {formatMoney(obj.minPrice)} - {obj.currencyName} {formatMoney(obj.maxPrice)}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><strong>{messages.targetDistance}</strong></td>
-                                                                        <td>{(obj.targetDistance + 'km') || ''}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><strong>{messages.area}</strong></td>
-                                                                        <td>{obj.minArea !== null ? obj.minArea -  obj.maxArea : 0 } m2</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td><strong>{messages.purchaseCount}</strong></td>
-                                                                        <td><strong className="ipxblue_txt">{obj.noSoldNum}</strong></td>
-                                                                    </tr>
-                                                                </table>
-                                                            </div>
-                                                            <div className="float_rt">
-                                                                <div className="sellsPerformance">
-                                                                    <ul>
-                                                                        {
-                                                                            obj.noSoldNum && obj.noSoldNum !== 0 ?
-                                                                                <li className="ipxblue_txt" style={{left: 0 + '%'}}>{messages.noSoldNum + ' ' + obj.noSoldNum}</li> : ''
-                                                                        }
-                                                                        {
-                                                                            obj.reservedNum && obj.reservedNum !== 0 ? <li className="ipxyellow_txt"
-                                                                                                                           style={{left: 100 * (obj.noSoldNum / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}>
-                                                                                    {messages.reservedNum + ' ' + obj.reservedNum}</li> : ''
-                                                                        }
-                                                                        {
-                                                                            obj.soldNum && obj.soldNum !== 0 ? <li className="ipxred_txt"
-                                                                                                                   style={{left: 100 * ((obj.noSoldNum + obj.reservedNum) / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}>
-                                                                                    {messages.soldNum + ' ' + obj.soldNum}</li> : ''
-                                                                        }
-
-                                                                    </ul>
-                                                                    <div className="sellper_chart">
-                                                                        {
-                                                                            obj.noSoldNum && obj.noSoldNum !== 0 ? <span className="sell_available"
-                                                                                                                         style={{width: 100 * (obj.noSoldNum / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}/> : ''
-                                                                        }
-                                                                        {
-                                                                            obj.reservedNum && obj.reservedNum !== 0 ? <span className="sell_booking"
-                                                                                                                             style={{width: 100 * (obj.reservedNum / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}/> : ''
-                                                                        }
-                                                                        {
-                                                                            obj.soldNum && obj.soldNum !== 0 ? <span className="sell_sold"
-                                                                                                                     style={{width: 100 * (obj.soldNum / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}/> : ''
-                                                                        }
-                                                                    </div>
-                                                                </div>
-                                                                {
-                                                                    (Number(this.state.params.type) !== 1 || this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix">
-                                                                            <span className="float_lf">{obj.propertyNum || 0} {messages.meetConditionsTip}</span>
-                                                                            <i className="iconfont icon-list01 float_rt"/>
-                                                                        </div> : null
-                                                                }
-                                                                <div className="proj_l_box_button clearfix">
-                                                                    <span onClick={this.collect.bind(this, obj)} className={"float_lf" + (obj.favoriteFlag === 1 ? ' checked' : '')}>
-                                                                        <i className={"iconfont" + (obj.favoriteFlag === 1 ? ' icon-favorite2' : ' icon-favorite1')}/> {messages.marked}
-                                                                    </span>
-                                                                    <button onClick={this.gaveAgencyHandler.bind(this, obj)}
-                                                                            className={"ipx_btn ipx_M_btn float_rt " + (obj.authorizeNumber === 0 || obj.authorizeNumber === null ? 'ipx_bluebd_btn' : 'ipx_white_btn')}>
-                                                                            {obj.authorizeNumber === 0 || obj.authorizeNumber === null ? messages.view : (messages.available)}
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        )) : <NoData/>
-                                }
-                            </div>
-                            :
-                            <div className="project_gridbox clearfix">
-                                {
-                                    this.state.projectList && this.state.projectList.list ? this.state.projectList.list.map((obj) => (
-                                            <div className="project_box" key={obj.projectId}>
-                                                <div className="project_box_main">
-                                                    <div className="proj_box_head clearfix">
-                                                        <h3 className="float_lf text-elps">
-                                                            <a href="javascript:;" title={obj.title}>{obj.title}</a>
-                                                        </h3>
+            <div className="agency_proj_cont" style={{top: Number(this.state.params.type) === 1 ? '120px' : '60px'}} onScroll={this.onScroll.bind(this)} onMouseEnter={this.formBoxHandler}>
+                <NavBread params={this.state.params}/>
+                {
+                    this.state.formRadioType === 1 ?
+                        <div className="project_listbox clearfix">
+                            {
+                                this.state.projectList && this.state.projectList.list ? this.state.projectList.list.map((obj) => (
+                                        <table className="project_l_box" cellPadding="0" cellSpacing="0" key={obj.projectId}>
+                                            <tr>
+                                                <td width="320">
+                                                    <div className="proj_l_box_lf">
+                                                        <img src={obj.frontImage || DefaultImg}/>
+                                                        <span
+                                                            className="proj_l_imgtag">{messages['projectType' + obj.projectType]}</span>
+                                                        <span className="v_align_mid"/>
                                                     </div>
-                                                    <div className="proj_box_m_img" style={{height: obj.lineHeight ? (obj.lineHeight + 'px') : 'auto'}}>
-                                                        <ul className="proj_box_m_imglist">
+                                                </td>
+                                                <td className="proj_l_box_rt">
+                                                    <div className="proj_l_box_top clearfix">
+                                                        <h3 className="text-elps"><a href="#">{obj.title}</a></h3>
+                                                        <ul className="proj_box_toplist">
                                                             <li>
                                                                 <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
                                                             </li>
@@ -367,40 +273,141 @@ class Overview extends React.Component {
                                                                 <Link to={{pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
                                                             </li>
                                                         </ul>
-                                                        <b className="proj_box_M_tag">{messages['projectType' + obj.projectType]}</b>
-                                                        <img className="proj_box_coverimg" src={obj.frontImage || DefaultImg} onLoad={this.imageAutoSize}/>
-                                                        <span className="v_align_mid" style={{lineHeight: obj.lineHeight ? (obj.lineHeight + 'px') : 'auto'}}/>
                                                     </div>
-                                                    <div className="proj_box_m_info clearfix">
+                                                    <div className="proj_l_box_bottom">
+                                                        <div className="float_lf">
+                                                        <span className="proj_l_box_address">{obj.countryName}
+                                                            - {obj.regionFirstName} - {obj.detailAddr}</span>
+                                                            <table>
+                                                                <tr>
+                                                                    <td><strong>{messages.priceRange}</strong></td>
+                                                                    <td>{obj.currencyName} {formatMoney(obj.minPrice)} - {obj.currencyName} {formatMoney(obj.maxPrice)}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><strong>{messages.targetDistance}</strong></td>
+                                                                    <td>{(obj.targetDistance + 'km') || ''}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><strong>{messages.area}</strong></td>
+                                                                    <td>{obj.minArea !== null ? obj.minArea -  obj.maxArea : 0 } m2</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><strong>{messages.purchaseCount}</strong></td>
+                                                                    <td><strong className="ipxblue_txt">{obj.noSoldNum}</strong></td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                        <div className="float_rt">
+                                                            <div className="sellsPerformance">
+                                                                <ul>
+                                                                    {
+                                                                        obj.noSoldNum && obj.noSoldNum !== 0 ?
+                                                                            <li className="ipxblue_txt" style={{left: 0 + '%'}}>{messages.noSoldNum + ' ' + obj.noSoldNum}</li> : ''
+                                                                    }
+                                                                    {
+                                                                        obj.reservedNum && obj.reservedNum !== 0 ? <li className="ipxyellow_txt"
+                                                                                                                       style={{left: 100 * (obj.noSoldNum / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}>
+                                                                                {messages.reservedNum + ' ' + obj.reservedNum}</li> : ''
+                                                                    }
+                                                                    {
+                                                                        obj.soldNum && obj.soldNum !== 0 ? <li className="ipxred_txt"
+                                                                                                               style={{left: 100 * ((obj.noSoldNum + obj.reservedNum) / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}>
+                                                                                {messages.soldNum + ' ' + obj.soldNum}</li> : ''
+                                                                    }
+
+                                                                </ul>
+                                                                <div className="sellper_chart">
+                                                                    {
+                                                                        obj.noSoldNum && obj.noSoldNum !== 0 ? <span className="sell_available"
+                                                                                                                     style={{width: 100 * (obj.noSoldNum / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}/> : ''
+                                                                    }
+                                                                    {
+                                                                        obj.reservedNum && obj.reservedNum !== 0 ? <span className="sell_booking"
+                                                                                                                         style={{width: 100 * (obj.reservedNum / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}/> : ''
+                                                                    }
+                                                                    {
+                                                                        obj.soldNum && obj.soldNum !== 0 ? <span className="sell_sold"
+                                                                                                                 style={{width: 100 * (obj.soldNum / (obj.noSoldNum + obj.reservedNum + obj.soldNum)).toFixed(2) + '%'}}/> : ''
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                            {
+                                                                (Number(this.state.params.type) !== 1 || this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix">
+                                                                        <span className="float_lf">{obj.propertyNum || 0} {messages.meetConditionsTip}</span>
+                                                                        <i className="iconfont icon-list01 float_rt"/>
+                                                                    </div> : null
+                                                            }
+                                                            <div className="proj_l_box_button clearfix">
+                                                                    <span onClick={this.collect.bind(this, obj)} className={"float_lf" + (obj.favoriteFlag === 1 ? ' checked' : '')}>
+                                                                        <i className={"iconfont" + (obj.favoriteFlag === 1 ? ' icon-favorite2' : ' icon-favorite1')}/> {messages.marked}
+                                                                    </span>
+                                                                <button onClick={this.gaveAgencyHandler.bind(this, obj)}
+                                                                        className={"ipx_btn ipx_M_btn float_rt " + (obj.authorizeNumber === 0 || obj.authorizeNumber === null ? 'ipx_bluebd_btn' : 'ipx_white_btn')}>
+                                                                    {obj.authorizeNumber === 0 || obj.authorizeNumber === null ? messages.view : (messages.available)}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    )) : <NoData/>
+                            }
+                        </div>
+                        :
+                        <div className="project_gridbox clearfix">
+                            {
+                                this.state.projectList && this.state.projectList.list ? this.state.projectList.list.map((obj) => (
+                                        <div className="project_box" key={obj.projectId}>
+                                            <div className="project_box_main">
+                                                <div className="proj_box_head clearfix">
+                                                    <h3 className="float_lf text-elps">
+                                                        <a href="javascript:;" title={obj.title}>{obj.title}</a>
+                                                    </h3>
+                                                </div>
+                                                <div className="proj_box_m_img" style={{height: obj.lineHeight ? (obj.lineHeight + 'px') : 'auto'}}>
+                                                    <ul className="proj_box_m_imglist">
+                                                        <li>
+                                                            <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link to={{pathname: "projectListing/view/sales/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link to={{pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
+                                                        </li>
+                                                    </ul>
+                                                    <b className="proj_box_M_tag">{messages['projectType' + obj.projectType]}</b>
+                                                    <img className="proj_box_coverimg" src={obj.frontImage || DefaultImg} onLoad={this.imageAutoSize}/>
+                                                    <span className="v_align_mid" style={{lineHeight: obj.lineHeight ? (obj.lineHeight + 'px') : 'auto'}}/>
+                                                </div>
+                                                <div className="proj_box_m_info clearfix">
                                                 <span className="float_lf">{obj.countryName}
                                                     - {obj.regionFirstName}</span>
-                                                        <span onClick={this.collect.bind(this, obj)}
-                                                              className={"float_rt" + (obj.favoriteFlag === 1 ? ' checked' : '')}><i
-                                                            className={"iconfont" + (obj.favoriteFlag === 1 ? ' icon-favorite2' : ' icon-favorite1')}/> {messages.marked}</span>
-                                                    </div>
-                                                    <div className="proj_box_m_btn clearfix">
-                                                     <span className="float_lf">{obj.currencyName + ' ' + obj.minPrice + ' - ' + obj.maxPrice}</span>
-                                                        <button onClick={this.gaveAgencyHandler.bind(this, obj)}
-                                                                className={"ipx_btn ipx_M_btn float_rt " + (obj.authorizeNumber === 0 || obj.authorizeNumber === null ? 'ipx_bluebd_btn' : 'ipx_white_btn')}>
-                                                            {obj.authorizeNumber === 0 || obj.authorizeNumber === null ? messages.view : (messages.available)}
-                                                            </button>
-                                                    </div>
-                                                    {
-                                                        (Number(this.state.params.type) !== 1 || this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix">
-                                                                <span className="float_lf">{obj.propertyNum || 0} {messages.meetConditionsTip}</span>
-                                                                <i className="iconfont icon-list01 float_rt"/>
-                                                            </div> : null
-                                                    }
+                                                    <span onClick={this.collect.bind(this, obj)}
+                                                          className={"float_rt" + (obj.favoriteFlag === 1 ? ' checked' : '')}><i
+                                                        className={"iconfont" + (obj.favoriteFlag === 1 ? ' icon-favorite2' : ' icon-favorite1')}/> {messages.marked}</span>
                                                 </div>
+                                                <div className="proj_box_m_btn clearfix">
+                                                    <span className="float_lf">{obj.currencyName + ' ' + obj.minPrice + ' - ' + obj.maxPrice}</span>
+                                                    <button onClick={this.gaveAgencyHandler.bind(this, obj)}
+                                                            className={"ipx_btn ipx_M_btn float_rt " + (obj.authorizeNumber === 0 || obj.authorizeNumber === null ? 'ipx_bluebd_btn' : 'ipx_white_btn')}>
+                                                        {obj.authorizeNumber === 0 || obj.authorizeNumber === null ? messages.view : (messages.available)}
+                                                    </button>
+                                                </div>
+                                                {
+                                                    (Number(this.state.params.type) !== 1 || this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix">
+                                                            <span className="float_lf">{obj.propertyNum || 0} {messages.meetConditionsTip}</span>
+                                                            <i className="iconfont icon-list01 float_rt"/>
+                                                        </div> : null
+                                                }
                                             </div>
-                                        )) : <NoData/>
-                                }
-                            </div>
-                    }
-                    <p className={"loadmore " + (this.state.loadMoreState ? '' : 'hide')}>{messages.loadMore}</p>
-                </div>
-                <Agreement ref="agreement" messages={messages} submit={this.agreementHandler.bind(this)}/>
-                <GaveAgency data={this.state.agentData} messages={messages} agentTime={this.state.agentTime}/>
+                                        </div>
+                                    )) : <NoData/>
+                            }
+                        </div>
+                }
+                <p className={"loadmore " + (this.state.loadMoreState ? '' : 'hide')}>{messages.loadMore}</p>
             </div>
         );
     }

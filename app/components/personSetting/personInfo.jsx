@@ -33,7 +33,7 @@ class PersonInfo extends React.Component {
                 "numberLimit": 1,
                 "action": '/agent/sys/personal/profileImage',
                 "fileSize": 8,
-                "accept": "image/jpeg,image/png"
+                "accept": "image/jpeg,image/png,image/gif,image/bmp,image/x-icon"
             })
         };
     }

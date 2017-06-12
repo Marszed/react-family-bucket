@@ -3,6 +3,7 @@
  */
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import {setFormBox} from 'REDUX/actions/project';
 import {Link} from 'react-router';
 import {isEqual, getLocalStorage} from 'LIB/tool';
 import {injectIntl} from 'react-intl';
@@ -28,18 +29,23 @@ class Header extends React.Component {
             });
         }
     }
-
+    // 展开缩进筛选表单
+    formBoxHandler = () => {
+        if (this.props.project.formBox !== -1000){
+            this.props.dispatch(setFormBox(-1000));
+        }
+    };
     render() {
         const {messages} = this.props.intl;
 
-        return (<div className="dev_cont_title clearfix">
+        return (<div className="dev_cont_title clearfix" onMouseEnter={this.formBoxHandler}>
             <div className="dev_cont_titleBg">
                 <h1 className="float_lf">{messages.projectListing}</h1>
                 <ul>
                     {
                         this.state.userInfo && this.state.userInfo.allFlag === true ? <li className={Number(this.state.params.type) === 1 ? 'active' : ''}>
-                            <Link to="/projectListing/1/country.000/overview">{messages.ipxMarket}</Link>
-                        </li>: null
+                                <Link to="/projectListing/1/country.000/overview">{messages.ipxMarket}</Link>
+                            </li>: null
                     }
                     <li className={Number(this.state.params.type) === 2 ? 'active' : ''}>
                         <Link to="/projectListing/2/country.000/overview">{messages.available + ' '}<span>({this.state.projectList ? this.state.projectList.authorizeNumber : 0})</span></Link>

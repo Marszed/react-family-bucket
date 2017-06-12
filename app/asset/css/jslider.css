@@ -14,9 +14,15 @@
 .ipx_ant .ant-slider {
     border-top-color: #f8f8f8;
     border-bottom-color: #f8f8f8;
+    background-color: #fff;
+}
+
+.ipx_ant .ant-slider:hover {
+    background-color: #fff;
 }
 
 .ipx_ant .ant-slider-track{
+    top: 2px;
     background-color: #00afb4;
 }
 

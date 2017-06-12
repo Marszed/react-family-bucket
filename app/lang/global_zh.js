@@ -172,7 +172,7 @@ export default {
     available: '可售',
     reserved: '已预订',
     sold: '已售',
-    meetConditionsTip: '套独栋别墅符合搜索条件',
+    meetConditionsTip: '套不动产符合搜索条件',
     showAuthorizedProject: '显示已授权项目',
     propertyPrice: '不动产价格',
     auDollar: '澳元',
