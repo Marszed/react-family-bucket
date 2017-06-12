@@ -7,7 +7,7 @@ import {Link} from 'react-router';
 import pureRender from "pure-render-decorator";
 import {isEqual, objCopy, encode64, formatMoney, debounce} from 'LIB/tool';
 import {injectIntl} from 'react-intl';
-import {setCountry, setProjectList} from 'REDUX/actions/project';
+import {setCountry, setProjectList, setFormBox} from 'REDUX/actions/project';
 import {showToast} from 'REDUX/actions/global';
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
@@ -229,12 +229,18 @@ class Overview extends React.Component {
             projectList: projectList
         });
     };
+    // 展开缩进筛选表单
+    formBoxHandler = () => {
+        if (this.props.project.formBox !== -1000){
+            this.props.dispatch(setFormBox(-1000));
+        }
+    };
 
     render() {
         const {messages} = this.props.intl;
         return (
             <div>
-                <div className="agency_proj_cont" style={{top: Number(this.state.params.type) === 1 ? '120px' : '60px'}} onScroll={this.onScroll.bind(this)}>
+                <div className="agency_proj_cont" style={{top: Number(this.state.params.type) === 1 ? '120px' : '60px'}} onScroll={this.onScroll.bind(this)} onMouseEnter={this.formBoxHandler}>
                     <NavBread params={this.state.params}/>
                     {
                         this.state.formRadioType === 1 ?
