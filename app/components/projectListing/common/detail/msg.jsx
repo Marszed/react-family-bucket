@@ -126,8 +126,6 @@ class Msg extends React.Component {
 
     render = () => {
         const {messages} = this.props.intl;
-        let noSoldWidth = 100 * (this.state.available / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2);
-        noSoldWidth = noSoldWidth < 12 ? 12 : noSoldWidth > 88 ? 88 : noSoldWidth;
         const projectType = [messages.projectType1, messages.projectType2, messages.projectType3, messages.projectType4];
         let sellsPerformance ;
         if (this.state.reserved + this.state.available + this.state.sold === 0){
@@ -145,6 +143,8 @@ class Msg extends React.Component {
                     </div>
                 </div>;
         } else {
+            let noSoldWidth = 100 * (this.state.available / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2);
+            noSoldWidth = noSoldWidth < 12 ? 12 : noSoldWidth > 88 ? 88 : noSoldWidth;
             sellsPerformance =
                 <div className="sellsPerformance">
                     <ul>
