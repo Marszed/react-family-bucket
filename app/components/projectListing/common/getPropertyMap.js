@@ -1851,6 +1851,8 @@ const propertyMap = ((messages, ValidateTool)=>{
         propertyStatusName: [messages.available, messages.reserved, messages.sold],
         // yesNo
         yesNo: [messages.yes, messages.no],
+        // 海外是否可购
+        isAbroadName: [messages.isAbroadYes, messages.isAbroadNo],
         // 不动产状态
         propertyStatusWord: [messages.available, messages.reserved, messages.sold],
         // 货币单位
@@ -1880,6 +1882,13 @@ const propertyMap = ((messages, ValidateTool)=>{
             AU: 'm',
             UK: 'ft',
             US: 'ft'
+        },
+        // 国家代码
+        countryCode: {
+            'country.001': 'CN',
+            'country.002': 'US',
+            'country.003': 'UK',
+            'country.004': 'AU'
         },
         // 模板文件下载地址
         excelFilePath: '/xlsx'

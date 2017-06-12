@@ -2,7 +2,7 @@
  * Created by marszed on 2017/1/24.
  */
 import React, {PropTypes} from 'react';
-import {formatMoney} from 'LIB/tool';
+import {formatMoney, langPackageInject, objCopy} from 'LIB/tool';
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
 import InlineSlider from 'COMPONENT/common/inlineSlider/slider';
@@ -10,7 +10,31 @@ import InlineSlider from 'COMPONENT/common/inlineSlider/slider';
 class ViewProperty extends React.Component {
     constructor(props){
         super(props);
+        const {propertyMap, query} = this.props;
+        const country = propertyMap.countryCode[query.countryCode];
+        const data = propertyMap[country][query.projectType];
+        let messages = objCopy(this.props.messages);
+        const zhFlag = langPackageInject().indexOf('zh') === -1; //  true 英文 false 中文
+        if(zhFlag){
+            if (country.countryCode == 'US'){
+                messages.ownerCrop = 'HOA';
+            }
+            if (country.countryCode == 'AU'){
+                messages.ownerCrop = 'Body Corporation';
+                messages.buildPrice = 'House Price';
+            }
+        }
         this.state = {
+            query: query,
+            messages: messages,
+            country: country,
+            currencyName: propertyMap.monUnit[zhFlag ? 'en' : 'zh'][country],
+            projectType: query.projectType,
+            data: data,
+            propertyMap: propertyMap,
+            areaUnit: propertyMap.areaUnit,
+            lengthUnit: propertyMap.lengthUnit,
+            propertyStatusClass: ['ipxblue_txt', 'ipxyellow_txt', 'ipxred_txt'],
             detail: '',
             hide: true
         };
@@ -54,128 +78,173 @@ class ViewProperty extends React.Component {
         })
     );
     render = () => {
-        const {messages, countryName} = this.props;
-        const {query} = this.context.router.location;
-        const {detail} = this.state;
-        const staticMessages = {
-            aspectName: [messages.EAST, messages.WEST, messages.SOUTH, messages.NORTH, messages.SOUTHEAST, messages.NORTHEAST, messages.SOUTHWEST, messages.NORTHWEST, messages.EAST_WEST, messages.NORTH_SOUTH, messages.central],
-            // 房屋景观
-            houseViewName: [messages.cityView, messages.seaView, messages.mountainView, messages.parkView, messages.waterView],
-            // propertyStatusName
-            propertyStatusName: [messages.available, messages.reserved, messages.sold],
-            // yesNo
-            yesNo: [messages.yes, messages.no],
-            // 不动产状态
-            propertyStatusWord: [messages.available, messages.reserved, messages.sold],
-            // 面积单位
-            areaUnit: {
-                AU: '(㎡)',
-                UK: '(Ft²)',
-                US: '(Ft²)'
-            },
-            propertyStatusClass: ['ipxblue_txt', 'ipxyellow_txt', 'ipxred_txt']
-        };
+        const {detail, propertyMap, messages, data, areaUnit, lengthUnit, currencyName, country, query} = this.state;
         return <div className={"Property_details_slide" + (this.state.hide ? ' hide' : '')}>
             <div className="Property_details_head">
                 <a href="javascript:;" className="proj_preview_close float_lf" onClick={this.closeHandler}><i className="iconfont icon-close"/></a>
                 <h1 className="float_lf">#{detail.lot}</h1>
-                <b className={"float_lf " + (staticMessages.propertyStatusClass[detail.propertyStatus - 0 - 1])}>{staticMessages.propertyStatusWord[detail.propertyStatus - 0 - 1]}</b>
+                <b className={"float_lf " + (this.state.propertyStatusClass[detail.propertyStatus - 0 - 1])}>{propertyMap.propertyStatusWord[detail.propertyStatus - 0 - 1]}</b>
             </div>
             <div className="Property_details_body">
                 <ul className="Property_details_iconbox">
-                    <li><b>{detail.bed || 0}</b><i className="iconfont icon-bedroom"/><em>{messages.beds}</em></li>
-                    <li><b>{detail.carSpace || 0}</b><i className="iconfont icon-Garage"/><em>{messages.carSpace}</em></li>
-                    <li><b>{detail.bath || 0}</b><i className="iconfont icon-washroom"/><em>{messages.baths}</em></li>
-                    <li><b>{detail.study || 0}</b><i className="iconfont icon-bookroom"/><em>{messages.studys}</em></li>
-                    <li><b>{detail.storageNo || 0}</b><i className="iconfont icon-storehouse"/><em>{messages.storageNumber}</em></li>
-
+                    {
+                        data.secondary.map((obj) => (
+                            <li><b>{detail.bed || 0}</b><i className="iconfont icon-bedroom"/><em>{messages[obj.key]}</em></li>
+                        ))
+                    }
                 </ul>
                 <div className="Property_details_info">
-                    <table className="Property_info_lf" cellPadding="0" cellSpacing="0">
-                        <tr>
-                            <th colSpan="2" style={{textAlign: 'left'}}>{messages.baseInfo}</th>
-                        </tr>
-                        <tr>
-                            <td>{messages.internalArea}</td>
-                            <td>{detail.internalArea} {detail.areaUnit}</td>
-                        </tr>
-                        {/*联排别墅，独栋别墅： 建筑面积和室内面积*/}
-                        {
-                            Number(this.props.query.projectType) === 2 || Number(this.props.query.projectType) === 3 ? <tr>
-                                    <td>{messages.constructionArea}|{messages.internalArea}</td>
-                                    <td>{detail.constructionArea}|{detail.internalArea} {detail.areaUnit}</td>
-                                </tr> : null
-                        }
-                        {/*公寓才有总面积： 室内面积+室外面积*/}
-                        {
-                            Number(this.props.query.projectType) === 1 ? <tr>
-                                <td>{messages.totalArea}</td>
-                                <td>{detail.internalArea + detail.balconyArea} {detail.areaUnit}</td>
-                            </tr> : null
-                        }
-                        {/*土地： 土地面积*/}
-                        {
-                            Number(this.props.query.projectType) === 4 ? <tr>
-                                    <td>{messages.landArea}</td>
-                                    <td>{detail.landArea} {detail.areaUnit}</td>
-                                </tr> : null
-                        }
-                        <tr>
-                            <td>{messages.floorLevel}</td>
-                            <td>{detail.floorLevel}</td>
-                        </tr>
-                        <tr>
-                            <td>{messages.houseView}</td>
-                            <td>{staticMessages.houseViewName[detail.houseView - 0 - 1]}</td>
-                        </tr>
-                        <tr>
-                            <td>{messages.isAbroad}</td>
-                            <td className="ipxblue_txt"><strong>{detail.isAbroad === true ? messages.isAbroadYes : messages.isAbroadNo}</strong></td>
-                        </tr>
-                        <tr>
-                            <td>{messages.aspect}</td>
-                            <td>{staticMessages.aspectName[detail.aspect - 0 - 1]}</td>
-                        </tr>
-                        <tr>
-                            <td>{messages.totalPrice}</td>
-                            <td className="ipxblue_txt"><strong>{detail.currencyName} {formatMoney(detail.price)}</strong></td>
-                        </tr>
-                    </table>
-                    <table className="Property_info_rt" cellPadding="0" cellSpacing="0">
-                        <tr>
-                            <th colSpan="2" align="left">{messages.otherCharges}</th>
-                        </tr>
-                        <tr>
-                            <td>{messages.estimatedStampDuty}</td>
-                            <td>{detail.estimatedStampDuty ? (detail.estimatedStampDuty + ' %') : null}</td>
-                        </tr>
-                        <tr>
-                            <td>{messages.estimatedCancelRates}</td>
-                            <td>{detail.estimatedCancelRates ? (detail.estimatedCancelRates + ' %') : null}</td>
-                        </tr>
-                        <tr>
-                            <td>{messages.waterRates}</td>
-                            <td>{detail.waterRates ? (detail.currencyName + '' + detail.waterRates) : null}</td>
-                        </tr>
-                        <tr>
-                            <td>{messages.stampDutySaving}</td>
-                            <td>{detail.stampDutySaving ? (detail.currencyName + '' + formatMoney(detail.stampDutySaving)) : null}</td>
-                        </tr>
-                        <tr>
-                            <td>{messages.dutiableValue}</td>
-                            <td>{detail.dutiableValue ? (detail.currencyName + '' + formatMoney(detail.dutiableValue)) : null}</td>
-                        </tr>
-                        <tr>
-                            <td>{messages.landTax}</td>
-                            <td>{detail.landTax ? (detail.currencyName + '' + formatMoney(detail.landTax)) : null}</td>
-                        </tr>
-                        <tr>
-                            <td>{messages.rentRange}</td>
-                            <td>{detail.rentalGuarrante ? (detail.rentalGuarrante + '%') : null}</td>
-                        </tr>
-
-                    </table>
+                    {
+                        Number(query.projectType) !== 1 && data.landInfo ? <table className="Property_info_lf" cellPadding="0" cellSpacing="0">
+                                <tr>
+                                    <th colSpan="2" style={{textAlign: 'left'}}>{messages.landInfo}</th>
+                                </tr>
+                                {
+                                    data.landInfo.map((obj) => {
+                                        if (obj.key === 'aspect'){
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{propertyMap.aspectName[detail[obj.key] - 0 - 1]}</td>
+                                            </tr>
+                                        } else if (obj.key === 'houseView'){
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{propertyMap.houseViewName[detail[obj.key] - 0 - 1]}</td>
+                                            </tr>
+                                        } else if (obj.key === 'isDisplay'){
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{propertyMap.yesNo[detail[obj.key] ? 0 : 1]}</td>
+                                            </tr>
+                                        } else if (obj.key === 'isAbroad'){
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{propertyMap.isAbroadName[detail[obj.key] ? 0 : 1]}</td>
+                                            </tr>
+                                        } else {
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{obj.unit === 'mon' ? formatMoney(detail[obj.key] || 0) : detail[obj.key]} {obj.unit ? (obj.unit === 'area' ? areaUnit[country] : (obj.unit === 'percent' ? '%' : (obj.unit === 'len' ? lengthUnit[country] : currencyName))) : null}</td>
+                                            </tr>
+                                        }
+                                    })
+                                }
+                            </table> : null
+                    }
+                    {
+                        Number(query.projectType) !== 2 && Number(query.projectType) !== 3 && data.supplement ? <table className="Property_info_rt" cellPadding="0" cellSpacing="0">
+                                <tr>
+                                    <th colSpan="2" style={{textAlign: 'left'}}>{messages.supplement}</th>
+                                </tr>
+                                {
+                                    data.supplement.map((obj) => {
+                                        if (obj.key === 'aspect'){
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{propertyMap.aspectName[detail[obj.key] - 0 - 1]}</td>
+                                            </tr>
+                                        } else if (obj.key === 'houseView'){
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{propertyMap.houseViewName[detail[obj.key] - 0 - 1]}</td>
+                                            </tr>
+                                        } else if (obj.key === 'isDisplay'){
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{propertyMap.yesNo[detail[obj.key] ? 0 : 1]}</td>
+                                            </tr>
+                                        } else if (obj.key === 'isAbroad'){
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{propertyMap.isAbroadName[detail[obj.key] ? 0 : 1]}</td>
+                                            </tr>
+                                        } else {
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{obj.unit === 'mon' ? formatMoney(detail[obj.key] || 0) : detail[obj.key]} {obj.unit ? (obj.unit === 'area' ? areaUnit[country] : (obj.unit === 'percent' ? '%' : (obj.unit === 'len' ? lengthUnit[country] : currencyName))) : null}</td>
+                                            </tr>
+                                        }
+                                    })
+                                }
+                            </table> : null
+                    }
+                    {
+                        query.projectType !== 4 && data.basicInfo ? <table className="Property_info_lf" cellPadding="0" cellSpacing="0">
+                                <tr>
+                                    <th colSpan="2" style={{textAlign: 'left'}}>{messages.basicInfo}</th>
+                                </tr>
+                                {
+                                    data.basicInfo.map((obj) => {
+                                        if (obj.key === 'aspect'){
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{propertyMap.aspectName[detail[obj.key] - 0 - 1]}</td>
+                                            </tr>
+                                        } else if (obj.key === 'houseView'){
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{propertyMap.houseViewName[detail[obj.key] - 0 - 1]}</td>
+                                            </tr>
+                                        } else if (obj.key === 'isDisplay'){
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{propertyMap.yesNo[detail[obj.key] ? 0 : 1]}</td>
+                                            </tr>
+                                        } else if (obj.key === 'isAbroad'){
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{propertyMap.isAbroadName[detail[obj.key] ? 0 : 1]}</td>
+                                            </tr>
+                                        } else {
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{obj.unit === 'mon' ? formatMoney(detail[obj.key] || 0) : detail[obj.key]} {obj.unit ? (obj.unit === 'area' ? areaUnit[country] : (obj.unit === 'percent' ? '%' : (obj.unit === 'len' ? lengthUnit[country] : currencyName))) : null}</td>
+                                            </tr>
+                                        }
+                                    })
+                                }
+                            </table> : null
+                    }
                 </div>
+                {
+                    (Number(query.projectType) === 2 || Number(query.projectType) === 3) && data.supplement ? <div className="Property_details_info">
+                        <table className="Property_info_lf" cellPadding="0" cellSpacing="0">
+                            <tr>
+                                <th colSpan="2" style={{textAlign: 'left'}}>{messages.supplement}</th>
+                            </tr>
+                            {
+                                data.supplement.map((obj) => {
+                                    if (obj.key === 'aspect'){
+                                        return <tr>
+                                            <td>{messages[obj.key]}</td>
+                                            <td>{propertyMap.aspectName[detail[obj.key] - 0 - 1]}</td>
+                                        </tr>
+                                    } else if (obj.key === 'houseView'){
+                                        return <tr>
+                                            <td>{messages[obj.key]}</td>
+                                            <td>{propertyMap.houseViewName[detail[obj.key] - 0 - 1]}</td>
+                                        </tr>
+                                    } else if (obj.key === 'isDisplay'){
+                                        return <tr>
+                                            <td>{messages[obj.key]}</td>
+                                            <td>{propertyMap.yesNo[detail[obj.key] ? 0 : 1]}</td>
+                                        </tr>
+                                    } else if (obj.key === 'isAbroad'){
+                                        return <tr>
+                                            <td>{messages[obj.key]}</td>
+                                            <td>{propertyMap.isAbroadName[detail[obj.key] ? 0 : 1]}</td>
+                                        </tr>
+                                    } else {
+                                        return <tr>
+                                            <td>{messages[obj.key]}</td>
+                                            <td>{obj.unit === 'mon' ? formatMoney(detail[obj.key] || 0) : detail[obj.key]} {obj.unit ? (obj.unit === 'area' ? areaUnit[country] : (obj.unit === 'percent' ? '%' : (obj.unit === 'len' ? lengthUnit[country] : currencyName))) : null}</td>
+                                        </tr>
+                                    }
+                                })
+                            }
+                        </table>
+                    </div> : null
+                }
                 <div className="Property_layoutImgbox">
                     <h4>{messages.apartmentRenderings}</h4>
                     {

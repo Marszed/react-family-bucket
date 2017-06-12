@@ -346,7 +346,7 @@ class Property extends React.Component {
 
         return (
             <div>
-                <ViewProperty ref="viewProperty" messages={messages} countryName={this.state.country} params={this.context.router.params} query={this.props.location.query}/>
+                <ViewProperty ref="viewProperty" propertyMap={this.state.propertyMap} messages={messages} countryName={this.state.country} params={this.context.router.params} query={this.props.location.query}/>
                 <ExportProperty ref="exportProperty" messages={messages} propertyMap={this.state.propertyMap} params={this.props.params} query={this.props.router.location.query}/>
                 <div className="agency_screen_titbox">
                     <div className="proj_screen_cont_tr proj_screen_cont_td clearfix ipx_ant">
