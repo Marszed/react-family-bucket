@@ -353,7 +353,7 @@ class Property extends React.Component {
                             defaultValue: [1, 500],
                             markMin: 1,
                             markMax: 500,
-                            title: messages.propertyPrice + ' （' + messages.auDollar + '）',
+                            title: messages.propertyPrice,
                             childStyle: {width: 200 + 'px'}
                         }}/>
                         <Select name="bed" onChange={this.onChange.bind(this)} data={{title: messages.beds}}

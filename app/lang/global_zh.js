@@ -156,7 +156,7 @@ export default {
     // 项目列表
     saleTime: '开售时间',
     bonus: '优惠政策',
-    propertyList: '不动产列表',
+    propertyList: '价格表',
     pinChart: '销控图',
     projectDetail: '项目详情',
     gaveAgency: '授权经纪人',
@@ -302,7 +302,7 @@ export default {
     confirmPassword: '确认密码',
     displayPassword: '显示密码',
     // 导出
-    exportPropertyList: '导出不动产列表',
+    exportPropertyList: '导出价格表',
     checkAll: '全选',
     reset: '重置',
     // 通用
@@ -389,5 +389,15 @@ export default {
     projectListing: '项目管理',
     personSetting: '个人设置',
     companySetting: '公司设置',
-    close: '关闭'
+    close: '关闭',
+    bank:"银行",
+    school:"学校",
+    food:"餐厅",
+    hospital:"医院",
+    busStation:"交通",
+    supermarket:"超市",
+    police:"警局",
+    mapName:"名称",
+    mapScore:"评分",
+    mapDistance:"距离"
 };

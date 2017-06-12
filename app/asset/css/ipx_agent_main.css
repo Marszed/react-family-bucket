@@ -165,6 +165,19 @@ body *{
 .ipx_proj_preview_cont {position:absolute; bottom:0; top:120px; left:0; right:0; box-sizing:border-box; padding:30px; overflow:auto; z-index:1}
 .agency_preview_box {width:100%}
 .agency_previw_h4 {height:30px; font-size:14px; color:#333; background:#f4f4f4; line-height:30px; padding:0 0 0 10px; margin:30px 0 25px}
+.agency_previw_nearby {margin-bottom:10px; padding-left:10px}
+.agency_previw_nearby span {font-size:14px; margin-right:15px; color:#666; cursor:pointer}
+.agency_previw_nearby span.active {color:#00afb4; font-weight:bold}
+.agency_previw_nearby span.active i {font-weight:normal}
+.agency_previw_nearby span i {font-size:20px; vertical-align:middle; margin-right:3px}
+.agency_previw_star_table {width:100%; margin-top:15px}
+.agency_previw_star_table th {background:#f8f8f8; color:#666; font-size:13px;padding-left:10px; height:30px}
+.agency_previw_star_table td {font-size:13px; color:#666; padding-left:10px; height:30px}
+.agency_previw_star_table tr:nth-child(odd){background:#f8f8f8}
+.agency_previw_star_table td i {font-size:12px; color:#eb7366}
+.agency_previw_star_table th.star_table_name_td {width:70%}
+.agency_previw_star_table th.star_table_score_td {width:15%}
+.agency_previw_star_table th.star_table_distance_td {width:15%}
 /*滚动图部分*/
 .agency_preview_images {width:800px; height:375px; background:#f4f4f4; position:relative; overflow: hidden;}
 .agency_preview_imgbox {width:800px; height:375px; position:relative; z-index:1; overflow: hidden}
@@ -432,7 +445,7 @@ body *{
 .dev_cont_titleBg>h1.float_lf {font-size:18px; height:60px; line-height:60px; color:#333; max-width:50%}
 .dev_cont_titleBg>ul {overflow:hidden; height:60px; line-height:60px; margin-left:30px; float:left}
 .dev_cont_titleBg>ul li {float:left; height:60px; font-size:15px; font-weight:bold; margin:0 5px}
-.dev_cont_titleBg>ul li a {color:#777; display:block; height:58px; padding:0 10px;}
+.dev_cont_titleBg>ul li a {color:#777; display:block; height:58px; padding:0 10px;text-decoration: none;}
 .dev_cont_titleBg>ul li a:hover {color:#333}
 .dev_cont_titleBg>ul li.active a,.dev_cont_titleBg>ul a.active {color:#00afb4; border-bottom:solid 2px #00afb4}
 .dev_cont_titleBg>ul li a span {font-weight:normal; font-size:14px}
@@ -976,7 +989,7 @@ transition: background-color .4s ease,border .4s ease,opacity .4s ease}
 /*确认弹出框*/
 .ipx_pop_confirm {width:360px; height:230px; margin:-165px 0 0 -180px;}
 .ipx_pop_confirm .ipx_pop_body {width:100%; height:120px; padding:20px}
-.ipx_pop_confirm .ipx_pop_foot {padding:0 20px}
+.ipx_pop_confirm .ipx_pop_foot {padding:0 20px;text-align: center;}
 /*审核未通过原因*/
 .ipx_pop_failed {width:500px; height:300px; margin:-180px 0 0 -250px}
 .ipx_pop_failed  .ipx_pop_body {height:180px}

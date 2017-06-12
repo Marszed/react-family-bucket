@@ -156,7 +156,7 @@ export default {
     // 项目列表
     saleTime: 'E开售时间',
     bonus: 'E优惠政策',
-    propertyList: 'E不动产列表',
+    propertyList: 'E价格表',
     pinChart: 'E销控图',
     projectDetail: 'E项目详情',
     gaveAgency: 'E授权经纪人',
@@ -302,7 +302,7 @@ export default {
     confirmPassword: 'E确认密码',
     displayPassword: 'E显示密码',
     // 导出
-    exportPropertyList: 'E导出不动产列表',
+    exportPropertyList: 'E导出价格表',
     checkAll: 'E全选',
     reset: 'E重置',
     // 通用
@@ -389,5 +389,15 @@ export default {
     projectListing: 'E项目管理',
     personSetting: 'E个人设置',
     companySetting: 'E公司设置',
-    close: 'E关闭'
+    close: 'E关闭',
+    bank:"E银行",
+    school:"E学校",
+    food:"E餐厅",
+    hospital:"E医院",
+    busStation:"E交通",
+    supermarket:"E超市",
+    police:"E警局",
+    mapName:"E名称",
+    mapScore:"E评分",
+    mapDistance:"E距离"
 };
