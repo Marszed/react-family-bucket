@@ -19,7 +19,7 @@ body *{
 .ipx_sign_language {position:absolute; z-index:3; left:200px; top:36px; color:#7b9eae; display:inline-block; *display:inline; *zoom:1; padding:8px 10px; font-size:14px}
 .ipx_sign_language:hover {background:rgba(100,100,100,.1)}
 /*登录框*/
-.ipx_loginBox {margin:0; position:absolute; right:0; left:auto; top:60px; padding:30px 50px; background:#fff; border-radius:3px; box-shadow:0 0px 15px rgba(0,0,0,.1); z-index:2}
+.ipx_loginBox {margin:0; position:absolute; right:0; left:auto; top:60px; padding:30px 50px; width:360px; background:#fff; border-radius:3px; box-shadow:0 0px 15px rgba(0,0,0,.1); z-index:2}
 .ipx_loginBox h1 {font-size:20px; text-align:center; color:#333; margin-bottom:30px}
 .ipx_sign_return {color:#eb7366; margin-bottom:20px; font-size:13px}
 .ipx_loginBox>button.ipx_btn {margin:30px auto 0}
@@ -449,7 +449,7 @@ body *{
 .proj_screen_start dt>i {font-size:20px; margin-right:3px; vertical-align:middle}
 .proj_screen_start dt>span {font-size:14px; color:#666; font-weight:bold; vertical-align:middle}
 .proj_screen_start a {float:left; line-height:60px; height:58px; margin:0 5px; padding:0 10px; color:#a6adad; display: block}
-.proj_screen_start a.active {color:#00afb4!important; border-bottom:solid 2px #00afb4}
+.proj_screen_start a.active {color:#00afb4!important; border-bottom:solid 2px #00afb4;text-decoration: none;}
 .proj_screen_start a.active>span {font-weight:bold}
 .proj_screen_start a>i {font-size:30px; margin-right:3px; vertical-align:middle}
 .proj_screen_start a>i.icon-earth1 {font-size:24px}
@@ -814,6 +814,11 @@ cite{font-style: normal;}
 .font_20px {font-size:20px}
 .font_22px {font-size:22px}
 .font_24px {font-size:24px}
+.zIndex_1 {z-index: 1000}
+.zIndex_2 {z-index: 2000}
+.zIndex_3 {z-index: 3000}
+.zIndex_4 {z-index: 4000}
+.zIndex_5 {z-index: 5000}
 
 .width100per {width:100% !important}
 .width98per {width:98% !important}

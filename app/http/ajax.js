@@ -56,12 +56,11 @@ export function asyncAwaitCall(obj) {
     //从localStorage中取出token
     let token = window.localStorage.getItem("token");
     //TODO 登录不需要token,获取验证码和判断账号是否需要验证码都不需要token
-    /*if (!token && obj.url.value.indexOf("login") === -1 && obj.url.value.indexOf("code") === -1) {
+    if (!token && obj.url.value.indexOf("login") === -1 && obj.url.value.indexOf("code") === -1) {
         window.localStorage.clear();
         window.location = '/';
-    }*/
+    }
     let headers = Object.assign(obj.headers || {}, {Authorization: 'bearer ' + token});
-    // let headers = obj.headers;
     return new Promise(function (resolve) {
         // ==========发起请求前-开启loading=============
         loadingHandler(obj, true);
@@ -132,10 +131,10 @@ export function asyncAwaitCall(obj) {
             if (error.response && error.response.status === 401) {
                 toastHandler({toastContent: obj.toastContent || "Unauthorized", state: 2, toast: obj.toast});
                 //登录超时或者伪造token等情况
-                /*setTimeout(() => {
+                setTimeout(() => {
                     window.localStorage.clear();
                     window.location = '/';
-                }, 2 * 1000);*/
+                }, 2 * 1000);
             } else {
                 // ==========异常响应-关闭toast===============
                 toastHandler({toastContent: obj.toastContent || "server exception", state: 2, toast: obj.toast});

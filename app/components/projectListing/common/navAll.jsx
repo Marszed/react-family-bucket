@@ -97,7 +97,11 @@ class NavAll extends React.Component {
             });
             if (!response.errType) {
                 let country = response.data.data;
-                country.shift();
+                country.forEach((countryDate) => {
+                    if (countryDate.dicCode === "country.000"){
+                        country.splice(country.indexOf(countryDate), 1);
+                    }
+                });
                 country.unshift({
                     "dicCode": 'country.000',
                     "nameShort": 'ALL',
@@ -219,25 +223,15 @@ class NavAll extends React.Component {
                                             }
                                         ]
                                     }}/>
-                        </div>
-                        <div className="proj_screen_cont_tr clearfix">
                             <SelectCheck name="projectTypes" onChange={this.onChange.bind(this)}
                                          data={{title: messages.projectTypes}}/>
-                            <Select name="beds" onChange={this.onChange.bind(this)} data={{title: messages.beds}}
-                                    key={this.state.updateKey}/>
-                            <Select name="baths" onChange={this.onChange.bind(this)} data={{title: messages.baths}}
-                                    key={this.state.updateKey}/>
-                            <Select name="studys" onChange={this.onChange.bind(this)} data={{title: messages.studys}}
-                                    key={this.state.updateKey}/>
                         </div>
-
                         <div className="proj_screen_cont_tr clearfix">
                             <div className="proj_screen_cont_td proj_screen_serchbtn">
                                 <button className="ipx_btn ipx_blue_btn ipx_L_btn"
                                         onClick={this.onSubmit.bind(this, {})}>{messages.search}</button>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

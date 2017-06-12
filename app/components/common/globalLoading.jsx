@@ -16,7 +16,7 @@ class GlobalLoading extends React.Component {
         super(props);
     }
     render() {
-        return <div className={"layer-zIndex-1000 " + (this.props.globalLoading ? "" : "hide")}
+        return <div className={"zIndex_1 " + (this.props.globalLoading ? "" : "hide")}
             style={{
                 "position": "fixed",
                 "left": 0,

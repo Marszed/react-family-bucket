@@ -6,8 +6,9 @@ const keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
 
 // get query key-value
 export function getQueryString(name) {
+    let locationHref = window.location.href;
     let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    let r = window.locationHref.split('?')[1] ? window.locationHref.split('?')[1].match(reg) : '';
+    let r = locationHref.split('?')[1] ? locationHref.split('?')[1].match(reg) : '';
     if (r !== null) {
         return decodeURI(r[2]);
     }

@@ -228,7 +228,12 @@ class Property extends React.Component {
         }
 
         const {messages} = this.state;
-        const {propertyArray} = this.state;
+        let propertyArray = [];
+        this.state.propertyArray.map((obj) => {
+            if(obj.key !== 'isDisplay'){
+                propertyArray.push(obj);
+            }
+        });
         const propertyStatusClass = ['ipxblue_txt', 'ipxyellow_txt', 'ipxred_txt'];
 
         // 表头
@@ -349,10 +354,11 @@ class Property extends React.Component {
                         <Slider name="priceMinMax" onChange={this.onChange.bind(this)} data={{
                             markUnit: "k",
                             min: 1,
-                            max: 500,
-                            defaultValue: [1, 500],
+                            max: 5000,
+                            defaultValue: [1, 5000],
                             markMin: 1,
-                            markMax: 500,
+                            markMax: 5000,
+                            step: 10,
                             title: messages.propertyPrice + ' （' + messages.auDollar + '）',
                             childStyle: {width: 200 + 'px'}
                         }}/>
