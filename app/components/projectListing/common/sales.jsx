@@ -5,7 +5,7 @@ import React, {PropTypes} from "react";
 import {injectIntl} from "react-intl";
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
-import {formatMoney, objCopy} from 'LIB/tool';
+import {formatMoney, objCopy, langPackageInject} from 'LIB/tool';
 
 
 import NoData from 'COMPONENT/common/noData';
@@ -13,10 +13,27 @@ import Select from 'COMPONENT/common/form/Select';
 import Slider from 'COMPONENT/common/form/Slider';
 import ViewProperty from 'COMPONENT/common/viewProperty';
 
+// 不动产配置
+import getPropertyMay from './getPropertyMap';
+
 class Sales extends React.Component {
     constructor(props) {
         super(props);
+        let messages = objCopy(this.props.intl.messages);
+        const zhFlag = langPackageInject().indexOf('zh') === -1; //  true 英文 false 中文
+        if(zhFlag){
+            if (country.countryCode == 'US'){
+                messages.ownerCrop = 'HOA';
+            }
+            if (country.countryCode == 'AU'){
+                messages.ownerCrop = 'Body Corporation';
+                messages.buildPrice = 'House Price';
+            }
+        }
+        let propertyMap = getPropertyMay(messages, {}); // 不动产配置注入
         this.state = {
+            propertyMap: propertyMap,
+            messages: messages,
             statusObj: { // 1:未售,2:预定中,3:已售
                 available: true,
                 reserved: true,
@@ -75,7 +92,7 @@ class Sales extends React.Component {
     );
 
     render = () => {
-        const {messages} = this.props.intl;
+        const {messages} = this.state;
         const {params} = this.context.router;
         const statusClass = ['ipxblue_bg', 'ipxyellow_bg', 'ipxred_bg'];
         let select = this.props.location.query.countryCode === "country.004"?
@@ -98,7 +115,7 @@ class Sales extends React.Component {
                     }}/> : "";
         return (
             <div>
-                <ViewProperty ref="viewProperty" messages={messages} countryName="AU" propertyDetail={this.state.propertyDetail} params={this.context.router.params} query={this.props.location.query}/>
+                <ViewProperty ref="viewProperty" messages={messages} propertyMap={this.state.propertyMap} propertyDetail={this.state.propertyDetail} params={this.context.router.params} query={this.props.location.query}/>
                 <div className="agency_sellgrid_tit ipx_ant">
                     {/*筛选栏*/}
                     <div className="proj_screen_cont_td">

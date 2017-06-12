@@ -10,20 +10,10 @@ import InlineSlider from 'COMPONENT/common/inlineSlider/slider';
 class ViewProperty extends React.Component {
     constructor(props){
         super(props);
-        const {propertyMap, query} = this.props;
+        const {propertyMap, query, messages} = this.props;
         const country = propertyMap.countryCode[query.countryCode];
         const data = propertyMap[country][query.projectType];
-        let messages = objCopy(this.props.messages);
         const zhFlag = langPackageInject().indexOf('zh') === -1; //  true 英文 false 中文
-        if(zhFlag){
-            if (country.countryCode == 'US'){
-                messages.ownerCrop = 'HOA';
-            }
-            if (country.countryCode == 'AU'){
-                messages.ownerCrop = 'Body Corporation';
-                messages.buildPrice = 'House Price';
-            }
-        }
         this.state = {
             query: query,
             messages: messages,

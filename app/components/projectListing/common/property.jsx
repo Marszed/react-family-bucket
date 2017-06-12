@@ -25,6 +25,16 @@ class Property extends React.Component {
     constructor(props) {
         super(props);
         let messages = objCopy(this.props.intl.messages);
+        const zhFlag = langPackageInject().indexOf('zh') === -1; //  true 英文 false 中文
+        if(zhFlag){
+            if (country.countryCode == 'US'){
+                messages.ownerCrop = 'HOA';
+            }
+            if (country.countryCode == 'AU'){
+                messages.ownerCrop = 'Body Corporation';
+                messages.buildPrice = 'House Price';
+            }
+        }
         let propertyMap = getPropertyMay(messages, {}); // 不动产配置注入
         this.state = {
             countryNameShort: '',
