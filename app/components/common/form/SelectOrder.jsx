@@ -34,7 +34,7 @@ class SelectOrder extends React.Component {
         return {
             defaultValue: messages.orderStyle,
             list: [
-                {
+                /*{
                     orderBy: 1,
                     orderDirection: 0,
                     content: messages.commissionPercent
@@ -43,7 +43,7 @@ class SelectOrder extends React.Component {
                     orderBy: 2,
                     orderDirection: 0,
                     content: messages.commissionMoney
-                },
+                },*/
                 /*{
                     orderBy: 3,
                     orderDirection: 0,

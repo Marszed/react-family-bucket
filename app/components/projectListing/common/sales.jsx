@@ -78,7 +78,6 @@ class Sales extends React.Component {
         const {messages} = this.props.intl;
         const {params} = this.context.router;
         const statusClass = ['ipxblue_bg', 'ipxyellow_bg', 'ipxred_bg'];
-        console.log(this.state.list);
         let select = this.props.location.query.countryCode === "country.004"?
             <Select name="isAbroad" onChange={this.onChange.bind(this)} key={this.state.updateKey}
                     data={{

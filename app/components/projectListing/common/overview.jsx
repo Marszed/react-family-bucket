@@ -116,8 +116,10 @@ class Overview extends React.Component {
             option.countryCode = 'ALL';
         }
         let responseHandler = async function () {
+            const start = (force === 'append' && this.state.hasNextPage) ? (this.state.start + 1) : 1;
+
             let response = await asyncAwaitCall({
-                url: {value: INTERFACE.PROJECTLIST + this.state.start + '/' + this.state.length, key: 'PROJECTLIST'},
+                url: {value: INTERFACE.PROJECTLIST + start + '/' + this.state.length, key: 'PROJECTLIST'},
                 method: 'post',
                 data: option,
                 dataSerialize: true
@@ -130,7 +132,7 @@ class Overview extends React.Component {
             if (!response.errType) {
                 let res = response.data.data;
                 this.setState({
-                    start: res.page.hasNextPage ? this.state.start + 1 : this.state.start,
+                    start: start,
                     hasNextPage: res.page.hasNextPage,
                     projectList: {
                         total: res.page.total,

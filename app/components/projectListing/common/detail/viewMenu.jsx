@@ -4,16 +4,21 @@
 import React, {PropTypes} from "react";
 import {Link} from "react-router";
 import {injectIntl} from "react-intl";
-import {decode64} from 'LIB/tool';
+import {decode64, getLocalStorage} from 'LIB/tool';
 
 class Menu extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    goBack = () => (
-        this.context.router.push('/projectListing')
-    );
+    goBack = () => {
+        const searchParams = getLocalStorage('searchParams');
+        if (searchParams){
+            this.context.router.push('/projectListing/' + searchParams.type + '/' + searchParams.country + '/overview');
+        } else {
+            this.context.router.push('/projectListing');
+        }
+    };
 
     render() {
         const {messages} = this.props.intl;
