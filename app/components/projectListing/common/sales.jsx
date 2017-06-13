@@ -21,16 +21,17 @@ class Sales extends React.Component {
         super(props);
         let messages = objCopy(this.props.intl.messages);
         const zhFlag = langPackageInject().indexOf('zh') === -1; //  true 英文 false 中文
+        let query = this.props.router.location.query;
+        let propertyMap = getPropertyMay(messages, {}); // 不动产配置注入
         if(zhFlag){
-            if (country.countryCode == 'US'){
+            if (propertyMap.countryCode[query.countryCode] == 'US'){
                 messages.ownerCrop = 'HOA';
             }
-            if (country.countryCode == 'AU'){
+            if (propertyMap.countryCode[query.countryCode] == 'AU'){
                 messages.ownerCrop = 'Body Corporation';
                 messages.buildPrice = 'House Price';
             }
         }
-        let propertyMap = getPropertyMay(messages, {}); // 不动产配置注入
         this.state = {
             propertyMap: propertyMap,
             messages: messages,

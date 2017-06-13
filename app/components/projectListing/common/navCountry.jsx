@@ -159,10 +159,9 @@ class NavCountry extends React.Component {
     }
 
     // 数据收集
-    onChange(name, value) {
-        console.log(name, value);
+    onChange(name, value, _name, _value) {
         let option = {};
-        const propertyMinMax = [{min: 1, max: 49}, {min: 50, max: 200}, {min: 201, max: 0}];
+        const propertyMinMax = [{min: 1, max: 50}, {min: 51, max: 200}, {min: 201, max: 0}];
         if (name === 'propertyMinMax' && value > 0) {
             this.setState({
                 propertyMax: propertyMinMax[value - 1].max,
@@ -173,6 +172,9 @@ class NavCountry extends React.Component {
             this.setState(option);
         } else {
             option[name] = value;
+            if(_name !== undefined && _value !== undefined){
+                option[_name] = _value;
+            }
             this.setState(option);
             if (name === 'title') {
                 this.onSubmit(option);
@@ -302,23 +304,25 @@ class NavCountry extends React.Component {
                                     key={this.state.updateKey}/>
                             <Select name="studys" onChange={this.onChange.bind(this)} data={{title: messages.studys}}
                                     key={this.state.updateKey}/>
-                            <Select name="abroadFlag" onChange={this.onChange.bind(this)} key={this.state.updateKey}
-                                    data={{
-                                        list: [
-                                            {
-                                                value: 0,
-                                                content: messages.arbitrarily
-                                            },
-                                            {
-                                                value: 1,
-                                                content: messages.purchaseFalse
-                                            },
-                                            {
-                                                value: 2,
-                                                content: messages.purchase
-                                            }
-                                        ]
-                                    }}/>
+                            {
+                                this.state.params.country === 'country.004' ? <Select name="abroadFlag" onChange={this.onChange.bind(this)} key={this.state.updateKey}
+                                      data={{
+                                          list: [
+                                              {
+                                                  value: 0,
+                                                  content: messages.arbitrarily
+                                              },
+                                              {
+                                                  value: 1,
+                                                  content: messages.purchaseFalse
+                                              },
+                                              {
+                                                  value: 2,
+                                                  content: messages.purchase
+                                              }
+                                          ]
+                                      }}/> : null
+                            }
                         </div>
                         <div className="proj_screen_cont_tr clearfix">
                             <Slider name="unitPriceMinMax" onChange={this.onChange.bind(this)}

@@ -322,7 +322,7 @@ class NavBread extends React.Component {
                         }
                         {
                             searchOption.propertyMin ?
-                                <li onClick={this.clearSearchOption.bind(this, 'propertyMinMax')}>{searchOption.propertyMin == 1 ? propertyMinMaxName[0] : (searchOption.propertyMin == 50 ? propertyMinMaxName[1] : propertyMinMaxName[2])} ×</li> : ''
+                                <li onClick={this.clearSearchOption.bind(this, 'propertyMinMax')}>{searchOption.propertyMin == 1 ? propertyMinMaxName[0] : (searchOption.propertyMin == 51 ? propertyMinMaxName[1] : propertyMinMaxName[2])} ×</li> : ''
                         }
                         {
                             searchOption.abroadFlag !== undefined && searchOption.abroadFlag !== null && searchOption.abroadFlag !== -1 ?
