@@ -198,7 +198,7 @@ class Overview extends React.Component {
         // clientHeight为内容可视区域的高度。
         // scrollHeight为内容可视区域的高度加上溢出（滚动）的距离。
         // event.target.scrollHeight - event.target.clientHeight == scrollTop 滚动到底部
-        if (event.target.scrollHeight - event.target.offsetHeight <= event.target.scrollTop && event.target.scrollTop !== beforeScrollTop) {
+        if (event.target.scrollHeight - event.target.offsetHeight <= (event.target.scrollTop + 20) && event.target.scrollTop !== beforeScrollTop) {
             beforeScrollTop = event.target.scrollTop;
             this.getProjectList(this.props.project.searchOption || {
                 countryCode: this.state.params.country,
@@ -338,7 +338,7 @@ class Overview extends React.Component {
                                 <div className="float_rt">
                                     {sellsPerformance}
                                     {
-                                        (Number(this.state.params.type) !== 1 || this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix">
+                                        (Number(this.state.params.type) === 1 && this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix">
                                                 <span className="float_lf">{obj.propertyNum || 0} {messages.meetConditionsTip}</span>
                                                 <i className="iconfont icon-list01 float_rt"/>
                                             </div> : null
@@ -414,7 +414,7 @@ class Overview extends React.Component {
                                                             </button>
                                                     </div>
                                                     {
-                                                        (Number(this.state.params.type) !== 1 || this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix">
+                                                        (Number(this.state.params.type) === 1 && this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix">
                                                                 <span className="float_lf">{obj.propertyNum || 0} {messages.meetConditionsTip}</span>
                                                                 <i className="iconfont icon-list01 float_rt"/>
                                                             </div> : null

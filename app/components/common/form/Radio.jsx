@@ -41,7 +41,7 @@ class Radio extends React.Component {
                 },
                 {
                     value: 2,
-                    content: '50-200',
+                    content: '51-200',
                     description: messages.middleScale
                 },
                 {

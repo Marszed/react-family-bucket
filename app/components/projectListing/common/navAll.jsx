@@ -130,9 +130,9 @@ class NavAll extends React.Component {
     }
 
     // 数据收集
-    onChange(name, value) {
+    onChange(name, value, _name, _value) {
         let option = {};
-        const propertyMinMax = [{min: 1, max: 49}, {min: 50, max: 200}, {min: 201, max: 0}];
+        const propertyMinMax = [{min: 1, max: 50}, {min: 51, max: 200}, {min: 201, max: 0}];
         if (name === 'propertyMinMax') {
             this.setState({
                 propertyMax: value === -1 ? 0 : propertyMinMax[value - 1].max,
@@ -143,6 +143,9 @@ class NavAll extends React.Component {
             this.setState(option);
         } else {
             option[name] = value;
+            if(_name !== undefined && _value !== undefined){
+                option[_name] = _value;
+            }
             this.setState(option);
             if (name === 'title') {
                 this.onSubmit(option);
