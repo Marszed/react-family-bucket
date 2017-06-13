@@ -290,7 +290,8 @@ class NavCountry extends React.Component {
                             <Select name="studys" onChange={this.onChange.bind(this)} data={{title: messages.studys}}
                                     key={this.state.updateKey}/>
                             {
-                                this.state.params.country === 'country.004' ? <Select name="abroadFlag" onChange={this.onChange.bind(this)} key={this.state.updateKey}
+                                this.state.params.country === 'country.004' ?
+                                    <Select name="abroadFlag" onChange={this.onChange.bind(this)} key={this.state.updateKey}
                                       data={{
                                           list: [
                                               {
