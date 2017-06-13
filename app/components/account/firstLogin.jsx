@@ -31,7 +31,7 @@ class FirstLogin extends React.Component {
         console.log("newPassword:" + this.state.newPassword);
         console.log("confirmPassword:" + this.state.confirmPassword);
         //验证
-        if (!this.validateNewPassword(this.state.newPassword) || !this.validateConfirmPassword(this.state.confirmPassword)) {
+        if (!this.validateNewPassword(this.state.newPassword) || !this.validateConfirmPassword(this.state.confirmPassword,'blur')) {
             return false;
         }
         let responseHandler = async function (){
@@ -63,7 +63,7 @@ class FirstLogin extends React.Component {
 
     changeConfirmPassword = (event) => {
         this.setState({confirmPassword: event.target.value});
-        this.validateConfirmPassword(event.target.value);
+        this.validateConfirmPassword(event.target.value, event.type);
     };
 
     validateNewPassword = (value) => {
@@ -86,17 +86,17 @@ class FirstLogin extends React.Component {
     };
 
     validateConfirmPassword = (value) => {
-        if (ValidateTool.isEmpty(value)) {
+        if (ValidateTool.isEmpty(value) && type === 'blur') {
             this.setState({
                 confirmPasswordInfo: this.props.intl.messages.validateConfirmPassword
             });
             return false;
-        } else if (value.length < 8 || value.length > 16) {
+        } else if (value.length < 8 || value.length > 16 && type === 'blur') {
             this.setState({
                 confirmPasswordInfo: this.props.intl.messages.validatePassword1
             });
             return false;
-        } else if (this.state.newPassword !== value) {
+        } else if (this.state.newPassword !== value && type === 'blur') {
             this.setState({
                 confirmPasswordInfo: this.props.intl.messages.validateConfirmPassword1
             });
