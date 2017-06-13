@@ -184,7 +184,7 @@ class Msg extends React.Component {
                                 <li><span className="preview_info_attr">{messages.priceRange}</span><span className="preview_info_value">{this.state.currencyName} {formatMoney(this.state.minPrice)} - {this.state.currencyName} {formatMoney(this.state.maxPrice)} </span></li>
                                 <li><span className="preview_info_attr">{messages.country}</span><span className="preview_info_value">{this.state.countryName}</span></li>
                                 <li><span className="preview_info_attr">{messages.region}</span><span className="preview_info_value">{this.state.regionFirstName} {this.state.regionSecondName ? '-' : ''} {this.state.regionSecondName} {this.state.regionThirdName ? '-' : ''} {this.state.regionThirdName}</span></li>
-                                <li><span className="preview_info_attr">{messages.detailAddr}</span><span className="preview_info_value">{this.state.reservationDetail}</span></li>
+                                <li><span className="preview_info_attr">{messages.detailAddr}</span><span className="preview_info_value">{this.state.detailAddr}</span></li>
                             </ul>
                             <ul className="preview_info float_rt">
                                 <li><span className="preview_info_attr">{messages.zipCode}</span><span className="preview_info_value">{this.state.zipCode}</span></li>

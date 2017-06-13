@@ -261,7 +261,10 @@ class NavCountry extends React.Component {
                             onChange={this.onChange.bind(this)}
                         />
                     </div>
-                    <div className="proj_screen_cont_rt">
+                    <div className="proj_screen_cont_tr">
+                        <Radio name="propertyMinMax" onChange={this.onChange.bind(this)}/>
+                    </div>
+                    <div className="proj_screen_cont_rt clearfix">
                         <div className="proj_screen_cont_tr clearfix">
                             <SelectCheck name="projectTypes" onChange={this.onChange.bind(this)} data={{title: messages.projectTypes}}/>
                             <Slider name="propertyPriceMinMax" onChange={this.onChange.bind(this)}
@@ -275,24 +278,6 @@ class NavCountry extends React.Component {
                                         markMax: 5000,
                                         step: 10,
                                         childStyle: {width: 300 + 'px'}
-                                    }}/>
-                        </div>
-                        <div className="proj_screen_cont_tr clearfix">
-                            <Radio name="propertyMinMax" onChange={this.onChange.bind(this)}/>
-                            <Slider name="commissionMinMax" onChange={this.onChange.bind(this)}
-                                    data={{
-                                        markUnit: "%",
-                                        min: 2,
-                                        defaultValue: [2, 10],
-                                        moneyValue: [500, 50000],
-                                        moneyStep: 100,
-                                        max: 10,
-                                        markMin: 2,
-                                        markMax: 10,
-                                        step: 0.01,
-                                        switchType: ['%', '$'],
-                                        title: messages.commission,
-                                        childStyle: {width: 250 + 'px', borderLeft: 'none', borderRadius: '0 3px 3px 0', overflow: 'hidden'}
                                     }}/>
                         </div>
                         <div className="proj_screen_cont_tr clearfix">

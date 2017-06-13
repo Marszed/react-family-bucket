@@ -271,13 +271,20 @@ class Overview extends React.Component {
                             </div>
                         </div>;
                 }
+                let areaUnit;
+                if(obj.country === 'country.004') {
+                    areaUnit = " ㎡";
+                } else {
+                    areaUnit = " ft²";
+                }
+
                 let area ;
                 if (obj.minArea === null && obj.maxArea === null){
-                    area = 0;
+                    area = 0 + areaUnit;
                 } else if(obj.minArea === obj.maxArea){
-                    area = obj.minArea;
+                    area = obj.minArea + areaUnit;
                 } else {
-                    area = obj.minArea + " - " + obj.maxArea;
+                    area = obj.minArea + " - " + obj.maxArea + areaUnit;
                 }
             return (
                 <table className="project_l_box" cellPadding="0" cellSpacing="0" key={obj.projectId}>
@@ -320,7 +327,7 @@ class Overview extends React.Component {
                                         </tr>
                                         <tr>
                                             <td><strong>{messages.area}</strong></td>
-                                            <td>{area} m2</td>
+                                            <td>{area}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>{messages.purchaseCount}</strong></td>
