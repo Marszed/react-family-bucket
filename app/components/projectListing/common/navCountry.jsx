@@ -18,8 +18,24 @@ import SelectCheck from 'COMPONENT/common/form/SelectCheck';
 import Slider from 'COMPONENT/common/form/Slider';
 import AutoComplete from 'COMPONENT/common/form/AutoComplete';
 
+import AU_MAP_CN from 'ASSET/images/AU_map_CN.jpg';
+import AU_MAP_EN from 'ASSET/images/AU_map_EN.jpg';
+import UK_MAP_CN from 'ASSET/images/UK_map_CN.jpg';
+import UK_MAP_EN from 'ASSET/images/UK_map_EN.jpg';
+import US_MAP_CN from 'ASSET/images/US_map_CN.jpg';
+import US_MAP_EN from 'ASSET/images/US_map_EN.jpg';
 
-import AU_MAP from 'ASSET/images/AU_map.jpg';
+let AU_MAP,UK_MAP,US_MAP;
+let language = langPackageInject();
+if(language === 'en_US'){
+    AU_MAP = AU_MAP_EN;
+    UK_MAP = UK_MAP_EN;
+    US_MAP = US_MAP_EN;
+} else {
+    AU_MAP = AU_MAP_CN;
+    UK_MAP = UK_MAP_CN;
+    US_MAP = US_MAP_CN;
+}
 
 @pureRender
 class NavCountry extends React.Component {
@@ -229,6 +245,14 @@ class NavCountry extends React.Component {
 
     render() {
         const {messages} = this.props.intl;
+        let Map = '';
+        if(this.state.params.country === 'country.002'){
+            Map = US_MAP;
+        } else if(this.state.params.country === 'country.003'){
+            Map = UK_MAP;
+        } else if(this.state.params.country === 'country.004'){
+            Map = AU_MAP;
+        }
 
         return <div className="dev_cont_subtitle">
             <div className="dev_cont_sub_screen">
@@ -251,7 +275,7 @@ class NavCountry extends React.Component {
                      style={{top: this.state.expendPX + 'px'}}>
                     <div className="proj_screen_cont_lf">
                         <div className="proj_county_map">
-                            <img src={AU_MAP}/>
+                            <img src={Map}/>
                         </div>
                         <AutoComplete
                             data={{
