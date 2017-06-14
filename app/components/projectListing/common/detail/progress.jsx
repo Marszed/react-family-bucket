@@ -95,9 +95,6 @@ class Progress extends React.Component {
                 this.state.list && this.state.list.length ? null : <NoData/>
             }
             {
-                this.state.list && this.state.list.length ? <div className="proj_record_p">—— {messages.noMore} ——</div> : null
-            }
-            {
                 this.state.list && this.state.list.length ? <FixSlider speed={1.5} delay={3} ref="slider" pause={true} autoplay={false} dots={false} noDelete={true} arrows={true}/> : null
             }
         </div>;

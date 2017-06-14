@@ -198,7 +198,7 @@ class Overview extends React.Component {
         // clientHeight为内容可视区域的高度。
         // scrollHeight为内容可视区域的高度加上溢出（滚动）的距离。
         // event.target.scrollHeight - event.target.clientHeight == scrollTop 滚动到底部
-        if (event.target.scrollHeight - event.target.offsetHeight <= (event.target.scrollTop + 20) && event.target.scrollTop !== beforeScrollTop) {
+        if (event.target.scrollHeight - event.target.offsetHeight <= (event.target.scrollTop + 20) && event.target.scrollTop > beforeScrollTop) {
             beforeScrollTop = event.target.scrollTop;
             this.getProjectList(this.props.project.searchOption || {
                 countryCode: this.state.params.country,
@@ -241,19 +241,7 @@ class Overview extends React.Component {
         let items = this.state.projectList && this.state.projectList.list ? this.state.projectList.list.map((obj) => {
                 let sellsPerformance ;
                 if (obj.reservedNum + obj.noSoldNum + obj.soldNum === 0){
-                    sellsPerformance =
-                        <div className="sellsPerformance">
-                            <ul>
-                                <li className="ipxblue_txt" style={{left: 0 + '%'}}>{messages.noSoldNum} {obj.available}</li>
-                                <li className="ipxyellow_txt" style={{left: 34 + '%'}}>{messages.reservedNum} {obj.reservedNum}</li>
-                                <li className="ipxred_txt" style={{right: 0 + '%'}}>{messages.soldNum} {obj.soldNum}</li>
-                            </ul>
-                            <div className="sellper_chart">
-                                <span className="sell_available" style={{width: 34 + '%'}}/>
-                                <span className="sell_booking" style={{width: 33 + '%'}}/>
-                                <span className="sell_sold" style={{width: 33 + '%'}}/>
-                            </div>
-                        </div>;
+                    sellsPerformance = "";
                 } else {
                     let noSoldWidth = 100 * (obj.noSoldNum / (obj.reservedNum + obj.noSoldNum + obj.soldNum)).toFixed(2);
                     noSoldWidth = noSoldWidth < 20 ? 20 : noSoldWidth > 80 ? 80 : noSoldWidth;
