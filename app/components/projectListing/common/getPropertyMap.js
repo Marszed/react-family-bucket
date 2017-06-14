@@ -220,7 +220,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         stage: {
             key: 'stage',
             type: 1,
-            maxLength: 2,
+            maxLength: 8,
             rules: [
                 {
                     required: true,
@@ -238,7 +238,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                 },
                 {
                     validator: (rule, value, callback) => {
-                        if (value >= 0 || value <= 99999999) {
+                        if (value >= 0 && value <= 99999999) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
@@ -259,7 +259,7 @@ const propertyMap = ((messages, ValidateTool)=>{
             return {
                 key: 'width',
                 type: 1,
-                maxLength: 10,
+                maxLength: 12,
                 unit: 'len',
                 active: obj.active !== undefined ? obj.active : false,
                 rules: [
@@ -288,7 +288,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                                 callback();
                                 return false;
                             }
-                            if (value >= 0.01 || value <= 999999999.9) {
+                            if (value >= 0.01 && value <= 999999999.9) {
                                 callback();
                             } else {
                                 callback(new Error('The amount of wrong'));
@@ -304,7 +304,7 @@ const propertyMap = ((messages, ValidateTool)=>{
             return {
                 key: 'length',
                 type: 1,
-                maxLength: 10,
+                maxLength: 12,
                 unit: 'len',
                 active: obj.active !== undefined ? obj.active : false,
                 rules: [
@@ -333,7 +333,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                                 callback();
                                 return false;
                             }
-                            if (value >= 0.01 || value <= 999999999.9) {
+                            if (value >= 0.01 && value <= 999999999.9) {
                                 callback();
                             } else {
                                 callback(new Error('The amount of wrong'));
@@ -348,7 +348,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         landArea: {
             key: 'landArea',
             type: 1,
-            maxLength: 10,
+            maxLength: 12,
             unit: 'area',
             rules: [
                 {
@@ -368,13 +368,13 @@ const propertyMap = ((messages, ValidateTool)=>{
                 },
                 {
                     validator: (rule, value, callback) => {
-                        if (value >= 0.01 || value <= 9999999999.99) {
+                        if (value >= 0.01 && value <= 999999999.99) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
                         }
                     },
-                    message: messages.validateError3
+                    message: messages.validateError2
                 }
             ],
             required: true
@@ -394,7 +394,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         landPrice: {
             key: 'landPrice',
             type: 1,
-            maxLength: 12,
+            maxLength: 13,
             unit: 'mon',
             active: true,
             prev: true,
@@ -416,7 +416,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                 },
                 {
                     validator: (rule, value, callback) => {
-                        if (value >= 0.01 || value <= 9999999999.99) {
+                        if (value >= 0.01 && value <= 9999999999.99) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
@@ -443,7 +443,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         constructionArea: {
             key: 'constructionArea',
             type: 1,
-            maxLength: 10,
+            maxLength: 12,
             unit: 'area',
             rules: [
                 {
@@ -463,13 +463,13 @@ const propertyMap = ((messages, ValidateTool)=>{
                 },
                 {
                     validator: (rule, value, callback) => {
-                        if (value >= 0.01 || value <= 9999999999.99) {
+                        if (value >= 0.01 && value <= 999999999.99) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
                         }
                     },
-                    message: messages.validateError3
+                    message: messages.validateError2
                 }
             ],
             required: true
@@ -477,7 +477,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         buildPrice: {
             key: 'buildPrice',
             type: 1,
-            maxLength: 12,
+            maxLength: 13,
             unit: 'mon',
             active: true,
             prev: true,
@@ -499,7 +499,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                 },
                 {
                     validator: (rule, value, callback) => {
-                        if (value >= 0.01 || value <= 9999999999.99) {
+                        if (value >= 0.01 && value <= 9999999999.99) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
@@ -513,7 +513,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         price: {
             key: 'price',
             type: 1,
-            maxLength: 12,
+            maxLength: 13,
             unit: 'mon',
             active: true,
             prev: true,
@@ -535,7 +535,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                 },
                 {
                     validator: (rule, value, callback) => {
-                        if (value >= 0.01 || value <= 9999999999.99) {
+                        if (value >= 0.01 && value <= 9999999999.99) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
@@ -600,7 +600,7 @@ const propertyMap = ((messages, ValidateTool)=>{
             type: 1,
             unit: 'mon',
             prev: true,
-            maxLength: 12,
+            maxLength: 13,
             rules: [
                 {
                     validator: (rule, value, callback) => {
@@ -623,7 +623,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                             callback();
                             return false;
                         }
-                        if (value >= 0.01 || value <= 9999999999.99) {
+                        if ((value >= 0.01 && value <= 9999999999.99) || !value) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
@@ -636,7 +636,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         estimatedCancelRates: {
             key: 'estimatedCancelRates',
             type: 1,
-            maxLength: 12,
+            maxLength: 13,
             unit: 'mon',
             prev: true,
             rules: [
@@ -661,7 +661,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                             callback();
                             return false;
                         }
-                        if (value >= 0.01 || value <= 9999999999.99) {
+                        if ((value >= 0.01 && value <= 9999999999.99) || !value) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
@@ -674,7 +674,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         waterRates: {
             key: 'waterRates',
             type: 1,
-            maxLength: 12,
+            maxLength: 13,
             unit: 'mon',
             prev: true,
             rules: [
@@ -699,7 +699,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                             callback();
                             return false;
                         }
-                        if (value >= 0.01 || value <= 9999999999.99) {
+                        if ((value >= 0.01 && value <= 9999999999.99) || !value) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
@@ -712,7 +712,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         ownerCrop: {
             key: 'ownerCrop',
             type: 1,
-            maxLength: 12,
+            maxLength: 13,
             unit: 'mon',
             prev: true,
             rules: [
@@ -737,7 +737,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                             callback();
                             return false;
                         }
-                        if (value >= 0.01 || value <= 9999999999.99) {
+                        if ((value >= 0.01 && value <= 9999999999.99) || !value) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
@@ -750,7 +750,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         estimatedStampDuty:{
             key: 'estimatedStampDuty',
             type: 1,
-            maxLength: 12,
+            maxLength: 13,
             unit: 'mon',
             prev: true,
             rules: [
@@ -775,7 +775,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                             callback();
                             return false;
                         }
-                        if (value >= 0.01 || value <= 9999999999.99) {
+                        if ((value >= 0.01 && value <= 9999999999.99) || !value) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
@@ -812,7 +812,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                             callback();
                             return false;
                         }
-                        if (value >= 0 || value <= 50) {
+                        if ((value >= 0 && value <= 50) || !value) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
@@ -825,7 +825,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         insurance: {
             key: 'insurance',
             type: 1,
-            maxLength: 12,
+            maxLength: 13,
             unit: 'mon',
             prev: true,
             rules: [
@@ -850,7 +850,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                             callback();
                             return false;
                         }
-                        if (value >= 0.01 || value <= 9999999999.99) {
+                        if ((value >= 0.01 && value <= 9999999999.99) || !value) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
@@ -863,7 +863,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         transactionFee: {
             key: 'transactionFee',
             type: 1,
-            maxLength: 12,
+            maxLength: 13,
             unit: 'mon',
             prev: true,
             rules: [
@@ -888,7 +888,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                             callback();
                             return false;
                         }
-                        if (value >= 0.01 || value <= 9999999999.99) {
+                        if ((value >= 0.01 && value <= 9999999999.99) || !value) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
@@ -901,7 +901,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         titleInsurance: {
             key: 'titleInsurance',
             type: 1,
-            maxLength: 12,
+            maxLength: 13,
             unit: 'mon',
             prev: true,
             rules: [
@@ -926,7 +926,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                             callback();
                             return false;
                         }
-                        if (value >= 0.01 || value <= 9999999999.99) {
+                        if ((value >= 0.01 && value <= 9999999999.99) || !value) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
@@ -939,7 +939,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         propertyTax: {
             key: 'propertyTax',
             type: 1,
-            maxLength: 12,
+            maxLength: 13,
             unit: 'mon',
             prev: true,
             rules: [
@@ -964,7 +964,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                             callback();
                             return false;
                         }
-                        if (value >= 0.01 || value <= 9999999999.99) {
+                        if ((value >= 0.01 && value <= 9999999999.99) || !value) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
@@ -977,7 +977,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         internalArea: {
             key: 'internalArea',
             type: 1,
-            maxLength: 10,
+            maxLength: 12,
             unit: 'area',
             rules: [
                 {
@@ -997,13 +997,13 @@ const propertyMap = ((messages, ValidateTool)=>{
                 },
                 {
                     validator: (rule, value, callback) => {
-                        if (value >= 0.01 || value <= 9999999999.99) {
+                        if (value >= 0.01 && value <= 999999999.99) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
                         }
                     },
-                    message: messages.validateError3
+                    message: messages.validateError2
                 }
             ],
             required: true
@@ -1011,7 +1011,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         balconyArea: {
             key: 'balconyArea',
             type: 1,
-            maxLength: 10,
+            maxLength: 12,
             unit: 'area',
             rules: [
                 {
@@ -1031,13 +1031,13 @@ const propertyMap = ((messages, ValidateTool)=>{
                 },
                 {
                     validator: (rule, value, callback) => {
-                        if (value >= 0.01 || value <= 9999999999.99) {
+                        if (value >= 0.01 && value <= 999999999.99) {
                             callback();
                         } else {
                             callback(new Error('The amount of wrong'));
                         }
                     },
-                    message: messages.validateError3
+                    message: messages.validateError2
                 }
             ],
             required: true
@@ -1220,7 +1220,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                             },
                             {
                                 validator: (rule, value, callback) => {
-                                    if (value >= 0.01 || value <= 999999999.9) {
+                                    if (value >= 0.01 && value <= 999999999.9) {
                                         callback();
                                     } else {
                                         callback(new Error('The amount of wrong'));
@@ -1255,7 +1255,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                             },
                             {
                                 validator: (rule, value, callback) => {
-                                    if (value >= 0.01 || value <= 999999999.9) {
+                                    if (value >= 0.01 && value <= 999999999.9) {
                                         callback();
                                     } else {
                                         callback(new Error('The amount of wrong'));
@@ -1269,7 +1269,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                     {
                         key: 'landArea',
                         type: 1,
-                        maxLength: 8,
+                        maxLength: 12,
                         unit: 'area',
                         icon: 'icon-area',
                         rules: [
@@ -1290,13 +1290,13 @@ const propertyMap = ((messages, ValidateTool)=>{
                             },
                             {
                                 validator: (rule, value, callback) => {
-                                    if (value >= 0.01 || value <= 9999999999.99) {
+                                    if (value >= 0.01 && value <= 999999999.99) {
                                         callback();
                                     } else {
                                         callback(new Error('The amount of wrong'));
                                     }
                                 },
-                                message: messages.validateError3
+                                message: messages.validateError2
                             }
                         ],
                         required: true
@@ -1485,7 +1485,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                             },
                             {
                                 validator: (rule, value, callback) => {
-                                    if (value >= 0.01 || value <= 999999999.9) {
+                                    if (value >= 0.01 && value <= 999999999.9) {
                                         callback();
                                     } else {
                                         callback(new Error('The amount of wrong'));
@@ -1520,7 +1520,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                             },
                             {
                                 validator: (rule, value, callback) => {
-                                    if (value >= 0.01 || value <= 999999999.9) {
+                                    if (value >= 0.01 && value <= 999999999.9) {
                                         callback();
                                     } else {
                                         callback(new Error('The amount of wrong'));
@@ -1534,7 +1534,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                     {
                         key: 'landArea',
                         type: 1,
-                        maxLength: 8,
+                        maxLength: 12,
                         unit: 'area',
                         icon: 'icon-area',
                         rules: [
@@ -1555,13 +1555,13 @@ const propertyMap = ((messages, ValidateTool)=>{
                             },
                             {
                                 validator: (rule, value, callback) => {
-                                    if (value >= 0.01 || value <= 9999999999.99) {
+                                    if (value >= 0.01 && value <= 999999999.99) {
                                         callback();
                                     } else {
                                         callback(new Error('The amount of wrong'));
                                     }
                                 },
-                                message: messages.validateError3
+                                message: messages.validateError2
                             }
                         ],
                         required: true
@@ -1742,7 +1742,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                             },
                             {
                                 validator: (rule, value, callback) => {
-                                    if (value >= 0.01 || value <= 999999999.9) {
+                                    if (value >= 0.01 && value <= 999999999.9) {
                                         callback();
                                     } else {
                                         callback(new Error('The amount of wrong'));
@@ -1777,7 +1777,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                             },
                             {
                                 validator: (rule, value, callback) => {
-                                    if (value >= 0.01 || value <= 999999999.9) {
+                                    if (value >= 0.01 && value <= 999999999.9) {
                                         callback();
                                     } else {
                                         callback(new Error('The amount of wrong'));
@@ -1791,7 +1791,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                     {
                         key: 'landArea',
                         type: 1,
-                        maxLength: 8,
+                        maxLength: 12,
                         unit: 'area',
                         icon: 'icon-area',
                         rules: [
@@ -1812,13 +1812,13 @@ const propertyMap = ((messages, ValidateTool)=>{
                             },
                             {
                                 validator: (rule, value, callback) => {
-                                    if (value >= 0.01 || value <= 9999999999.99) {
+                                    if (value >= 0.01 && value <= 999999999.99) {
                                         callback();
                                     } else {
                                         callback(new Error('The amount of wrong'));
                                     }
                                 },
-                                message: messages.validateError3
+                                message: messages.validateError2
                             }
                         ],
                         required: true

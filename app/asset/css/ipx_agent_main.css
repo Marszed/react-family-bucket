@@ -155,7 +155,7 @@ body *{
 /*项目预览二级菜单*/
 .dev_cont_subTit {background:#f4f4f4;  box-shadow:0 2px 4px rgba(0,0,0,.1); position:relative; z-index:2}
 .dev_cont_subTit>ol {padding:0 0 0 30px}
-.dev_cont_subTit>ol>li,.dev_cont_subTit>ol>a {height:60px; box-sizing:border-box; line-height:60px; padding:0 5px; cursor:pointer; margin-right:30px}
+.dev_cont_subTit>ol>li,.dev_cont_subTit>ol>a {height:60px; box-sizing:border-box; line-height:60px; padding:0 5px; cursor:pointer; margin-right:30px;text-decoration: none}
 .dev_cont_subTit>ol>li.active,.dev_cont_subTit>ol>a.active {border-bottom:solid 2px #00afb4; color:#00afb4}
 .dev_cont_subTit>ol>li.active i,.dev_cont_subTit>ol>a.active i {color:#00afb4}
 .dev_cont_subTit>ol>li i,.dev_cont_subTit>ol>a i {vertical-align:middle; font-size:20px; margin-right:5px;color:#999}
@@ -384,8 +384,7 @@ body *{
 .ipx_dev_nav li.ipxred_txt span:after {content:"●"; font-size:16px; position:absolute; right:-14px; top:-32px; color:#eb7366}
 /*左侧个人模块*/
 .ipx_dev_personal {width:100%; position:absolute; bottom:0; left:0; text-align:center}
-.ipx_dev_personal a {cursor: default;}
-.ipx_dev_personal img {display:block; width:50px; height:50px; margin:0 auto 5px}
+.ipx_dev_personal>a {margin: 0 auto; cursor: default;display:block; width:50px; height:50px; background-repeat: no-repeat;background-position: center center; background-size: contain}
 .ipx_dev_personal h2 {height:30px; line-height:30px}
 .ipx_dev_personal h2 a {font-size:14px; color:#fff; text-decoration:none;}
 .ipx_dev_personal h2 a:hover {color:#00afb4}
@@ -416,7 +415,7 @@ body *{
 .ipx_dev_nav li:hover span {display:inline-block}
 .ipx_dev_nav a.active>li i {color:#fff}
 /*左侧个人模块*/
-.ipx_dev_personal img {width:36px; height:36px;}
+.ipx_dev_personal>a {width:36px; height:36px;}
 .ipx_dev_personal h2,.ipx_dev_personal h3 {display:none}
 .ipx_dev_personal .dev_persn_menu li {position:relative}
 .ipx_dev_personal .dev_persn_menu li span {display:inline-block; *display:inline; *zoom:1; display:none; height:40px; line-height:40px;  position:absolute; left:58px; top:10px; padding-left:10px;white-space:nowrap}

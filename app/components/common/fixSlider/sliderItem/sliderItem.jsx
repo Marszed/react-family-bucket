@@ -9,12 +9,18 @@ export default class sliderItem extends React.Component {
         super(props);
     }
     render() {
-        let { count, item } = this.props;
-        let width = 100 / count + '%';
+        const { count, item } = this.props;
+        const width = 100 / count + '%';
+        const src = JSON.stringify(item.url || item.resourceUrl);
+        const style = {
+            width: width,
+            backgroundImage: 'url(' + src + ')',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center center',
+            backgroundSize: 'contain'
+        };
         return (
-            <li className="slider-item" style={{width: width}}>
-                <img src={item.url || item.resourceUrl} alt={item.fileName || 'ipx'}/>
-            </li>
+            <li className="slider-item" style={style}/>
         );
     }
 }

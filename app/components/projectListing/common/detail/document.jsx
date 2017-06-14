@@ -92,44 +92,48 @@ class Document extends React.Component {
                 !this.state.resourceList1.length && !this.state.resourceList2.length && !this.state.resourceList4.length && !this.state.resourceList8.length && !this.state.resourceList9.length && !this.state.resourceList10.length ? <NoData/> : null
             }
             {/*户型图*/}
-            <ul className="clearfix">
-                {
-                    this.state.resourceList2 ? this.state.resourceList2.map((obj, index) => (
-                        <li key={obj.resourceId} onClick={this.viewHandle.bind(this, index, this.state.resourceList2)}>
-                            <div className="proj_creat_imgbox">
-                                <img src={obj.resourceUrl}/>
-                            </div>
-                            <div className="proj_img_info_show">{obj.remark}</div>
-                        </li>
-                    )) : null
-                }
-            </ul>
             {
-                this.state.resourceList2 && this.state.resourceList2.length ? <FixSlider speed={1.5} delay={3} ref="slider" pause={true} autoplay={false} dots={false} noDelete={true} arrows={true}/> : null
+                Number(query.projectType) !== 4 ? <ul className="clearfix">
+                        {
+                            this.state.resourceList2 ? this.state.resourceList2.map((obj, index) => (
+                                    <li key={obj.resourceId} onClick={this.viewHandle.bind(this, index, this.state.resourceList2)}>
+                                        <div className="proj_creat_imgbox">
+                                            <img src={obj.resourceUrl}/>
+                                        </div>
+                                        <div className="proj_img_info_show">{obj.remark}</div>
+                                    </li>
+                                )) : null
+                        }
+                    </ul> : null
+            }
+            {
+                Number(query.projectType) !== 4 && this.state.resourceList2 && this.state.resourceList2.length ? <FixSlider speed={1.5} delay={3} ref="slider" pause={true} autoplay={false} dots={false} noDelete={true} arrows={true}/> : null
             }
             {/*户型图-pdf*/}
-            <table className="proj_file_list" cellPadding="0" cellSpacing="0">
-                <tr className="proj_file_list_head">
-                    <th className="proj_file_head_plus"><i className="iconfont icon-layout font_24px"/></th>
-                    <th className="proj_file_head_tit"><b className="v_align_mid">{messages.apartmentRenderings}</b></th>
-                    <th>{messages.fileType}</th>
-                    <th>{messages.fileSize}</th>
-                    <th>{messages.operation}</th>
-                </tr>
-                {
-                    this.state.resourceList8 ? this.state.resourceList8.map((obj) => (
-                        <tr className="proj_file_list_tr" key={obj.resourceId}>
-                            <td className="proj_first_td"><i className={"iconfont icon-" + (obj.fileType ? obj.fileType.replace('.', '') : "file")}/></td>
-                            <td className="proj_tit_td">{obj.fileName}</td>
-                            <td>{obj.fileType || ""}</td>
-                            <td>{obj.fileSize}M</td>
-                            {
-                                query.authorizeNumber && Number(query.authorizeNumber) !== 0 ? <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td> : <td className="grey_txt666">{messages.downLoadToAuth}</td>
-                            }
+            {
+                Number(query.projectType) !== 4 ? <table className="proj_file_list" cellPadding="0" cellSpacing="0">
+                        <tr className="proj_file_list_head">
+                            <th className="proj_file_head_plus"><i className="iconfont icon-layout font_24px"/></th>
+                            <th className="proj_file_head_tit"><b className="v_align_mid">{messages.apartmentRenderings}</b></th>
+                            <th>{messages.fileType}</th>
+                            <th>{messages.fileSize}</th>
+                            <th>{messages.operation}</th>
                         </tr>
-                    )) : null
-                }
-            </table>
+                        {
+                            this.state.resourceList8 ? this.state.resourceList8.map((obj) => (
+                                    <tr className="proj_file_list_tr" key={obj.resourceId}>
+                                        <td className="proj_first_td"><i className={"iconfont icon-" + (obj.fileType ? obj.fileType.replace('.', '') : "file")}/></td>
+                                        <td className="proj_tit_td">{obj.fileName}</td>
+                                        <td>{obj.fileType || ""}</td>
+                                        <td>{obj.fileSize}M</td>
+                                        {
+                                            query.authorizeNumber && Number(query.authorizeNumber) !== 0 ? <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td> : <td className="grey_txt666">{messages.downLoadToAuth}</td>
+                                        }
+                                    </tr>
+                                )) : null
+                        }
+                    </table> : null
+            }
             {/*楼书*/}
             <table className="proj_file_list" cellPadding="0" cellSpacing="0">
                 <tr className="proj_file_list_head">
