@@ -294,6 +294,17 @@ export function keySort(propertyName, type) {
     };
 }
 
+// 数组删除指定元素
+export function removeByValue(arr, val) {
+    let temp = [];
+    for(let i = 0; i < arr.length; i++) {
+        if(arr[i] !== val) {
+            temp.push(arr[i]);
+        }
+    }
+    return temp;
+}
+
 // 千分位格式化
 export function formatMoney (s, n) {
     n = n > 0 && n <= 20 ? n : 2;

@@ -4,6 +4,7 @@
 import axios from "axios";
 import env from "CONFIG/env";
 import store from "REDUX/store/global";
+import {removeByValue} from "LIB/tool";
 import {showToast, globalLoading, inlineLoading} from "REDUX/actions/global";
 import qs from "qs";
 
@@ -65,10 +66,14 @@ export function asyncAwaitCall(obj) {
         window.location = '/';
     }
     let headers = Object.assign(obj.headers || {}, {Authorization: 'bearer ' + token});
-    return new Promise(function (resolve) {
-        // ==========发起请求前-开启loading=============
-        loadingHandler(obj, true);
 
+    // 记录loading token
+    const loadingToken = (Math.random()*10000).toFixed(0) + JSON.stringify((new Date()).getTime());
+    // 存入一个loading token
+    tokenHandler.updateToken(obj, loadingToken);
+    // 1s中之后检查 loading token有无存在， 存在需要开启loading, 不存在则不需要开启loading
+    setTimeout(() => (tokenHandler.checkToken(obj, loadingToken)), tokenHandler.timeToken);
+    return new Promise(function (resolve) {
         axios.request({
             // `url` is the server URL that will be used for the request
             url: obj.url.value,
@@ -116,7 +121,8 @@ export function asyncAwaitCall(obj) {
         }).then(function (response) {
 
             // ==========接收成功响应-关闭loading=============
-            loadingHandler(obj, false);
+            // 更新loading token, 关闭loading
+            tokenHandler.updateToken(obj, loadingToken);
             if ((response.status >= 200 && response.status < 300) && (response.data.header && response.data.header.code === '0000')) {
                 return resolve(response);
             }
@@ -131,7 +137,8 @@ export function asyncAwaitCall(obj) {
             return resolve({data: response.data, errType: "error"});
         })['catch'](function (error) {
             // ==========异常响应-关闭loading=============
-            loadingHandler(obj, false);
+            // 更新loading token, 关闭loading
+            tokenHandler.updateToken(obj, loadingToken);
             if (error.response && error.response.status === 401) {
                 toastHandler({toastContent: obj.toastContent || "Unauthorized", state: 2, toast: obj.toast});
                 //登录超时或者伪造token等情况
