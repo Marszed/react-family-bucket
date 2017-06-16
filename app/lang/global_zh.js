@@ -406,5 +406,7 @@ export default {
     police:"警局",
     mapName:"名称",
     mapScore:"评分",
-    mapDistance:"距离"
+    mapDistance:"距离",
+    maxPriceSort:"最高价格",
+    minPriceSort:"最低价格"
 };

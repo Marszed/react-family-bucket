@@ -63,6 +63,16 @@ class SelectOrder extends React.Component {
                     orderBy: 6,
                     orderDirection: 0,
                     content: messages.targetDistance
+                },
+                {
+                    orderBy: 7,
+                    orderDirection: 0,
+                    content: messages.minPriceSort
+                },
+                {
+                    orderBy: 8,
+                    orderDirection: 0,
+                    content: messages.maxPriceSort
                 }
             ]
         };

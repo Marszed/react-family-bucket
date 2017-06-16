@@ -269,7 +269,7 @@ class PersonInfo extends React.Component {
                                 <input type="text" className="ipxTxt width33per"
                                        onChange={this.changeFirstName.bind(this)}
                                        onBlur={this.changeFirstName.bind(this)}
-                                       maxLength="50"
+                                       maxLength="40"
                                        placeholder={messages.firstName}
                                        value={this.state.userInfo.firstName}/>
                                 <p className="warningTxt">{this.state.firstNameInfo}</p>
@@ -279,7 +279,7 @@ class PersonInfo extends React.Component {
                                 <input type="text" className="ipxTxt width33per"
                                        onChange={this.changeLastName.bind(this)}
                                        onBlur={this.changeLastName.bind(this)}
-                                       maxLength="50"
+                                       maxLength="40"
                                        placeholder={messages.lastName}
                                        value={this.state.userInfo.lastName}/>
                                 <p className="warningTxt">{this.state.lastNameInfo}</p>
