@@ -199,7 +199,7 @@ class Login extends React.Component {
     //邮箱输入
     changeEmail(type, event) {
         let email = String(event.target.value).trim();
-        this.setState({email: email});
+        this.setState({email: email, validateInfo: "empty"});
         if (type === 'blur'){
             this.showCodeImageVerify(email);
         }
@@ -220,7 +220,7 @@ class Login extends React.Component {
 
     //密码输入
     changePassword(event) {
-        this.setState({password: event.target.value});
+        this.setState({password: event.target.value, validateInfo: "empty"});
         // this.validatePassword(event.target.value);
     }
 
@@ -235,7 +235,7 @@ class Login extends React.Component {
 
     //验证码输入
     changeVerifyCode(event) {
-        this.setState({verifyCode: event.target.value});
+        this.setState({verifyCode: event.target.value, validateInfo: "empty"});
     }
 
     validateVerifyCode(value) {
