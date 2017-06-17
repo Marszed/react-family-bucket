@@ -20,7 +20,7 @@ class Confirm extends React.Component {
                         <a href="javascript:" className="float_rt" onClick={this.handle.bind(this, false)}>
                             <i className="iconfont icon-close"/></a>
                     </div>
-                    <div className="ipx_pop_body">
+                    <div className="ipx_pop_body" style={{"textAlign": "center"}}>
                         <p>{this.props.content}</p>
                     </div>
                     <div className="ipx_pop_foot">

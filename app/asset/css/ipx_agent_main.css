@@ -723,7 +723,7 @@ ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:1
 
 
 /*----------------------------------------不动产商个人设置、公司设置----------------------------------------*/
-.ipx_setting_box {position:absolute; bottom:0; top:60px; width:100%; box-sizing:border-box; overflow:auto; z-index:1}
+/*.ipx_setting_box {position:absolute; bottom:0; top:60px; width:100%; box-sizing:border-box; overflow:auto; z-index:1}
 .ipx_setting_box>.clearfix {width:1140px; margin:0 auto; padding:40px 0 60px}
 .ipx_setting_headimg {width:340px; float:left}
 .ipx_setting_headimgbox {position:relative;width:160px; height:160px; background:#f4f4f4; text-align:center}
@@ -769,6 +769,52 @@ ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:1
 .ipx_setting_logobox {float:left}
 .ipx_setting_logo p {float:left; margin:6px 0 0 50px}
 .ipx_setting_headimg {width:260px}
+}*/
+.ipx_setting_box {position:absolute; bottom:0; top:60px; width:100%; box-sizing:border-box; overflow:auto; z-index:1}
+.ipx_setting_box>.clearfix {width:1140px; margin:0 auto; padding:40px 0 60px}
+.ipx_setting_headimg {width:340px; float:left}
+.ipx_setting_headimgbox {position:relative;width:160px; height:160px; background:#f4f4f4; text-align:center}
+.ipx_setting_headimgbox img{max-height: 100%;max-width: 100%;}
+.ipx_setting_headimgbox i {display:none; width:160px; height:160px; font-size:32px; line-height:160px; color:#d9dddf; cursor:pointer;position: absolute;top:0;left: 0;z-index: 3;}
+.ipx_setting_headimgbox:hover i {display:block;}
+.ipx_setting_headimg p {font-size:13px; color:#666; margin:40px 0 0}
+.ipx_setting_logo {width:340px; float:left}
+.ipx_setting_logobox {width:266px; height:80px; background:#f4f4f4; text-align:center}
+.ipx_setting_logobox i {display:block; width:266px; height:80px; font-size:32px; line-height:80px; color:#d9dddf; cursor:pointer}
+.ipx_setting_logo p {font-size:13px; color:#666; margin:40px 0 0}
+.ipx_setting_form {width:800px; float:left}
+.ipx_setting_tr {width:100%; position:relative}
+.ipx_setting_td {float:left; box-sizing:border-box; position:relative}
+.ipx_setting_tr h4 {display:block; font-size:13px; height:18px; color:#666; font-weight:bold; margin:36px 0 12px}
+.ipx_setting_tr input.ipxTxt,.ipx_setting_tr label.ipx_radio.checked span,.ipx_setting_tr .ipx_select>div>span {font-size:16px; color:#00afb4; font-weight:bold}
+.ipx_setting_safety {position:absolute; bottom:0; top:60px; width:100%; box-sizing:border-box; overflow:auto; z-index:1}
+.ipx_setting_safety>div.clearfix {padding:70px;}
+.ipx_setting_password,.ipx_setting_email {width:50%; height:550px; float:left; padding:50px; box-sizing:border-box; border:solid 1px #e4e4e4}
+.ipx_setting_email {border-left:none;}
+.ipx_setting_password>h1,.ipx_setting_email>h1 {font-size:16px; color:#333; margin-bottom:30px;}
+.ipx_setting_password>p,.ipx_setting_email>p {font-size:13px; margin-bottom:50px;}
+.ipx_setting_password>p a {color:#00afb4;}
+.ipx_setting_password>button.ipx_blue_btn,.ipx_setting_email>button.ipx_blue_btn {margin:50px 0 0 40px; width:160px}
+
+@media (max-width:1280px){
+    .ipx_setting_password,.ipx_setting_email {width:100%; float:inherit}
+    .ipx_setting_email {border-left:solid 1px #e4e4e4; margin-top:50px; height:410px}
+}
+@media  (max-width:1366px){
+    .ipx_setting_box>.clearfix {width:800px;}
+    .ipx_setting_headimg,.ipx_setting_logo {width:800px; float:inherit;}
+    .ipx_setting_headimgbox,.ipx_setting_logobox {float:left}
+    .ipx_setting_form {float:inherit;}
+    .ipx_setting_headimg p {float:left; margin-left:50px}
+    .ipx_setting_logo p {float:left; margin:6px 0 0 50px}
+}
+@media (min-width:1367px) and (max-width:1440px){
+    .ipx_setting_box>.clearfix {width:1060px;}
+    .ipx_setting_companybox>.clearfix{width:800px}
+    .ipx_setting_logo {width:800px; float:inherit;}
+    .ipx_setting_logobox {float:left}
+    .ipx_setting_logo p {float:left; margin:6px 0 0 50px}
+    .ipx_setting_headimg {width:260px}
 }
 
 
@@ -939,7 +985,7 @@ transition: background-color .4s ease,border .4s ease,opacity .4s ease}
 .ipx_pop_head span.float_rt {font-size:13px; margin-right:20px}
 .ipx_pop_head a.float_rt {width:49px; height:49px; text-align:center; line-height:49px; color:#666}
 .ipx_pop_head a.float_rt:hover {background:#f0f0f0}
-.ipx_pop_body {padding:30px; box-sizing:border-box; font-size:13px;text-align: center;}
+.ipx_pop_body {padding:30px; box-sizing:border-box; font-size:13px;}
 .ipx_pop_foot {padding:0 30px 20px 30px;}
 .ipx_pop_foot button {margin-right:15px}
 .ipx_pop_bg {position:fixed; width:100%; height:100%; background:#000; opacity:.2; filter:alpha(opacity=20); z-index:0}
