@@ -248,6 +248,7 @@ export default {
     "NORTHWEST": "西北",
     "EAST_WEST": "东西",
     "NORTH_SOUTH": "南北",
+    "central": '中心',
     "cityView": "市中心景观",
     "beachView": "海滩景观",
     "seaView": "海景",
