@@ -408,5 +408,6 @@ export default {
     mapScore:"评分",
     mapDistance:"距离",
     maxPriceSort:"最高价格",
-    minPriceSort:"最低价格"
+    minPriceSort:"最低价格",
+    countProjects:"个项目"
 };

@@ -314,7 +314,7 @@ class NavBread extends React.Component {
             <tr>
                 <td>
                     <span
-                        className="agency_p_span">{messages.currentResult}：<strong>{projectList ? projectList.total : 0}</strong> {messages.count + messages.project}</span>
+                        className="agency_p_span">{messages.currentResult}：<strong>{projectList ? projectList.total : 0}</strong> {messages.countProjects}</span>
                     <ol className="agency_p_ol">
                         {
                             searchOption.title ?
