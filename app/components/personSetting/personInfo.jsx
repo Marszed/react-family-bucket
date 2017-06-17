@@ -254,7 +254,12 @@ class PersonInfo extends React.Component {
                                     onChange={this.handleChange}
                                 >
                                     {
-                                        this.state.userInfo.profileImage ? <img src={this.state.userInfo.profileImage} /> : null
+                                        this.state.userInfo.profileImage ?
+                                            <div className="center-middle" style={{"width":"160px", "height":"160px"}}>
+                                                {
+                                                    this.state.userInfo.profileImage ? <img style={{"maxHeight": 160+"px"}} src={this.state.userInfo.profileImage} /> : ''
+                                                }
+                                            </div> : null
                                     }
                                     <i className="iconfont icon-add"/>
                                 </Upload>
@@ -264,9 +269,9 @@ class PersonInfo extends React.Component {
                     </div>
                     <div className="ipx_setting_form">
                         <div className="ipx_setting_tr clearfix">
-                            <div className={"ipx_setting_td width33per " + (this.state.firstNameInfo ? "warning" : "")}>
+                            <div className={"ipx_setting_td width25per " + (this.state.firstNameInfo ? "warning" : "")}>
                                 <h4>{messages.firstName}</h4>
-                                <input type="text" className="ipxTxt width33per"
+                                <input type="text" className="ipxTxt width96per"
                                        onChange={this.changeFirstName.bind(this)}
                                        onBlur={this.changeFirstName.bind(this)}
                                        maxLength="40"
@@ -274,9 +279,9 @@ class PersonInfo extends React.Component {
                                        value={this.state.userInfo.firstName}/>
                                 <p className="warningTxt">{this.state.firstNameInfo}</p>
                             </div>
-                            <div className={"ipx_setting_td width33per " + (this.state.lastNameInfo ? "warning" : "")}>
+                            <div className={"ipx_setting_td width25per " + (this.state.lastNameInfo ? "warning" : "")}>
                                 <h4>{messages.lastName}</h4>
-                                <input type="text" className="ipxTxt width33per"
+                                <input type="text" className="ipxTxt width96per"
                                        onChange={this.changeLastName.bind(this)}
                                        onBlur={this.changeLastName.bind(this)}
                                        maxLength="40"
@@ -304,7 +309,7 @@ class PersonInfo extends React.Component {
                             </label>
                         </div>
                         <div className="ipx_setting_tr clearfix">
-                            <div className={"ipx_setting_td width50per " + (this.state.mobilePhone ? "warning" : "")}>
+                            <div className={"ipx_setting_td width96per " + (this.state.mobilePhone ? "warning" : "")}>
                                 <h4>{messages.telephone}</h4>
                                 <input type="text" className="ipxTxt"
                                        onChange={this.changeTelephone.bind(this)}
@@ -314,10 +319,10 @@ class PersonInfo extends React.Component {
                                        value={mobilePhone} />
                                 <p className="warningTxt">{this.state.telephoneInfo}</p>
                             </div>
-                            <div className="ipx_setting_td width50per">
-                                <h4>{messages.email}</h4>
-                                <input type="text" className="ipxTxt width96per disabled" value={this.state.userInfo.email} disabled="disabled"/>
-                            </div>
+                        </div>
+                        <div className="ipx_setting_tr">
+                            <h4>{messages.email}</h4>
+                            <input type="text" className="ipxTxt width66per disabled" value={this.state.userInfo.email} disabled="disabled"/>
                         </div>
                         <button className="ipx_btn ipx_blue_btn ipx_XL_btn" style={{"margin": "60px 0 0", "width": "160px"}} onClick={this.savePersonInfo.bind(this)}>{messages.save}</button>
                     </div>
