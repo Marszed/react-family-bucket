@@ -13,6 +13,38 @@ import locationMock from "INTERFACE/response";
 
 const tipTime = 3;
 
+let tokenHandler = {
+    tokens: [],
+    timeToken: 1000,
+    checkToken: (obj, token) => {
+        if (tokenHandler.tokens && tokenHandler.tokens.length){
+            tokenHandler.tokens.map((_token) => {
+                if (_token === token){
+                    loadingHandler(obj, true);
+                    return false;
+                }
+            });
+        }
+    },
+    updateToken: (obj, token) => {
+        let hasToken = false;
+        if (tokenHandler.tokens && tokenHandler.tokens.length){
+            tokenHandler.tokens.map((_token) => {
+                if (_token === token){
+                    hasToken = true;
+                    return false;
+                }
+            });
+        }
+        if (!hasToken){
+            tokenHandler.tokens.push(token);
+        } else {
+            tokenHandler.tokens = removeByValue(tokenHandler.tokens, token);
+            loadingHandler(obj, false);
+        }
+    }
+};
+
 /**
  * loading 控制器
  * @param obj
