@@ -3,7 +3,6 @@
  */
 import React from 'react';
 import SliderItem from './sliderItem/sliderItem';
-import SliderDot from './sliderDots/sliderDot';
 import SliderArrow from './sliderArrows/sliderArrow';
 
 export default class Slider extends React.Component {
@@ -53,29 +52,26 @@ export default class Slider extends React.Component {
             <SliderItem item={item} count={count} key={'item' + idx} />
         ));
 
-        let arrowsNode = <SliderArrow turn={this.turn.bind(this)} speed={this.props.speed}/>;
-
-        let dotsNode = <SliderDot turn={this.turn.bind(this)} count={count} nowLocal={this.state.nowLocal} />;
+        let arrowsDotsNode = <SliderArrow turn={this.turn.bind(this)} items={this.state.items} speed={this.props.speed} count={count} nowLocal={this.state.nowLocal}/>;
 
         return (
-            <div
-                className={this.props.className || "agency_preview_images"}
+            <div className={this.props.className || "proj_preview_imgshow"}
                 style={this.props.sliderStyle}
                 onMouseOver={this.props.pause ? this.pausePlay.bind(this) : null} onMouseOut={this.props.pause ? this.goPlay.bind(this) : null}>
-                <ul className="agency_preview_imgbox" style={{
-                    left: -100 * this.state.nowLocal + "%",
-                    transitionDuration: this.props.speed + "s",
-                    width: this.state.items.length * 100 + "%",
-                    overflow: "visible",
-                    whiteSpace: "nowrap"
-                }}>
-                    {itemNodes}
-                </ul>
-                {this.props.arrows && this.state.items.length ? arrowsNode : null}
-                {this.props.dots ? dotsNode : null}
-                {
-                    this.state.items.length && this.props.tips !== false ? <span className="agency_img_index">{this.state.nowLocal + 1} 	&frasl; {this.state.items.length} P</span> : null
-                }
+                <div className="proj_preview_bigimgbox">
+                    <ul style={{
+                        left: -100 * this.state.nowLocal + "%",
+                        transitionDuration: this.props.speed + "s",
+                        width: this.state.items.length * 100 + "%",
+                        position: "relative",
+                        overflow: "visible",
+                        whiteSpace: "nowrap",
+                        height: '100%'
+                    }}>
+                        {itemNodes}
+                    </ul>
+                </div>
+                {this.props.arrows && this.state.items.length ? arrowsDotsNode : null}
             </div>
         );
     }
@@ -87,7 +83,6 @@ Slider.defaultProps = {
     delay: 2,
     pause: true,
     autoplay: true,
-    dots: true,
     arrows: true,
     items: []
 };

@@ -410,5 +410,11 @@ export default {
     mapDistance:"距离",
     maxPriceSort:"最高价格",
     minPriceSort:"最低价格",
-    countProjects:"个项目"
+    countProjects:"个项目",
+    seeMore:"查看更多",
+    seeHide:"收起查看",
+    projectAround:"项目周边",
+    tradeInfo:"交易信息",
+    createTime:"创建时间",
+    lastTime:"更新时间"
 };
