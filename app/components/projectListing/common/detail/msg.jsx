@@ -2,25 +2,42 @@
  * Created by marszed on 2017/1/24.
  */
 import React, {PropTypes} from "react";
+import {connect} from 'react-redux';
 import {injectIntl} from "react-intl";
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
-import {formatMoney} from 'LIB/tool';
+import {formatMoney, objCopy} from 'LIB/tool';
 import NoData from 'COMPONENT/common/noData';
+import echart from "ASSET/js/echarts.min";
 import InlineSlider from 'COMPONENT/common/inlineSlider/slider';
+import {showToast} from 'REDUX/actions/global';
+import bank from "ASSET/img/icon-bank.png";
+import school from "ASSET/img/icon-school.png";
+import food from "ASSET/img/icon-restaurant.png";
+import hospital from "ASSET/img/icon-hospital.png";
+import bus_station from "ASSET/img/icon-station.png";
+import grocery_or_supermarket from "ASSET/img/icon-shopping.png";
+import police from "ASSET/img/icon-police.png";
 
 let markers = [];
 
 class Msg extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {searchType: "",searchArray:[]};
+        this.state = {
+            searchType: "",
+            searchArray:[],
+            mapHide:false,
+            moreHide:true,
+            createTime:'2017-06-08',
+            lastTime:'2017-06-08',
+            favoriteFlag:false
+        };
     }
 
     componentDidMount = () => (
         this.getProjectDetail()
     );
-
 
     googleMap(longitude, latitude, title) {
         const myLatlng = new google.maps.LatLng(latitude || -0.120850, longitude || 51.508742);
@@ -33,7 +50,7 @@ class Msg extends React.Component {
 
         let map = new google.maps.Map(document.getElementById("container"), mapProp);
 
-        let marker = new google.maps.Marker({
+        let projectMarker = new google.maps.Marker({
             position: myLatlng,
             map: map,
             draggable: false,
@@ -43,6 +60,7 @@ class Msg extends React.Component {
 
     getProjectDetail = () => {
         const {params} = this.context.router;
+        const {messages} = this.props.intl;
         let responseHandler = async function () {
             let response = await asyncAwaitCall({
                 url: {value: INTERFACE.PROJECTDETAIL + params.projectId, key: 'PROJECTDETAIL'},
@@ -51,9 +69,77 @@ class Msg extends React.Component {
             if (!response.errType) {
                 let res = response.data.data;
                 this.setState(res);
+                let projectChart = echart.init(document.getElementById('projectChart'));
+                let projectData = [
+                    {
+                        value: res.available,
+                        name: messages.available,
+                        itemStyle: {
+                            normal: {
+                                color: "#00afb4"
+                            }
+                        }
+                    },
+                    {
+                        value: res.reserved,
+                        name: messages.reserved,
+                        itemStyle: {
+                            normal: {
+                                color: "#fad285"
+                            },
+                        }
+                    },
+                    {
+                        value: res.sold,
+                        name: messages.sold,
+                        itemStyle: {
+                            normal: {
+                                color: "#eb7366"
+                            },
+                        }
+                    }
+                ];
+                let option = {
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{b} : {c} ({d}%)",
+                        textStyle: {
+                            fontStyle: 'normal',
+                            fontSize: '10',
+                            fontFamily:'normal'
+                        }
+                    },
+                    series: [
+                        {
+                            name: '',
+                            type: 'pie',
+                            radius : '45%',
+                            center: ['50%', '50%'],
+                            label: {
+                                normal: {
+                                    show: false
+                                },
+                                emphasis: {
+                                    show: false
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: false
+                                },
+                                emphasis: {
+                                    show: false
+                                }
+                            }
+                        }
+                    ]
+                };
+                option.series[0].data = projectData.sort(function (a, b) { return a.value - b.value; });
+                projectChart.setOption(option);
                 this.googleMap(response.data.data.longitude,
                     response.data.data.latitude,
                     response.data.data.title);
+                this.searchAround('bank');
             }
         }.bind(this)();
     };
@@ -79,7 +165,7 @@ class Msg extends React.Component {
                 let searchArr = [];
                 for (let i = 0; i < results.length; i++) {
                     let place = results[i];
-                    this.addMarker(map,place.geometry.location,place.name);//追加新地点标记
+                    this.addMarker(map,place.geometry.location,place.name,type);//追加新地点标记
                     let searchInfo = {};
                     searchInfo.name = place.name;
                     searchInfo.rating = Math.floor(place.rating == undefined? 0 : place.rating);
@@ -88,6 +174,8 @@ class Msg extends React.Component {
                 }
                 this.setState({searchArray:searchArr});
             }
+
+            this.addMarker(map,pyrmont,this.state.title,'project');
         });
     };
 
@@ -103,13 +191,31 @@ class Msg extends React.Component {
         return d.toFixed(1);
     };
 
-    addMarker = (map,position,title) =>{
+    addMarker = (map,position,title,type) =>{
+        let icon = null;
+        if (type === 'bank'){
+            icon = bank;
+        } else if (type === 'school'){
+            icon = school;
+        } else if (type === 'food'){
+            icon = food;
+        } else if (type === 'hospital'){
+            icon = hospital;
+        } else if (type === 'bus_station'){
+            icon = bus_station;
+        } else if (type === 'grocery_or_supermarket'){
+            icon = grocery_or_supermarket;
+        } else if (type === 'police'){
+            icon = police;
+        }
+
+
         let marker = new google.maps.Marker({
             position: position,
             map: map,
             draggable:false,
-            title:title
-
+            title:title,
+            icon:icon
         });
 
         markers.push(marker);
@@ -120,171 +226,198 @@ class Msg extends React.Component {
             markers[i].setMap(null);
         }
         markers.length=0;
-
         this.setState({searchArray:[]});
+    };
+
+    changeMapHide = () => {
+      let mapHide = this.state.mapHide;
+      this.setState({mapHide:!mapHide});
+    };
+
+    changeMoreHide = () => {
+        let moreHide = this.state.moreHide;
+        this.setState({moreHide:!moreHide});
+    };
+    // 不动产项目收藏和取消收藏
+    collect = () => {
+        const {messages} = this.props.intl;
+        let responseHandler = async function () {
+            let response = await asyncAwaitCall({
+                url: {value: INTERFACE.PROJECTCOLLECT + this.state.projectId, key: 'PROJECTCOLLECT'},
+                method: 'put',
+                params: {
+                    collectFlag: !(this.state.favoriteFlag === 1)
+                },
+                dataSerialize: true
+            });
+            if (!response.errType) {
+                this.props.dispatch(showToast({
+                    content: (this.state.favoriteFlag !== 1 ? '' : messages.cancel) + messages.marked + messages.success,
+                    state: 1
+                }));
+            }
+        }.bind(this)();
     };
 
     render = () => {
         const {messages} = this.props.intl;
         const projectType = [messages.projectType1, messages.projectType2, messages.projectType3, messages.projectType4];
-        let sellsPerformance ;
-        if (this.state.reserved + this.state.available + this.state.sold === 0){
-            sellsPerformance = "";
-        } else {
-            let noSoldWidth = 100 * (this.state.available / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2);
-            noSoldWidth = noSoldWidth < 12 ? 12 : noSoldWidth > 88 ? 88 : noSoldWidth;
-            sellsPerformance =
-                <div className="sellsPerformance">
-                    <ul>
-                        <li className="ipxblue_txt" style={{left: 0 + '%'}}>{messages.noSoldNum} {this.state.available}</li>
-                        <li className="ipxyellow_txt" style={{left: noSoldWidth + '%'}}>{messages.reservedNum} {this.state.reserved}</li>
-                        <li className="ipxred_txt" style={{right: 0 + '%'}}>{messages.soldNum} {this.state.sold}</li>
-                    </ul>
-                    <div className="sellper_chart">
-                        <span className="sell_available" style={{width: 100 * (this.state.available / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
-                        <span className="sell_booking" style={{width: 100 * (this.state.reserved / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
-                        <span className="sell_sold" style={{width: 100 * (this.state.sold / (this.state.reserved + this.state.available + this.state.sold)).toFixed(2) + '%'}}/>
-                    </div>
-                </div>;
-        }
-
         let searchInfos = this.state.searchArray.map(searchInfo => {
             let rates = "";
             for (let i = 0; i < searchInfo.rating; i++){
                 rates += '<i class="iconfont icon-favorite2"/>';
             }
-            return <tr>
-                <td style={{"textAlign": "left"}}>{searchInfo.name}</td>
-                <td style={{"textAlign": "center"}}><div dangerouslySetInnerHTML={{__html: rates}} /></td>
-                <td style={{"textAlign": "center"}}>{searchInfo.distance}km</td>
-            </tr>;
+
+            return <li>
+                        <p>{searchInfo.name}</p>
+                        <span>
+                            <em>{searchInfo.distance}km</em>
+                            <div dangerouslySetInnerHTML={{__html: rates}} />
+                        </span>
+                    </li>;
         });
-        return !this.state.projectId ? <div className="ipx_proj_preview_cont"><div className="agency_preview_box"><NoData/></div></div> : <div className="ipx_proj_preview_cont"><div className="agency_preview_box">
-                <InlineSlider speed={1.5} delay={3} pause={true} autoplay={false} dots={false} arrows={true} items={this.state.picList}/>
-                <div className="agency_preview_info">
-                    <div className="agency_prevw_infoLf">
-                        <h4 className="agency_previw_h4">{messages.salesStatus}</h4>
-                        {sellsPerformance}
-                        <h4 className="agency_previw_h4">{messages.baseInfo}</h4>
-                        <div className="agency_info_attr_box clearfix">
-                            <ul className="preview_info float_lf">
-                                <li><span className="preview_info_attr">{messages.propertyType}</span><span className="preview_info_value">{projectType[this.state.projectType]}</span></li>
-                                <li><span className="preview_info_attr">{messages.priceRange}</span><span className="preview_info_value">{this.state.currencyName} {formatMoney(this.state.minPrice)} - {this.state.currencyName} {formatMoney(this.state.maxPrice)} </span></li>
-                                <li><span className="preview_info_attr">{messages.country}</span><span className="preview_info_value">{this.state.countryName}</span></li>
-                                <li><span className="preview_info_attr">{messages.region}</span><span className="preview_info_value">{this.state.regionFirstName} {this.state.regionSecondName ? '-' : ''} {this.state.regionSecondName} {this.state.regionThirdName ? '-' : ''} {this.state.regionThirdName}</span></li>
-                                <li><span className="preview_info_attr">{messages.detailAddr}</span><span className="preview_info_value">{this.state.detailAddr}</span></li>
-                            </ul>
-                            <ul className="preview_info float_rt">
-                                <li><span className="preview_info_attr">{messages.zipCode}</span><span className="preview_info_value">{this.state.zipCode}</span></li>
-                                <li><span className="preview_info_attr">{messages.saleTime}</span><span className="preview_info_value">{this.state.zipCode}</span></li>
-                                <li><span className="preview_info_attr">{messages.targetDistance}</span><span className="preview_info_value">{this.state.targetDistance} km</span></li>
-                            </ul>
+        let aboardInfo = '';
+        if(this.state.countryCode === 'country.004'){
+            aboardInfo = <p><span>{messages.abroadFlag}</span><b className="ipxblue_txt">{this.state.isAbroad === true ? messages.purchase : (this.state.isAbroad === false ? messages.purchaseFalse : '-')}</b></p>;
+        }
+        return !this.state.projectId ?
+            <div className="ipx_proj_preview_cont"><div className="ipx_proj_preview_wrap"><NoData/></div></div> :
+            <div className="ipx_proj_preview_cont">
+                <div className="ipx_proj_preview_wrap">
+                    <div className="ipx_proj_preview_lf">
+                        <div className="proj_preview_share clearfix">
+                            <span className="float_lf proj_type_box"><em>●</em>{projectType[this.state.projectType - 1]}</span>
+                            <span className="float_lf"><b>{messages.createTime}： {this.state.createTime.replace(/-/g, '/')}</b> |<b>{messages.lastTime}：{this.state.lastTime.replace(/-/g, '/')}</b></span>
+                            <a href="javascript:;" className="float_rt" onClick={this.collect.bind(this)}>
+                                <i className="iconfont icon-favorite1"/>{messages.marked}
+                            </a>
                         </div>
-                        <h4 className="agency_previw_h4">{messages.sellingPoints}</h4>
-                        <ul className="sellpoint_view_ul">
-                            {
-                                this.state.sellingPointList.map((obj, index) => (<li key={index}>{obj}</li>))
-                            }
-                        </ul>
-                    </div>
-                    <div className="agency_prevw_infoRt">
-                        <div className="preview_trade_area">
-                            <div className="proj_preview_h4box">
-                                <h4>{messages.abroadFlag}</h4>
-                                <span className="ipxblue_txt">{this.state.isAbroad === true ? messages.purchase : (this.state.isAbroad === false ? messages.purchaseFalse : '-')}</span>
+
+                        <InlineSlider speed={1.5} delay={3} pause={true} autoplay={false} arrows={true} items={this.state.picList}/>
+
+                        <div className="preview_common_stylebox base_infomation">
+                            <h3 className="preview_common_h3">{messages.baseInfo}</h3>
+                            <div className="agency_info_attr_box clearfix">
+                                <ul className="preview_info float_lf">
+                                    <li><span className="preview_info_attr">{messages.country}</span><span className="preview_info_value">{this.state.countryName}</span></li>
+                                    <li><span className="preview_info_attr">{messages.region}</span><span className="preview_info_value">{this.state.regionFirstName} {this.state.regionSecondName ? '-' : ''} {this.state.regionSecondName} {this.state.regionThirdName ? '-' : ''} {this.state.regionThirdName}</span></li>
+                                    <li><span className="preview_info_attr">{messages.detailAddr}</span><span className="preview_info_value">{this.state.detailAddr}</span></li>
+                                </ul>
+                                <ul className="preview_info float_rt">
+                                    <li><span className="preview_info_attr">{messages.zipCode}</span><span className="preview_info_value">{this.state.zipCode}</span></li>
+                                    <li><span className="preview_info_attr">{messages.targetDistance}</span><span className="preview_info_value">{this.state.targetDistance} km</span></li>
+                                </ul>
                             </div>
-                            <div className="proj_preview_h4box">
-                                <h4>{messages.intentMoney}</h4>
-                                <span className="ipxblue_txt">{this.state.currencyName} {this.state.reservationFee}</span>
-                                <div className="proj_preview_h4cont">{this.state.reservationDetail}</div>
+                            <div className="description_id" style={{display:this.state.moreHide?'none':'block'}}>
+                                <h3 className="preview_common_h3">{messages.projectIntro}</h3>
+                                <div className="agency_previw_description" dangerouslySetInnerHTML={{__html: this.state.description}}>
+                                </div>
                             </div>
-                            <div className="proj_preview_h4box">
-                                <h4>{messages.termNumber}</h4>
-                                <span className="ipxblue_txt">{this.state.termNumber}{messages.termNumberUnit} <i className="iconfont icon-wenhao" title={Number(this.state.termNumber) === 1?messages.termNumberTip1:messages.termNumberTip2}/></span>
-                            </div>
-                            <div className="proj_preview_h4box">
-                                <h4>{messages.preferentialPolicy}</h4>
-                                <p className="proj_preview_h4cont">{messages.periodValidity}：<strong>{!this.state.bonus || this.state.bonus === null ? '-' : (this.state.bonus.startTime.replace(/-/g, '/') + ' - ' +this.state.bonus.endTime.replace(/-/g, '/'))}</strong></p>
-                                <div className="proj_preview_h4cont" dangerouslySetInnerHTML={{__html: !this.state.bonus || this.state.bonus === null ? null : this.state.bonus.content}}></div>
-                            </div>
-                            <div className="proj_preview_h4box">
-                                <h4>{messages.transactionProgress}</h4>
-                                <div className="proj_preview_h4cont">
-                                    <table cellPadding="0" cellSpacing="0" width="100%">
-                                        <tr>
-                                            <th width="15%">{messages.step}</th>
-                                            <th width="25%">{messages.transactionValue}</th>
-                                            <th width="60%">{messages.transactionDescription}</th>
-                                        </tr>
-                                        {
-                                            this.state.transactionList ? this.state.transactionList.map((option, _index) => (
-                                                <tr key={option.transactionId}>
-                                                    <td><strong>{_index + 1}</strong></td>
-                                                    <td className={this.state.termNumber === 1 ? 'landprice' : (option.transactionType === 1 ? "landprice" : ('buildprice'))}>
-                                                        <b>{option.transactionRate && option.transactionRate !== null ? option.transactionRate + '%' : option.transactionMoney}</b>
-                                                        {
-                                                            this.state.termNumber !== 2 ? '' : <br/>
-                                                        }
-                                                        {
-                                                            this.state.termNumber !== 2 ? '' : (this.state.termNumber === 1 ? messages.landCost : (option.transactionType === 1 ? messages.landCost : (messages.buildHouseCost)))
-                                                        }
-                                                    </td>
-                                                    <td>{option.transactionContent}</td>
-                                                </tr>
-                                            )) : ''
-                                        }
-                                    </table>
+                            <span className="previw_checkmore" onClick={this.changeMoreHide.bind(this)}><span>{this.state.moreHide?messages.seeMore:messages.seeHide}</span>
+                                <i className={this.state.moreHide?'iconfont icon-arrowdown':'iconfont icon-arrowup'}/></span>
+                        </div>
+                        <div className="preview_common_stylebox preview_map_wrap">
+                            <h3 className="preview_common_h3">{messages.projectAround}</h3>
+                            <ul className="preview_map_tag">
+                                <li onClick={this.searchAround.bind(this,'bank')}
+                                    className={this.state.searchType == 'bank'?"active" : ""}>
+                                    <i className="iconfont icon-Bank"/>{messages.bank}
+                                </li>
+                                <li onClick={this.searchAround.bind(this,'school')}
+                                    className={this.state.searchType == 'school'?"active" : ""}>
+                                    <i className="iconfont icon-education"/>{messages.school}
+                                </li>
+                                <li onClick={this.searchAround.bind(this,'food')}
+                                    className={this.state.searchType == 'food'?"active" : ""}>
+                                    <i className="iconfont icon-Restautant"/>{messages.food}
+                                </li>
+                                <li onClick={this.searchAround.bind(this,'bus_station')}
+                                    className={this.state.searchType == 'bus_station'?"active" : ""}>
+                                    <i className="iconfont icon-Station"/>{messages.busStation}
+                                </li>
+                                <li onClick={this.searchAround.bind(this,'hospital')}
+                                    className={this.state.searchType == 'hospital'?"active" : ""}>
+                                    <i className="iconfont icon-hospital3"/>{messages.hospital}
+                                </li>
+                                <li onClick={this.searchAround.bind(this,'grocery_or_supermarket')}
+                                    className={this.state.searchType == 'grocery_or_supermarket'?"active" : ""}>
+                                    <i className="iconfont icon-shopping"/>{messages.supermarket}
+                                </li>
+                                <li onClick={this.searchAround.bind(this,'police')}
+                                    className={this.state.searchType == 'police'?"active" : ""}>
+                                    <i className="iconfont icon-police"/>{messages.police}
+                                </li>
+                            </ul>
+                            <div className="preview_map_box">
+                                <div className="preview_map_frame" id="container"></div>
+                                <div className="preview_map_list" style={{width:this.state.mapHide?'0px':'220px'}}>
+                                    <a href="javascript:;" onClick={this.changeMapHide.bind(this)}
+                                       className={this.state.mapHide?'iconfont icon-arrowleft':'iconfont icon-arrowright'}/>
+                                    <ul style={{display:this.state.mapHide?'none':'block'}}>
+                                        {searchInfos}
+                                    </ul>
                                 </div>
                             </div>
                         </div>
+                        <div className="preview_common_stylebox">
+                            <h3 className="preview_common_h3">{messages.sellingPoints}</h3>
+                            <ul className="sellpoint_view_ul">
+                                {
+                                    this.state.sellingPointList.map((obj, index) => (<li key={index}>{obj}</li>))
+                                }
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div className="agency_preview_detail">
-                    <h4 className="agency_previw_h4">{messages.region + messages.around}</h4>
-                    <div className="agency_previw_nearby">
-                        <span onClick={this.searchAround.bind(this,'bank')}
-                              className={this.state.searchType == 'bank'?"active" : ""}>
-                            <i className="iconfont icon-Bank"/>{messages.bank}
-                        </span>
-                        <span onClick={this.searchAround.bind(this,'school')}
-                              className={this.state.searchType == 'school'?"active" : ""}>
-                            <i className="iconfont icon-education"/>{messages.school}
-                        </span>
-                        <span onClick={this.searchAround.bind(this,'food')}
-                              className={this.state.searchType == 'food'?"active" : ""}>
-                            <i className="iconfont icon-Restautant"/>{messages.food}
-                        </span>
-                        <span onClick={this.searchAround.bind(this,'hospital')}
-                              className={this.state.searchType == 'hospital'?"active" : ""}>
-                            <i className="iconfont icon-Hospital"/>{messages.hospital}
-                        </span>
-                        <span onClick={this.searchAround.bind(this,'bus_station')}
-                              className={this.state.searchType == 'bus_station'?"active" : ""}>
-                            <i className="iconfont icon-Station"/>{messages.busStation}
-                        </span>
-                        <span onClick={this.searchAround.bind(this,'grocery_or_supermarket')}
-                              className={this.state.searchType == 'grocery_or_supermarket'?"active" : ""}>
-                            <i className="iconfont icon-shopping"/>{messages.supermarket}
-                        </span>
-                        <span onClick={this.searchAround.bind(this,'police')}
-                              className={this.state.searchType == 'police'?"active" : ""}>
-                            <i className="iconfont icon-police"/>{messages.police}
-                        </span>
+                    <div className="ipx_proj_preview_rt">
+                        <div className="preview_common_stylebox clearfix">
+                            <h3 className="preview_common_h3">{messages.salesStatus}</h3>
+                            <ul className="sales_chart_ul">
+                                <li><em className="ipxblue_bg"/><span> {messages.available} <b className="ipxblue_txt">{this.state.available}</b></span></li>
+                                <li><em className="ipxyellow_bg"/><span> {messages.reserved} <b className="ipxyellow_txt">{this.state.reserved}</b></span></li>
+                                <li><em className="ipxred_bg"/><span> {messages.sold} <b className="ipxred_txt">{this.state.sold}</b></span></li>
+                            </ul>
+                            <div className="sales_chart_frame" id="projectChart">
+                            </div>
+                        </div>
+                        <div className="preview_common_stylebox preview_sell_information">
+                            <h3 className="preview_common_h3">{messages.tradeInfo}</h3>
+                            {aboardInfo}
+                            <p><span>{messages.priceRange}</span><b className="ipxblue_txt">{this.state.currencyName} {formatMoney(this.state.minPrice)} - {formatMoney(this.state.maxPrice)} </b></p>
+                            <ul className="clearfix">
+                                <li><span>{messages.intentMoney}<i className="iconfont icon-wenhao" title={this.state.reservationDetail}/></span><br/><strong className="ipxblue_txt">{this.state.currencyName} {this.state.reservationFee}</strong></li>
+                                <li><span>{messages.termNumber}<i className="iconfont icon-wenhao" title={Number(this.state.termNumber) === 1?messages.termNumberTip1:messages.termNumberTip2}/></span><br/><strong className="ipxblue_txt">{this.state.termNumber}{messages.termNumberUnit}</strong></li>
+                            </ul>
+                        </div>
+                        <div className="preview_common_stylebox">
+                            <h3 className="preview_common_h3">{messages.preferentialPolicy}</h3>
+                            <p className="preview_bonus_time">{!this.state.bonus || this.state.bonus === null ? '-' : (messages.periodValidity + '：' + <strong>{(this.state.bonus.startTime.replace(/-/g, '/') + ' - ' + this.state.bonus.endTime.replace(/-/g, '/'))}</strong>)}</p>
+                            <div className="preview_bonus_detail" dangerouslySetInnerHTML={{__html: !this.state.bonus || this.state.bonus === null ? null : this.state.bonus.content}}></div>
+                        </div>
+                        <div className="preview_common_stylebox">
+                            <h3 className="preview_common_h3">{messages.transactionProgress}</h3>
+                            <ul className="preview_sell_steps">
+                                {
+                                    this.state.transactionList ? this.state.transactionList.map((option, _index) => (
+                                            <li key={option.transactionId}>
+                                                <em>{_index + 1}</em>
+                                                <div>
+                                                    <span>
+                                                      <b>{option.transactionRate && option.transactionRate !== null ? option.transactionRate + '%' : option.transactionMoney}  <strong>
+                                                          {
+                                                            this.state.termNumber !== 2 ? '' : (this.state.termNumber === 1 ? messages.landCost : (option.transactionType === 1 ? messages.landCost : (messages.buildHouseCost)))
+                                                            }</strong>
+                                                      </b>
+                                                      <p>{option.transactionContent}</p>
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        )) : ''
+                                }
+
+                            </ul>
+                        </div>
                     </div>
-                    <div className="agency_previw_mapBox" id="container"></div>
-                    <table className="agency_previw_star_table"
-                           style={{border:0,cellPadding:0,cellSpacing:0}}>
-                        <tr>
-                            <th style={{"textAlign": "left"}} className="star_table_name_td">{messages.mapName}</th>
-                            <th style={{"textAlign": "center"}} className="star_table_score_td">{messages.mapScore}</th>
-                            <th style={{"textAlign": "center"}} className="star_table_distance_td">{messages.mapDistance}</th>
-                        </tr>
-                        {searchInfos}
-                    </table>
-                    <h4 className="agency_previw_h4">{messages.projectIntro}</h4>
-                    <div className="agency_previw_description" dangerouslySetInnerHTML={{__html: this.state.description}}></div>
-                </div>
-            </div></div>;
+                </div></div>;
     };
 }
 
@@ -292,4 +425,4 @@ Msg.contextTypes = {
     router: PropTypes.object.isRequired
 };
 
-export default injectIntl(Msg);
+export default connect((store) => (store))(injectIntl(Msg));

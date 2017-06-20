@@ -12,8 +12,9 @@ export default class sliderItem extends React.Component {
         let { count, item } = this.props;
         let width = 100 / count + '%';
         return (
-            <li className="slider-item" style={{width: width}}>
+            <li style={{width: width, float: 'left'}}>
                 <img src={item.url || item.resourceUrl} alt={item.fileName || 'ipx'}/>
+                <span/>
             </li>
         );
     }
