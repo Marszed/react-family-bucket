@@ -268,7 +268,7 @@ class Property extends React.Component {
                                 (
                                     (obj.unit === 'percent') ? ' (%)' : (
                                             // 金额
-                                            (obj.unit === 'mon') ? (' (' + this.state.currencyName + ')') : ''
+                                            (obj.unit === 'mon') ? (' (' + this.state.currencyName + (obj.key === 'estRate' ? (this.state.countryNameShort === 'US' ? messages.unitMonth : messages.unitWeek) : '') + ')') : ''
                                         )
                                 )
                         )

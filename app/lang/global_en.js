@@ -410,5 +410,8 @@ export default {
     mapDistance:"E距离",
     maxPriceSort:"E最高价格",
     minPriceSort:"E最低价格",
-    countProjects:"Project(s)"
+    countProjects:"Project(s)",
+    // ====新增=====
+    unitWeek: '/week',
+    unitMonth: '/month'
 };
