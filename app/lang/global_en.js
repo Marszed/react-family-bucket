@@ -411,16 +411,13 @@ export default {
     maxPriceSort:"E最高价格",
     minPriceSort:"E最低价格",
     countProjects:"Project(s)",
-<<<<<<< HEAD
     // ====新增=====
     unitWeek: '/week',
-    unitMonth: '/month'
-=======
+    unitMonth: '/month',
     seeMore:"E查看更多",
     seeHide:"E收起查看",
     projectAround:"E项目周边",
     tradeInfo:"E交易信息",
     createTime:"E创建时间",
     lastTime:"E更新时间"
->>>>>>> e183bc4716f21aff57fabdad44fd0473a46f3b11
 };
