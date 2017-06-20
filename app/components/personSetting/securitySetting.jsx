@@ -37,7 +37,7 @@ class SecuritySetting extends React.Component {
 
     submit = (event) => {
         event.preventDefault();
-        if (!this.validateInit(this.state.initPassword) || !this.validateNew(this.state.newPassword) || !this.validateConfirm(this.state.confirmPassword)) {
+        if (!this.validateInit(this.state.initPassword,'blur') || !this.validateNew(this.state.newPassword,'blur') || !this.validateConfirm(this.state.confirmPassword,'blur')) {
             return;
         }
         let responseHandler = async function () {
@@ -68,8 +68,8 @@ class SecuritySetting extends React.Component {
         }.bind(this)();
     };
 
-    validateInit = (value) => {
-        if (ValidateTool.isEmpty(value)) {
+    validateInit = (value,type) => {
+        if (ValidateTool.isEmpty(value) && type === 'blur') {
             this.setState({
                 initPasswordClass: "clearfix warning",
                 initPasswordInfo: this.props.intl.messages.validateInitPassword
@@ -86,33 +86,33 @@ class SecuritySetting extends React.Component {
 
     changeNewPassword = (event) => {
         this.setState({newPassword: event.target.value});
-        this.validateNew(event.target.value);
+        this.validateNew(event.target.value,event.type);
     };
 
     changeConfirmPassword = (event) => {
         this.setState({confirmPassword: event.target.value});
-        this.validateConfirm(event.target.value);
+        this.validateConfirm(event.target.value,event.type);
     };
 
     changeInitPassword = (event) => {
         this.setState({initPassword: event.target.value});
-        this.validateInit(event.target.value);
+        this.validateInit(event.target.value,event.type);
     };
 
     validateNew = (value) => {
-        if (ValidateTool.isEmpty(value)) {
+        if (ValidateTool.isEmpty(value) && type === 'blur') {
             this.setState({
                 newPasswordClass: "clearfix warning",
                 newPasswordInfo: this.props.intl.messages.validateNewPassword
             });
             return false;
-        } else if (value.length < 8 || value.length > 16) {
+        } else if ((value.length < 8 || value.length > 16) && type === 'blur') {
             this.setState({
                 newPasswordClass: "clearfix warning",
                 newPasswordInfo: this.props.intl.messages.validatePassword1
             });
             return false;
-        } else if (value === this.state.initPassword) {
+        } else if (value === this.state.initPassword && type === 'blur') {
             this.setState({
                 newPasswordClass: "clearfix warning",
                 newPasswordInfo: this.props.intl.messages.validatePassword2
@@ -128,19 +128,19 @@ class SecuritySetting extends React.Component {
     };
 
     validateConfirm = (value) => {
-        if (ValidateTool.isEmpty(value)) {
+        if (ValidateTool.isEmpty(value) && type === 'blur') {
             this.setState({
                 confirmPasswordClass: "clearfix warning",
                 confirmPasswordInfo: this.props.intl.messages.validateConfirmPassword
             });
             return false;
-        } else if (this.state.newPassword !== value) {
+        } else if (this.state.newPassword !== value && type === 'blur') {
             this.setState({
                 confirmPasswordClass: "clearfix warning",
                 confirmPasswordInfo: this.props.intl.messages.validateConfirmPassword1
             });
             return false;
-        } else if (value.length < 8 || value.length > 16) {
+        } else if ((value.length < 8 || value.length > 16) && type === 'blur') {
             this.setState({
                 confirmPasswordClass: "clearfix warning",
                 confirmPasswordInfo: this.props.intl.messages.validatePassword1

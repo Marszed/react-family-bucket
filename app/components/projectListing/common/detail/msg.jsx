@@ -287,7 +287,7 @@ class Msg extends React.Component {
                     <div className="ipx_proj_preview_lf">
                         <div className="proj_preview_share clearfix">
                             <span className="float_lf proj_type_box"><em>●</em>{projectType[this.state.projectType - 1]}</span>
-                            <span className="float_lf"><b>{messages.createTime}： {this.state.createTime.replace(/-/g, '/')}</b> |<b>{messages.lastTime}：{this.state.lastTime.replace(/-/g, '/')}</b></span>
+                            <span className="float_lf"><b>{messages.createTime}： {new Date(this.state.createTime).format('yyyy-MM-dd')}</b> |<b>{messages.lastTime}：{new Date(this.state.lastTime).format('yyyy-MM-dd')}</b></span>
                             <a href="javascript:;" className="float_rt" onClick={this.collect.bind(this)}>
                                 <i className="iconfont icon-favorite1"/>{messages.marked}
                             </a>
