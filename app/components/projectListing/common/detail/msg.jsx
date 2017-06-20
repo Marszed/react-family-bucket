@@ -113,7 +113,7 @@ class Msg extends React.Component {
                         {
                             name: '',
                             type: 'pie',
-                            radius : '45%',
+                            radius : '80%',
                             center: ['50%', '50%'],
                             label: {
                                 normal: {
@@ -246,15 +246,16 @@ class Msg extends React.Component {
                 url: {value: INTERFACE.PROJECTCOLLECT + this.state.projectId, key: 'PROJECTCOLLECT'},
                 method: 'put',
                 params: {
-                    collectFlag: !(this.state.favoriteFlag === 1)
+                    collectFlag: !this.state.favoriteFlag
                 },
                 dataSerialize: true
             });
             if (!response.errType) {
                 this.props.dispatch(showToast({
-                    content: (this.state.favoriteFlag !== 1 ? '' : messages.cancel) + messages.marked + messages.success,
+                    content: (!this.state.favoriteFlag? '' : messages.cancel) + messages.marked + messages.success,
                     state: 1
                 }));
+                this.setState({favoriteFlag: !(this.state.favoriteFlag)});
             }
         }.bind(this)();
     };
@@ -288,9 +289,9 @@ class Msg extends React.Component {
                         <div className="proj_preview_share clearfix">
                             <span className="float_lf proj_type_box"><em>●</em>{projectType[this.state.projectType - 1]}</span>
                             <span className="float_lf"><b>{messages.createTime}： {new Date(this.state.createTime).format('yyyy-MM-dd')}</b> |<b>{messages.lastTime}：{new Date(this.state.lastTime).format('yyyy-MM-dd')}</b></span>
-                            <a href="javascript:;" className="float_rt" onClick={this.collect.bind(this)}>
-                                <i className="iconfont icon-favorite1"/>{messages.marked}
-                            </a>
+                            <span className={this.state.favoriteFlag?"float_rt checked":"float_rt"} onClick={this.collect.bind(this)}>
+                                <i className={this.state.favoriteFlag?"iconfont icon-favorite2":"iconfont icon-favorite1"}/>{this.state.favoriteFlag?messages.bookmarked:messages.marked}
+                            </span>
                         </div>
 
                         <InlineSlider speed={1.5} delay={3} pause={true} autoplay={false} arrows={true} items={this.state.picList}/>

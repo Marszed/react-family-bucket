@@ -19,7 +19,6 @@ import GaveAgency from './gaveAgency';
 
 
 //前一次滚动的垂直距离,用于判断垂直还是水平滚动
-let beforeScrollTop = 0;
 
 @pureRender
 class Overview extends React.Component {
@@ -30,7 +29,8 @@ class Overview extends React.Component {
             params: this.props.params,
             start: 1,
             length: 10,
-            projectList: this.props.project.projectList
+            projectList: this.props.project.projectList,
+            beforeScrollTop:0
         };
     }
 
@@ -198,8 +198,8 @@ class Overview extends React.Component {
         // clientHeight为内容可视区域的高度。
         // scrollHeight为内容可视区域的高度加上溢出（滚动）的距离。
         // event.target.scrollHeight - event.target.clientHeight == scrollTop 滚动到底部
-        if (event.target.scrollHeight - event.target.offsetHeight <= (event.target.scrollTop + 20) && event.target.scrollTop > beforeScrollTop) {
-            beforeScrollTop = event.target.scrollTop;
+        if (event.target.scrollHeight - event.target.offsetHeight <= (event.target.scrollTop + 20) && event.target.scrollTop > this.state.beforeScrollTop) {
+            this.setState({beforeScrollTop:event.target.scrollTop});
             this.getProjectList(this.props.project.searchOption || {
                 countryCode: this.state.params.country,
                 type: this.state.params.type
@@ -333,7 +333,7 @@ class Overview extends React.Component {
                                     }
                                     <div className="proj_l_box_button clearfix">
                                                                     <span onClick={this.collect.bind(this, obj)} className={"float_lf" + (obj.favoriteFlag === 1 ? ' checked' : '')}>
-                                                                        <i className={"iconfont" + (obj.favoriteFlag === 1 ? ' icon-favorite2' : ' icon-favorite1')}/> {messages.marked}
+                                                                        <i className={"iconfont" + (obj.favoriteFlag === 1 ? ' icon-favorite2' : ' icon-favorite1')}/> {obj.favoriteFlag === 1?messages.bookmarked:messages.marked}
                                                                     </span>
                                         <button onClick={this.gaveAgencyHandler.bind(this, obj)}
                                                 className={"ipx_btn ipx_M_btn float_rt " + (obj.authorizeNumber === 0 || obj.authorizeNumber === null ? 'ipx_bluebd_btn' : 'ipx_white_btn')}>
@@ -387,7 +387,7 @@ class Overview extends React.Component {
                                                     - {obj.regionFirstName}</span>
                                                         <span onClick={this.collect.bind(this, obj)}
                                                               className={"float_rt" + (obj.favoriteFlag === 1 ? ' checked' : '')}><i
-                                                            className={"iconfont" + (obj.favoriteFlag === 1 ? ' icon-favorite2' : ' icon-favorite1')}/> {messages.marked}</span>
+                                                            className={"iconfont" + (obj.favoriteFlag === 1 ? ' icon-favorite2' : ' icon-favorite1')}/> {obj.favoriteFlag === 1?messages.bookmarked:messages.marked}</span>
                                                     </div>
                                                     <div className="proj_box_m_btn clearfix">
                                                      <span className="float_lf">

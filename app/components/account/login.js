@@ -11,6 +11,7 @@ import {injectIntl} from "react-intl";
 import {langPackageInject, cookie, setLocalStorage} from 'LIB/tool';
 import ValidateTool from 'LIB/validationRules';
 import Header from 'COMPONENT/account/header';
+import agent_pic from 'ASSET/img/amtn_agency.png';
 
 
 @pureRender
@@ -317,6 +318,9 @@ class Login extends React.Component {
                                     {/*<Link to="/forgetPassword" className="float_rt">{messages.forgetPassword}?</Link>*/}
                                 </div>
                                 <button className="ipx_btn ipx_blue_btn ipx_XL_btn" type="submit" onClick={this.submit}>{messages.loginSpace}</button>
+                            </div>
+                            <div className="animationbox vendors_animation">
+                                <img src={agent_pic}  style={{position:"absolute",top:"95px", left:"-48px"}}/>
                             </div>
                         </div>
                     </div>

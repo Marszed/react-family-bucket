@@ -113,7 +113,7 @@ class Property extends React.Component {
             });
             if (!response.errType) {
                 const {data} = response.data;
-                const temp = (data.page.list).sort(keySort(this.state.key, this.state.des));
+                const temp = (data.page.list).sort(keySort(this.state.key, !this.state.des));
                 const countryNameShort = data.country.toUpperCase();
                 let messages = objCopy(this.props.intl.messages);
                 const zhFlag = (langPackageInject()).indexOf('zh') === -1; //  true 英文 false 中文
