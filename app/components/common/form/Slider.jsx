@@ -68,6 +68,10 @@ class _Slider extends React.Component {
         };
     };
 
+    getTitleProps = (messages, props) => {
+        return {title: props.title || messages.all};
+    };
+
     componentWillReceiveProps(nextProps) {
         // formSlider 变化并且 更新的key与组件的name一致
         if (nextProps.global.formSlider && nextProps.global.formSlider.key === this.props.name) {
@@ -79,7 +83,7 @@ class _Slider extends React.Component {
         }
 
         const {messages} = this.props.intl;
-        this.setState(this.getDefaultProps(messages, nextProps.data));
+        this.setState(this.getTitleProps(messages, nextProps.data));
     }
 
     onChange = (option) => {
