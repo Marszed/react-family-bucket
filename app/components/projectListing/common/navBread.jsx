@@ -55,7 +55,7 @@ class NavBread extends React.Component {
     onChange(option) {
         this.setState(option);
         setTimeout(() => (
-            this.onSubmit(option)
+            this.onSubmit()
         ), 0);
     }
 
@@ -357,7 +357,7 @@ class NavBread extends React.Component {
                         }
                         {
                             searchOption.periodMin !== undefined ?
-                                <li onClick={this.clearSearchOption.bind(this, 'periodMinMax')}>{messages.period + ' ' + searchOption.periodMin + '~' + searchOption.periodMax} ×</li> : ''
+                                <li onClick={this.clearSearchOption.bind(this, 'periodMinMax')}>{messages.period + ' ' + searchOption.periodMin + messages.month + '~' + searchOption.periodMax + messages.month} ×</li> : ''
                         }
                         {
                             searchOption.areaMin !== undefined ?
@@ -365,7 +365,7 @@ class NavBread extends React.Component {
                         }
                         {
                             searchOption.distanceMin !== undefined ?
-                                <li onClick={this.clearSearchOption.bind(this, 'distanceMinMax')}>{messages.targetDistance + ' ' + searchOption.distanceMin + '~' + searchOption.distanceMax} ×</li> : ''
+                                <li onClick={this.clearSearchOption.bind(this, 'distanceMinMax')}>{messages.targetDistance + ' ' + searchOption.distanceMin + 'km' + '~' + searchOption.distanceMax + 'km'} ×</li> : ''
                         }
                         {
                             searchOption.regionFirstCode !== undefined ?

@@ -110,7 +110,7 @@ class Menu extends React.Component {
             </div>
             <div className="ipx_dev_personal">
                 <a href="javascript:" style={{backgroundImage: `url(${JSON.stringify(userInfo.profileImage || defaulthead)})`}}/>
-                <h2><a href="javascript:">{userInfo.firstName + " " + userInfo.lastName}</a></h2>
+                <h2><a href="javascript:" style={{'whiteSpace': 'nowrap'}}>{userInfo.firstName + " " + userInfo.lastName}</a></h2>
                 <h3 title=""><FormattedMessage id='agent'/></h3>
                 <ul className="dev_persn_menu">
                     <li title={this.props.intl.messages.logout} onClick={() => (

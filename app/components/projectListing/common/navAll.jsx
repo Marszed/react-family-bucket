@@ -178,7 +178,8 @@ class NavAll extends React.Component {
             projectTypes: this.state.projectTypes,
             beds: this.state.beds,
             baths: this.state.baths,
-            studys: this.state.studys
+            studys: this.state.studys,
+            timeStamp:new Date().getTime()
         }, option);
 
         this.props.dispatch(setSearchOption(this.parameterFilter(req)));

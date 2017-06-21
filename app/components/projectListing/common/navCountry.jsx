@@ -237,7 +237,8 @@ class NavCountry extends React.Component {
             unitPriceMin: this.state.unitPriceMin,
             unitPriceMax: this.state.unitPriceMax,
             regionFirstCode: this.state.regionFirstCode,
-            regionSecondCode: this.state.regionSecondCode
+            regionSecondCode: this.state.regionSecondCode,
+            timeStamp:new Date().getTime()
         }, option);
 
         this.props.dispatch(setSearchOption(this.parameterFilter(req)));

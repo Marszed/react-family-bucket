@@ -281,6 +281,14 @@ class Msg extends React.Component {
         if(this.state.countryCode === 'country.004'){
             aboardInfo = <p><span>{messages.abroadFlag}</span><b className="ipxblue_txt">{this.state.isAbroad === true ? messages.purchase : (this.state.isAbroad === false ? messages.purchaseFalse : '-')}</b></p>;
         }
+        let bonusTime;
+        if (!this.state.bonus || this.state.bonus === null) {
+            bonusTime = '-';
+        } else if (this.state.bonus.isForever === 1){
+            bonusTime = messages.forever;
+        } else  {
+            bonusTime = messages.periodValidity + '：' + '<strong>' + this.state.bonus.startTime.replace(/-/g, '/') + ' - ' + this.state.bonus.endTime.replace(/-/g, '/') + '</strong>';
+        }
         return !this.state.projectId ?
             <div className="ipx_proj_preview_cont"><div className="ipx_proj_preview_wrap"><NoData/></div></div> :
             <div className="ipx_proj_preview_cont">
@@ -391,7 +399,7 @@ class Msg extends React.Component {
                         </div>
                         <div className="preview_common_stylebox">
                             <h3 className="preview_common_h3">{messages.preferentialPolicy}</h3>
-                            <p className="preview_bonus_time">{!this.state.bonus || this.state.bonus === null ? '-' : this.state.bonus.isForever === 1? messages.forever:(messages.periodValidity + '：' + <strong>{(this.state.bonus.startTime.replace(/-/g, '/') + ' - ' + this.state.bonus.endTime.replace(/-/g, '/'))}</strong>)}</p>
+                            <p className="preview_bonus_time" dangerouslySetInnerHTML={{__html:bonusTime}}/>
                             <div className="preview_bonus_detail" dangerouslySetInnerHTML={{__html: !this.state.bonus || this.state.bonus === null ? null : this.state.bonus.content}}></div>
                         </div>
                         <div className="preview_common_stylebox">

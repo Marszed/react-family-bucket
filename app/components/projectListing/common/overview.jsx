@@ -222,9 +222,6 @@ class Overview extends React.Component {
     // 图片自适应
     imageAutoSize = (e) => {
         const lineHeight = e.target.height;
-        if(lineHeight == this.state.lineHeight){
-            return false;
-        }
         this.setState({
             lineHeight: lineHeight
         });
