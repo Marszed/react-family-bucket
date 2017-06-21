@@ -378,7 +378,7 @@ class Property extends React.Component {
                         }}/>
                         <Select name="bed" onChange={this.onChange.bind(this)} data={{title: messages.beds}}
                                 key={this.state.updateKey}/>
-                        <Select name="carSpace" onChange={this.onChange.bind(this)} data={{title: messages.carSpace}}
+                        <Select name="carSpace" onChange={this.onChange.bind(this)} data={{title: messages.carSpaces}}
                                 key={this.state.updateKey}/>
                         <Select name="study" onChange={this.onChange.bind(this)} data={{title: messages.studys}}
                                 key={this.state.updateKey}/>

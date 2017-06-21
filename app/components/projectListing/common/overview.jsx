@@ -50,6 +50,7 @@ class Overview extends React.Component {
             type: this.state.params.type
         }, 'init');
         window.addEventListener('resize', debounce(() => (this.autoImage()), 300));
+        this.refs.projectDiv.scrollTop = 0;
     }
 
     componentWillUnmount() {
@@ -62,8 +63,13 @@ class Overview extends React.Component {
             console.log('params======>>>>>>>>>>>');
             console.log(nextProps.params);
             this.setState({
-                params: nextProps.params
+                params: nextProps.params,
+                start: 1,
+                length: 10,
+                beforeScrollTop:0,
+                scrollHeight:0
             });
+            this.refs.projectDiv.scrollTop = 0;
         }
         // 项目列表数据变化
         if (nextProps.project.projectList && !isEqual(nextProps.project.projectList, this.state.projectList)) {
@@ -79,8 +85,12 @@ class Overview extends React.Component {
             console.log(nextProps.project.searchOption);
             // 同步子组件状态
             this.setState({
-                searchOption: nextProps.project.searchOption
+                searchOption: nextProps.project.searchOption,
+                start: 1,
+                length: 10,
+                beforeScrollTop:0
             });
+            this.refs.projectDiv.scrollTop = 0;
             this.getProjectList(nextProps.project.searchOption, 'update');
         }
         // 视图类型变化
@@ -199,7 +209,9 @@ class Overview extends React.Component {
         // scrollHeight为内容可视区域的高度加上溢出（滚动）的距离。
         // event.target.scrollHeight - event.target.clientHeight == scrollTop 滚动到底部
         if (event.target.scrollHeight - event.target.offsetHeight <= (event.target.scrollTop + 20) && event.target.scrollTop > this.state.beforeScrollTop) {
-            this.setState({beforeScrollTop:event.target.scrollTop});
+            this.setState({
+                beforeScrollTop:event.target.scrollTop
+            });
             this.getProjectList(this.props.project.searchOption || {
                 countryCode: this.state.params.country,
                 type: this.state.params.type
@@ -348,7 +360,7 @@ class Overview extends React.Component {
             )}) : <NoData/>;
         return (
             <div>
-                <div className="agency_proj_cont" style={{top: Number(this.state.params.type) === 1 ? '120px' : '60px'}} onScroll={this.onScroll.bind(this)} onMouseEnter={this.formBoxHandler}>
+                <div className="agency_proj_cont" ref="projectDiv" style={{top: Number(this.state.params.type) === 1 ? '120px' : '60px'}} onScroll={this.onScroll.bind(this)} onMouseEnter={this.formBoxHandler}>
                     <NavBread params={this.state.params}/>
                     {
                         this.state.formRadioType === 1 ?

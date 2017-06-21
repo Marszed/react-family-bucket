@@ -134,6 +134,7 @@ export default {
     beds: '卧室数量',
     baths: '浴室数量',
     studys: '书房数量',
+    carSpaces:'车位数量',
     projectType1: '公寓',
     projectType2: '独栋别墅',
     projectType3: '联排别墅',
@@ -419,5 +420,6 @@ export default {
     projectAround:"项目周边",
     tradeInfo:"交易信息",
     createTime:"创建时间",
-    lastTime:"更新时间"
+    lastTime:"更新时间",
+    forever:"永久有效"
 };

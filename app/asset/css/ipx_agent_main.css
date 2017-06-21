@@ -750,7 +750,7 @@ body *{
 .sellsPerformance ul li {position:absolute; font-size:12px; white-space:nowrap}
 .sellsPerformance ul li:hover {text-decoration:none}
 .sellper_chart {height:5px; font-size:0; background:#fafafa; white-space:nowrap}
-.sellper_chart span {height:5px; display:inline-block; *display:inline; *zoom:1;cursor:pointer}
+.sellper_chart span {height:5px; display:inline-block; *display:inline; *zoom:1;}
 .sellper_chart span:hover {opacity:.8}
 .sellper_chart .sell_available {background:#00afb4}
 .sellper_chart .sell_booking {background:#fad285}

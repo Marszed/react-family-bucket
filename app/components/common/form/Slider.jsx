@@ -77,6 +77,9 @@ class _Slider extends React.Component {
             // 移除组件更新指令
             this.props.dispatch(setFormSlider(''));
         }
+
+        const {messages} = this.props.intl;
+        this.setState(this.getDefaultProps(messages, nextProps.data));
     }
 
     onChange = (option) => {

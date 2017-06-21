@@ -245,13 +245,19 @@ class NavCountry extends React.Component {
 
     render() {
         const {messages} = this.props.intl;
-        let Map = '';
+        let Map = '',areaUnit,currency;
         if(this.state.params.country === 'country.002'){
             Map = US_MAP;
+            areaUnit = 'ft²';
+            currency = 'USD';
         } else if(this.state.params.country === 'country.003'){
             Map = UK_MAP;
+            areaUnit = 'ft²';
+            currency = 'GBP';
         } else if(this.state.params.country === 'country.004'){
             Map = AU_MAP;
+            areaUnit = '㎡';
+            currency = 'AUD';
         }
 
         return <div className="dev_cont_subtitle">
@@ -343,7 +349,7 @@ class NavCountry extends React.Component {
                                         markMin: 0,
                                         markMax: 20000,
                                         step: 1000,
-                                        title: messages.price + ' / ' + messages.squareMetre + ' （' + messages.auDollar + '）',
+                                        title: messages.price + ' / ' + messages.squareMetre + ' （' + currency + '）',
                                         childStyle: {width: 200 + 'px'}
                                     }}/>
                             <Slider name="periodMinMax" onChange={this.onChange.bind(this)}
@@ -363,7 +369,7 @@ class NavCountry extends React.Component {
                                         defaultValue: [0, 500],
                                         markMin: 0,
                                         markMax: 500,
-                                        title: messages.area + '（㎡）'
+                                        title: messages.area + '（' + areaUnit +'）'
                                     }}/>
                             <Slider name="distanceMinMax" onChange={this.onChange.bind(this)}
                                     data={{

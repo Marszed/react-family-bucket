@@ -295,6 +295,7 @@ class PersonInfo extends React.Component {
                             <input type="text" className="ipxTxt width66per" ref="jobTitle"
                                    value={this.state.userInfo.nick || ""}
                                    onChange={this.changeJobTitle.bind(this)}
+                                   maxLength="20"
                                    placeholder={messages.inputJobTitle}/>
                         </div>
                         <div className="ipx_setting_tr">

@@ -391,7 +391,7 @@ class Msg extends React.Component {
                         </div>
                         <div className="preview_common_stylebox">
                             <h3 className="preview_common_h3">{messages.preferentialPolicy}</h3>
-                            <p className="preview_bonus_time">{!this.state.bonus || this.state.bonus === null ? '-' : (messages.periodValidity + '：' + <strong>{(this.state.bonus.startTime.replace(/-/g, '/') + ' - ' + this.state.bonus.endTime.replace(/-/g, '/'))}</strong>)}</p>
+                            <p className="preview_bonus_time">{!this.state.bonus || this.state.bonus === null ? '-' : this.state.bonus.isForever === 1? messages.forever:(messages.periodValidity + '：' + <strong>{(this.state.bonus.startTime.replace(/-/g, '/') + ' - ' + this.state.bonus.endTime.replace(/-/g, '/'))}</strong>)}</p>
                             <div className="preview_bonus_detail" dangerouslySetInnerHTML={{__html: !this.state.bonus || this.state.bonus === null ? null : this.state.bonus.content}}></div>
                         </div>
                         <div className="preview_common_stylebox">

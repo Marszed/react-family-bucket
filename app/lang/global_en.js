@@ -134,6 +134,7 @@ export default {
     beds: 'Bed',
     baths: 'Bath',
     studys: 'Study',
+    carSpaces:'车位数量',
     projectType1: 'E公寓',
     projectType2: 'E独栋别墅',
     projectType3: 'E联排别墅',
@@ -419,5 +420,6 @@ export default {
     projectAround:"E项目周边",
     tradeInfo:"E交易信息",
     createTime:"E创建时间",
-    lastTime:"E更新时间"
+    lastTime:"E更新时间",
+    forever:"E永久有效"
 };
