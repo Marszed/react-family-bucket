@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {injectIntl} from "react-intl";
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
-import {formatMoney, objCopy} from 'LIB/tool';
+import {formatMoney, objCopy, keySort} from 'LIB/tool';
 import NoData from 'COMPONENT/common/noData';
 import echart from "ASSET/js/echarts.min";
 import InlineSlider from 'COMPONENT/common/inlineSlider/slider';
@@ -307,7 +307,7 @@ class Msg extends React.Component {
                             </span>
                         </div>
 
-                        <InlineSlider speed={1.5} delay={3} pause={true} autoplay={false} arrows={true} items={this.state.picList}/>
+                        <InlineSlider speed={1.5} delay={3} pause={true} autoplay={false} arrows={true} items={this.state.picList.sort(keySort('isFrontImage',true))}/>
 
                         <div className="preview_common_stylebox base_infomation">
                             <h3 className="preview_common_h3">{messages.baseInfo}</h3>

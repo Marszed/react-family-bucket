@@ -247,6 +247,10 @@ class Login extends React.Component {
         this.setState({validateInfo: "empty"});
         return true;
     }
+    changeLogin() {
+        window.location.href = 'http://agency.ipx.net';
+        // window.location.href = 'http://localhost:15554';
+    }
 
     render() {
         const {messages} = this.props.intl;
@@ -258,8 +262,11 @@ class Login extends React.Component {
                     <div className="login_main">
                         <div className="login_mainBox">
                             <Header/>
-                            <div className="ipx_loginBox">
-                                <h1>{messages.agent + messages.login}</h1>
+                            <div className="ipx_loginBox" style={{'paddingTop':'90px'}}>
+                                <h1 className="ipx_login_tab">
+                                    <span onClick={this.changeLogin.bind(this)}>{messages.agency + messages.login}</span>
+                                    <span className="active">{messages.agent + messages.login}</span>
+                                </h1>
                                 <div className="ipx_sign_return">{messages[this.state.validateInfo]}</div>
                                 <dl className="ipx_sign_dl">
                                     <dd className="clearfix">

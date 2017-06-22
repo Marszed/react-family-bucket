@@ -152,15 +152,12 @@ class DashBoard extends React.Component {
                     <h1 className="float_lf">{messages.homePage}</h1>
                 </div>
                 <div className="dev_cont_subTit_home">
-                    <span className="home_welcome_tips">{messages.today + messages.yes}{this.state.today.getFullYear()}{messages.year}{this.state.today.getMonth() + 1}{messages.month}{this.state.today.getDate()}{messages.month}, {weekday[this.state.today.getDay()]}</span>
+                    <span className="home_welcome_tips">{this.state.today.getFullYear() + '-' + (this.state.today.getMonth() + 1) + '-' + this.state.today.getDate() + ',' + weekday[this.state.today.getDay()]}</span>
                 </div>
 
                 <div className="cms_cont_main">
                     <table className="cms_home_chart_table"
                            style={{border: '0', cellPadding: '0', cellSpacing: '0'}}>
-                        <tr>
-                            <th style={{'align': 'left'}} colSpan="2">{messages.focusContentTip}</th>
-                        </tr>
                         <tr>
                             <td style={{align: "center", verticalAlign: "middle"}}>
                                 <div className="cms_home_chart_td clearfix">

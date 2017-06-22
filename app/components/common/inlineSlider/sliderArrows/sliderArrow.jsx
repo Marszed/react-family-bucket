@@ -77,7 +77,7 @@ export default class sliderArrow extends React.Component {
                     this.state.arrowShow ? <a href="javascript:;" className="preview_arrow preview_arrowup" onClick={this.handleArrowClick.bind(this, -1)}/> : null
                 }
                 {
-                    this.state.arrowShow ? <a href="javascript:;" className="preview_arrow preview_arrowup" onClick={this.handleArrowClick.bind(this, 1)}/> : null
+                    this.state.arrowShow ? <a href="javascript:;" className="preview_arrow preview_arrowdown" onClick={this.handleArrowClick.bind(this, 1)}/> : null
                 }
                 <ul>{dotNodes}</ul>
             </div>

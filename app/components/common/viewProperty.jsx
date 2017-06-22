@@ -5,7 +5,7 @@ import React, {PropTypes} from 'react';
 import {formatMoney, langPackageInject, objCopy} from 'LIB/tool';
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
-import InlineSlider from 'COMPONENT/common/inlineSlider/slider';
+import SmallInlineSlider from 'COMPONENT/common/smallInlineSlider/slider';
 
 class ViewProperty extends React.Component {
     constructor(props){
@@ -48,28 +48,48 @@ class ViewProperty extends React.Component {
             });
             if (!response.errType) {
                 const data = response.data.data.floorPlans, len = data.length;
-                let resourceList2 = [], // 户型图-图片
-                    resourceList8 = []; // 户型图-pdf
+                this.setState({
+                    detail: response.data.data,
+                    resourceList2: data
+                });
+                if(this.refs.SmallInlineSlider){
+                    this.refs.SmallInlineSlider.setState({
+                        items: data
+                    });
+                }
+            }
+        }.bind(this)();
+    };
+
+    getDocumentList = () => {
+        const {params} = this.props;
+        let responseHandler = async function () {
+            let response = await asyncAwaitCall({
+                url: {value: INTERFACE.DOCUMENT + params.projectId, key: 'DOCUMENT'},
+                method: 'get'
+            });
+            if (!response.errType) {
+                const data = response.data.data, len = data.length;
+                let resourceList8 = []; // 户型图-pdf同
                 for (let i = 0; i < len; i++){
-                    if (data[i].resourceType - 0 === 2){
-                        resourceList2.push(data[i]);
-                    } else if (data[i].resourceType - 0 === 8){
+                    if (data[i].resourceType - 0 === 8){
                         resourceList8.push(data[i]);
                     }
                 }
                 this.setState({
-                    detail: response.data.data,
-                    resourceList2: resourceList2,
                     resourceList8: resourceList8
                 });
             }
         }.bind(this)();
     };
+
+
     getPropsData = (obj) => {
         this.setState({
             hide: false
         });
         this.getPropertyDetail(obj);
+        this.getDocumentList();
     };
     closeHandler = () => (
         this.setState({
@@ -247,7 +267,7 @@ class ViewProperty extends React.Component {
                 <div className="Property_layoutImgbox">
                     <h4>{messages.apartmentRenderings}</h4>
                     {
-                        this.state.resourceList2 ? <InlineSlider speed={1.5} delay={3} pause={true} autoplay={false} tips={false} dots={false} arrows={true} items={this.state.resourceList2}/> : null
+                        this.state.resourceList2 ? <SmallInlineSlider ref="SmallInlineSlider" speed={1.5} delay={3} pause={true} autoplay={false} tips={false} dots={false} arrows={true} items={this.state.resourceList2}/> : null
                     }
                 </div>
                 {/*户型图-pdf*/}
