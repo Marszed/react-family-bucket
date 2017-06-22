@@ -2,8 +2,7 @@
  * Created by zhuo on 2017/1/24.
  */
 import React from "react";
-import Menu from "./common/detail/viewMenu";
-import Bread from "./common/detail/viewBread";
+import Menu from "./common/viewMenu";
 import pureRender from "pure-render-decorator";
 
 
@@ -17,9 +16,6 @@ class Home extends React.Component {
         const location = this.props.router.getCurrentLocation();
         return <div className="ipx_proj_preview">
             <Menu/>
-            {
-                location.pathname.indexOf('/detail') !== -1 ? <Bread/> : null
-            }
             {this.props.children}
         </div>;
     };

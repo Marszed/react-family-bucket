@@ -263,20 +263,25 @@ class Msg extends React.Component {
     render = () => {
         const {messages} = this.props.intl;
         const projectType = [messages.projectType1, messages.projectType2, messages.projectType3, messages.projectType4];
-        let searchInfos = this.state.searchArray.map(searchInfo => {
-            let rates = "";
-            for (let i = 0; i < searchInfo.rating; i++){
-                rates += '<i class="iconfont icon-favorite2"/>';
-            }
+        let searchInfos;
+        if (this.state.searchArray && this.state.searchArray.length > 0) {
+            searchInfos = this.state.searchArray.map(searchInfo => {
+                let rates = "";
+                for (let i = 0; i < searchInfo.rating; i++){
+                    rates += '<i class="iconfont icon-favorite2"/>';
+                }
 
-            return <li>
-                        <p>{searchInfo.name}</p>
-                        <span>
+                return <li>
+                    <p>{searchInfo.name}</p>
+                    <span>
                             <em>{searchInfo.distance}km</em>
                             <div dangerouslySetInnerHTML={{__html: rates}} />
                         </span>
-                    </li>;
-        });
+                </li>;
+            });
+        } else {
+            searchInfos = <li style={{'textAlign':'center'}}><span>{messages.searchNoData}</span></li>;
+        }
         let aboardInfo = '';
         if(this.state.countryCode === 'country.004'){
             aboardInfo = <p><span>{messages.abroadFlag}</span><b className="ipxblue_txt">{this.state.isAbroad === true ? messages.purchase : (this.state.isAbroad === false ? messages.purchaseFalse : '-')}</b></p>;

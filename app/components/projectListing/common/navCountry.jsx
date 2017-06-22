@@ -61,6 +61,7 @@ class NavCountry extends React.Component {
             beds: 0,
             baths: 0,
             studys: 0,
+            carSpace: 0,
             expendPX: -1000
         };
     }
@@ -128,7 +129,9 @@ class NavCountry extends React.Component {
         if (nextProps.global.formAutoComplete && nextProps.global.formAutoComplete.key && !isEqual(nextProps.global.formAutoComplete.value, this.state[nextProps.global.formAutoComplete.key])) {
             let temp = {};
             temp.regionFirstCode = undefined;
+            temp.regionFirst = undefined;
             temp.regionSecondCode = undefined;
+            temp.regionSecond = undefined;
             this.setState(temp);
         }
     }
@@ -187,13 +190,26 @@ class NavCountry extends React.Component {
             option[name] = value - 1;
             this.setState(option);
         } else {
-            option[name] = value;
-            if(_name !== undefined && _value !== undefined){
-                option[_name] = _value;
-            }
-            this.setState(option);
-            if (name === 'title') {
-                this.onSubmit(option);
+            let _state = this.state;
+            if (name === 'regionFirstCode' && value === ''){
+                delete _state['regionFirstCode'];
+                delete _state['regionFirst'];
+                delete _state['regionSecondCode'];
+                delete _state['regionSecond'];
+                this.setState(_state);
+            } else if (name === 'regionSecondCode' && value === ''){
+                delete _state['regionSecondCode'];
+                delete _state['regionSecond'];
+                this.setState(_state);
+            } else {
+                option[name] = value;
+                if(_name !== undefined && _value !== undefined){
+                    option[_name] = _value;
+                }
+                this.setState(option);
+                if (name === 'title') {
+                    this.onSubmit(option);
+                }
             }
         }
     }
@@ -223,6 +239,7 @@ class NavCountry extends React.Component {
             beds: this.state.beds,
             baths: this.state.baths,
             studys: this.state.studys,
+            carSpace: this.state.carSpace,
             propertyPriceMin: this.state.propertyPriceMin,
             propertyPriceMax: this.state.propertyPriceMax,
             commissionType: this.state.commissionType,
@@ -238,6 +255,8 @@ class NavCountry extends React.Component {
             unitPriceMax: this.state.unitPriceMax,
             regionFirstCode: this.state.regionFirstCode,
             regionSecondCode: this.state.regionSecondCode,
+            regionFirst: this.state.regionFirst,
+            regionSecond: this.state.regionSecond,
             timeStamp:new Date().getTime()
         }, option);
 
@@ -303,10 +322,10 @@ class NavCountry extends React.Component {
                             <Slider name="propertyPriceMinMax" onChange={this.onChange.bind(this)}
                                     data={{
                                         markUnit: "k",
-                                        min: 1,
+                                        min: 0,
                                         max: 5000,
-                                        defaultValue: [1, 5000],
-                                        markMin: 1,
+                                        defaultValue: [0, 5000],
+                                        markMin: 0,
                                         title: messages.propertyPrice,
                                         markMax: 5000,
                                         step: 10,
@@ -319,6 +338,8 @@ class NavCountry extends React.Component {
                             <Select name="baths" onChange={this.onChange.bind(this)} data={{title: messages.baths}}
                                     key={this.state.updateKey}/>
                             <Select name="studys" onChange={this.onChange.bind(this)} data={{title: messages.studys}}
+                                    key={this.state.updateKey}/>
+                            <Select name="carSpace" onChange={this.onChange.bind(this)} data={{title: messages.carSpaces}}
                                     key={this.state.updateKey}/>
                             {
                                 this.state.params.country === 'country.004' ?

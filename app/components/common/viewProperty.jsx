@@ -26,6 +26,15 @@ class ViewProperty extends React.Component {
             lengthUnit: propertyMap.lengthUnit,
             propertyStatusClass: ['ipxblue_txt', 'ipxyellow_txt', 'ipxred_txt'],
             detail: '',
+            iconSecond: {
+                width: 'icon-width',
+                length: 'icon-height',
+                landArea: 'icon-area',
+                bed: 'icon-bedroom',
+                bath: 'icon-washroom',
+                study: 'icon-bookroom',
+                carSpace: 'icon-Garage',
+            },
             hide: true
         };
     }
@@ -68,7 +77,7 @@ class ViewProperty extends React.Component {
         })
     );
     render = () => {
-        const {detail, propertyMap, messages, data, areaUnit, lengthUnit, currencyName, country, query} = this.state;
+        const {detail, propertyMap, messages, data, areaUnit, lengthUnit, currencyName, country, query, iconSecond} = this.state;
         return <div className={"Property_details_slide" + (this.state.hide ? ' hide' : '')}>
             <div className="Property_details_head">
                 <a href="javascript:;" className="proj_preview_close float_lf" onClick={this.closeHandler}><i className="iconfont icon-close"/></a>
@@ -79,7 +88,7 @@ class ViewProperty extends React.Component {
                 <ul className="Property_details_iconbox">
                     {
                         data.secondary.map((obj) => (
-                            <li><b>{detail.bed || 0}</b><i className="iconfont icon-bedroom"/><em>{messages[obj.key]}</em></li>
+                            <li><b>{detail[obj.key] || 0}</b><i className={"iconfont " + iconSecond[obj.key]}/><em>{messages[obj.key]}</em></li>
                         ))
                     }
                 </ul>
