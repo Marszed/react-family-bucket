@@ -161,11 +161,11 @@ class Sales extends React.Component {
                                                                 <li title={messages.baths + ': ' + obj.bath}><i className="iconfont icon-washroom"/> {obj.bath}</li>
                                                                 {/*建筑面积(公寓，独栋别墅，联排别墅用)*/}
                                                                 {
-                                                                    (projectType != 4) ? <li title={messages.constructionArea + ': ' + (obj.constructionArea)}>{obj.constructionArea} {obj.areaUnit}</li> : null
+                                                                    (projectType != 4) ? <li title={messages.constructionArea + ': ' + (obj.constructionArea)}><i className="iconfont icon-area"/> {obj.constructionArea} {obj.areaUnit}</li> : null
                                                                 }
                                                                 {/*土地面积(土地，独栋别墅用)*/}
                                                                 {
-                                                                    (projectType == 2 || projectType == 4) ? <li title={messages.landArea + ': ' + (obj.landArea)}>{obj.landArea} {obj.areaUnit}</li> : null
+                                                                    (projectType == 2 || projectType == 4) ? <li title={messages.landArea + ': ' + (obj.landArea)}><i className="iconfont icon-area"/> {obj.landArea} {obj.areaUnit}</li> : null
                                                                 }
                                                             </ol> : <ol className={this.state.fontSize <= 36 ? 'hide' : ''}>
                                                                 <li title={messages.width + ': ' + obj.width}><i className="iconfont icon-width"/> {obj.width}</li>

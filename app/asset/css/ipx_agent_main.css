@@ -365,7 +365,7 @@ body *{
 .proj_creat_img>ul>li .proj_creat_imgbox .proj_creat_cover ol>li:hover {color:#00afb4}
 .proj_creat_img>ul>li .proj_creat_imgbox .proj_creat_cover ol>li i {font-size:18px;}
 .proj_creat_img>ul>li .proj_creat_imgbox .proj_creat_cover .proj_c_cover_bg {position:absolute; top:0; left:0; z-index:-1; width:100%; height:100%; background:#19252f; opacity:.8; filter:alpha(opacity=80)}
-.proj_creat_img>ul>li .proj_creat_imgbox img {max-width:380px; max-height:285px; cursor:pointer}
+.proj_creat_img>ul>li .proj_creat_imgbox img {max-width:380px; max-height:285px;}
 .proj_creat_img>ul>li .proj_creat_imgbox:hover .proj_creat_cover {top:0; -moz-transition: top .3s ease;-webkit-transition: top .3s ease; -o-transition: top .3s ease; transition: top .3s ease}
 .proj_creat_img>ul>li .proj_uploadimg {cursor:pointer}
 .proj_creat_img>ul>li .proj_uploadimg .proj_uploadimg_btn {display:block; position:absolute; top:50%; left:0; margin-top:-20px; width:100%; height:40px; text-align:center; line-height:40px; color:#d9dddf}
@@ -801,11 +801,13 @@ body *{
 .agency_sellgrid_box>ul>li.ipxred_bg:hover {background:#db5d4e!important}
 .agency_sellgrid_box>ul>li.ipxyellow_bg:hover {background:#e3af5d!important}
 .agency_sellgrid_box>ul>li.white_bg:hover {background:#fff!important}
-.agency_sellgrid_box>ul>li>h2 {font-size:0.2em; width:100%; text-align:center; position:absolute; top:10%}
-.agency_sellgrid_box>ul>li>ol {overflow:hidden; color:#222; width:100%; position:absolute; top:28%}
-.agency_sellgrid_box>ul>li>ol>li {font-size:0.2em; width:50%; float:left; text-align:center}
+.agency_sellgrid_box>ul>li>h2 {font-size:0.2em; width:100%; text-align:center; position:absolute; top:7%}
+.agency_sellgrid_box>ul>li>ol {overflow:hidden; color:#222; width:100%; position:absolute; top:23%}
+.agency_sellgrid_box>ul>li>ol>li {font-size:0.2em; width:40%; float:left; padding-left:10%; height: 1.5em}
+.agency_sellgrid_box>ul>li>ol>li:nth-child(even) {width:50%; padding:0}
+.agency_sellgrid_box>ul>li>ol>li:last-child {width:40%; padding-left:10%; margin-right:2%}
 .agency_sellgrid_box>ul>li>ol>li>i {font-size:1.2em; margin-right:5px}
-.agency_sellgrid_box>ul>li>p {font-size:0.2em; font-weight:bold; text-align:center; color:#222; width:100%; position:absolute; top:76%}
+.agency_sellgrid_box>ul>li>p {font-size:0.2em; font-weight:bold; text-align:center; color:#222; width:100%; position:absolute; top:80%}
 
 /*不动产详情推出页面*/
 .Property_details_slide {width:800px; position:absolute; top:0; bottom:0; right:0; z-index:3; background:#fff; box-shadow:-5px 0 8px rgba(0,0,0,.1)}
@@ -830,10 +832,11 @@ ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:1
 .Property_layoutImg {width:533px; height:400px; margin:0px auto; text-align:center}
 .Property_layoutImg img {max-width:533px; max-height:400px; vertical-align:middle}
 .Property_layoutImg span {line-height:400px; vertical-align:middle}
-.Property_layoutImgbox>span.iconfont {position:absolute; width:50px; height:80px; text-align:center; line-height:80px; top:50%; margin-top:-25px; font-size:30px; color:#999; cursor:pointer}
-.Property_layoutImgbox>span.iconfont:hover {color:#333}
-.Property_layoutImgbox>span.iconfont.icon-rightArrow {right:-20px}
-.Property_layoutImgbox>span.iconfont.icon-leftArrow {left:-20px}
+.Property_layoutImgbox .Property_layoutImgbox_container {overflow: hidden}
+.Property_layoutImgbox .Property_layoutImgbox_footer>span.iconfont {position:absolute; width:50px; height:80px; text-align:center; line-height:80px; top:50%; margin-top:-25px; font-size:30px; color:#999; cursor:pointer}
+.Property_layoutImgbox .Property_layoutImgbox_footer>span.iconfont:hover {color:#333}
+.Property_layoutImgbox .Property_layoutImgbox_footer>span.iconfont.icon-rightArrow {right:-20px}
+.Property_layoutImgbox .Property_layoutImgbox_footer>span.iconfont.icon-leftArrow {left:-20px}
 .Property_details_body .proj_file_list {width:88%; margin:0 auto 50px}
 
 
