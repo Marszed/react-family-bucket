@@ -221,17 +221,17 @@ class Overview extends React.Component {
 
     // 图片自适应
     imageAutoSize = (e) => {
-        const lineHeight = e.target.height;
+        const lineHeight = 3 * (e.target.width) / 4;
         this.setState({
             lineHeight: lineHeight
         });
-        this.autoImage();
+        this.autoImage('',lineHeight);
     };
-    autoImage = (list) => {
+    autoImage = (list, lineHeight) => {
         let projectList = objCopy(list || this.state.projectList);
         projectList.list.map((obj) => {
             if (!obj.lineHeight){
-                obj.lineHeight = this.state.lineHeight;
+                obj.lineHeight = lineHeight || this.state.lineHeight;
             }
         });
         this.setState({

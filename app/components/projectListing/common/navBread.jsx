@@ -56,7 +56,7 @@ class NavBread extends React.Component {
         this.setState(option);
         setTimeout(() => (
             this.onSubmit()
-        ), 0);
+        ), 50);
     }
 
     //parameter filter 冗余参数过滤
@@ -95,7 +95,8 @@ class NavBread extends React.Component {
                 projectTypes: [],
                 beds: 0,
                 baths: 0,
-                studys: 0
+                studys: 0,
+                carSpace: 0
             }));
             this.props.dispatch(setFormSearch({
                 key: 'title',
@@ -136,6 +137,10 @@ class NavBread extends React.Component {
                 }));
                 this.props.dispatch(setFormSelect({
                     key: 'beds',
+                    value: 0
+                }));
+                this.props.dispatch(setFormSelect({
+                    key: 'carSpace',
                     value: 0
                 }));
                 this.props.dispatch(setAutoComplete({
@@ -215,6 +220,8 @@ class NavBread extends React.Component {
                     value: 0
                 }));
             } else if (option.indexOf('regionFirstCode') !== -1){
+                delete temp.regionFirst;
+                delete temp.regionSecond;
                 delete temp.regionFirstCode;
                 delete temp.regionSecondCode;
                 this.props.dispatch(setSearchOption(temp));
@@ -230,6 +237,7 @@ class NavBread extends React.Component {
                 ), 0);
             } else if (option.indexOf('regionSecondCode') !== -1){
                 delete temp.regionSecondCode;
+                delete temp.regionSecond;
                 this.props.dispatch(setSearchOption(temp));
                 this.props.dispatch(setAutoComplete({
                     key: 'regionSecondCode',
@@ -279,6 +287,9 @@ class NavBread extends React.Component {
             len += 1;
         }
         if (searchOption.studys) {
+            len += 1;
+        }
+        if (searchOption.carSpace) {
             len += 1;
         }
         if (searchOption.regionFirstCode) {
@@ -344,6 +355,10 @@ class NavBread extends React.Component {
                                 <li onClick={this.clearSearchOption.bind(this, 'studys')}>{messages.studys + searchOption.studys} ×</li> : ''
                         }
                         {
+                            searchOption.carSpace ?
+                                <li onClick={this.clearSearchOption.bind(this, 'carSpace')}>{messages.carSpaces + searchOption.carSpace} ×</li> : ''
+                        }
+                        {
                             searchOption.propertyPriceMin !== undefined ?
                                 <li onClick={this.clearSearchOption.bind(this, 'propertyPriceMinMax')}>{messages.propertyPrice + ' ' + searchOption.propertyPriceMin + '~' + searchOption.propertyPriceMax} ×</li> : ''
                         }
@@ -369,11 +384,11 @@ class NavBread extends React.Component {
                         }
                         {
                             searchOption.regionFirstCode !== undefined ?
-                                <li onClick={this.clearSearchOption.bind(this, 'regionFirstCode')}>{messages.regionFirst} ×</li> : ''
+                                <li onClick={this.clearSearchOption.bind(this, 'regionFirstCode')}>{searchOption.regionFirst} ×</li> : ''
                         }
                         {
                             searchOption.regionSecondCode !== undefined ?
-                                <li onClick={this.clearSearchOption.bind(this, 'regionSecondCode')}>{messages.regionSecond} ×</li> : ''
+                                <li onClick={this.clearSearchOption.bind(this, 'regionSecondCode')}>{searchOption.regionSecond} ×</li> : ''
                         }
                         {
 

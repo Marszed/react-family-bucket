@@ -421,5 +421,6 @@ export default {
     tradeInfo:"E交易信息",
     createTime:"E创建时间",
     lastTime:"E更新时间",
-    forever:"E永久有效"
+    forever:"E永久有效",
+    searchNoData:'Sorry，no data found'
 };
