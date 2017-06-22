@@ -420,5 +420,6 @@ export default {
     tradeInfo:"Transaction Information",
     createTime:"Creation Time",
     lastTime:"Update Time",
-    forever:"Forever"
+    forever:"Forever",
+    searchNoData:'Sorry, no search results'
 };
