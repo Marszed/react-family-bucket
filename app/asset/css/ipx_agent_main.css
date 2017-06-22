@@ -4,7 +4,7 @@ body *{
     box-sizing: content-box;
 }
 /*-------------------------------不动产商注册登录---------------------------------------------------*/
-.login_header .ipx_sign_language {position:absolute; top:36px; right:40px; color:#7b9eae; background:#fff}
+.login_header .ipx_sign_language {position:absolute; top:36px; color:#7b9eae; background:#fff}
 .login_header .ipx_sign_language:hover {background:#f8f8f8}
 .login_main {width:100%; height:600px;
     background: -moz-linear-gradient(top, #fdfefe 0%, #ecf3f4 50%, #ecf3f4 100%);
@@ -21,6 +21,9 @@ body *{
 /*登录框*/
 .ipx_loginBox {margin:0; position:absolute; right:0; left:auto; top:60px; padding:30px 50px; width:360px; background:#fff; border-radius:3px; box-shadow:0 0px 15px rgba(0,0,0,.1); z-index:2}
 .ipx_loginBox h1 {font-size:20px; text-align:center; color:#333; margin-bottom:30px}
+.ipx_loginBox .ipx_login_tab {position:absolute; top:0; left:0; right:0; height:70px; background:#f4f4f4; font-size:18px}
+.ipx_loginBox .ipx_login_tab>span {display:block; height:70px; line-height:70px; text-align:center; width:50%; float:left; box-sizing:border-box; border-bottom:solid 1px #e4e4e4; cursor:pointer}
+.ipx_loginBox .ipx_login_tab>span.active {color:#00afb4; background:#fff; border-bottom:solid 1px #fff;cursor:default}
 .ipx_sign_return {color:#eb7366; margin-bottom:20px; font-size:13px}
 .ipx_loginBox>button.ipx_btn {margin:30px auto 0}
 .ipx_sign_tips a {color:#666}
@@ -951,7 +954,7 @@ ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:1
 .cms_list_more_condtn i.iconfont {font-size:14px; color:#666; margin-right:10px}
 .cms_data_table {width:100%; border-left:solid 1px #e4e4e4; border-top:solid 1px #4f5f6d; font-size:13px}
 .cms_data_table th {height:44px; background:#4f5f6d; color:#fff; border-right:solid 1px #707f8c; border-bottom:solid 1px #4f5f6d;}
-.cms_data_table td {height:80px; border-right:solid 1px #e4e4e4; border-bottom:solid 1px #e4e4e4;}
+.cms_data_table td {height:60px; border-right:solid 1px #e4e4e4; border-bottom:solid 1px #e4e4e4;}
 .cms_data_table td.cms_data_contrl {font-size:0}
 .cms_data_table td.cms_data_contrl a {display:inline-block; margin:0 2px}
 .cms_data_table tr:nth-child(odd) td {background:#f8f8f8}

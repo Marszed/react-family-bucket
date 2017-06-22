@@ -252,13 +252,22 @@ class Overview extends React.Component {
                 if (obj.reservedNum + obj.noSoldNum + obj.soldNum === 0){
                     sellsPerformance = "";
                 } else {
+                    let noSoldWidthStyle;
                     let noSoldWidth = 100 * (obj.noSoldNum / (obj.reservedNum + obj.noSoldNum + obj.soldNum)).toFixed(2);
-                    noSoldWidth = noSoldWidth < 20 ? 20 : noSoldWidth > 80 ? 80 : noSoldWidth;
+                    if(noSoldWidth < 20){
+                        noSoldWidthStyle = {left: '20%'};
+                    } else if (noSoldWidth > 80) {
+                        noSoldWidthStyle = {right: '20%'};
+                    } else {
+                        noSoldWidthStyle = {left: noSoldWidth + '%'};
+                    }
+
+                    noSoldWidth = noSoldWidth < 20 ? 20 : noSoldWidth > 78 ? 78 : noSoldWidth;
                     sellsPerformance =
                         <div className="sellsPerformance">
                             <ul>
                                 <li className="ipxblue_txt" style={{left: 0 + '%'}}>{messages.noSoldNum} {obj.noSoldNum}</li>
-                                <li className="ipxyellow_txt" style={{left: noSoldWidth + '%'}}>{messages.reservedNum} {obj.reservedNum}</li>
+                                <li className="ipxyellow_txt" style={noSoldWidthStyle}>{messages.reservedNum} {obj.reservedNum}</li>
                                 <li className="ipxred_txt" style={{right: 0 + '%'}}>{messages.soldNum} {obj.soldNum}</li>
                             </ul>
                             <div className="sellper_chart">

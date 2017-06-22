@@ -283,7 +283,7 @@ class NavCountry extends React.Component {
         return <div className="dev_cont_subtitle">
             <div className="dev_cont_sub_screen">
                 <dl className="proj_screen_start">
-                    <dt><i className="iconfont icon-screen"/><span>{messages.screen}</span></dt>
+                    <dt/>
                     {
                         this.state.country ? this.state.country.map((obj) => (
                                 <Link className={obj.dicCode === this.state.params.country ? 'active' : ''}
