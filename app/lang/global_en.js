@@ -136,7 +136,7 @@ export default {
     beds: 'Bed',
     baths: 'Bath',
     studys: 'Study',
-    carSpaces:'Car Parks',
+    carSpaces:'Car Spaces',
     projectType1: 'Apartment',
     projectType2: 'House',
     projectType3: 'Townhouse',
