@@ -129,42 +129,34 @@ const routes = <Route path="/" component={App}>
                        callback(null, require("./components/projectListing/viewHome")['default']);
                    }, "viewHome");
                }}>
-            <IndexRedirect to={'/' + ROUTER.PEOJECTLIST + '/' + ROUTER.VIEW + '/' + ROUTER.DETAIL}/>
-            <Route path={ROUTER.DETAIL}
+            <IndexRedirect to={'/' + ROUTER.PEOJECTLIST + '/' + ROUTER.VIEW + '/' + ROUTER.MSG}/>
+            <Route path={ROUTER.MSG + "/:projectId"}
                    getComponent={(nextState, callback) => {
                        require.ensure([], (require) => {
-                           callback(null, require("./components/projectListing/detailHome")['default']);
-                       }, "detailHome");
+                           callback(null, require("./components/projectListing/common/msg")['default']);
+                       }, "msg");
                    }}>
-                <IndexRedirect to={'/' + ROUTER.PEOJECTLIST + '/' + ROUTER.VIEW + '/' + ROUTER.DETAIL + '/' + ROUTER.MSG + '/:projectId'}/>
-                <Route path={ROUTER.MSG + "/:projectId"}
-                       getComponent={(nextState, callback) => {
-                           require.ensure([], (require) => {
-                               callback(null, require("./components/projectListing/common/detail/msg")['default']);
-                           }, "msg");
-                       }}>
-                </Route>
-                <Route path={ROUTER.AROUND + "/:projectId"}
-                       getComponent={(nextState, callback) => {
-                           require.ensure([], (require) => {
-                               callback(null, require("./components/projectListing/common/detail/around")['default']);
-                           }, "around");
-                       }}>
-                </Route>
-                <Route path={ROUTER.DOCUMENT + "/:projectId"}
-                       getComponent={(nextState, callback) => {
-                           require.ensure([], (require) => {
-                               callback(null, require("./components/projectListing/common/detail/document")['default']);
-                           }, "document");
-                       }}>
-                </Route>
-                <Route path={ROUTER.PROGRESS + "/:projectId"}
-                       getComponent={(nextState, callback) => {
-                           require.ensure([], (require) => {
-                               callback(null, require("./components/projectListing/common/detail/progress")['default']);
-                           }, "progress");
-                       }}>
-                </Route>
+            </Route>
+            <Route path={ROUTER.AROUND + "/:projectId"}
+                   getComponent={(nextState, callback) => {
+                       require.ensure([], (require) => {
+                           callback(null, require("./components/projectListing/common/around")['default']);
+                       }, "around");
+                   }}>
+            </Route>
+            <Route path={ROUTER.DOCUMENT + "/:projectId"}
+                   getComponent={(nextState, callback) => {
+                       require.ensure([], (require) => {
+                           callback(null, require("./components/projectListing/common/document")['default']);
+                       }, "document");
+                   }}>
+            </Route>
+            <Route path={ROUTER.PROGRESS + "/:projectId"}
+                   getComponent={(nextState, callback) => {
+                       require.ensure([], (require) => {
+                           callback(null, require("./components/projectListing/common/progress")['default']);
+                       }, "progress");
+                   }}>
             </Route>
             <Route path={ROUTER.PROPERTY + "/:projectId"}
                    getComponent={(nextState, callback) => {

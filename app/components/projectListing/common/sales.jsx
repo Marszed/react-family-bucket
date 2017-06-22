@@ -94,9 +94,9 @@ class Sales extends React.Component {
 
     render = () => {
         const {messages} = this.state;
-        const {params} = this.context.router;
+        const {countryCode, projectType} = this.props.location.query;
         const statusClass = ['ipxblue_bg', 'ipxyellow_bg', 'ipxred_bg'];
-        let select = this.props.location.query.countryCode === "country.004"?
+        let select = countryCode === "country.004"?
             <Select name="isAbroad" onChange={this.onChange.bind(this)} key={this.state.updateKey}
                     data={{
                         list: [
@@ -153,20 +153,26 @@ class Sales extends React.Component {
                                                 (Number(obj.propertyStatus) === 1 && this.state.statusObj.available)) &&
                                                 ((Number(obj.isAbroad) === Number(this.state.isAbroad)) || this.state.isAbroad === -1))) ? <li key={obj.propertyId} className={statusClass[Number(obj.propertyStatus) - 1]} onClick={this.viewPropertyDetail.bind(this, obj)}>
                                                         <h2>#{obj.lot}</h2>
-                                                        <ol className={this.state.fontSize <= 36 ? 'hide' : ''}>
-                                                            <li title={messages.beds + ': ' + obj.bed}><i className="iconfont icon-bedroom"/> {obj.bed}</li>
-                                                            <li title={messages.studys + ': ' + obj.study}><i className="iconfont icon-bookroom"/> {obj.study}</li>
-                                                            <li title={messages.carSpace + ': ' + obj.carSpace}><i className="iconfont icon-Garage"/> {obj.carSpace}</li>
-                                                            <li title={messages.baths + ': ' + obj.bath}><i className="iconfont icon-washroom"/> {obj.bath}</li>
-                                                            {/*建筑面积(公寓，独栋别墅，联排别墅用)*/}
-                                                            {
-                                                                (params.projectType === 1 || params.projectType === 2 || params.projectType === 3) ? <li title={messages.constructionArea + ': ' + (obj.constructionArea)}>{obj.constructionArea} {obj.areaUnit}</li> : null
-                                                            }
-                                                            {/*土地面积(土地，独栋别墅用)*/}
-                                                            {
-                                                                (params.projectType === 2 || params.projectType === 4) ? <li title={messages.landArea + ': ' + (obj.landArea)}>{obj.landArea} {obj.areaUnit}</li> : null
-                                                            }
-                                                        </ol>
+                                                        {
+                                                            projectType != 4 ? <ol className={this.state.fontSize <= 36 ? 'hide' : ''}>
+                                                                <li title={messages.beds + ': ' + obj.bed}><i className="iconfont icon-bedroom"/> {obj.bed}</li>
+                                                                <li title={messages.studys + ': ' + obj.study}><i className="iconfont icon-bookroom"/> {obj.study}</li>
+                                                                <li title={messages.carSpace + ': ' + obj.carSpace}><i className="iconfont icon-Garage"/> {obj.carSpace}</li>
+                                                                <li title={messages.baths + ': ' + obj.bath}><i className="iconfont icon-washroom"/> {obj.bath}</li>
+                                                                {/*建筑面积(公寓，独栋别墅，联排别墅用)*/}
+                                                                {
+                                                                    (projectType != 4) ? <li title={messages.constructionArea + ': ' + (obj.constructionArea)}>{obj.constructionArea} {obj.areaUnit}</li> : null
+                                                                }
+                                                                {/*土地面积(土地，独栋别墅用)*/}
+                                                                {
+                                                                    (projectType == 2 || projectType == 4) ? <li title={messages.landArea + ': ' + (obj.landArea)}>{obj.landArea} {obj.areaUnit}</li> : null
+                                                                }
+                                                            </ol> : <ol className={this.state.fontSize <= 36 ? 'hide' : ''}>
+                                                                <li title={messages.width + ': ' + obj.width}><i className="iconfont icon-width"/> {obj.width}</li>
+                                                                <li title={messages.length + ': ' + obj.length}><i className="iconfont icon-height"/> {obj.length}</li>
+                                                                <li title={messages.landArea + ': ' + (obj.landArea)}>{obj.landArea} {obj.areaUnit}</li>
+                                                            </ol>
+                                                        }
                                                         <p className={this.state.fontSize <= 36 ? 'hide' : ''}>{obj.currencyName} {obj.price ? formatMoney(obj.price) : ''}</p>
                                                     </li> : <li className="white_bg" key={'white_' + index} style={{fontSize: this.state.fontSize + 'px'}}/>
                                             ))
