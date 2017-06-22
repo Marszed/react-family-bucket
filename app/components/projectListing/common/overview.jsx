@@ -244,6 +244,21 @@ class Overview extends React.Component {
             this.props.dispatch(setFormBox(-1000));
         }
     };
+    // 跳转到价格列表
+    onLinkTo = (obj) => {
+        this.context.router.push({
+            pathname: '/projectListing/view/property/' + obj.projectId,
+            query: {
+                authorizeNumber: obj.authorizeNumber,
+                countryCode: obj.countryCode,
+                projectType: obj.projectType,
+                title: encode64(obj.title)
+            },
+            state: {
+                propertyIds: obj.propertyIds
+            }
+        });
+    };
 
     render() {
         const {messages} = this.props.intl;
@@ -344,7 +359,7 @@ class Overview extends React.Component {
                                 <div className="float_rt">
                                     {sellsPerformance}
                                     {
-                                        (Number(this.state.params.type) === 1 && this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix">
+                                        (Number(this.state.params.type) === 1 && this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix" onClick={this.onLinkTo.bind(this, obj)}>
                                                 <span className="float_lf">{obj.propertyNum || 0} {messages.meetConditionsTip}</span>
                                                 <i className="iconfont icon-list01 float_rt"/>
                                             </div> : null
@@ -420,7 +435,7 @@ class Overview extends React.Component {
                                                             </button>
                                                     </div>
                                                     {
-                                                        (Number(this.state.params.type) === 1 && this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix">
+                                                        (Number(this.state.params.type) === 1 && this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix" onClick={this.onLinkTo.bind(this, obj)}>
                                                                 <span className="float_lf">{obj.propertyNum || 0} {messages.meetConditionsTip}</span>
                                                                 <i className="iconfont icon-list01 float_rt"/>
                                                             </div> : null
