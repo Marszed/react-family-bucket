@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {injectIntl} from "react-intl";
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
-import {formatMoney, objCopy} from 'LIB/tool';
+import {formatMoney, objCopy, keySort} from 'LIB/tool';
 import NoData from 'COMPONENT/common/noData';
 import echart from "ASSET/js/echarts.min";
 import InlineSlider from 'COMPONENT/common/inlineSlider/slider';
@@ -263,20 +263,25 @@ class Msg extends React.Component {
     render = () => {
         const {messages} = this.props.intl;
         const projectType = [messages.projectType1, messages.projectType2, messages.projectType3, messages.projectType4];
-        let searchInfos = this.state.searchArray.map(searchInfo => {
-            let rates = "";
-            for (let i = 0; i < searchInfo.rating; i++){
-                rates += '<i class="iconfont icon-favorite2"/>';
-            }
+        let searchInfos;
+        if (this.state.searchArray && this.state.searchArray.length > 0) {
+            searchInfos = this.state.searchArray.map(searchInfo => {
+                let rates = "";
+                for (let i = 0; i < searchInfo.rating; i++){
+                    rates += '<i class="iconfont icon-favorite2"/>';
+                }
 
-            return <li>
-                        <p>{searchInfo.name}</p>
-                        <span>
+                return <li>
+                    <p>{searchInfo.name}</p>
+                    <span>
                             <em>{searchInfo.distance}km</em>
                             <div dangerouslySetInnerHTML={{__html: rates}} />
                         </span>
-                    </li>;
-        });
+                </li>;
+            });
+        } else {
+            searchInfos = <li style={{'textAlign':'center'}}><span>{messages.searchNoData}</span></li>;
+        }
         let aboardInfo = '';
         if(this.state.countryCode === 'country.004'){
             aboardInfo = <p><span>{messages.abroadFlag}</span><b className="ipxblue_txt">{this.state.isAbroad === true ? messages.purchase : (this.state.isAbroad === false ? messages.purchaseFalse : '-')}</b></p>;
@@ -302,7 +307,7 @@ class Msg extends React.Component {
                             </span>
                         </div>
 
-                        <InlineSlider speed={1.5} delay={3} pause={true} autoplay={false} arrows={true} items={this.state.picList}/>
+                        <InlineSlider speed={1.5} delay={3} pause={true} autoplay={false} arrows={true} items={this.state.picList.sort(keySort('isFrontImage',true))}/>
 
                         <div className="preview_common_stylebox base_infomation">
                             <h3 className="preview_common_h3">{messages.baseInfo}</h3>

@@ -21,7 +21,7 @@ class Overview extends React.Component {
         return <div>
             <Header params={params}/>
             {
-                params && Number(params.type) === 1 ? ((Number(params.country === 'country.000') ? <NavAll params={params}/> : <NavCountry params={params}/>)) : ''
+                params && Number(params.type) === 1 ? (params.country === 'country.000' ? <NavAll params={params}/> : <NavCountry params={params}/>) : ''
             }
             <OverviewComponent params={params}/>
         </div>;

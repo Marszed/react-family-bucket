@@ -78,6 +78,14 @@ class Radio extends React.Component {
         });
     };
 
+    componentWillMount(){
+        this.getCountryCode().then((response) => {
+            if (response !== 'error'){
+                this.getRegionList('', 1, this.props.params.country, response);
+            }
+        });
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.params && !isEqual(nextProps.params, this.state.params)) {
             const {messages} = this.props.intl;
@@ -166,14 +174,23 @@ class Radio extends React.Component {
     };
 
     // 自动完成选中
-    onSelect = (type, value, e) => {
+    onSelect = (type, value) => {
         if (type === 1){
+            if (value === '') {
+                this.props.onChange('regionFirstCode', '');
+                this.setState({
+                    value1: '',
+                    value2: '',
+                    disabled2:true
+                });
+                return false;
+            }
             this.state.dataSourceObj1.map((obj) => {
                 if (value === obj.dicValue){
                     this.setState({
                         value1: value
                     });
-                    this.props.onChange('regionFirstCode', obj.dicCode);
+                    this.props.onChange('regionFirstCode', obj.dicCode,'regionFirst',value);
                     this.getRegionList(obj.regionId, 2);
                     return false;
                 }
@@ -183,16 +200,23 @@ class Radio extends React.Component {
         if (type === 2){
             this.state.dataSourceObj1.map((obj) => {
                 if (this.state.value1 && this.state.value1 === obj.dicValue){
-                    this.props.onChange('regionFirstCode', obj.dicCode);
+                    this.props.onChange('regionFirstCode', obj.dicCode,'regionFirst',obj.dicValue);
                     return false;
                 }
             });
+            if (value === '') {
+                this.props.onChange('regionSecondCode', '');
+                this.setState({
+                    value2: ''
+                });
+                return false;
+            }
             this.state.dataSourceObj2.map((obj) => {
                 if (value === obj.dicValue){
                     this.setState({
                         value2: value
                     });
-                    this.props.onChange('regionSecondCode', obj.dicCode);
+                    this.props.onChange('regionSecondCode', obj.dicCode,'regionSecond',value);
                     return false;
                 }
             });
@@ -217,7 +241,7 @@ class Radio extends React.Component {
                         }}
                         value={this.state.value1}
                         disabled={this.state.disabled1}
-                        onSelect={this.onSelect.bind(this, 1)}
+                        onChange={this.onSelect.bind(this, 1)}
                         getPopupContainer={() => document.getElementById('IPXArea1')}
                         filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                         placeholder={this.state.placeholder}
@@ -236,7 +260,7 @@ class Radio extends React.Component {
                         }}
                         value={this.state.value2}
                         disabled={this.state.disabled2}
-                        onSelect={this.onSelect.bind(this, 2)}
+                        onChange={this.onSelect.bind(this, 2)}
                         getPopupContainer={() => document.getElementById('IPXArea2')}
                         filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                         placeholder={this.state.placeholder}
