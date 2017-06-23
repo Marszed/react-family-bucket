@@ -254,7 +254,7 @@ class Property extends React.Component {
 
     exportHandler = () => {
         this.refs.exportProperty.closeHandler(false);
-        this.refs.exportProperty.setCountryHandler(this.state.countryNameShort);
+        this.refs.exportProperty.setCountryHandler(this.state.countryNameShort, this.state.searchOption);
     };
 
     render = () => {
@@ -334,6 +334,16 @@ class Property extends React.Component {
         const spanHouseViewName = (obj,key) => {return (
             <span className={'propty_pricelist_span_' + key}>{this.state.propertyMap.houseViewName[obj[key]-0-1]}</span>
         )};
+        const spanFloorLevel = (obj,key) => {
+            let floorLevel = '';
+            this.state.propertyMap.floorLevel.map((option) => {
+                if(option.id == obj[key]){
+                    floorLevel = option.data || obj[key];
+                    return false;
+                }
+            });
+            return <span className={'propty_pricelist_span_' + key}>{floorLevel}</span>
+        };
         const spanLot = (obj,key) => { return (
             <span style={{left: this.state.left}} className="proj_propty_lot propty_pricelist_span_lot">
                 {obj[key]}
@@ -366,6 +376,8 @@ class Property extends React.Component {
                                 return spanAspectName(obj,option.key);
                             } else if (option.key == 'houseView'){
                                 return spanHouseViewName(obj,option.key);
+                            } else if (option.key == 'floorLevel'){
+                                return spanFloorLevel(obj,option.key);
                             } else if (option.key == 'propertyStatus') {
                                 return spanPropertyStatus(obj,option.key);
                             } else {

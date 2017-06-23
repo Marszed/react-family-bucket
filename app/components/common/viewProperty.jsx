@@ -254,6 +254,18 @@ class ViewProperty extends React.Component {
                                                 <td>{messages[obj.key]}</td>
                                                 <td>{propertyMap.isAbroadName[detail[obj.key] ? 0 : 1]}</td>
                                             </tr>
+                                        }  else if (obj.key === 'floorLevel'){
+                                            let floorLevel = '';
+                                            propertyMap.floorLevel.map((option) => {
+                                                if(option.id == detail[obj.key]){
+                                                    floorLevel = option.data || detail[obj.key];
+                                                    return false;
+                                                }
+                                            });
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{floorLevel}</td>
+                                            </tr>
                                         } else {
                                             return <tr>
                                                 <td>{messages[obj.key]}</td>

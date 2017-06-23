@@ -12,6 +12,7 @@ class ExportProperty extends React.Component {
         super(props);
         const data = this.getDefault();
         this.state = {
+            searchOption: {},
             baseInfo: data.baseInfo,
             baseAll: data.baseAll,
             otherAll: data.otherAll,
@@ -72,7 +73,7 @@ class ExportProperty extends React.Component {
                 if (data[key].unit === 'mon' || data[key].unit === 'percent'){
                     otherInfo.push({
                         'key': key,
-                        'value': false
+                        'value': true
                     });
                 } else {
                     baseInfo.push({
@@ -84,9 +85,7 @@ class ExportProperty extends React.Component {
         }
         return {
             baseInfo: baseInfo,
-            otherInfo: otherInfo,
-            baseAll: true,
-            otherAll: false
+            otherInfo: otherInfo
         };
     };
     exportHandler = () => {
@@ -117,9 +116,9 @@ class ExportProperty extends React.Component {
             xmlRequest.setRequestHeader("Authorization",  'bearer ' + token);
             xmlRequest.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    var response = this.response;
-                    var url = window.URL.createObjectURL(response);
-                    var tempLink = document.createElement('a');
+                    let response = this.response;
+                    let url = window.URL.createObjectURL(response);
+                    let tempLink = document.createElement('a');
                     tempLink.href = url;
                     tempLink.setAttribute('download', decode64(query.title) + '.xls');
                     tempLink.click();
@@ -129,7 +128,15 @@ class ExportProperty extends React.Component {
                 {
                     "propertiesFields": propertiesFields,
                     "projectId" : params.projectId,
-                    "projectName" : decode64(query.title)
+                    "projectName" : decode64(query.title),
+                    "lot": this.state.searchOption.lot,
+                    "priceMin": this.state.searchOption.priceMin,
+                    "priceMax": this.state.searchOption.priceMax,
+                    "beds": this.state.searchOption.bed,
+                    "carSpace": this.state.searchOption.carSpace,
+                    "studys": this.state.searchOption.study,
+                    "baths": this.state.searchOption.bath,
+                    "abroadFlag": this.state.searchOption.isAbroad === undefined ? '' : (this.state.searchOption.isAbroad === true ? 1 : 0)
                 })
             );
         }.bind(this)();
@@ -142,17 +149,6 @@ class ExportProperty extends React.Component {
     setCountryHandler = (country) => (
         this.resetHandler(country)
     );
-    // 全选
-    checkAllHandler = (type, flag) => {
-        let temp = {};
-        temp[type.replace('Info', 'All')] = flag;
-        let array = arrayCopy(this.state[type]);
-        array.map((obj) => (
-            obj.value = flag
-        ));
-        temp[type] = array;
-        this.setState(temp);
-    };
     // 单选
     checkHandler = (type, key, value) => {
         let array = arrayCopy(this.state[type]), temp = {}, countTrue = 0, countFalse = 0;
@@ -223,10 +219,6 @@ class ExportProperty extends React.Component {
                             <tr>
                                 <th colSpan="2" style={{'textAlign': 'left'}}>{messages.baseInfo}</th>
                             </tr>
-                            <tr>
-                                <td><label className={"ipx_checkbox" + (this.state.baseAll ? ' checked' : '')} onClick={this.checkAllHandler.bind(this, 'baseInfo', !this.state.baseAll)}><i className="iconfont icon-succeed"/> <span className="text-elps">{messages.checkAll}</span> </label></td>
-                                <td>&nbsp;</td>
-                            </tr>
                             {
                                 tempBaseInfo.map((option) => (
                                     <tr>
@@ -242,10 +234,6 @@ class ExportProperty extends React.Component {
                         <table className="Property_info_rt" cellPadding="0" cellSpacing="0" style={{textAlign: 'left'}}>
                             <tr>
                                 <th colSpan="2" style={{'textAlign': 'left'}}>{messages.otherCharges}</th>
-                            </tr>
-                            <tr>
-                                <td><label className={"ipx_checkbox" + (this.state.otherAll ? ' checked' : '')} onClick={this.checkAllHandler.bind(this, 'otherInfo', !this.state.otherAll)}><i className="iconfont icon-succeed"/> <span className="text-elps">{messages.checkAll}</span> </label></td>
-                                <td>&nbsp;</td>
                             </tr>
                             {
                                 tempOtherInfo.map((option) => (
