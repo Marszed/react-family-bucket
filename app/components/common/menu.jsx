@@ -50,10 +50,9 @@ class Menu extends React.Component {
                 url: {value: INTERFACE.LOGOUT, key: 'LOGOUT'},
                 method: 'get'
             });
-            if (!response.errType) {
-                window.localStorage.clear();
-                setTimeout(() => (this.context.router.push('/')), 0);
-            }
+
+            window.localStorage.clear();
+            setTimeout(() => (this.context.router.push('/')), 0);
         }.bind(this)();
     }
     // 展开缩进筛选表单

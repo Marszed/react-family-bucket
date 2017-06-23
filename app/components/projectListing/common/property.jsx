@@ -389,10 +389,10 @@ class Property extends React.Component {
                         </div>
                         <Slider name="priceMinMax" onChange={this.onChange.bind(this)} data={{
                             markUnit: "k",
-                            min: 1,
+                            min: 0,
                             max: 5000,
-                            defaultValue: [1, 5000],
-                            markMin: 1,
+                            defaultValue: [0, 5000],
+                            markMin: 0,
                             title: messages.propertyPrice,
                             markMax: 5000,
                             step: 10,
@@ -406,27 +406,30 @@ class Property extends React.Component {
                                 key={this.state.updateKey}/>
                         <Select name="bath" onChange={this.onChange.bind(this)} data={{title: messages.baths}}
                                 key={this.state.updateKey}/>
-                        <Select name="isAbroad" onChange={this.onChange.bind(this)} key={this.state.updateKey}
-                                data={{
-                                    list: [
-                                        {
-                                            value: 0,
-                                            content: messages.arbitrarily
-                                        },
-                                        {
-                                            value: 1,
-                                            content: messages.purchaseFalse
-                                        },
-                                        {
-                                            value: 2,
-                                            content: messages.purchase
-                                        }
-                                    ]
-                                }}/>
+                        {
+                            this.state.countryNameShort === 'AU'?
+                                <Select name="isAbroad" onChange={this.onChange.bind(this)} key={this.state.updateKey}
+                                        data={{
+                                            list: [
+                                                {
+                                                    value: 0,
+                                                    content: messages.arbitrarily
+                                                },
+                                                {
+                                                    value: 1,
+                                                    content: messages.purchaseFalse
+                                                },
+                                                {
+                                                    value: 2,
+                                                    content: messages.purchase   
+                                                }
+                                            ]
+                                        }}/> : ''
+                        }
                         <div className="proj_screen_cont_td float_rt">
                             <h3>&nbsp;</h3>
                             <button className="ipx_L_btn ipx_bluebd_btn ipx_btn" onClick={this.exportHandler}><i className="iconfont icon-exportexl"/>{messages.exportFile}</button>
-                            <p className="proj_screen_update_time">{messages.listUpdateTime} : {this.state.lastTime ? (new Date(this.state.lastTime + 8 * 1000 * 60 * 60)).toISOString().slice(0, 10) : '-'}</p>
+                            <p className="proj_screen_update_time">{messages.listUpdateTime} : {this.state.lastTime ? (new Date(this.state.lastTime)).toISOString().slice(0, 10).replace(/-/g,'/') : '-'}</p>
                         </div>
                     </div>
                 </div>

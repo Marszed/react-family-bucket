@@ -326,6 +326,7 @@ export default {
     today: '今天',
     year: '年',
     month: '月',
+    months: '月',
     day: '日',
     MON: '星期一',
     TUE: '星期二',
@@ -422,5 +423,7 @@ export default {
     createTime:"创建时间",
     lastTime:"更新时间",
     forever:"永久有效",
-    searchNoData:'抱歉，没有搜索到结果'
+    searchNoData:'抱歉，没有搜索到结果',
+    markedSuccess:"收藏成功",
+    cancelMarked:"取消收藏成功"
 };

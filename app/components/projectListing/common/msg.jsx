@@ -252,7 +252,7 @@ class Msg extends React.Component {
             });
             if (!response.errType) {
                 this.props.dispatch(showToast({
-                    content: (!this.state.favoriteFlag? '' : messages.cancel) + messages.marked + messages.success,
+                    content: !this.state.favoriteFlag? messages.markedSuccess : messages.cancelMarked,
                     state: 1
                 }));
                 this.setState({favoriteFlag: !(this.state.favoriteFlag)});

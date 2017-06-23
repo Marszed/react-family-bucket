@@ -305,7 +305,7 @@ class NavCountry extends React.Component {
                         </div>
                         <AutoComplete
                             data={{
-                                title: messages.region + messages.choose,
+                                title: messages.choose + ' ' + messages.region,
                                 placeholder: messages.pleaseChoose,
                                 params: messages.params
                             }}
@@ -376,13 +376,12 @@ class NavCountry extends React.Component {
                                     }}/>
                             <Slider name="periodMinMax" onChange={this.onChange.bind(this)}
                                     data={{
-                                        markUnit: messages.month,
                                         min: 0,
                                         max: 60,
                                         defaultValue: [0, 60],
                                         markMin: 0,
                                         markMax: 60,
-                                        title: messages.period
+                                        title: messages.period + ' （' + messages.months + '）'
                                     }}/>
                             <Slider name="areaMinMax" onChange={this.onChange.bind(this)}
                                     data={{
@@ -395,7 +394,6 @@ class NavCountry extends React.Component {
                                     }}/>
                             <Slider name="distanceMinMax" onChange={this.onChange.bind(this)}
                                     data={{
-                                        markUnit: 'km',
                                         min: 0,
                                         max: 50,
                                         defaultValue: [0, 50],

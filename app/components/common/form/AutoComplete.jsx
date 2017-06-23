@@ -164,6 +164,7 @@ class Radio extends React.Component {
                         disabled2: false
                     });
                 }
+                document.getElementsByClassName('ant-input ant-input ant-select-search__field')[1].focus();
             }
         }.bind(this)();
     }
@@ -250,6 +251,7 @@ class Radio extends React.Component {
                 <div id="IPXArea2" style={{
                     width: 200,
                     position: 'relative',
+                    maginTop:40,
                     height: 40
                 }}>
                     <AutoComplete

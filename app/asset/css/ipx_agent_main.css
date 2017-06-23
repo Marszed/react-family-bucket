@@ -585,8 +585,8 @@ body *{
 .proj_screen_start a>i.icon-earth1 {font-size:24px}
 .proj_screen_start a>span {font-size:14px; vertical-align:middle}
 .proj_screen_start a:hover {color:#999}
-.proj_screen_search {position:absolute; top:11px; left:650px; z-index:2; height:36px; width:140px; border:solid 1px #ddd; border-radius:18px; background:#fff}
-.proj_screen_search input {border:none; background:none; height:36px; width:100px; padding:0 10px}
+.proj_screen_search {position:absolute; top:11px; left:650px; z-index:2; height:36px; width:160px; border:solid 1px #ddd; border-radius:18px; background:#fff}
+.proj_screen_search input {border:none; background:none; height:36px; width:140px; padding:0 10px}
 .proj_screen_search button {width:36px; height:36px; text-align:center; line-height:36px; font-size:20px; color:#999; border:none; background:none; position:absolute; top:0; right:0; cursor:pointer}
 /*项目筛选下拉部分*/
 .proj_screen_cont {width:100%; background:#fff; box-shadow:0 3px 5px rgba(0,0,0,.1); position:absolute; left:0; top:-1000px; z-index:1}

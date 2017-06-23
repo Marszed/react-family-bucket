@@ -86,13 +86,13 @@ class _Slider extends React.Component {
         this.setState(this.getTitleProps(messages, nextProps.data));
     }
 
-    onChange = (option) => {
+    onChange = (option,commissionType) => {
         this.setState({
             value: option
         });
         if (this.state.switchType !== undefined){ // 拥有类型
             // 还需要传一个类型
-            this.props.onChange('commissionType', this.state.commissionType);
+            this.props.onChange('commissionType', commissionType || this.state.commissionType);
         }
         if(this.state.defaultValue instanceof Array){
             this.props.onChange(this.props.name.replace('Min', ''), option[1], this.props.name.replace('Max', ''), option[0]);
@@ -116,6 +116,7 @@ class _Slider extends React.Component {
             commissionType: option === '%' ? 0 : 1
         }));
         this.setState(temp);
+        this.onChange([temp.min,temp.max],temp.commissionType);
     }
 
     render() {
