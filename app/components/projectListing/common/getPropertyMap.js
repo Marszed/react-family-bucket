@@ -41,6 +41,7 @@
 
 //
 const propertyMap = ((messages, ValidateTool)=>{
+    const floorLevel = [{"id":199,"data":199},{"id":198,"data":198},{"id":197,"data":197},{"id":196,"data":196},{"id":195,"data":195},{"id":194,"data":194},{"id":193,"data":193},{"id":192,"data":192},{"id":191,"data":191},{"id":190,"data":190},{"id":189,"data":189},{"id":188,"data":188},{"id":187,"data":187},{"id":186,"data":186},{"id":185,"data":185},{"id":184,"data":184},{"id":183,"data":183},{"id":182,"data":182},{"id":181,"data":181},{"id":180,"data":180},{"id":179,"data":179},{"id":178,"data":178},{"id":177,"data":177},{"id":176,"data":176},{"id":175,"data":175},{"id":174,"data":174},{"id":173,"data":173},{"id":172,"data":172},{"id":171,"data":171},{"id":170,"data":170},{"id":169,"data":169},{"id":168,"data":168},{"id":167,"data":167},{"id":166,"data":166},{"id":165,"data":165},{"id":164,"data":164},{"id":163,"data":163},{"id":162,"data":162},{"id":161,"data":161},{"id":160,"data":160},{"id":159,"data":159},{"id":158,"data":158},{"id":157,"data":157},{"id":156,"data":156},{"id":155,"data":155},{"id":154,"data":154},{"id":153,"data":153},{"id":152,"data":152},{"id":151,"data":151},{"id":150,"data":150},{"id":149,"data":149},{"id":148,"data":148},{"id":147,"data":147},{"id":146,"data":146},{"id":145,"data":145},{"id":144,"data":144},{"id":143,"data":143},{"id":142,"data":142},{"id":141,"data":141},{"id":140,"data":140},{"id":139,"data":139},{"id":138,"data":138},{"id":137,"data":137},{"id":136,"data":136},{"id":135,"data":135},{"id":134,"data":134},{"id":133,"data":133},{"id":132,"data":132},{"id":131,"data":131},{"id":130,"data":130},{"id":129,"data":129},{"id":128,"data":128},{"id":127,"data":127},{"id":126,"data":126},{"id":125,"data":125},{"id":124,"data":124},{"id":123,"data":123},{"id":122,"data":122},{"id":121,"data":121},{"id":120,"data":120},{"id":119,"data":119},{"id":118,"data":118},{"id":117,"data":117},{"id":116,"data":116},{"id":115,"data":115},{"id":114,"data":114},{"id":113,"data":113},{"id":112,"data":112},{"id":111,"data":111},{"id":110,"data":110},{"id":109,"data":109},{"id":108,"data":108},{"id":107,"data":107},{"id":106,"data":106},{"id":105,"data":105},{"id":104,"data":104},{"id":103,"data":103},{"id":102,"data":102},{"id":101,"data":101},{"id":100,"data":100},{"id":99,"data":"099"},{"id":98,"data":"098"},{"id":97,"data":"097"},{"id":96,"data":"096"},{"id":95,"data":"095"},{"id":94,"data":"094"},{"id":93,"data":"093"},{"id":92,"data":"092"},{"id":91,"data":"091"},{"id":90,"data":"090"},{"id":89,"data":"089"},{"id":88,"data":"088"},{"id":87,"data":"087"},{"id":86,"data":"086"},{"id":85,"data":"085"},{"id":84,"data":"084"},{"id":83,"data":"083"},{"id":82,"data":"082"},{"id":81,"data":"081"},{"id":80,"data":"080"},{"id":79,"data":"079"},{"id":78,"data":"078"},{"id":77,"data":"077"},{"id":76,"data":"076"},{"id":75,"data":"075"},{"id":74,"data":"074"},{"id":73,"data":"073"},{"id":72,"data":"072"},{"id":71,"data":"071"},{"id":70,"data":"070"},{"id":69,"data":"069"},{"id":68,"data":"068"},{"id":67,"data":"067"},{"id":66,"data":"066"},{"id":65,"data":"065"},{"id":64,"data":"064"},{"id":63,"data":"063"},{"id":62,"data":"062"},{"id":61,"data":"061"},{"id":60,"data":"060"},{"id":59,"data":"059"},{"id":58,"data":"058"},{"id":57,"data":"057"},{"id":56,"data":"056"},{"id":55,"data":"055"},{"id":54,"data":"054"},{"id":53,"data":"053"},{"id":52,"data":"052"},{"id":51,"data":"051"},{"id":50,"data":"050"},{"id":49,"data":"049"},{"id":48,"data":"048"},{"id":47,"data":"047"},{"id":46,"data":"046"},{"id":45,"data":"045"},{"id":44,"data":"044"},{"id":43,"data":"043"},{"id":42,"data":"042"},{"id":41,"data":"041"},{"id":40,"data":"040"},{"id":39,"data":"039"},{"id":38,"data":"038"},{"id":37,"data":"037"},{"id":36,"data":"036"},{"id":35,"data":"035"},{"id":34,"data":"034"},{"id":33,"data":"033"},{"id":32,"data":"032"},{"id":31,"data":"031"},{"id":30,"data":"030"},{"id":29,"data":"029"},{"id":28,"data":"028"},{"id":27,"data":"027"},{"id":26,"data":"026"},{"id":25,"data":"025"},{"id":24,"data":"024"},{"id":23,"data":"023"},{"id":22,"data":"022"},{"id":21,"data":"021"},{"id":20,"data":"020"},{"id":19,"data":"019"},{"id":18,"data":"018"},{"id":17,"data":"017"},{"id":16,"data":"016"},{"id":15,"data":"015"},{"id":14,"data":"014"},{"id":13,"data":"013"},{"id":12,"data":"012"},{"id":11,"data":"011"},{"id":10,"data":"010"},{"id":9,"data":"009"},{"id":8,"data":"008"},{"id":7,"data":"007"},{"id":6,"data":"006"},{"id":5,"data":"005"},{"id":4,"data":"004"},{"id":3,"data":"003"},{"id":2,"data":"002"},{"id":1,"data":"001"},{"id":0,"data":"Ground"},{"id":-1,"data":"UG 1"},{"id":-2,"data":"UG 2"},{"id":-3,"data":"UG 3"}];
     let allItem = {
         // 第一级信息
         lot: {
@@ -51,7 +52,17 @@ const propertyMap = ((messages, ValidateTool)=>{
                 {
                     required: true,
                     message: messages.pleaseInput + ' ' + messages.lot
-                }
+                },
+                {
+                    validator: (rule, value, callback) => {
+                        if (value !== 0 && value !== '0') {
+                            callback();
+                        } else {
+                            callback(new Error('error in type'));
+                        }
+                    },
+                    message: messages.noZero
+                },
             ],
             required: true
         },
@@ -67,13 +78,15 @@ const propertyMap = ((messages, ValidateTool)=>{
                 {"id": 2, "data": messages.reserved},
                 {"id": 3, "data": messages.sold}
             ],
-            required: true
+            required: true,
+            keepSave: true
         },
         isDisplay: {
             key: 'isDisplay',
             type: 2,
             initialValue: 1, //初始值
             required: true,
+            keepSave: true,
             option: [
                 {"id": 1, "data": messages.yes},
                 {"id": 2, "data": messages.no}
@@ -221,6 +234,7 @@ const propertyMap = ((messages, ValidateTool)=>{
             key: 'stage',
             type: 1,
             maxLength: 8,
+            keepSave: true,
             rules: [
                 {
                     required: true,
@@ -253,6 +267,7 @@ const propertyMap = ((messages, ValidateTool)=>{
             key: 'landTitle',
             type: 3,
             message: messages.pleaseChoose,
+            keepSave: true,
             required: true
         },
         width: function(obj) {
@@ -270,7 +285,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                     {
                         validator: (rule, value, callback) => {
                             const str = String(value);
-                            if (value === undefined && obj.required !== true){
+                            if ((value === undefined || value === "") && obj.required !== true){
                                 callback();
                                 return false;
                             }
@@ -284,7 +299,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                     },
                     {
                         validator: (rule, value, callback) => {
-                            if (value === undefined && obj.required !== true){
+                            if ((value === undefined || value === "") && obj.required !== true){
                                 callback();
                                 return false;
                             }
@@ -314,7 +329,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                     },
                     {
                         validator: (rule, value, callback) => {
-                            if (value === undefined && obj.required !== true){
+                            if ((value === undefined || value === "") && obj.required !== true){
                                 callback();
                                 return false;
                             }
@@ -329,7 +344,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                     },
                     {
                         validator: (rule, value, callback) => {
-                            if (value === undefined && obj.required !== true){
+                            if ((value === undefined || value === "") && obj.required !== true){
                                 callback();
                                 return false;
                             }
@@ -430,7 +445,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         // 基本信息
         floorLevel: {
             key: 'floorLevel',
-            type: 1,
+            type: 5,
             maxLength: 20,
             rules: [
                 {
@@ -438,6 +453,7 @@ const propertyMap = ((messages, ValidateTool)=>{
                     message: messages.pleaseInput + ' ' + messages.floorLevel
                 }
             ],
+            option: floorLevel,
             required: true
         },
         constructionArea: {
@@ -552,7 +568,8 @@ const propertyMap = ((messages, ValidateTool)=>{
                 key: 'completionDate',
                 type: 3,
                 active: obj.active !== undefined ? obj.active : false,
-                required: obj.required !== undefined ? obj.required : false
+                required: obj.required !== undefined ? obj.required : false,
+                keepSave: true
             }
         },
         aspect: function(obj) {
@@ -600,6 +617,7 @@ const propertyMap = ((messages, ValidateTool)=>{
             type: 1,
             unit: 'mon',
             prev: true,
+            next: true,
             maxLength: 13,
             rules: [
                 {
@@ -820,7 +838,8 @@ const propertyMap = ((messages, ValidateTool)=>{
                     },
                     message: messages.zeroTo50
                 }
-            ]
+            ],
+            keepSave: true
         },
         insurance: {
             key: 'insurance',
@@ -1055,6 +1074,22 @@ const propertyMap = ((messages, ValidateTool)=>{
             required: true
         }
     };
+    /*// 来个两百层的高楼大厦
+    let floorLevelData = [], count = 1;
+    do {
+        floorLevelData.push({
+            "id": count,
+            "data": String(count).length == 1 ? '00' + count : (String(count).length == 2 ? "0" + count : count)
+        });
+        count ++;
+    } while (count < 200);
+    floorLevelData = (floorLevelData.reverse()).concat([
+        {"id": 0, "data": messages.ground},
+        {"id": -1, "data": messages.ug1},
+        {"id": -2, "data": messages.ug2},
+        {"id": -3, "data": messages.ug3}
+    ]);
+    console.log(JSON.stringify(floorLevelData));*/
     return {
         AU: {
             1: {
@@ -1843,6 +1878,8 @@ const propertyMap = ((messages, ValidateTool)=>{
                 ]
             }
         },
+        // 楼层
+        floorLevel: floorLevel,
         // 房屋朝向
         aspectName: [messages.EAST, messages.WEST, messages.SOUTH, messages.NORTH, messages.SOUTHEAST, messages.NORTHEAST, messages.SOUTHWEST, messages.NORTHWEST, messages.EAST_WEST, messages.NORTH_SOUTH, messages.central],
         // 房屋景观 城市中心景观, 海滩景观, 海景，河景，湖景，水景，森林景观，山景
