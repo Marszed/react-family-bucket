@@ -190,7 +190,7 @@ class Overview extends React.Component {
     }
     // 查看项目详情
     gaveAgencyHandler = (obj) => {
-        this.context.router.push({pathname: "projectListing/view/detail/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}});
+        this.context.router.push({pathname: "projectListing/view/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}});
     };
     // 已阅读并且同意协议
     agreementHandler = (flag) => {
