@@ -136,7 +136,7 @@ export default {
     beds: 'Bed',
     baths: 'Bath',
     studys: 'Study',
-    carSpaces:'Car Spaces',
+    carSpaces:'Car Parks',
     projectType1: 'Apartment',
     projectType2: 'House',
     projectType3: 'Townhouse',
@@ -174,7 +174,7 @@ export default {
     noSoldNum: 'Available',
     reservedNum: 'Reserved',
     soldNum: 'Sold',
-    available: 'Available',
+    available: 'Available-for-sale',
     reserved: 'Reserved',
     sold: 'Sold',
     meetConditionsTip: 'Property(ies) To Choose From',
@@ -291,7 +291,7 @@ export default {
     updateAgent: 'update Agent',
     name: 'Name',
     male: 'Mr.',
-    female: 'Mrs.',
+    female: 'Mrs/Miss/Ms',
     userName: 'User Name',
     commonEmail: 'Email',
     employeeNumber: 'Employee ID',
@@ -395,7 +395,7 @@ export default {
     loadMore: 'Loading...',
     loading: 'Loading...',
     projectListing: 'Projects',
-    personSetting: 'Person Setting',
+    personSetting: 'Personal Setting',
     companySetting: 'Company Setting',
     close: 'Close',
     bank:"Bank",
@@ -421,5 +421,5 @@ export default {
     createTime:"Creation Time",
     lastTime:"Update Time",
     forever:"Forever",
-    searchNoData:'Sorry, no search results'
+    searchNoData:'Your search did not match any projects'
 };

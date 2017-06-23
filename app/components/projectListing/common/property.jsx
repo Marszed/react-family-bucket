@@ -47,7 +47,7 @@ class Property extends React.Component {
             pageStart: 0,
             pageLength: 1000,
             hasNextPage: true,
-            des: true,
+            des: false,
             key: "lot",
             list: [],
             left: "0px",
@@ -102,6 +102,8 @@ class Property extends React.Component {
 
     getPropertyList = () => {
         const {params} = this.context.router;
+        const {state} = this.context.router.location;
+        // 从路由state获取从项目列表匹配的不动产ID集合
         let responseHandler = async function () {
             let response = await asyncAwaitCall({
                 url: {value: INTERFACE.PROPERTY + params.projectId + '/' + this.state.pageStart + '/' + this.state.pageLength, key: 'PROPERTY'},
@@ -113,7 +115,27 @@ class Property extends React.Component {
             });
             if (!response.errType) {
                 const {data} = response.data;
-                const temp = (data.page.list).sort(keySort(this.state.key, !this.state.des));
+                let temp = (data.page.list).sort(keySort(this.state.key, this.state.des));
+                let check1 = [], check2 =[];
+                if (state && state.propertyIds && state.propertyIds.length){
+                    // 带了刷选条件，需要优先显示已匹配的
+                    temp.map((obj) => {
+                        let flag = false;
+                        state.propertyIds.map((propertyId) => {
+                            if(obj.propertyId == propertyId){
+                                flag = true;
+                                return false;
+                            }
+                        });
+                        if(flag){
+                            check1.push(obj);
+                        } else {
+                            check2.push(obj);
+                        }
+                    });
+                    temp = check1.concat(check2);
+                }
+
                 const countryNameShort = data.country.toUpperCase();
                 let messages = objCopy(this.props.intl.messages);
                 const zhFlag = (langPackageInject()).indexOf('zh') === -1; //  true 英文 false 中文

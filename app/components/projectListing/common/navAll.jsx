@@ -191,7 +191,6 @@ class NavAll extends React.Component {
         return <div className="dev_cont_subtitle">
             <div className="dev_cont_sub_screen" onMouseLeave={this.expendForm.bind(this, false)}>
                 <dl className="proj_screen_start">
-                    <dt><i className="iconfont icon-screen"/><span>{messages.screen}</span></dt>
                     {
                         this.state.country ? this.state.country.map((obj) => (
                             <Link className={obj.dicCode === this.state.params.country ? 'active' : ''}
@@ -200,7 +199,7 @@ class NavAll extends React.Component {
                                 <i className={"iconfont " + this.state.countryIcon[obj.dicCode]}/>
                                 <span>{obj.dicValue}</span>
                             </Link>
-                        )) : ''
+                        )) : null
                     }
                 </dl>
                 <Search name="title" onChange={this.onChange.bind(this)} onSubmit={this.onSubmit.bind(this)} placeholder={messages.searchProjectName}/>

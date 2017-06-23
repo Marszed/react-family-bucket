@@ -91,7 +91,7 @@ class ExportProperty extends React.Component {
     };
     exportHandler = () => {
         const {params, query} = this.props;
-        let propertiesFields = [], propertiesFieldsParams = '';
+        let propertiesFields = [];
         this.state.baseInfo.map((obj) => {
             if (obj.value){
                 propertiesFields.push(obj.key);
@@ -102,19 +102,20 @@ class ExportProperty extends React.Component {
                 propertiesFields.push(obj.key);
             }
         });
-        propertiesFields.map((obj, index) => (
-            propertiesFieldsParams += index === (propertiesFields.length - 1) ? obj : (obj + ',')
-        ));
+        if (!propertiesFields.length){
+            // TODO toast
+            return false;
+        }
         // window.open(env.config.origin + INTERFACE.EXPORT + '/xls' + '?projectId=' + params.projectId + '&projectName=' + encodeURI(decode64(query.title)) + '&propertiesFields=' + propertiesFieldsParams);
 
         let token = window.localStorage.getItem("token");
-        let responseHandler =  function (){
+        let responseHandler = function (){
             let xmlRequest = new XMLHttpRequest();
             xmlRequest.open("post", env.config.origin + INTERFACE.EXPORT + '/xls', true);
             xmlRequest.responseType = "blob";
             xmlRequest.setRequestHeader("Content-Type", "application/json");
             xmlRequest.setRequestHeader("Authorization",  'bearer ' + token);
-            xmlRequest.onreadystatechange = function(e) {
+            xmlRequest.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     var response = this.response;
                     var url = window.URL.createObjectURL(response);
@@ -123,7 +124,7 @@ class ExportProperty extends React.Component {
                     tempLink.setAttribute('download', decode64(query.title) + '.xls');
                     tempLink.click();
                 }
-            }
+            };
             xmlRequest.send(JSON.stringify(
                 {
                     "propertiesFields": propertiesFields,
@@ -132,8 +133,6 @@ class ExportProperty extends React.Component {
                 })
             );
         }.bind(this)();
-
-
     };
     closeHandler = (flag) => (
         this.setState({
