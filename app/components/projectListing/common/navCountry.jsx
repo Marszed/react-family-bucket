@@ -371,7 +371,7 @@ class NavCountry extends React.Component {
                                         markMin: 0,
                                         markMax: 20000,
                                         step: 1000,
-                                        title: messages.price + ' / ' + messages.squareMetre + ' （' + currency + '）',
+                                        title: messages.price + ' / ' + areaUnit + ' （' + currency + '）',
                                         childStyle: {width: 200 + 'px'}
                                     }}/>
                             <Slider name="periodMinMax" onChange={this.onChange.bind(this)}
