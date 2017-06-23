@@ -254,7 +254,7 @@ class Property extends React.Component {
 
     exportHandler = () => {
         this.refs.exportProperty.closeHandler(false);
-        this.refs.exportProperty.setCountryHandler(this.state.countryNameShort);
+        this.refs.exportProperty.setCountryHandler(this.state.countryNameShort, this.state.searchOption);
     };
 
     render = () => {

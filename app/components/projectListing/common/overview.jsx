@@ -245,9 +245,9 @@ class Overview extends React.Component {
         }
     };
     // 跳转到价格列表
-    onLinkTo = (obj) => {
+    onLinkTo = (obj, url) => {
         this.context.router.push({
-            pathname: '/projectListing/view/property/' + obj.projectId,
+            pathname: url + obj.projectId,
             query: {
                 authorizeNumber: obj.authorizeNumber,
                 countryCode: obj.countryCode,
@@ -311,7 +311,7 @@ class Overview extends React.Component {
                 <table className="project_l_box" cellPadding="0" cellSpacing="0" key={obj.projectId}>
                     <tr>
                         <td width="320">
-                            <div className="proj_l_box_lf">
+                            <div className="proj_l_box_lf" style={{cursor: 'pointer'}} onClick={this.onLinkTo.bind(this, obj, '/projectListing/view/msg/')}>
                                 <img src={obj.frontImage || DefaultImg}/>
                                 <span
                                     className="proj_l_imgtag">{messages['projectType' + obj.projectType]}</span>
@@ -359,7 +359,7 @@ class Overview extends React.Component {
                                 <div className="float_rt">
                                     {sellsPerformance}
                                     {
-                                        (Number(this.state.params.type) === 1 && this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix" onClick={this.onLinkTo.bind(this, obj)}>
+                                        (Number(this.state.params.type) === 1 && this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix" onClick={this.onLinkTo.bind(this, obj, '/projectListing/view/property/')}>
                                                 <span className="float_lf">{obj.propertyNum || 0} {messages.meetConditionsTip}</span>
                                                 <i className="iconfont icon-list01 float_rt"/>
                                             </div> : null
@@ -435,7 +435,7 @@ class Overview extends React.Component {
                                                             </button>
                                                     </div>
                                                     {
-                                                        (Number(this.state.params.type) === 1 && this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix" onClick={this.onLinkTo.bind(this, obj)}>
+                                                        (Number(this.state.params.type) === 1 && this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix" onClick={this.onLinkTo.bind(this, obj, '/projectListing/view/property/')}>
                                                                 <span className="float_lf">{obj.propertyNum || 0} {messages.meetConditionsTip}</span>
                                                                 <i className="iconfont icon-list01 float_rt"/>
                                                             </div> : null
