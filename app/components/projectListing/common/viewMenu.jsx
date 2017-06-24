@@ -36,9 +36,6 @@ class Menu extends React.Component {
                     <i className="iconfont icon-close"/>
                 </a>
                 <h1 className="float_lf">{decode64(query.title)}</h1>
-                <a href="javascript:;" className="float_rt project_contract" onClick={this.getSaleAgreement}>
-                    <i className="iconfont icon-contract"/> <span>{messages.saleAgreement}</span>
-                </a>
                 <ol className="float_rt">
                     <Link activeClassName='active' to={{pathname: "projectListing/view/detail", query: {projectId: query.projectId, projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}}><i className="iconfont icon-details"/>{messages.projectDetail}</Link>
                     <Link activeClassName='active' to={{pathname: "projectListing/view/property", query: {projectId: query.projectId, projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}}><i className="iconfont icon-list01"/>{messages.propertyList}</Link>

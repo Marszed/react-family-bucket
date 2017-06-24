@@ -330,7 +330,7 @@ class Overview extends React.Component {
                                         <Link to={{pathname: "projectListing/view/sales", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
                                     </li>
                                     <li>
-                                        <Link to={{pathname: "projectListing/view/msg", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
+                                        <Link to={{pathname: "projectListing/view/detail/msg", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -409,7 +409,7 @@ class Overview extends React.Component {
                                                                 <Link to={{pathname: "projectListing/view/sales", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
                                                             </li>
                                                             <li>
-                                                                <Link to={{pathname: "projectListing/view/msg", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
+                                                                <Link to={{pathname: "projectListing/view/detail/msg", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
                                                             </li>
                                                         </ul>
                                                         <b className="proj_box_M_tag">{messages['projectType' + obj.projectType]}</b>
