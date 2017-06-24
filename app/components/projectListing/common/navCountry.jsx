@@ -155,7 +155,7 @@ class NavCountry extends React.Component {
                         country.splice(country.indexOf(countryDate), 1);
                     }
                 });
-                country.unshift({
+                country.push({
                     "dicCode": 'country.000',
                     "nameShort": 'ALL',
                     "dicValue": messages.all
@@ -313,10 +313,10 @@ class NavCountry extends React.Component {
                             onChange={this.onChange.bind(this)}
                         />
                     </div>
-                    <div className="proj_screen_cont_tr">
-                        <Radio name="propertyMinMax" onChange={this.onChange.bind(this)}/>
-                    </div>
                     <div className="proj_screen_cont_rt clearfix">
+                        <div className="proj_screen_cont_tr clearfix">
+                            <Radio name="propertyMinMax" onChange={this.onChange.bind(this)}/>
+                        </div>
                         <div className="proj_screen_cont_tr clearfix">
                             <SelectCheck name="projectTypes" onChange={this.onChange.bind(this)} data={{title: messages.projectTypes}}/>
                             <Slider name="propertyPriceMinMax" onChange={this.onChange.bind(this)}

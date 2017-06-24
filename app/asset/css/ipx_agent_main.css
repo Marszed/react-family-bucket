@@ -574,30 +574,30 @@ body *{
 /*二级菜单*/
 .dev_cont_subtitle {height:60px; background:#f8f8f8; box-shadow:0 2px 4px rgba(0,0,0,.1); position:relative; z-index:2}
 .dev_cont_sub_screen {width:100%}
-.proj_screen_start {height:60px; padding:0 0 0 30px; background:#f8f8f8; position:relative; z-index:2}
+.proj_screen_start {height:60px; padding:0 20px 0 30px; background:#f8f8f8; position:relative; z-index:2}
 .proj_screen_start dt {float:left; line-height:60px; margin-right:50px; color:#666}
 .proj_screen_start dt>i {font-size:20px; margin-right:3px; vertical-align:middle}
 .proj_screen_start dt>span {font-size:14px; color:#666; font-weight:bold; vertical-align:middle}
-.proj_screen_start a {float:left; line-height:60px; height:58px; margin:0 5px; padding:0 10px; color:#a6adad; display: block}
+.proj_screen_start a {float:right; line-height:60px; height:58px; margin:0 5px; padding:0 10px; color:#a6adad; display: block}
 .proj_screen_start a.active {color:#00afb4!important; border-bottom:solid 2px #00afb4;text-decoration: none;}
 .proj_screen_start a.active>span {font-weight:bold}
 .proj_screen_start a>i {font-size:30px; margin-right:3px; vertical-align:middle}
 .proj_screen_start a>i.icon-earth1 {font-size:24px}
 .proj_screen_start a>span {font-size:14px; vertical-align:middle}
 .proj_screen_start a:hover {color:#999}
-.proj_screen_search {position:absolute; top:11px; left:650px; z-index:2; height:36px; width:160px; border:solid 1px #ddd; border-radius:18px; background:#fff}
-.proj_screen_search input {border:none; background:none; height:36px; width:140px; padding:0 10px}
+.proj_screen_search {position:absolute; top:11px; left:30px; z-index:2; height:36px; width:249px; border:solid 1px #ddd; border-radius:18px; background:#fff}
+.proj_screen_search input {border:none; background:none; height:36px; width:200px; padding:0 10px}
 .proj_screen_search button {width:36px; height:36px; text-align:center; line-height:36px; font-size:20px; color:#999; border:none; background:none; position:absolute; top:0; right:0; cursor:pointer}
 /*项目筛选下拉部分*/
 .proj_screen_cont {width:100%; background:#fff; box-shadow:0 3px 5px rgba(0,0,0,.1); position:absolute; left:0; top:-1000px; z-index:1}
 .proj_screen_cont_lf {float:left; width:35%}
 .proj_county_map {text-align:center; padding:25px 0 0;}
 .proj_screen_cont_lf .proj_screen_cont_td {width:200px; margin:0 auto; float:none}
-.proj_screen_cont_rt {float:left; width:65%; padding:25px 0 20px;}
+.proj_screen_cont_rt {float:left; width:65%; padding:5px 0 0px;}
 .proj_screen_cont_tr {}
 .proj_screen_cont_tr_mb0 .proj_screen_cont_td{margin-bottom: 0}
-.proj_screen_cont_td {float:left; margin-right:15px; margin-bottom:30px}
-.proj_screen_cont_td>h3 {font-size:12px; color:#999; font-weight:normal; margin-bottom:6px}
+.proj_screen_cont_td {float:left; margin-right:5px; margin-bottom:20px}
+.proj_screen_cont_td>h3 {font-size:12px; color:#999; font-weight:normal; margin-bottom:3px}
 .proj_screen_cont_td>.ipx_select>div>.checked {color:#00afb4; font-weight:bold}
 .proj_screen_cont_td>.ipx_select>ul>li {height:30px; line-height:30px}
 .proj_screen_cont_td .proj_scale {border:solid 1px #e4e4e4; border-right:none; background:#f8f8f8; height:42px; border-radius:3px}
@@ -607,7 +607,7 @@ body *{
 .proj_screen_cont_td .proj_scale li span {position:absolute; font-size:12px; text-align:center; width:100%; font-weight:normal; bottom:-32px; left:0}
 .proj_screen_cont_td .proj_scale li.active {background:#fff!important; color:#00afb4}
 .proj_screen_cont_td .proj_scale li:hover {background:#f0f0f0}
-.proj_screen_serchbtn {padding-top:15px}
+.proj_screen_serchbtn {padding-top:5px}
 .proj_screen_serchbtn .ipx_btn {width:140px}
 .proj_screen_serchbtn span {font-size:12px; color:#999; margin-left:20px}
 
@@ -725,7 +725,7 @@ body *{
 }
 /*-----------------------------------经济公司端项目-列表视图------------------------------------------------*/
 .project_listbox {width:100%; box-sizing:border-box; padding:0 30px 30px 30px; position:relative; z-index:1}
-.project_l_box {width:100%; background:#fff;box-shadow:0 10px 5px rgba(0,0,0,.05); padding:20px; margin-bottom:30px}
+.project_l_box {width:100%; background:#fff;box-shadow:0 10px 5px rgba(0,0,0,.05); padding:12px; margin-bottom:15px}
 .proj_l_box_lf {width:320px; height:240px; text-align:center; position:relative; background:#f8f8f8}
 .proj_l_box_lf img {max-width:320px; max-height:240px; vertical-align:middle}
 .proj_l_box_lf .proj_l_imgtag {position:absolute; bottom:10px; left:0; font-size:12px; font-weight:normal; z-index:1; display:inline-block; *display:inline; *zoom:1; height:26px; line-height:26px; background:#00afb4; color:#fff; padding:0 20px}

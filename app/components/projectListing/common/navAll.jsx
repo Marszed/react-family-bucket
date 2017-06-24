@@ -102,7 +102,7 @@ class NavAll extends React.Component {
                         country.splice(country.indexOf(countryDate), 1);
                     }
                 });
-                country.unshift({
+                country.push({
                     "dicCode": 'country.000',
                     "nameShort": 'ALL',
                     "dicValue": messages.all

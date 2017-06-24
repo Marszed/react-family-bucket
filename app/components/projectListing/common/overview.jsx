@@ -221,7 +221,7 @@ class Overview extends React.Component {
 
     // 图片自适应
     imageAutoSize = (e) => {
-        const lineHeight = 3 * (e.target.width) / 4;
+        const lineHeight = 2 * (e.target.width) / 3;
         this.setState({
             lineHeight: lineHeight
         });

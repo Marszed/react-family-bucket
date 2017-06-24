@@ -31,7 +31,7 @@
 }
 
 .ipx_ant .ant-slider-handle{
-    border-color: #00afb4;
+    border: solid 1px #aaa;
 }
 
 .ipx_ant .ant-slider-with-marks{
