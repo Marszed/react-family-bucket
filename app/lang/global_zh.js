@@ -425,5 +425,6 @@ export default {
     forever:"永久有效",
     searchNoData:'抱歉，没有搜索到结果',
     markedSuccess:"收藏成功",
-    cancelMarked:"取消收藏成功"
+    cancelMarked:"取消收藏成功",
+    saleAgreement: "销售协议"
 };

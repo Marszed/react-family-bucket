@@ -20,6 +20,12 @@ class Menu extends React.Component {
         }
     };
 
+    getSaleAgreement = () => {
+        const {query} = this.context.router.location;
+        // TODO 联调项目协议接口
+        return false;
+    };
+
     render() {
         const {messages} = this.props.intl;
         const {query} = this.context.router.location;
@@ -30,12 +36,13 @@ class Menu extends React.Component {
                     <i className="iconfont icon-close"/>
                 </a>
                 <h1 className="float_lf">{decode64(query.title)}</h1>
+                <a href="javascript:;" className="float_rt project_contract" onClick={this.getSaleAgreement}>
+                    <i className="iconfont icon-contract"/> <span>{messages.saleAgreement}</span>
+                </a>
                 <ol className="float_rt">
-                    <Link activeClassName='active' to={{pathname: "projectListing/view/msg/" + params.projectId, query: {projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}}><i className="iconfont icon-details"/>{messages.projectDetail}</Link>
-                    <Link activeClassName='active' to={{pathname: "projectListing/view/property/" + params.projectId, query: {projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}}><i className="iconfont icon-list01"/>{messages.propertyList}</Link>
-                    <Link activeClassName='active' to={{pathname: "projectListing/view/sales/" + params.projectId, query: {projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}}><i className="iconfont icon-sellgrid"/>{messages.pinChart}</Link>
-                    <Link activeClassName='active' to={{pathname: "projectListing/view/document/" + params.projectId, query: {projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode:query.countryCode}}}><i className="iconfont icon-document"/>{messages.project + ' ' + messages.document}</Link>
-                    <Link activeClassName='active' to={{pathname: "projectListing/view/progress/" + params.projectId, query: {projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode:query.countryCode}}}><i className="iconfont icon-progress"/>{messages.project + ' ' + messages.progress}</Link>
+                    <Link activeClassName='active' to={{pathname: "projectListing/view/detail", query: {projectId: query.projectId, projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}}><i className="iconfont icon-details"/>{messages.projectDetail}</Link>
+                    <Link activeClassName='active' to={{pathname: "projectListing/view/property", query: {projectId: query.projectId, projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}}><i className="iconfont icon-list01"/>{messages.propertyList}</Link>
+                    <Link activeClassName='active' to={{pathname: "projectListing/view/sales", query: {projectId: query.projectId, projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}}><i className="iconfont icon-sellgrid"/>{messages.pinChart}</Link>
                 </ol>
             </div>
         </div>);

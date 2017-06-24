@@ -3,6 +3,7 @@
  */
 import React from "react";
 import Menu from "./common/viewMenu";
+import Bread from "./common/viewBread";
 import pureRender from "pure-render-decorator";
 
 
@@ -16,6 +17,9 @@ class Home extends React.Component {
         const location = this.props.router.getCurrentLocation();
         return <div className="ipx_proj_preview">
             <Menu/>
+            {
+                location.pathname.indexOf('/detail') !== -1 ? <Bread/> : null
+            }
             {this.props.children}
         </div>;
     };

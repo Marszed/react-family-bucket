@@ -27,10 +27,10 @@ class Document extends React.Component {
     );
 
     getDocumentList = () => {
-        const {params} = this.context.router;
+        const {query} = this.context.router.location;
         let responseHandler = async function () {
             let response = await asyncAwaitCall({
-                url: {value: INTERFACE.DOCUMENT + params.projectId, key: 'DOCUMENT'},
+                url: {value: INTERFACE.DOCUMENT + query.projectId, key: 'DOCUMENT'},
                 method: 'get'
             });
             if (!response.errType) {

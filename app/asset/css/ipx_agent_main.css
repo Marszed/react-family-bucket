@@ -149,15 +149,23 @@ body *{
 /*---------------------------------------经纪公司项目预览------------------------------------------------*/
 .ipx_proj_preview {position:absolute; top:0; left:0.5%; bottom:0; right:0; z-index:4; background:#fff; box-shadow:-5px 0 3px rgba(0,0,0,.05); border-left:solid 1px #ddd;}
 .ipx_proj_preview .dev_cont_titleBg { padding:0 0 0 12px}
-.ipx_proj_preview .dev_cont_title { padding:0 30px 0 0; background:#fff}
-.ipx_proj_preview .dev_cont_title h1.float_lf {color:#333}
 .proj_preview_close {display:block; width:60px; height:60px; text-align:center; line-height:60px}
 .proj_preview_close i {color:#aaa; font-size:22px}
-.dev_cont_subTit_home {height:59px; border-bottom:solid 1px #e9e9e9; background:#f4f4f4; padding:0 30px; position:relative; z-index:2}
-.home_welcome_tips {line-height:59px; font-size:14px; color:#333}
-
+.project_contract {margin:12px 15px 0 10px; height:34px; display:block; background:#00afb4; padding:0 15px; color:#fff; line-height:34px; border:solid 1px #0597a0; border-radius:18px}
+.project_contract i {font-size:16px; vertical-align:middle; position:relative; top:1px}
+.project_contract span {font-size:14px; vertical-align:middle; position:relative; top:-1px}
+.project_contract:hover {color: #fff}
+/*项目预览二级菜单*/
+.dev_cont_subTit {background:#f4f4f4;  box-shadow:0 2px 4px rgba(0,0,0,.1); position:relative; z-index:2}
+.dev_cont_subTit>ol {padding:0 0 0 30px}
+.dev_cont_subTit>ol>a {display:inline-block;text-decoration: none;height:50px; box-sizing:border-box; line-height:50px; padding:0 5px; cursor:pointer; margin-right:30px}
+.dev_cont_subTit>ol>a.active {border-bottom:solid 2px #00afb4; color:#00afb4}
+.dev_cont_subTit>ol>a.active i {color:#00afb4}
+.dev_cont_subTit>ol>a i {vertical-align:middle; font-size:18px; margin-right:5px;color:#999}
+.dev_cont_subTit>ol>a span {vertical-align:middle; font-size:14px; color:#666}
+.dev_cont_subTit>ol>a.active span {font-weight:bold; color:#00afb4}
 /*项目详情*/
-.ipx_proj_preview_cont {position:absolute; background:#f8f8f8; bottom:0; top:60px; left:0; right:0; box-sizing:border-box; padding:30px; overflow:auto; z-index:1}
+.ipx_proj_preview_cont {position:absolute; background:#f8f8f8; bottom:0; top:110px; left:0; right:0; box-sizing:border-box; padding:30px; overflow:auto; z-index:1}
 .ipx_proj_preview_wrap {max-width:1400px;min-width: 1150px; margin:0 auto; position:relative}
 .ipx_proj_preview_lf {width:890px;}
 /*分享*/

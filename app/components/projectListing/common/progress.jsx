@@ -19,10 +19,10 @@ class Progress extends React.Component {
     );
 
     getProgressList = () => {
-        const {params} = this.context.router;
+        const {query} = this.context.router.location;
         let responseHandler = async function () {
             let response = await asyncAwaitCall({
-                url: {value: INTERFACE.PROGRESS + params.projectId, key: 'PROGRESS'},
+                url: {value: INTERFACE.PROGRESS + query.projectId, key: 'PROGRESS'},
                 method: 'get'
             });
             if (!response.errType) {

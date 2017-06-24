@@ -101,12 +101,11 @@ class Property extends React.Component {
     );
 
     getPropertyList = () => {
-        const {params} = this.context.router;
-        const {state} = this.context.router.location;
+        const {state, query} = this.context.router.location;
         // 从路由state获取从项目列表匹配的不动产ID集合
         let responseHandler = async function () {
             let response = await asyncAwaitCall({
-                url: {value: INTERFACE.PROPERTY + params.projectId + '/' + this.state.pageStart + '/' + this.state.pageLength, key: 'PROPERTY'},
+                url: {value: INTERFACE.PROPERTY + query.projectId + '/' + this.state.pageStart + '/' + this.state.pageLength, key: 'PROPERTY'},
                 method: 'post',
                 headers: {
                     'Content-Type':	'application/x-www-form-urlencoded'
@@ -391,8 +390,8 @@ class Property extends React.Component {
 
         return (
             <div>
-                <ViewProperty ref="viewProperty" propertyMap={this.state.propertyMap} messages={messages} countryName={this.state.country} params={this.context.router.params} query={this.props.location.query}/>
-                <ExportProperty ref="exportProperty" messages={messages} propertyMap={this.state.propertyMap} params={this.props.params} query={this.props.router.location.query}/>
+                <ViewProperty ref="viewProperty" propertyMap={this.state.propertyMap} messages={messages} countryName={this.state.country} query={this.props.location.query}/>
+                <ExportProperty ref="exportProperty" messages={messages} propertyMap={this.state.propertyMap} query={this.props.router.location.query}/>
                 <div className="agency_screen_titbox">
                     <div className="proj_screen_cont_tr proj_screen_cont_td clearfix ipx_ant">
                         <div className="proj_screen_cont_td">

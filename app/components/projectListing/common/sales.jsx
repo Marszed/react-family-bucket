@@ -50,10 +50,10 @@ class Sales extends React.Component {
     );
 
     getPropertyList = () => {
-        const {params} = this.context.router;
+        const {query} = this.context.router.location;
         let responseHandler = async function () {
             let response = await asyncAwaitCall({
-                url: {value: INTERFACE.CHART + params.projectId, key: 'CHART'},
+                url: {value: INTERFACE.CHART + query.projectId, key: 'CHART'},
                 method: 'get',
                 params: {
                     propertyStatus: [1, 2, 3].join(','),
@@ -63,7 +63,7 @@ class Sales extends React.Component {
             if (!response.errType) {
                 const {data} = response.data;
                 this.setState({
-                    list: data
+                    list: data.reverse()
                 });
             }
         }.bind(this)();
@@ -116,7 +116,7 @@ class Sales extends React.Component {
                     }}/> : "";
         return (
             <div>
-                <ViewProperty ref="viewProperty" messages={messages} propertyMap={this.state.propertyMap} propertyDetail={this.state.propertyDetail} params={this.context.router.params} query={this.props.location.query}/>
+                <ViewProperty ref="viewProperty" messages={messages} propertyMap={this.state.propertyMap} propertyDetail={this.state.propertyDetail} query={this.props.location.query}/>
                 <div className="agency_sellgrid_tit ipx_ant">
                     {/*筛选栏*/}
                     <div className="proj_screen_cont_td">
@@ -161,7 +161,7 @@ class Sales extends React.Component {
                                                                 <li title={messages.baths + ': ' + obj.bath}><i className="iconfont icon-washroom"/> {obj.bath}</li>
                                                                 {/*建筑面积(公寓，独栋别墅，联排别墅用)*/}
                                                                 {
-                                                                    (projectType != 4) ? <li title={messages.constructionArea + ': ' + (obj.constructionArea)}><i className="iconfont icon-area"/> {obj.constructionArea} {obj.areaUnit}</li> : null
+                                                                    (projectType != 4) ? <li title={messages.constructionArea + ': ' + (obj.constructionArea)}><i className="iconfont icon-totalArea"/> {obj.constructionArea} {obj.areaUnit}</li> : null
                                                                 }
                                                                 {/*土地面积(土地，独栋别墅用)*/}
                                                                 {

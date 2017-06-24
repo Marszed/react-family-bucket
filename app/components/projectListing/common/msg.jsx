@@ -59,11 +59,11 @@ class Msg extends React.Component {
     };
 
     getProjectDetail = () => {
-        const {params} = this.context.router;
+        const {query} = this.context.router.location;
         const {messages} = this.props.intl;
         let responseHandler = async function () {
             let response = await asyncAwaitCall({
-                url: {value: INTERFACE.PROJECTDETAIL + params.projectId, key: 'PROJECTDETAIL'},
+                url: {value: INTERFACE.PROJECTDETAIL + query.projectId, key: 'PROJECTDETAIL'},
                 method: 'get'
             });
             if (!response.errType) {
