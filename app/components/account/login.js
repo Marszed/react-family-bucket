@@ -264,8 +264,8 @@ class Login extends React.Component {
                             <Header/>
                             <div className="ipx_loginBox" style={{'paddingTop':'90px'}}>
                                 <h1 className="ipx_login_tab">
-                                    <span onClick={this.changeLogin.bind(this)}>{messages.agency + ' ' + messages.login}</span>
-                                    <span className="active">{messages.agent + ' ' + messages.login}</span>
+                                    <span onClick={this.changeLogin.bind(this)}>{messages.agencyLogin}</span>
+                                    <span className="active">{messages.agentLogin}</span>
                                 </h1>
                                 <div className="ipx_sign_return">{messages[this.state.validateInfo]}</div>
                                 <dl className="ipx_sign_dl">

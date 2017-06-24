@@ -354,6 +354,7 @@ export default {
     preferentialPolicy: '优惠政策',
     termNumber: '合同份数',
     termNumberUnit: '份合同',
+    termNumbersUnit: '份合同',
     termNumberTip1: '买方仅需和开发商签订一份包含土地所有权和房屋所有权的交易合同',
     termNumberTip2: '买方需要和开发商签订土地所有权和房屋所有权两份交易合同',
     quantity: '可购数量',
@@ -426,5 +427,9 @@ export default {
     searchNoData:'抱歉，没有搜索到结果',
     markedSuccess:"收藏成功",
     cancelMarked:"取消收藏成功",
-    saleAgreement: "销售协议"
+    saleAgreement: "销售协议",
+    agencyLogin:"经纪公司登录",
+    agentLogin:"经纪人登录",
+    projectDoc:"项目文档",
+    projectProgress:"项目进度"
 };

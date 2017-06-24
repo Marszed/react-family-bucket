@@ -174,8 +174,8 @@ export default {
     noSoldNum: 'Available',
     reservedNum: 'Reserved',
     soldNum: 'Sold',
-    available: 'Authorize to me',
-    available1: 'Available',
+    available: 'Available',
+    available1: 'Authorize to me',
     reserved: 'Reserved',
     sold: 'Sold',
     meetConditionsTip: 'Property(ies) To Choose From',
@@ -353,7 +353,8 @@ export default {
     periodValidity: 'Valid period',
     preferentialPolicy: 'Sales Incentives',
     termNumber: 'How many contracts is the purchaser required to sign?',
-    termNumberUnit: 'sets of contract',
+    termNumberUnit: 'set of contract',
+    termNumbersUnit: 'sets of contract',
     termNumberTip1: 'One set of contract will cover both the land and construction, to be signed by the purchaser.',
     termNumberTip2: 'The land contract will cover the sale of land to be signed between the purchaser and the land owner, whereas the build contract will cover the construction, to be signed between the purchaser and the building company.',
     quantity: 'Quantity Available',
@@ -426,5 +427,9 @@ export default {
     searchNoData:'Sorry，no data found',
     markedSuccess:"Add to Favourite Successfully",
     cancelMarked:"Cancel Favourites Successfully",
-    saleAgreement: "Sale Agreement"
+    saleAgreement: "Sale Agreement",
+    agencyLogin:"Agency Login",
+    agentLogin:"Agent Login",
+    projectDoc:"Project Documents",
+    projectProgress:"Project Progress"
 };

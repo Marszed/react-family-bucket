@@ -17,7 +17,7 @@ class Bread extends React.Component {
             <ol className="clearfix">
                 <Link to={{pathname: "projectListing/view/detail/msg", query: {projectId: query.projectId, projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}} className="float_lf" activeClassName="active">
                     <i className="iconfont icon-profile"/>
-                    <span>{messages.project + messages.msg}</span>
+                    <span>{messages.projectDetail}</span>
                 </Link>
                 {/*<Link to={{pathname: "projectListing/view/detail/around", query: {projectId: query.projectId, projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}} className="float_lf" activeClassName="active">
                  <i className="iconfont icon-map"/>
@@ -25,11 +25,11 @@ class Bread extends React.Component {
                  </Link>*/}
                 <Link to={{pathname: "projectListing/view/detail/document", query: {projectId: query.projectId, projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}} className="float_lf" activeClassName="active">
                     <i className="iconfont icon-document"/>
-                    <span>{messages.project + messages.document}</span>
+                    <span>{messages.projectDoc}</span>
                 </Link>
                 <Link to={{pathname: "projectListing/view/detail/progress", query: {projectId: query.projectId, projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}} className="float_lf" activeClassName="active">
                     <i className="iconfont icon-progress"/>
-                    <span>{messages.project + messages.progress}</span>
+                    <span>{messages.projectProgress}</span>
                 </Link>
             </ol>
         </div>);

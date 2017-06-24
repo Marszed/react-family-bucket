@@ -53,7 +53,7 @@ class Header extends React.Component {
                             </li>: null
                     }
                     <li className={Number(this.state.params.type) === 2 ? 'active' : ''}>
-                        <Link to="/projectListing/2/country.000/overview">{messages.available + ' '}<span>({this.state.projectList ? this.state.projectList.authorizeNumber : 0})</span></Link>
+                        <Link to="/projectListing/2/country.000/overview">{messages.available1 + ' '}<span>({this.state.projectList ? this.state.projectList.authorizeNumber : 0})</span></Link>
                     </li>
                     <li className={Number(this.state.params.type) === 3 ? 'active' : ''}>
                         <Link to="/projectListing/3/country.000/overview">{messages.bookmarked + ' '}<span>({this.state.projectList ? this.state.projectList.favoriteNumber : 0})</span></Link>

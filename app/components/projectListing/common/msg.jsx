@@ -399,7 +399,7 @@ class Msg extends React.Component {
                             <p><span>{messages.priceRange}</span><b className="ipxblue_txt">{this.state.currencyName} {formatMoney(this.state.minPrice)} - {formatMoney(this.state.maxPrice)} </b></p>
                             <ul className="clearfix">
                                 <li><span>{messages.intentMoney}<i className="iconfont icon-wenhao" title={this.state.reservationDetail}/></span><br/><strong className="ipxblue_txt">{this.state.currencyName} {this.state.reservationFee}</strong></li>
-                                <li><span>{messages.termNumber}<i className="iconfont icon-wenhao" title={Number(this.state.termNumber) === 1?messages.termNumberTip1:messages.termNumberTip2}/></span><br/><strong className="ipxblue_txt">{this.state.termNumber}{messages.termNumberUnit}</strong></li>
+                                <li><span>{messages.termNumber}<i className="iconfont icon-wenhao" title={Number(this.state.termNumber) === 1?messages.termNumberTip1:messages.termNumberTip2}/></span><br/><strong className="ipxblue_txt">{this.state.termNumber > 1? (this.state.termNumber + ' ' + messages.termNumbersUnit): (this.state.termNumber + ' ' + messages.termNumberUnit)}</strong></li>
                             </ul>
                         </div>
                         <div className="preview_common_stylebox">

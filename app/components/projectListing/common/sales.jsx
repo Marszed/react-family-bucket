@@ -122,7 +122,7 @@ class Sales extends React.Component {
                     <div className="proj_screen_cont_td">
                         <h3>{messages.stateFilter}</h3>
                         <div className="agency_sellgrid_checkbox">
-                            <label onClick={this.onChange.bind(this, 'available')} className={"ipx_checkbox" + (this.state.statusObj.available ? ' checked' : '')}><i className="iconfont icon-succeed"/> <span className="text-elps ipxblue_txt"><strong>{messages.available1}</strong></span> </label>
+                            <label onClick={this.onChange.bind(this, 'available')} className={"ipx_checkbox" + (this.state.statusObj.available ? ' checked' : '')}><i className="iconfont icon-succeed"/> <span className="text-elps ipxblue_txt"><strong>{messages.available}</strong></span> </label>
                             <label onClick={this.onChange.bind(this, 'reserved')} className={"ipx_checkbox" + (this.state.statusObj.reserved ? ' checked' : '')}><i className={"iconfont icon-succeed" + (this.state.statusObj.reserved ? ' ipxyellow_bg' : '')}/> <span className="text-elps ipxyellow_txt"><strong>{messages.reserved}</strong></span> </label>
                             <label onClick={this.onChange.bind(this, 'sold')} className={"ipx_checkbox" + (this.state.statusObj.sold ? ' checked' : '')}><i className={"iconfont icon-succeed" + (this.state.statusObj.sold ? ' ipxred_bg' : '')}/> <span className="text-elps ipxred_txt"><strong>{messages.sold}</strong></span> </label>
                         </div>
@@ -135,6 +135,7 @@ class Sales extends React.Component {
                         defaultValue: 50,
                         markMin: 12,
                         markMax: 100,
+                        style:{float:'right'},
                         title: messages.viewControl,
                         childStyle: {width: 200 + 'px'}
                     }}/>

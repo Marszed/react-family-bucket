@@ -61,6 +61,7 @@ class _Slider extends React.Component {
             step: props.step || 1,
             alias: props.alias,
             childStyle: props.childStyle || {width: 150 + 'px'},
+            style: props.style || {},
             unit: props.unit || '',
             markUnit: props.markUnit || '',
             priceFormat: props.priceFormat || false,
@@ -122,7 +123,7 @@ class _Slider extends React.Component {
     render() {
         const range = this.state.defaultValue instanceof Array;
         return (
-            <div className="proj_screen_cont_td" style={{overflow: 'hidden'}}>
+            <div className="proj_screen_cont_td" style={Object.assign({overflow: 'hidden'},this.state.style || {})}>
                 <h3>{this.state.title}</h3>
                 {
                     this.state.switchType ? <ul className="proj_scale clearfix float_lf">

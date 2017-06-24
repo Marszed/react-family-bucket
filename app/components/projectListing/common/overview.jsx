@@ -432,7 +432,7 @@ class Overview extends React.Component {
                                                      </span>
                                                         <button onClick={this.gaveAgencyHandler.bind(this, obj)}
                                                                 className={"ipx_btn ipx_M_btn float_rt " + (obj.authorizeNumber === 0 || obj.authorizeNumber === null ? 'ipx_bluebd_btn' : 'ipx_white_btn')}>
-                                                            {obj.authorizeNumber === 0 || obj.authorizeNumber === null ? messages.view : (messages.available)}
+                                                            {obj.authorizeNumber === 0 || obj.authorizeNumber === null ? messages.view : (messages.available1)}
                                                             </button>
                                                     </div>
                                                     {
