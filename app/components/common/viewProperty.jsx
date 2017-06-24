@@ -40,10 +40,10 @@ class ViewProperty extends React.Component {
     }
 
     getPropertyDetail = (obj) => {
-        const {params} = this.props;
+        const {query} = this.props;
         let responseHandler = async function () {
             let response = await asyncAwaitCall({
-                url: {value: INTERFACE.PROPERTYDETAIL + params.projectId + '/' + obj.propertyId, key: 'PROPERTYDETAIL'},
+                url: {value: INTERFACE.PROPERTYDETAIL + query.projectId + '/' + obj.propertyId, key: 'PROPERTYDETAIL'},
                 method: 'get'
             });
             if (!response.errType) {
@@ -62,10 +62,10 @@ class ViewProperty extends React.Component {
     };
 
     getDocumentList = () => {
-        const {params} = this.props;
+        const {query} = this.props;
         let responseHandler = async function () {
             let response = await asyncAwaitCall({
-                url: {value: INTERFACE.DOCUMENT + params.projectId, key: 'DOCUMENT'},
+                url: {value: INTERFACE.DOCUMENT + query.projectId, key: 'DOCUMENT'},
                 method: 'get'
             });
             if (!response.errType) {
@@ -139,6 +139,18 @@ class ViewProperty extends React.Component {
                                             return <tr>
                                                 <td>{messages[obj.key]}</td>
                                                 <td>{propertyMap.isAbroadName[detail[obj.key] ? 0 : 1]}</td>
+                                            </tr>
+                                        } else if (obj.key === 'floorLevel'){
+                                            let floorLevelContent = detail[obj.key];
+                                            propertyMap.floorLevel.map((option) => {
+                                                if (option.id == detail[obj.key]){
+                                                    floorLevelContent = option.data;
+                                                    return false;
+                                                }
+                                            });
+                                            return <tr>
+                                                <td>{messages[obj.key]}</td>
+                                                <td>{floorLevelContent}</td>
                                             </tr>
                                         } else {
                                             return <tr>

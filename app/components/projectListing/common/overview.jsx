@@ -190,7 +190,7 @@ class Overview extends React.Component {
     }
     // 查看项目详情
     gaveAgencyHandler = (obj) => {
-        this.context.router.push({pathname: "projectListing/view/msg/" + obj.projectId, query: {countryCode: obj.countryCode, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}});
+        this.context.router.push({pathname: "projectListing/view/detail/msg", query: {projectId: obj.projectId, countryCode: obj.countryCode, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}});
     };
     // 已阅读并且同意协议
     agreementHandler = (flag) => {
@@ -247,11 +247,12 @@ class Overview extends React.Component {
     // 跳转到价格列表
     onLinkTo = (obj, url) => {
         this.context.router.push({
-            pathname: url + obj.projectId,
+            pathname: url,
             query: {
+                projectId: obj.projectId,
+                projectType: obj.projectType,
                 authorizeNumber: obj.authorizeNumber,
                 countryCode: obj.countryCode,
-                projectType: obj.projectType,
                 title: encode64(obj.title)
             },
             state: {
@@ -311,7 +312,7 @@ class Overview extends React.Component {
                 <table className="project_l_box" cellPadding="0" cellSpacing="0" key={obj.projectId}>
                     <tr>
                         <td width="320">
-                            <div className="proj_l_box_lf" style={{cursor: 'pointer'}} onClick={this.onLinkTo.bind(this, obj, '/projectListing/view/msg/')}>
+                            <div className="proj_l_box_lf" style={{cursor: 'pointer'}} onClick={this.onLinkTo.bind(this, obj, '/projectListing/view/detail/msg')}>
                                 <img src={obj.frontImage || DefaultImg}/>
                                 <span
                                     className="proj_l_imgtag">{messages['projectType' + obj.projectType]}</span>
@@ -323,13 +324,13 @@ class Overview extends React.Component {
                                 <h3 className="text-elps">{obj.title}</h3>
                                 <ul className="proj_box_toplist">
                                     <li>
-                                        <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
+                                        <Link to={{pathname: "projectListing/view/property", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
                                     </li>
                                     <li>
-                                        <Link to={{pathname: "projectListing/view/sales/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
+                                        <Link to={{pathname: "projectListing/view/sales", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
                                     </li>
                                     <li>
-                                        <Link to={{pathname: "projectListing/view/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
+                                        <Link to={{pathname: "projectListing/view/msg", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -359,7 +360,7 @@ class Overview extends React.Component {
                                 <div className="float_rt">
                                     {sellsPerformance}
                                     {
-                                        (Number(this.state.params.type) === 1 && this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix" onClick={this.onLinkTo.bind(this, obj, '/projectListing/view/property/')}>
+                                        (Number(this.state.params.type) === 1 && this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix" onClick={this.onLinkTo.bind(this, obj, '/projectListing/view/property')}>
                                                 <span className="float_lf">{obj.propertyNum || 0} {messages.meetConditionsTip}</span>
                                                 <i className="iconfont icon-list01 float_rt"/>
                                             </div> : null
@@ -402,13 +403,13 @@ class Overview extends React.Component {
                                                     <div className="proj_box_m_img" style={{height: obj.lineHeight ? (obj.lineHeight + 'px') : 'auto'}}>
                                                         <ul className="proj_box_m_imglist">
                                                             <li>
-                                                                <Link to={{pathname: "projectListing/view/property/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
+                                                                <Link to={{pathname: "projectListing/view/property", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
                                                             </li>
                                                             <li>
-                                                                <Link to={{pathname: "projectListing/view/sales/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
+                                                                <Link to={{pathname: "projectListing/view/sales", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
                                                             </li>
                                                             <li>
-                                                                <Link to={{pathname: "projectListing/view/msg/" + obj.projectId, query: {projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
+                                                                <Link to={{pathname: "projectListing/view/msg", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
                                                             </li>
                                                         </ul>
                                                         <b className="proj_box_M_tag">{messages['projectType' + obj.projectType]}</b>
@@ -435,7 +436,7 @@ class Overview extends React.Component {
                                                             </button>
                                                     </div>
                                                     {
-                                                        (Number(this.state.params.type) === 1 && this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix" onClick={this.onLinkTo.bind(this, obj, '/projectListing/view/property/')}>
+                                                        (Number(this.state.params.type) === 1 && this.state.params.country !== 'country.000') ? <div className="proj_box_m_search clearfix" onClick={this.onLinkTo.bind(this, obj, '/projectListing/view/property')}>
                                                                 <span className="float_lf">{obj.propertyNum || 0} {messages.meetConditionsTip}</span>
                                                                 <i className="iconfont icon-list01 float_rt"/>
                                                             </div> : null

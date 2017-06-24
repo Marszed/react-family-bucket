@@ -13,24 +13,23 @@ class Bread extends React.Component {
     render() {
         const {messages} = this.props.intl;
         const {query} = this.context.router.location;
-        const {params} = this.context.router;
         return (<div className="dev_cont_subTit">
             <ol className="clearfix">
-                <Link to={{pathname: "projectListing/view/detail/msg/" + params.projectId, query: {projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}} className="float_lf" activeClassName="active">
+                <Link to={{pathname: "projectListing/view/detail/msg", query: {projectId: query.projectId, projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}} className="float_lf" activeClassName="active">
                     <i className="iconfont icon-profile"/>
-                    <span>{messages.project + ' ' + messages.msg}</span>
+                    <span>{messages.project + messages.msg}</span>
                 </Link>
-                {/*<Link to={{pathname: "projectListing/view/detail/around/" + params.projectId, query: {projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}} className="float_lf" activeClassName="active">
-                    <i className="iconfont icon-map"/>
-                    <span>{messages.project + messages.around}</span>
-                </Link>*/}
-                <Link to={{pathname: "projectListing/view/detail/document/" + params.projectId, query: {projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}} className="float_lf" activeClassName="active">
+                {/*<Link to={{pathname: "projectListing/view/detail/around", query: {projectId: query.projectId, projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}} className="float_lf" activeClassName="active">
+                 <i className="iconfont icon-map"/>
+                 <span>{messages.project + messages.around}</span>
+                 </Link>*/}
+                <Link to={{pathname: "projectListing/view/detail/document", query: {projectId: query.projectId, projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}} className="float_lf" activeClassName="active">
                     <i className="iconfont icon-document"/>
-                    <span>{messages.project + ' ' + messages.document}</span>
+                    <span>{messages.project + messages.document}</span>
                 </Link>
-                <Link to={{pathname: "projectListing/view/detail/progress/" + params.projectId, query: {projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}} className="float_lf" activeClassName="active">
+                <Link to={{pathname: "projectListing/view/detail/progress", query: {projectId: query.projectId, projectType: query.projectType, authorizeNumber: query.authorizeNumber, title: query.title, countryCode: query.countryCode}}} className="float_lf" activeClassName="active">
                     <i className="iconfont icon-progress"/>
-                    <span>{messages.project + ' ' + messages.progress}</span>
+                    <span>{messages.project + messages.progress}</span>
                 </Link>
             </ol>
         </div>);

@@ -425,5 +425,6 @@ export default {
     forever:"Valid Until Sold",
     searchNoData:'Sorry，no data found',
     markedSuccess:"Add to Favourite Successfully",
-    cancelMarked:"Cancel Favourites Successfully"
+    cancelMarked:"Cancel Favourites Successfully",
+    saleAgreement: "Sale Agreement"
 };

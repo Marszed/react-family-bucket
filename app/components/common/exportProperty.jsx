@@ -89,7 +89,7 @@ class ExportProperty extends React.Component {
         };
     };
     exportHandler = () => {
-        const {params, query} = this.props;
+        const {query} = this.props;
         let propertiesFields = [];
         this.state.baseInfo.map((obj) => {
             if (obj.value){
@@ -105,7 +105,7 @@ class ExportProperty extends React.Component {
             // TODO toast
             return false;
         }
-        // window.open(env.config.origin + INTERFACE.EXPORT + '/xls' + '?projectId=' + params.projectId + '&projectName=' + encodeURI(decode64(query.title)) + '&propertiesFields=' + propertiesFieldsParams);
+        // window.open(env.config.origin + INTERFACE.EXPORT + '/xls' + '?projectId=' + query.projectId + '&projectName=' + encodeURI(decode64(query.title)) + '&propertiesFields=' + propertiesFieldsParams);
 
         let token = window.localStorage.getItem("token");
         let responseHandler = function (){
@@ -127,7 +127,7 @@ class ExportProperty extends React.Component {
             xmlRequest.send(JSON.stringify(
                 {
                     "propertiesFields": propertiesFields,
-                    "projectId" : params.projectId,
+                    "projectId" : query.projectId,
                     "projectName" : decode64(query.title),
                     "lot": this.state.searchOption.lot,
                     "priceMin": this.state.searchOption.priceMin,
