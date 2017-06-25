@@ -297,7 +297,7 @@ class NavCountry extends React.Component {
                 <Search name="title" onChange={this.onChange.bind(this)} onSubmit={this.onSubmit.bind(this)} placeholder={messages.searchProjectName}/>
                 <div className="proj_screen_cont ipx_ant"
                      onKeyUp={this.onKeyUp}
-                     style={{top: this.state.expendPX + 'px'}}>
+                     style={{top: this.state.expendPX + 'px', 'boxShadow': '0 3px 8px rgba(0,0,0,.3)'}}>
                     <div className="proj_screen_cont_lf">
                         <div className="proj_county_map">
                             <img src={Map}/>
@@ -408,7 +408,7 @@ class NavCountry extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <a href="javascript:;" className="proj_screen_control_btn" onClick={this.expendForm.bind(this, this.state.expendPX == 60 ? -344 : 60)}>{messages.advanceSearch} <i className={"iconfont " + (this.state.expendPX == 60 ? "icon-arrowup" : "icon-arrowdown")}/></a>
+                    <a href="javascript:;" className="proj_screen_control_btn" style={{'textDecoration' : 'none', 'boxShadow': '0 3px 8px rgba(0,0,0,.3)'}} onClick={this.expendForm.bind(this, this.state.expendPX == 60 ? -344 : 60)}>{messages.advanceSearch} <i className={"iconfont " + (this.state.expendPX == 60 ? "icon-arrowup" : "icon-arrowdown")}/></a>
                 </div>
             </div>
         </div>;

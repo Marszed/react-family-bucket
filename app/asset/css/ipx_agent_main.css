@@ -187,7 +187,7 @@ body *{
 .proj_preview_litimgbox>a.preview_arrow {position:absolute; right:0; width:100px; height:20px; background:url(../img/updown_bg.png); z-index:1}
 .proj_preview_litimgbox>a.preview_arrowup {top:0; background-position:0 0}
 .proj_preview_litimgbox>a.preview_arrowdown {bottom:0; background-position:0 -20px}
-.proj_preview_litimgbox ul {width:100px; margin-left:12px; height:452px;overflow: scroll}
+.proj_preview_litimgbox ul {width:100px; margin-left:12px; height:452px; overflow:auto; overflow-x:hidden;}
 .proj_preview_litimgbox ul li {display:block; margin-bottom:10px; position:relative}
 .proj_preview_litimgbox ul li div {width:100px; height:67px; opacity:.6}
 .proj_preview_litimgbox ul li div img {max-width:100px; max-height:67px; vertical-align:middle}
@@ -272,7 +272,7 @@ body *{
     .proj_preview_litimgbox>a.preview_arrow {position:absolute; top:12px; width:20px; height:67px; background:url(../img/lfrt_bg.png); z-index:1}
     .proj_preview_litimgbox>a.preview_arrowup {left:0; background-position:0 0}
     .proj_preview_litimgbox>a.preview_arrowdown {right:0; background-position:-20px 0 }
-    .proj_preview_litimgbox ul {white-space:nowrap; font-size: 0; width: auto; height:67px; margin-left:0; margin-top:12px; }
+    .proj_preview_litimgbox ul {white-space:nowrap; font-size: 0; width: auto; height:67px; margin-left:0; margin-top:12px;overflow:auto; overflow-y:hidden; }
     .proj_preview_litimgbox ul li {display: inline-block;float:none; margin-bottom:0; margin-right:11.6px}
     .proj_preview_litimgbox ul li.active:before {height:2px; width:100px; top:-7px; left:0px}
     .ipx_proj_preview_rt {left:790px}
