@@ -90,7 +90,7 @@ class Login extends React.Component {
                 // 设置本地登陆成功标识
                 setLocalStorage("isLogin", true);
                 // 设置语言
-                cookie('language', response.data.data.userInfo.accountLanguage, {expires: 360});
+                cookie('language', response.data.data.userInfo.agentLanguage, {expires: 360});
                 // 设置接口验证TOKEN
                 window.localStorage.setItem("token", response.data.data.token);
                 // 设置记住账号
@@ -104,7 +104,7 @@ class Login extends React.Component {
                 const userInfo = {
                     agencyType: responseUserInfo.agencyType,
                     accountId: responseUserInfo.accountId,
-                    accountLanguage: responseUserInfo.accountLanguage,
+                    accountLanguage: responseUserInfo.agentLanguage,
                     agencyId: responseUserInfo.agencyId,
                     gender: responseUserInfo.gender,
                     email: responseUserInfo.email,
@@ -138,6 +138,10 @@ class Login extends React.Component {
                 setLocalStorage("userInfo", userInfo);
                 setLocalStorage("companyInfo", companyInfo);
                 // TODO 去除第一次登陆
+
+                // 设置语言
+                cookie('allFlag', (responseUserInfo.allFlag ? 1 : 2), {expires: 360});
+
                 this.props.router.push({
                     pathname: '/projectListing/' + (responseUserInfo.allFlag ? 1 : 2) + '/country.000/overview',
                     query: {isFresh: 1}

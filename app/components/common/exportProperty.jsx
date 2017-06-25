@@ -217,7 +217,7 @@ class ExportProperty extends React.Component {
                     <h2 className="float_lf">{messages.exportPropertyList}</h2>
                     <a href="javascript:;" className="float_rt" title={messages.close} onClick={this.closeHandler.bind(this, true)}><i className="iconfont icon-close"/></a>
                 </div>
-                <div className="ipx_pop_body">
+                <div className="ipx_pop_body" style={{'padding':'10px 0 30px 50px'}}>
                     <div className="Property_details_info">
                         <table className="Property_info_lf" cellPadding="0" cellSpacing="0" style={{textAlign: 'left'}}>
                             <tr>

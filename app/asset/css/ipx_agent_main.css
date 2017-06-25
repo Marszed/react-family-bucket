@@ -839,10 +839,10 @@ ul.Property_details_iconbox li b {display:block; font-size:18px; font-weight:nor
 ul.Property_details_iconbox li i {display:block; color:#333; font-size:26px; margin:5px 0}
 ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:12px; color:#999}
 .Property_details_info {overflow:hidden; margin:25px 0 0}
-.Property_info_lf,.Property_info_rt {width:50%; float:left; font-size:13px}
+.Property_info_lf,.Property_info_rt {width:50%; float:left; font-size:12px}
 .Property_info_lf {border-right:solid 1px #e4e4e4}
-.Property_details_info table th {font-size:14px; color:#333; padding-bottom:10px; padding-left:50px}
-.Property_details_info table td {color:#666; width:50%; padding:2px 0 2px 50px}
+.Property_details_info table th {font-size:14px; color:#333; padding-bottom:10px; }
+.Property_details_info table td {color:#666; width:50%; padding:2px 0 2px 0}
 .Property_layoutImgbox {height:450px; border-top:solid 1px #e4e4e4; margin:30px 50px 0; padding:30px 0 0; position:relative}
 .Property_layoutImgbox>h4 {font-size:14px; color:#333;}
 .Property_layoutImg {width:533px; height:400px; margin:0px auto; text-align:center}
