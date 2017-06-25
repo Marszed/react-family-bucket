@@ -797,6 +797,35 @@ body *{
 .proj_propty_tr>span.proj_propty_lot>ul li i {font-size:14px }
 .proj_propty_tr>span.proj_propty_lot>ul li:hover {background:#00a9ae}
 
+.propty_pricelist_span_lot {width:120px!important}
+.propty_pricelist_span_floorLevel {width:100px!important}
+.propty_pricelist_span_aspect {width:80px!important}
+.propty_pricelist_span_bed {width:90px!important}
+.propty_pricelist_span_bath {width:95px!important}
+.propty_pricelist_span_carSpace {width:90px!important}
+.propty_pricelist_span_study {width:110px!important}
+.propty_pricelist_span_study {width:100px!important}
+.propty_pricelist_span_houseView {width:90px!important}
+.propty_pricelist_span_internalArea {width:150px!important}
+.propty_pricelist_span_balconyArea {width:210px!important}
+.propty_pricelist_span_price {width:150px!important}
+.propty_pricelist_span_propertyStatus {width:80px!important}
+.propty_pricelist_span_isDisplay {width:150px!important}
+.propty_pricelist_span_estRate {width:180px!important}
+.propty_pricelist_span_estimatedCancelRates {width:160px!important}
+.propty_pricelist_span_waterRates {width:160px!important}
+.propty_pricelist_span_ownerCrop {width:200px!important}
+.propty_pricelist_span_estimatedStampDuty {width:150px!important}
+.propty_pricelist_span_rentalGuarrante {width:180px!important}
+.propty_pricelist_span_width {width:160px!important}
+.propty_pricelist_span_length {width:150px!important}
+.propty_pricelist_span_insurance {width:145px!important}
+.propty_pricelist_span_transactionFee {width:180px!important}
+.propty_pricelist_span_titleInsurance {width:170px!important}
+.propty_pricelist_span_propertyTax {width:160px!important}
+.propty_pricelist_span_landPrice  {width:148px!important}
+
+
 /*不动产销控图*/
 .agency_sellgrid_tit {height:120px; padding:20px 20px 0 30px; box-sizing:border-box; position:relative; z-index:2; background:#f8f8f8; box-shadow:0 3px 5px rgba(0,0,0,.15)}
 .agency_sellgrid_checkbox {height:40px; border:solid 1px #e4e4e4; border-radius:4px; background:#fff; line-height:40px; padding:0 12px}
@@ -836,8 +865,8 @@ ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:1
 .Property_details_info {overflow:hidden; margin:25px 0 0}
 .Property_info_lf,.Property_info_rt {width:50%; float:left; font-size:12px}
 .Property_info_lf {border-right:solid 1px #e4e4e4}
-.Property_details_info table th {font-size:14px; color:#333; padding-bottom:10px; }
-.Property_details_info table td {color:#666; width:50%; padding:2px 0 2px 0}
+.Property_details_info table th {font-size:14px; color:#333; padding-bottom:10px; padding-left: 50px}
+.Property_details_info table td {color:#666; width:50%; padding:2px 0 2px 50px}
 .Property_layoutImgbox {height:450px; border-top:solid 1px #e4e4e4; margin:30px 50px 0; padding:30px 0 0; position:relative}
 .Property_layoutImgbox>h4 {font-size:14px; color:#333;}
 .Property_layoutImg {width:533px; height:400px; margin:0px auto; text-align:center}

@@ -11,14 +11,11 @@ import NoData from 'COMPONENT/common/noData';
 import echart from "ASSET/js/echarts.min";
 import InlineSlider from 'COMPONENT/common/inlineSlider/slider';
 import {showToast} from 'REDUX/actions/global';
-import bank from "ASSET/img/icon-bank.png";
 import school from "ASSET/img/icon-school.png";
 import food from "ASSET/img/icon-restaurant.png";
 import hospital from "ASSET/img/icon-hospital.png";
 import bus_station from "ASSET/img/icon-station.png";
 import grocery_or_supermarket from "ASSET/img/icon-shopping.png";
-import police from "ASSET/img/icon-police.png";
-
 let markers = [];
 
 class Msg extends React.Component {
@@ -139,7 +136,7 @@ class Msg extends React.Component {
                 this.googleMap(response.data.data.longitude,
                     response.data.data.latitude,
                     response.data.data.title);
-                this.searchAround('bank');
+                this.searchAround('bus_station');
             }
         }.bind(this)();
     };
@@ -193,9 +190,7 @@ class Msg extends React.Component {
 
     addMarker = (map,position,title,type) =>{
         let icon = null;
-        if (type === 'bank'){
-            icon = bank;
-        } else if (type === 'school'){
+        if (type === 'school'){
             icon = school;
         } else if (type === 'food'){
             icon = food;
@@ -205,8 +200,6 @@ class Msg extends React.Component {
             icon = bus_station;
         } else if (type === 'grocery_or_supermarket'){
             icon = grocery_or_supermarket;
-        } else if (type === 'police'){
-            icon = police;
         }
 
 
@@ -333,33 +326,25 @@ class Msg extends React.Component {
                         <div className="preview_common_stylebox preview_map_wrap">
                             <h3 className="preview_common_h3">{messages.projectAround}</h3>
                             <ul className="preview_map_tag">
-                                <li onClick={this.searchAround.bind(this,'bank')}
-                                    className={this.state.searchType == 'bank'?"active" : ""}>
-                                    <i className="iconfont icon-Bank"/>{messages.bank}
+                                <li onClick={this.searchAround.bind(this,'bus_station')}
+                                    className={this.state.searchType == 'bus_station'?"active" : ""}>
+                                    <i className="iconfont icon-Station"/>{messages.busStation}
                                 </li>
                                 <li onClick={this.searchAround.bind(this,'school')}
                                     className={this.state.searchType == 'school'?"active" : ""}>
                                     <i className="iconfont icon-education"/>{messages.school}
                                 </li>
-                                <li onClick={this.searchAround.bind(this,'food')}
-                                    className={this.state.searchType == 'food'?"active" : ""}>
-                                    <i className="iconfont icon-Restautant"/>{messages.food}
-                                </li>
-                                <li onClick={this.searchAround.bind(this,'bus_station')}
-                                    className={this.state.searchType == 'bus_station'?"active" : ""}>
-                                    <i className="iconfont icon-Station"/>{messages.busStation}
-                                </li>
-                                <li onClick={this.searchAround.bind(this,'hospital')}
-                                    className={this.state.searchType == 'hospital'?"active" : ""}>
-                                    <i className="iconfont icon-hospital3"/>{messages.hospital}
-                                </li>
                                 <li onClick={this.searchAround.bind(this,'grocery_or_supermarket')}
                                     className={this.state.searchType == 'grocery_or_supermarket'?"active" : ""}>
                                     <i className="iconfont icon-shopping"/>{messages.supermarket}
                                 </li>
-                                <li onClick={this.searchAround.bind(this,'police')}
-                                    className={this.state.searchType == 'police'?"active" : ""}>
-                                    <i className="iconfont icon-police"/>{messages.police}
+                                <li onClick={this.searchAround.bind(this,'food')}
+                                    className={this.state.searchType == 'food'?"active" : ""}>
+                                    <i className="iconfont icon-Restautant"/>{messages.food}
+                                </li>
+                                <li onClick={this.searchAround.bind(this,'hospital')}
+                                    className={this.state.searchType == 'hospital'?"active" : ""}>
+                                    <i className="iconfont icon-hospital3"/>{messages.hospital}
                                 </li>
                             </ul>
                             <div className="preview_map_box">

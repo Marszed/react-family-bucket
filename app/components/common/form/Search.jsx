@@ -51,10 +51,24 @@ class Search extends React.Component {
         this.props.onSubmit({});
     };
 
+    keyDown = (event) => {
+        if (event.keyCode == 13) {
+            this.props.onChange(this.props.name, this.state.data);
+            setTimeout( () => {this.props.onSubmit({});},50);
+        }
+    };
+
+
     render() {
         return (
             <div className={this.props.className || "proj_screen_search"} onKeyUp={this.onKeyUp}>
-                <input type="text" value={this.state.data} onInput={this.onInput} onBlur={this.onChange} placeholder={this.props.placeholder} maxLength={this.props.maxLength || 200}/>
+                <input type="text"
+                       value={this.state.data}
+                       onInput={this.onInput}
+                       onBlur={this.onChange}
+                       onKeyDown={this.keyDown}
+                       placeholder={this.props.placeholder}
+                       maxLength={this.props.maxLength || 200}/>
                 <button onClick={this.onSubmit} type="submit"><i className="iconfont icon-magnifier"/></button>
             </div>
         );

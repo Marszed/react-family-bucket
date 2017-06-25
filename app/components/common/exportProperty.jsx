@@ -217,14 +217,14 @@ class ExportProperty extends React.Component {
                     <div className="Property_details_info">
                         <table className="Property_info_lf" cellPadding="0" cellSpacing="0" style={{textAlign: 'left'}}>
                             <tr>
-                                <th colSpan="2" style={{'textAlign': 'left'}}>{messages.baseInfo}</th>
+                                <th colSpan="2" style={{'textAlign': 'left',"paddingLeft":"0px"}}>{messages.baseInfo}</th>
                             </tr>
                             {
                                 tempBaseInfo.map((option) => (
                                     <tr>
                                         {
                                             option.map((obj, index) => (
-                                                <td key={obj.key}><label className={"ipx_checkbox" + (obj.value ? ' checked' : '')} onClick={this.checkHandler.bind(this, 'baseInfo', obj.key, !obj.value)}><i className="iconfont icon-succeed"/> <span className="text-elps">{messages[obj.key]}</span> </label></td>
+                                                <td style={{"paddingLeft":"0px"}} key={obj.key}><label className={"ipx_checkbox" + (obj.value ? ' checked' : '')} onClick={this.checkHandler.bind(this, 'baseInfo', obj.key, !obj.value)}><i className="iconfont icon-succeed"/> <span className="text-elps">{messages[obj.key]}</span> </label></td>
                                             ))
                                         }
                                     </tr>
@@ -233,14 +233,14 @@ class ExportProperty extends React.Component {
                         </table>
                         <table className="Property_info_rt" cellPadding="0" cellSpacing="0" style={{textAlign: 'left'}}>
                             <tr>
-                                <th colSpan="2" style={{'textAlign': 'left'}}>{messages.otherCharges}</th>
+                                <th colSpan="2" style={{'textAlign': 'left',"paddingLeft":"0px"}}>{messages.otherCharges}</th>
                             </tr>
                             {
                                 tempOtherInfo.map((option) => (
                                     <tr>
                                         {
                                             option.map((obj, index) => (
-                                                <td key={obj.key}><label className={"ipx_checkbox" + (obj.value ? ' checked' : '')} onClick={this.checkHandler.bind(this, 'otherInfo', obj.key, !obj.value)}><i className="iconfont icon-succeed"/> <span className="text-elps">{messages[obj.key]}</span> </label></td>
+                                                <td style={{"paddingLeft":"0px"}} key={obj.key}><label className={"ipx_checkbox" + (obj.value ? ' checked' : '')} onClick={this.checkHandler.bind(this, 'otherInfo', obj.key, !obj.value)}><i className="iconfont icon-succeed"/> <span className="text-elps">{messages[obj.key]}</span> </label></td>
                                             ))
                                         }
                                     </tr>
