@@ -2,12 +2,13 @@
  * Created by marszed on 2017/1/24.
  */
 import React, {PropTypes} from "react";
+import {connect} from 'react-redux';
 import {injectIntl} from "react-intl";
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
 import {formatMoney, keySort, objCopy, arrayCopy, debounce, langPackageInject} from 'LIB/tool';
+import {showToast} from 'REDUX/actions/global';
 import NoData from 'COMPONENT/common/noData';
-
 import Search from 'COMPONENT/common/form/Search';
 import Select from 'COMPONENT/common/form/Select';
 import Slider from 'COMPONENT/common/form/Slider';
@@ -148,6 +149,7 @@ class Property extends React.Component {
                     }
                 }
                 this.setState({
+                    splitIndex: check1.length ? check1.length : 0,
                     list: temp,
                     listCopy: temp,
                     lastTime: data.lastTime,
@@ -256,13 +258,28 @@ class Property extends React.Component {
         this.refs.exportProperty.setCountryHandler(this.state.countryNameShort, this.state.searchOption);
     };
 
+    // exportTipHandler
+    exportTipHandler = () => {
+        const {messages} = this.state;
+        this.props.dispatch(showToast({
+            content: messages.exportExcelTip,
+            state: 2
+        }));
+    };
+
+    openList = () => {
+        this.setState({
+            splitIndex: 0
+        });
+    };
+
     render = () => {
         // 没有拿到项目类型，渲染空模板
         if (!this.state.countryNameShort){
             return <NoData/>;
         }
 
-        const {messages} = this.state;
+        const {messages, splitIndex} = this.state;
         let propertyArray = [];
         this.state.propertyArray.map((obj) => {
             if(obj.key !== 'isDisplay'){
@@ -353,8 +370,13 @@ class Property extends React.Component {
         )};
 
         if (this.state.list && this.state.list.length) {
-            tbody = this.state.list.map((obj) => {
-                return (<div className="proj_propty_tr clearfix" key={obj.propertyId}>
+            tbody = this.state.list.map((obj, _index) => {
+                if (splitIndex && (_index == splitIndex)){
+                    return <div className="proj_propty_tr clearfix" key="splitIndex">
+                        <a href="javascript:;" className="proj_property_control_btn" onClick={this.openList}>{messages.slideDown} <i className="iconfont icon-arrowdown"/></a>
+                    </div>
+                }
+                return (<div className={"proj_propty_tr clearfix" + (_index >= splitIndex && splitIndex ? ' hide' : '')} key={obj.propertyId}>
                     {
                         propertyArray.map((option)=>{
                             if(option.key == 'lot'){
@@ -391,7 +413,7 @@ class Property extends React.Component {
         return (
             <div>
                 <ViewProperty ref="viewProperty" propertyMap={this.state.propertyMap} messages={messages} countryName={this.state.country} query={this.props.location.query}/>
-                <ExportProperty ref="exportProperty" messages={messages} propertyMap={this.state.propertyMap} query={this.props.router.location.query}/>
+                <ExportProperty ref="exportProperty" messages={messages} propertyMap={this.state.propertyMap} query={this.props.router.location.query} exportTipHandler={this.exportTipHandler}/>
                 <div className="agency_screen_titbox">
                     <div className="proj_screen_cont_tr proj_screen_cont_td clearfix ipx_ant">
                         <div className="proj_screen_cont_td">
@@ -461,4 +483,4 @@ Property.contextTypes = {
     router: PropTypes.object.isRequired
 };
 
-export default injectIntl(Property);
+export default connect((store) => store)(injectIntl(Property));

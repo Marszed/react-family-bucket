@@ -10,7 +10,6 @@ import {setSearchOption} from 'REDUX/actions/project';
 import {setAutoComplete, setFormSlider, setFormRadioAuthorize, setFormSelectOrder, setFormSearch, setFormRadio, setFormSelect, setFormSelectCheck} from 'REDUX/actions/global';
 import SelectOrder from 'COMPONENT/common/form/SelectOrder';
 import RadioType from 'COMPONENT/common/form/RadioType';
-import RadioAuthorize from 'COMPONENT/common/form/RadioAuthorize';
 
 @pureRender
 class NavBread extends React.Component {

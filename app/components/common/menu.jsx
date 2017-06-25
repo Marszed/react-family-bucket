@@ -7,7 +7,6 @@ import { FormattedMessage, injectIntl} from 'react-intl';
 import { Link } from 'react-router';
 import INTERFACE from "INTERFACE/config";
 import {getLocalStorage, objCopy, isEqual} from 'LIB/tool';
-import {setFormBox} from 'REDUX/actions/project';
 import CompanyLogo from '../common/companyLogo';
 import {asyncAwaitCall} from 'HTTP';
 import Confirm from "../common/confirm";
@@ -55,15 +54,9 @@ class Menu extends React.Component {
             setTimeout(() => (this.context.router.push('/')), 0);
         }.bind(this)();
     }
-    // 展开缩进筛选表单
-    formBoxHandler = () => {
-        if (this.props.project.formBox !== -1000){
-            this.props.dispatch(setFormBox(-1000));
-        }
-    };
     render() {
         const {userInfo} = this.state;
-        return <div className="ipx_dev_lf" onMouseEnter={this.formBoxHandler}>
+        return <div className="ipx_dev_lf">
             <div className="ipx_dev_logo ipxblue_bg">
                 <CompanyLogo/>
             </div>
