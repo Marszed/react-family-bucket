@@ -434,6 +434,7 @@ export default {
     projectDoc:"项目文档",
     projectProgress:"项目进度",
     exportExcelTip: "您没有选择任何信息，请选择",
+    advanceSearch: '高级搜索',
     slideUp: '收起',
     slideDown: '展开'
 };

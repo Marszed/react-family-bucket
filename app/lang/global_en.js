@@ -433,6 +433,7 @@ export default {
     projectDoc:"Project Documents",
     projectProgress:"Project Progress",
     exportExcelTip: "You did not select any information, please select",
+    advanceSearch: 'Advance Search',
     slideUp: 'Slide Up',
     slideDown: 'Slide Down'
 };

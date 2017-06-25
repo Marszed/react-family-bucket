@@ -26,7 +26,11 @@ class NavBread extends React.Component {
         // 路由变化
         if (nextProps.params && !isEqual(nextProps.params, this.state.params)) {
             this.setState({
-                params: nextProps.params
+                params: nextProps.params,
+                RadioType: { // 重置列表视图模式
+                    clear: true,
+                    updateTime: (new Date()).getTime()
+                }
             });
             // 路由变化，清空刷选条件
             setTimeout(() => (
@@ -317,9 +321,18 @@ class NavBread extends React.Component {
                     value: obj
                 })}>{messages['projectType' + obj]} ×</li>
             )) : '';
-
         const len = this.getFormOptionLength(searchOption);
-
+        let areaUnit, currency;
+        if(params.country === 'country.002'){
+            areaUnit = 'ft²';
+            currency = 'USD';
+        } else if(params.country === 'country.003'){
+            areaUnit = 'ft²';
+            currency = 'GBP';
+        } else if(params.country === 'country.004'){
+            areaUnit = '㎡';
+            currency = 'AUD';
+        }
         return (<table className="agency_p_cont_tip" cellPadding="0" cellSpacing="0" width="100%">
             <tr>
                 <td>
@@ -367,7 +380,7 @@ class NavBread extends React.Component {
                         }
                         {
                             searchOption.unitPriceMin !== undefined ?
-                                <li onClick={this.clearSearchOption.bind(this, 'unitPriceMinMax')}>{messages.price + '/' + messages.squareMetre + ' ' + searchOption.unitPriceMin + '~' + searchOption.unitPriceMax} ×</li> : ''
+                                <li onClick={this.clearSearchOption.bind(this, 'unitPriceMinMax')}>{messages.price + '/' + messages.squareMetre + ' ' + searchOption.unitPriceMin + currency + '/' + areaUnit + '~' + searchOption.unitPriceMax + currency + '/' + areaUnit} ×</li> : ''
                         }
                         {
                             searchOption.periodMin !== undefined ?
@@ -375,7 +388,7 @@ class NavBread extends React.Component {
                         }
                         {
                             searchOption.areaMin !== undefined ?
-                                <li onClick={this.clearSearchOption.bind(this, 'areaMinMax')}>{messages.area + ' ' + searchOption.areaMin + '~' + searchOption.areaMax} ×</li> : ''
+                                <li onClick={this.clearSearchOption.bind(this, 'areaMinMax')}>{messages.area + ' ' + searchOption.areaMin + areaUnit + '~' + searchOption.areaMax + areaUnit} ×</li> : ''
                         }
                         {
                             searchOption.distanceMin !== undefined ?
@@ -400,7 +413,7 @@ class NavBread extends React.Component {
                 </td>
                 <td width="500">
                     {
-                        Number(params.type) === 1 ? <RadioType name="viewType"/> : ''
+                        Number(params.type) === 1 ? <RadioType name="viewType" clearData={this.state.RadioType}/> : ''
                     }
                     <SelectOrder name="orderByDirection" onChange={this.onChange.bind(this)}/>
                 </td>

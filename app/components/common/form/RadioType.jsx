@@ -28,6 +28,20 @@ class RadioType extends React.Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        // 路由变化
+        if (nextProps.clearData && nextProps.clearData.clear && !isEqual(nextProps.clearData, this.state.clearData)) {
+            this.setState({
+                data: Object.assign(objCopy(this.state.data),{defaultValue: 0}),
+                clearData: nextProps.clearData
+            });
+            this.props.dispatch(setFormRadioType({
+                key: 'viewType',
+                value: 0
+            }));
+        }
+    }
+
     getDefaultProps = (messages) => {
         return {
             defaultValue: 0,

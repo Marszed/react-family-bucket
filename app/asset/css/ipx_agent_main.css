@@ -1178,7 +1178,7 @@ transition: background-color .4s ease,border .4s ease,opacity .4s ease}
 .ipx_pop_failed {width:500px; height:300px; margin:-180px 0 0 -250px}
 .ipx_pop_failed  .ipx_pop_body {height:180px}
 /*项目进度查看图片*/
-.pop_record_img {width:800px; height:600px; margin:-300px 0 0 -400px; border-radius:6px; overflow:hidden}
+.pop_record_img {width:800px; height:600px; margin:-300px 0 0 -400px; border-radius:6px; overflow:hidden;-webkit-transform: translate3d(0, 0, 0);  -moz-transform: translate3d(0, 0, 0);  -ms-transform: translate3d(0, 0, 0);  transform: translate3d(0, 0, 0);}
 .pop_record_img ul {position:relative; z-index:1;height: auto; overflow: hidden;  left: 0;  transition: left 1s;}
 .pop_record_img ul>li {display:inline-block; width:800px; height:600px; text-align:center;}
 .pop_record_img ul>li>img {max-width:800px; max-height:600px;}

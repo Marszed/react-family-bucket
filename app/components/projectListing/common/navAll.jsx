@@ -225,7 +225,7 @@ class NavAll extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <a href="javascript:;" className="proj_screen_control_btn" onClick={this.expendForm.bind(this, this.state.expendPX == 60 ? -95 : 60)}>{this.state.expendPX == 60 ? messages.slideUp : messages.slideDown} <i className={"iconfont " + (this.state.expendPX == 60 ? "icon-arrowup" : "icon-arrowdown")}/></a>
+                    <a href="javascript:;" className="proj_screen_control_btn" onClick={this.expendForm.bind(this, this.state.expendPX == 60 ? -95 : 60)}>{messages.advanceSearch} <i className={"iconfont " + (this.state.expendPX == 60 ? "icon-arrowup" : "icon-arrowdown")}/></a>
                 </div>
             </div>
         </div>;
