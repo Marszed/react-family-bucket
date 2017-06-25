@@ -4,8 +4,7 @@ import {
     TYPE,
     COUNTRY,
     SEARCH_OPTIOPN,
-    PROJECT_LIST,
-    SET_FORM_BOX
+    PROJECT_LIST
 } from "../actions/project";
 
 export default combineReducers({
@@ -26,11 +25,6 @@ export default combineReducers({
     }),
     searchOption: createReducer('', {
         [SEARCH_OPTIOPN](state, {value}){
-            return value;
-        }
-    }),
-    formBox: createReducer('', {
-        [SET_FORM_BOX](state, {value}){
             return value;
         }
     })

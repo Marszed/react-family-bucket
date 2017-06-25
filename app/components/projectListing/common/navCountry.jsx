@@ -62,7 +62,7 @@ class NavCountry extends React.Component {
             baths: 0,
             studys: 0,
             carSpace: 0,
-            expendPX: -1000
+            expendPX: -344
         };
     }
 
@@ -79,19 +79,14 @@ class NavCountry extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.params && !isEqual(nextProps.params, this.state.params)) {
             this.setState({
-                params: nextProps.params
+                params:nextProps.params,
+                expendPX: -344
             });
         }
         if (nextProps.global.formSelect && nextProps.global.formSelect.key && !isEqual(nextProps.global.formSelect.key, this.state[nextProps.global.formSelect.key])) {
             let temp = {};
             temp[nextProps.global.formSelect.key] = nextProps.global.formSelect.value;
             this.setState(temp);
-        }
-        // 刷选表单伸缩展开
-        if (nextProps.project.formBox && (nextProps.project.formBox !== this.state.expendPX)) {
-            this.setState({
-                expendPX: nextProps.project.formBox
-            });
         }
         // 下拉列表更新
         if (nextProps.global.formSelect && nextProps.global.formSelect.key && !isEqual(nextProps.global.formSelect.key, this.state[nextProps.global.formSelect.key])) {
@@ -170,11 +165,11 @@ class NavCountry extends React.Component {
     }
 
     // 展开查询表单
-    expendForm(e) {
+    expendForm(px, e) {
         e.stopPropagation();
-        if (this.props.project.formBox !== 60){
-            this.props.dispatch(setFormBox(60));
-        }
+        this.setState({
+            expendPX: px
+        });
     }
 
     // 数据收集
@@ -261,6 +256,11 @@ class NavCountry extends React.Component {
         }, option);
 
         this.props.dispatch(setSearchOption(this.parameterFilter(req)));
+
+        // 收起搜索条件
+        this.setState({
+            expendPX: -344
+        });
     };
 
     render() {
@@ -287,7 +287,6 @@ class NavCountry extends React.Component {
                     {
                         this.state.country ? this.state.country.map((obj) => (
                                 <Link className={obj.dicCode === this.state.params.country ? 'active' : ''}
-                                      onMouseEnter={this.expendForm.bind(this)}
                                       to={"/projectListing/" + this.state.params.type + '/' + obj.dicCode + "/overview"}>
                                     <i className={"iconfont " + this.state.countryIcon[obj.dicCode]}/>
                                     <span>{obj.dicValue}</span>
@@ -409,6 +408,7 @@ class NavCountry extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <a href="javascript:;" className="proj_screen_control_btn" onClick={this.expendForm.bind(this, this.state.expendPX == 60 ? -344 : 60)}>{messages.advanceSearch} <i className={"iconfont " + (this.state.expendPX == 60 ? "icon-arrowup" : "icon-arrowdown")}/></a>
                 </div>
             </div>
         </div>;

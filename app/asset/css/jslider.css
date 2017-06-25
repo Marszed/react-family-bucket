@@ -17,6 +17,10 @@
     background-color: #fff;
 }
 
+.ant-tooltip-inner{
+    box-sizing: border-box;
+}
+
 .ipx_ant .ant-slider:hover {
     background-color: #fff;
 }

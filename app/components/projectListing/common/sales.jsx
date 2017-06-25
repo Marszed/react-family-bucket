@@ -171,7 +171,7 @@ class Sales extends React.Component {
                                                             </ol> : <ol className={this.state.fontSize <= 36 ? 'hide' : ''}>
                                                                 <li title={messages.width + ': ' + obj.width}><i className="iconfont icon-width"/> {obj.width}</li>
                                                                 <li title={messages.length + ': ' + obj.length}><i className="iconfont icon-height"/> {obj.length}</li>
-                                                                <li title={messages.landArea + ': ' + (obj.landArea)}>{obj.landArea} {obj.areaUnit}</li>
+                                                                <li title={messages.landArea + ': ' + (obj.landArea)}><i className="iconfont icon-area"/> {obj.landArea} {obj.areaUnit}</li>
                                                             </ol>
                                                         }
                                                         <p className={this.state.fontSize <= 36 ? 'hide' : ''}>{obj.currencyName} {obj.price ? formatMoney(obj.price) : ''}</p>

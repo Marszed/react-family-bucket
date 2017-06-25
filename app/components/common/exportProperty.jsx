@@ -102,7 +102,7 @@ class ExportProperty extends React.Component {
             }
         });
         if (!propertiesFields.length){
-            // TODO toast
+            this.props.exportTipHandler();
             return false;
         }
         // window.open(env.config.origin + INTERFACE.EXPORT + '/xls' + '?projectId=' + query.projectId + '&projectName=' + encodeURI(decode64(query.title)) + '&propertiesFields=' + propertiesFieldsParams);
@@ -124,6 +124,7 @@ class ExportProperty extends React.Component {
                     tempLink.click();
                 }
             };
+            debugger;
             xmlRequest.send(JSON.stringify(
                 {
                     "propertiesFields": propertiesFields,
@@ -146,9 +147,12 @@ class ExportProperty extends React.Component {
             hide: flag
         })
     );
-    setCountryHandler = (country) => (
-        this.resetHandler(country)
-    );
+    setCountryHandler = (country, searchOption) => {
+        this.setState({
+            searchOption: searchOption
+        });
+        this.resetHandler(country);
+    };
     // 单选
     checkHandler = (type, key, value) => {
         let array = arrayCopy(this.state[type]), temp = {}, countTrue = 0, countFalse = 0;

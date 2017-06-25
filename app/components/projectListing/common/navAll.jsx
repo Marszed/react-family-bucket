@@ -40,7 +40,7 @@ class NavAll extends React.Component {
             beds: 0,
             baths: 0,
             studys: 0,
-            expendPX: -455
+            expendPX: -95
         };
     }
 
@@ -55,12 +55,6 @@ class NavAll extends React.Component {
             this.setState({
                 params: nextProps.params
             });
-        }
-        // 下拉列表更新
-        if (nextProps.global.formSelect && nextProps.global.formSelect.key && !isEqual(nextProps.global.formSelect.key, this.state[nextProps.global.formSelect.key])) {
-            let temp = {};
-            temp[nextProps.global.formSelect.key] = nextProps.global.formSelect.value;
-            this.setState(temp);
         }
         // 搜索框更新
         if (nextProps.global.formSearch && nextProps.global.formSearch.key && !isEqual(nextProps.global.formSearch.value, this.state[nextProps.global.formSearch.key])) {
@@ -90,9 +84,6 @@ class NavAll extends React.Component {
             let response = await asyncAwaitCall({
                 url: {value: INTERFACE.COUNTRY, key: 'COUNTRY'},
                 method: 'get',
-                params: {
-                    language: langPackageInject()
-                },
                 loading: false
             });
             if (!response.errType) {
@@ -117,16 +108,11 @@ class NavAll extends React.Component {
     }
 
     // 展开查询表单
-    expendForm(type, e) {
-        e && e.stopPropagation();
+    expendForm(px, e) {
+        e.stopPropagation();
         this.setState({
-            expendPX: type ? 60 : -455
+            expendPX: px
         });
-        /*debounce(() => (
-            this.setState({
-                expendPX: type ? 60 : -455
-            })
-        ), 250);*/
     }
 
     // 数据收集
@@ -183,18 +169,21 @@ class NavAll extends React.Component {
         }, option);
 
         this.props.dispatch(setSearchOption(this.parameterFilter(req)));
+        // 收起搜索条件
+        this.setState({
+            expendPX: -95
+        });
     };
 
     render() {
         const {messages} = this.props.intl;
 
         return <div className="dev_cont_subtitle">
-            <div className="dev_cont_sub_screen" onMouseLeave={this.expendForm.bind(this, false)}>
+            <div className="dev_cont_sub_screen">
                 <dl className="proj_screen_start">
                     {
                         this.state.country ? this.state.country.map((obj) => (
                             <Link className={obj.dicCode === this.state.params.country ? 'active' : ''}
-                                  onMouseEnter={this.expendForm.bind(this, this.state.params.country === obj.dicCode)}
                                   to={"/projectListing/" + this.state.params.type + '/' + obj.dicCode + "/overview"}>
                                 <i className={"iconfont " + this.state.countryIcon[obj.dicCode]}/>
                                 <span>{obj.dicValue}</span>
@@ -236,6 +225,7 @@ class NavAll extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <a href="javascript:;" className="proj_screen_control_btn" onClick={this.expendForm.bind(this, this.state.expendPX == 60 ? -95 : 60)}>{messages.advanceSearch} <i className={"iconfont " + (this.state.expendPX == 60 ? "icon-arrowup" : "icon-arrowdown")}/></a>
                 </div>
             </div>
         </div>;

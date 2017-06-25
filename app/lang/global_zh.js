@@ -432,5 +432,9 @@ export default {
     agencyLogin:"经纪公司登录",
     agentLogin:"经纪人登录",
     projectDoc:"项目文档",
-    projectProgress:"项目进度"
+    projectProgress:"项目进度",
+    exportExcelTip: "您没有选择任何信息，请选择",
+    advanceSearch: '高级搜索',
+    slideUp: '收起',
+    slideDown: '展开'
 };
