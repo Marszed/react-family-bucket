@@ -46,6 +46,7 @@ export default class sliderArrow extends React.Component {
     };
     handleArrowClick(option) {
         if (!this.state.slider){
+            // 判断是否需要滚动
             this.setState({
                 slider: true
             });
@@ -79,7 +80,7 @@ export default class sliderArrow extends React.Component {
                 {
                     this.state.arrowShow ? <a href="javascript:;" className="preview_arrow preview_arrowdown" onClick={this.handleArrowClick.bind(this, 1)}/> : null
                 }
-                <ul>{dotNodes}</ul>
+                <ul className="clearfix">{dotNodes}</ul>
             </div>
         );
     }

@@ -3,7 +3,6 @@
  */
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {setFormBox} from 'REDUX/actions/project';
 import {setFormRadioType} from 'REDUX/actions/global';
 import {Link} from 'react-router';
 import {isEqual, getLocalStorage} from 'LIB/tool';
@@ -34,16 +33,10 @@ class Header extends React.Component {
             });
         }
     }
-    // 展开缩进筛选表单
-    formBoxHandler = () => {
-        if (this.props.project.formBox !== -1000){
-            this.props.dispatch(setFormBox(-1000));
-        }
-    };
     render() {
         const {messages} = this.props.intl;
 
-        return (<div className="dev_cont_title clearfix" onMouseEnter={this.formBoxHandler}>
+        return (<div className="dev_cont_title clearfix">
             <div className="dev_cont_titleBg">
                 <h1 className="float_lf">{messages.projectListing}</h1>
                 <ul>

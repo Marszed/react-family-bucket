@@ -18,6 +18,7 @@ import hospital from "ASSET/img/icon-hospital.png";
 import bus_station from "ASSET/img/icon-station.png";
 import grocery_or_supermarket from "ASSET/img/icon-shopping.png";
 import police from "ASSET/img/icon-police.png";
+import DefaultImg from 'ASSET/img/defaultProject.jpg';
 
 let markers = [];
 
@@ -307,7 +308,10 @@ class Msg extends React.Component {
                             </span>
                         </div>
 
-                        <InlineSlider speed={1.5} delay={3} pause={true} autoplay={false} arrows={true} items={this.state.picList.sort(keySort('isFrontImage',true))}/>
+                        {
+                            this.state.picList && this.state.picList.length ? <InlineSlider speed={1.5} delay={3} pause={true} autoplay={false} arrows={true} items={this.state.picList.sort(keySort('isFrontImage',true))}/> : <div className="proj_preview_bigimgbox" style={{background: '#f4f4f4'}}>
+                                    <img src={DefaultImg} alt="ipx"/></div>
+                        }
 
                         <div className="preview_common_stylebox base_infomation">
                             <h3 className="preview_common_h3">{messages.baseInfo}</h3>

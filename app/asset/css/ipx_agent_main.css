@@ -187,7 +187,7 @@ body *{
 .proj_preview_litimgbox>a.preview_arrow {position:absolute; right:0; width:100px; height:20px; background:url(../img/updown_bg.png); z-index:1}
 .proj_preview_litimgbox>a.preview_arrowup {top:0; background-position:0 0}
 .proj_preview_litimgbox>a.preview_arrowdown {bottom:0; background-position:0 -20px}
-.proj_preview_litimgbox ul {width:100px; margin-left:12px; height:452px}
+.proj_preview_litimgbox ul {width:100px; margin-left:12px; height:452px;overflow: scroll}
 .proj_preview_litimgbox ul li {display:block; margin-bottom:10px; position:relative}
 .proj_preview_litimgbox ul li div {width:100px; height:67px; opacity:.6}
 .proj_preview_litimgbox ul li div img {max-width:100px; max-height:67px; vertical-align:middle}
@@ -272,9 +272,8 @@ body *{
     .proj_preview_litimgbox>a.preview_arrow {position:absolute; top:12px; width:20px; height:67px; background:url(../img/lfrt_bg.png); z-index:1}
     .proj_preview_litimgbox>a.preview_arrowup {left:0; background-position:0 0}
     .proj_preview_litimgbox>a.preview_arrowdown {right:0; background-position:-20px 0 }
-    .proj_preview_litimgbox ul {width:7700px; height:67px; margin-left:0; margin-top:12px; }
-    .proj_preview_litimgbox ul li {float:left; margin-bottom:0; margin-right:11.6px}
-
+    .proj_preview_litimgbox ul {white-space:nowrap; font-size: 0; width: auto; height:67px; margin-left:0; margin-top:12px; }
+    .proj_preview_litimgbox ul li {display: inline-block;float:none; margin-bottom:0; margin-right:11.6px}
     .proj_preview_litimgbox ul li.active:before {height:2px; width:100px; top:-7px; left:0px}
     .ipx_proj_preview_rt {left:790px}
 }
@@ -618,6 +617,12 @@ body *{
 .proj_screen_serchbtn {padding-top:5px}
 .proj_screen_serchbtn .ipx_btn {width:140px}
 .proj_screen_serchbtn span {font-size:12px; color:#999; margin-left:20px}
+.proj_screen_control_btn {width:160px; height:26px; line-height:26px; text-align:center; color:#999; font-size:12px; position:absolute; left:50%; margin-left:-80px; bottom:-26px; background:#fff; border-radius:0 0 3px 3px; box-shadow:0 3px 3px rgba(0,0,0,.1)}
+.proj_screen_control_btn i {font-size:16px; vertical-align:middle; margin-left:5px}
+.proj_screen_control_btn:hover{color: #999; text-decoration: none !important;}
+.proj_property_control_btn {display: block; margin:0 auto; width:160px; height:26px; line-height:26px; text-align:center; color:#999; font-size:12px; background:#fff; border-radius:0 0 3px 3px; box-shadow:0 3px 3px rgba(0,0,0,.1)}
+.proj_property_control_btn i {font-size:16px; vertical-align:middle; margin-left:5px}
+.proj_property_control_btn:hover{color: #999; text-decoration: none !important;}
 
 /*------------------------------经济公司项目管理内容板块---------------------------*/
 .agency_proj_cont {position:absolute; bottom:0; top:120px; width:100%; overflow:auto; box-sizing:border-box; background:#eee; z-index:1}

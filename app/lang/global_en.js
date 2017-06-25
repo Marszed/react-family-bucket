@@ -431,5 +431,8 @@ export default {
     agencyLogin:"Agency Login",
     agentLogin:"Agent Login",
     projectDoc:"Project Documents",
-    projectProgress:"Project Progress"
+    projectProgress:"Project Progress",
+    exportExcelTip: "You did not select any information, please select",
+    slideUp: 'Slide Up',
+    slideDown: 'Slide Down'
 };
