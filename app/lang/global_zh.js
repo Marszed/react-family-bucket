@@ -174,6 +174,7 @@ export default {
     reservedNum: '预定中',
     soldNum: '已售',
     available: '可售',
+    available1: '可售',
     reserved: '已预订',
     sold: '已售',
     meetConditionsTip: '套不动产符合搜索条件',
