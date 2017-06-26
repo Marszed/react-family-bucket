@@ -18,7 +18,7 @@ export default {
     forgetPassword: 'Forget Password',
     registerNow: 'Do not have an account? Register now',
     homePage: 'Dashboard',
-    aboutUs: 'About Us',
+    aboutUs: 'About IPX',
     switchLanguage: 'Switch to English',
     empty: ' ',
     validateLoginInfo: 'The Email Address or the password is not correct',
@@ -175,7 +175,7 @@ export default {
     reservedNum: 'Reserved',
     soldNum: 'Sold',
     available: 'Available',
-    available1: 'Authorize to me',
+    available1: 'Authorized to Me',
     reserved: 'Reserved',
     sold: 'Sold',
     meetConditionsTip: 'Property(ies) To Choose From',
@@ -415,6 +415,8 @@ export default {
     minPriceSort:"Lowest price",
     countProjects:"Project(s)",
     // ====新增=====
+
+
     unitWeek: '/week',
     unitMonth: '/month',
     seeMore:"More Information",
@@ -425,7 +427,7 @@ export default {
     lastTime:"Update Time",
     forever:"Valid Until Sold",
     searchNoData:'Sorry，no data found',
-    markedSuccess:"Add to Favourite Successfully",
+    markedSuccess:"Added to Favourites.",
     cancelMarked:"Cancel Favourites Successfully",
     saleAgreement: "Sale Agreement",
     agencyLogin:"Agency Login",
@@ -435,5 +437,6 @@ export default {
     exportExcelTip: "You did not select any information, please select",
     advanceSearch: 'Advance Search',
     slideUp: 'Slide Up',
-    slideDown: 'Slide Down'
+    slideDown: 'Slide Down',
+    IPXHome:"Homepage"
 };

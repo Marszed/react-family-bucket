@@ -1082,11 +1082,11 @@ transition: background-color .4s ease,border .4s ease,opacity .4s ease}
 .ipx_btn.disabled:hover {background:#f8f8f8; color:#bbb; border-color:#eee; box-shadow:0 4px 8px rgba(0,0,0,.05)}
 .ipx_btn.disabled:active {opacity:1}
 /*按钮大小*/
-.ipx_XS_btn {height:30px; line-height:27px; font-size:12px; border-radius:3px; padding:0 12px}
-.ipx_S_btn {height:34px; line-height:31px; font-size:13px; border-radius:3px; padding:0 16px}
-.ipx_M_btn {height:38px; line-height:35px; font-size:14px; border-radius:4px; padding:0 20px}
-.ipx_L_btn {height:42px; line-height:39px; font-size:15px; border-radius:5px; padding:0 26px}
-.ipx_XL_btn {height:46px; line-height:43px; font-size:16px; border-radius:6px; padding:0 34px}
+.ipx_XS_btn {height:30px; line-height:27px; font-size:12px; border-radius:3px; padding:0 7px}
+.ipx_S_btn {height:34px; line-height:31px; font-size:13px; border-radius:3px; padding:0 8px}
+.ipx_M_btn {height:38px; line-height:35px; font-size:14px; border-radius:4px; padding:0 10px}
+.ipx_L_btn {height:42px; line-height:39px; font-size:15px; border-radius:5px; padding:0 13px}
+.ipx_XL_btn {height:46px; line-height:43px; font-size:16px; border-radius:6px; padding:0 17px}
 /*按钮颜色*/
 .ipx_blue_btn {background:#00afb4; border:solid 1px #00a0a5; color:#fff; box-shadow:0 4px 8px rgba(0,134,130,.2)}
 .ipx_blue_btn:hover {background:#009fa4; border:solid 1px #008f93}

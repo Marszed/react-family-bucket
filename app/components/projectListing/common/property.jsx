@@ -167,15 +167,17 @@ class Property extends React.Component {
     // 数据收集
     onChange = (name, value, _name, _value) => {
         let temp = {}, temp2 = {};
-        temp[name] = name === 'isAbroad' ? (value ? !!(value - 1) : undefined) : value;
-        if(_name && _value){
-            temp2[_name] = _name === 'isAbroad' ? (_value ? !!(_value - 1) : undefined) : _value;
+        temp[name] = name === 'isAbroad' ? (value !== undefined ? !!(value - 1) : undefined) : value;
+        if(_name && _value !== undefined){
+            temp2[_name] = _name === 'isAbroad' ? (_value !== undefined ? !!(_value - 1) : undefined) : _value;
         }
         const searchOptionReset = Object.assign(objCopy(this.state.searchOption), temp, temp2);
         this.setState({
             searchOption: searchOptionReset
         });
-        debounce(this.onSubmit(searchOptionReset), 500);
+
+        debounce(this.onSubmit(searchOptionReset), 100);
+        // this.onSubmit(searchOptionReset);
     };
 
     // submit

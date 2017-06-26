@@ -125,7 +125,7 @@ class Document extends React.Component {
                                         <td className="proj_first_td"><i className={"iconfont icon-" + (obj.fileType ? obj.fileType.replace('.', '') : "file")}/></td>
                                         <td className="proj_tit_td">{obj.fileName}</td>
                                         <td>{obj.fileType || ""}</td>
-                                        <td>{obj.fileSize}M</td>
+                                        <td>{obj.fileSize.toFixed(2)}MB</td>
                                         {
                                             query.authorizeNumber && Number(query.authorizeNumber) !== 0 ? <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td> : <td className="grey_txt666">{messages.downLoadToAuth}</td>
                                         }
@@ -149,7 +149,7 @@ class Document extends React.Component {
                                 <td className="proj_first_td"><i className={"iconfont icon-" + (obj.fileType ? obj.fileType.replace('.', '') : "file")}/></td>
                                 <td className="proj_tit_td">{obj.fileName}</td>
                                 <td>{obj.fileType || ""}</td>
-                                <td>{obj.fileSize}M</td>
+                                <td>{obj.fileSize.toFixed(2)}MB</td>
                                 {
                                     query.authorizeNumber && Number(query.authorizeNumber) !== 0 ? <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td> : <td className="grey_txt666">{messages.downLoadToAuth}</td>
                                 }
@@ -174,7 +174,7 @@ class Document extends React.Component {
                                         <td className="proj_first_td"><i className={"iconfont icon-" + (obj.fileType ? obj.fileType.replace('.', '') : "file")}/></td>
                                         <td className="proj_tit_td">{obj.fileName}</td>
                                         <td>{obj.fileType || ""}</td>
-                                        <td>{obj.fileSize}M</td>
+                                        <td>{obj.fileSize.toFixed(2)}MB</td>
                                         {
                                             query.authorizeNumber && Number(query.authorizeNumber) !== 0 ? <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td> : <td className="grey_txt666">{messages.downLoadToAuth}</td>
                                         }
@@ -200,7 +200,7 @@ class Document extends React.Component {
                                         <td className="proj_first_td"><i className={"iconfont icon-" + (obj.fileType ? obj.fileType.replace('.', '') : "file")}/></td>
                                         <td className="proj_tit_td">{obj.fileName}</td>
                                         <td>{obj.fileType || ""}</td>
-                                        <td>{obj.fileSize}M</td>
+                                        <td>{obj.fileSize.toFixed(2)}MB</td>
                                         {
                                             query.authorizeNumber && Number(query.authorizeNumber) !== 0 ? <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td> : <td className="grey_txt666">{messages.downLoadToAuth}</td>
                                         }
@@ -226,7 +226,7 @@ class Document extends React.Component {
                                         <td className="proj_first_td"><i className={"iconfont icon-" + (obj.fileType ? obj.fileType.replace('.', '') : "file")}/></td>
                                         <td className="proj_tit_td">{obj.fileName}</td>
                                         <td>{obj.fileType || ""}</td>
-                                        <td>{obj.fileSize}M</td>
+                                        <td>{obj.fileSize.toFixed(2)}MB</td>
                                         {
                                             query.authorizeNumber && Number(query.authorizeNumber) !== 0 ? <td className="proj_last_td"><a href={obj.resourceUrl} target="_blank">{messages.download}</a></td> : <td className="grey_txt666">{messages.downLoadToAuth}</td>
                                         }

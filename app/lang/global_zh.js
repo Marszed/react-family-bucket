@@ -436,5 +436,6 @@ export default {
     exportExcelTip: "您没有选择任何信息，请选择",
     advanceSearch: '高级搜索',
     slideUp: '收起',
-    slideDown: '展开'
+    slideDown: '展开',
+    IPXHome:"IPX首页"
 };

@@ -199,12 +199,6 @@ class Radio extends React.Component {
             return false;
         }
         if (type === 2){
-            this.state.dataSourceObj1.map((obj) => {
-                if (this.state.value1 && this.state.value1 === obj.dicValue){
-                    this.props.onChange('regionFirstCode', obj.dicCode,'regionFirst',obj.dicValue);
-                    return false;
-                }
-            });
             if (value === '') {
                 this.props.onChange('regionSecondCode', '');
                 this.setState({

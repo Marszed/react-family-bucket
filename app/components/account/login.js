@@ -338,7 +338,7 @@ class Login extends React.Component {
                 </form>
                 <div className="login_foot">
                     <ul>
-                        <li><a href="http://ipx.net" target="_blank">{'IPX' + messages.homePage}</a></li>
+                        <li><a href="http://ipx.net" target="_blank">{messages.IPXHome}</a></li>
                         <li><a href="http://ipx.net/about_us" target="_blank">{messages.aboutUs}</a></li>
                     </ul>
                     <p>
