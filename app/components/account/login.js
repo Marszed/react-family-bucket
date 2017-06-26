@@ -252,7 +252,7 @@ class Login extends React.Component {
         return true;
     }
     changeLogin() {
-        window.location.href = 'http://agency.ipx.net';
+        window.location.href = window.location.protocol + '//agency.ipx.net';
         // window.location.href = 'http://localhost:15554';
     }
 
