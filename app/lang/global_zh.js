@@ -359,7 +359,7 @@ export default {
     termNumberTip1: '买方仅需和开发商签订一份包含土地所有权和房屋所有权的交易合同',
     termNumberTip2: '买方需要和开发商签订土地所有权和房屋所有权两份交易合同',
     quantity: '可购数量',
-    intentMoney: '预定金',
+    intentMoney: '意向金',
     detailAddr: '详细地址',
     country: '国家',
     sellingPoints: '项目卖点',

@@ -189,7 +189,10 @@ class Property extends React.Component {
                 flag = false;
             }
             // 价钱
-            if ((option.priceMin && option.priceMax) && (option.priceMin*1000 > obj.price || option.priceMax*1000 < obj.price)) {
+            if (option.priceMin !== undefined && option.priceMin*1000 > obj.price) {
+                flag = false;
+            }
+            if (option.priceMax && option.priceMax*1000 < obj.price) {
                 flag = false;
             }
             // 卧室数量
