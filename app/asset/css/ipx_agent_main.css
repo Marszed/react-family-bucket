@@ -863,7 +863,7 @@ body *{
 .Property_details_head>b {font-size:16px; height:60px; line-height:60px; margin-left:30px}
 .Property_details_body {position:absolute; top:61px; bottom:0; width:100%; overflow:auto}
 ul.Property_details_iconbox {overflow:hidden; padding:25px 25px 0 25px}
-ul.Property_details_iconbox li {float:left; width:80px; text-align:center}
+ul.Property_details_iconbox li {float:left; width:90px; text-align:center}
 ul.Property_details_iconbox li b {display:block; font-size:18px; font-weight:normal}
 ul.Property_details_iconbox li i {display:block; color:#333; font-size:26px; margin:5px 0}
 ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:12px; color:#999}

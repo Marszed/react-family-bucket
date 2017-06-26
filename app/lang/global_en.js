@@ -437,6 +437,6 @@ export default {
     exportExcelTip: "You did not select any information, please select",
     advanceSearch: 'Advance Search',
     slideUp: 'Slide Up',
-    slideDown: 'Slide Down',
+    slideDown: 'More',
     IPXHome:"Homepage"
 };
