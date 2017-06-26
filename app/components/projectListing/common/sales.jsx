@@ -152,7 +152,7 @@ class Sales extends React.Component {
                                                 (( ((Number(obj.propertyStatus) === 3 && this.state.statusObj.sold) ||
                                                 (Number(obj.propertyStatus) === 2 && this.state.statusObj.reserved) ||
                                                 (Number(obj.propertyStatus) === 1 && this.state.statusObj.available)) &&
-                                                ((Number(obj.isAbroad) === Number(this.state.isAbroad)) || this.state.isAbroad === -1))) ?
+                                                ((Number(obj.isAbroad) === Number(this.state.isAbroad)) || this.state.isAbroad === -1))) && obj.isDisplay ?
                                                     (obj.propertyStatus === 3 ?
                                                         <li key={obj.propertyId} className={statusClass[Number(obj.propertyStatus) - 1]}>
                                                             <h2>#{obj.lot}</h2>
@@ -202,7 +202,7 @@ class Sales extends React.Component {
                                                             }
                                                             <p className={this.state.fontSize <= 36 ? 'hide' : ''}>{obj.currencyName} {obj.price ? formatMoney(obj.price) : ''}</p>
                                                         </li>
-                                                    ): <li className="white_bg" key={'white_' + index} style={{fontSize: this.state.fontSize + 'px'}}/>
+                                                    ): <li className="white_bg" key={'white_' + index} style={{fontSize: this.state.fontSize + 'px', cursor: 'default'}}/>
                                             ))
                                         }
                                     </ul>

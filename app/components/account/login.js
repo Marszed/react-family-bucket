@@ -342,7 +342,7 @@ class Login extends React.Component {
                         <li><a href="http://ipx.net/about_us" target="_blank">{messages.aboutUs}</a></li>
                     </ul>
                     <p>
-                        <span>Copyright © 2017</span>
+                        <span>Copyright © 2017 </span>
                         <a href="http://ipx.net" target="_blank">IPX.net</a>
                         <span> {messages.rightReserved}</span>
                     </p>
