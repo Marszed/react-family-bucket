@@ -870,9 +870,13 @@ ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:1
 .Property_details_info {overflow:hidden; margin:25px 0 0}
 .Property_info_lf,.Property_info_rt {width:50%; float:left; font-size:12px}
 .Property_info_lf {border-right:solid 1px #e4e4e4}
+
+.Property_details_info {overflow:hidden; margin:30px 0 0}
+.Property_details_info>div.float_lf {width:50%}
+
 .Property_details_info table th {font-size:14px; color:#333; padding-bottom:10px; padding-left: 50px}
 .Property_details_info table td {color:#666; width:50%; padding:2px 0 2px 50px}
-.Property_layoutImgbox {height:450px; border-top:solid 1px #e4e4e4; margin:30px 50px 0; padding:30px 0 0; position:relative}
+.Property_layoutImgbox {height:450px; border-top:solid 1px #e4e4e4; margin:0px 50px 0; padding:30px 0 0; position:relative}
 .Property_layoutImgbox>h4 {font-size:14px; color:#333;}
 .Property_layoutImg {width:533px; height:400px; margin:0px auto; text-align:center}
 .Property_layoutImg img {max-width:533px; max-height:400px; vertical-align:middle}
@@ -883,6 +887,13 @@ ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:1
 .Property_layoutImgbox .Property_layoutImgbox_footer>span.iconfont.icon-rightArrow {right:-20px}
 .Property_layoutImgbox .Property_layoutImgbox_footer>span.iconfont.icon-leftArrow {left:-20px}
 .Property_details_body .proj_file_list {width:88%; margin:0 auto 50px}
+
+.Property_info_table {width:100%; font-size:12px; padding:0 0 35px 0}
+.Property_info_table th {font-size:14px; color:#333; padding-bottom:10px; padding-left:50px}
+.Property_info_table td {color:#333; width:50%; padding:2px 0 2px 0}
+.Property_info_table td:first-child {color:#999; padding-left:50px}
+.Property_info_table td:last-child {padding-left:10px}
+.Property_info_table1 td:first-child,.Property_info_table1 th {padding-left:20px!important; width:40%}
 
 
 /*----------------------------------------不动产商个人设置、公司设置----------------------------------------*/
