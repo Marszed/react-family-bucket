@@ -437,5 +437,7 @@ export default {
     advanceSearch: '高级搜索',
     slideUp: '收起',
     slideDown: '展开',
+    propertyTax: "房产税",
+    transactionFee: "交易费",
     IPXHome:"IPX首页"
 };

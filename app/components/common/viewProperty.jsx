@@ -115,7 +115,7 @@ class ViewProperty extends React.Component {
                 <div className="Property_details_info">
                     <div className="float_lf">
                     {
-                        query.projectType !== 4 && data.basicInfo ? <table className="Property_info_table" cellPadding="0" cellSpacing="0">
+                        data.basicInfo ? <table className="Property_info_table" cellPadding="0" cellSpacing="0">
                                 <tr>
                                     <th colSpan="2" style={{textAlign: 'left'}}>{messages.basicInfo}</th>
                                 </tr>
@@ -164,7 +164,7 @@ class ViewProperty extends React.Component {
                             </table> : null
                     }
                     {
-                        Number(query.projectType) === 4 && data.landInfo ?
+                        Number(query.projectType) !== 1 && data.landInfo ?
                                 <table className="Property_info_table" cellPadding="0" cellSpacing="0">
                                     <tr>
                                         <th colSpan="2" style={{textAlign: 'left'}}>{messages.landInfo}</th>
@@ -201,57 +201,6 @@ class ViewProperty extends React.Component {
                                     }
                                 </table> : null
                     }
-
-                        {
-                            Number(query.projectType) === 2 && data.landInfo ?
-                                    <table className="Property_info_table" cellPadding="0" cellSpacing="0">
-                                        <tr>
-                                            <th colSpan="2" style={{textAlign: 'left'}}>{messages.landInfo}</th>
-                                        </tr>
-                                        {
-                                            data.landInfo.map((obj) => {
-                                                if (obj.key === 'aspect'){
-                                                    return <tr>
-                                                        <td>{messages[obj.key]}</td>
-                                                        <td>{propertyMap.aspectName[detail[obj.key] - 0 - 1]}</td>
-                                                    </tr>
-                                                } else if (obj.key === 'houseView'){
-                                                    return <tr>
-                                                        <td>{messages[obj.key]}</td>
-                                                        <td>{propertyMap.houseViewName[detail[obj.key] - 0 - 1]}</td>
-                                                    </tr>
-                                                } else if (obj.key === 'isDisplay'){
-                                                    return <tr>
-                                                        <td>{messages[obj.key]}</td>
-                                                        <td>{propertyMap.yesNo[detail[obj.key] ? 0 : 1]}</td>
-                                                    </tr>
-                                                } else if (obj.key === 'isAbroad'){
-                                                    return <tr>
-                                                        <td>{messages[obj.key]}</td>
-                                                        <td>{propertyMap.isAbroadName[detail[obj.key] ? 0 : 1]}</td>
-                                                    </tr>
-                                                }  else if (obj.key === 'floorLevel'){
-                                                    let floorLevel = '';
-                                                    propertyMap.floorLevel.map((option) => {
-                                                        if(option.id == detail[obj.key]){
-                                                            floorLevel = option.data || detail[obj.key];
-                                                            return false;
-                                                        }
-                                                    });
-                                                    return <tr>
-                                                        <td>{messages[obj.key]}</td>
-                                                        <td>{floorLevel}</td>
-                                                    </tr>
-                                                } else {
-                                                    return <tr>
-                                                        <td>{messages[obj.key]}</td>
-                                                        <td>{obj.unit === 'mon' ? formatMoney(detail[obj.key] || 0) : detail[obj.key]} {obj.unit ? (obj.unit === 'area' ? areaUnit[country] : (obj.unit === 'percent' ? '%' : (obj.unit === 'len' ? lengthUnit[country] : currencyName))) : null}</td>
-                                                    </tr>
-                                                }
-                                            })
-                                        }
-                                    </table>: null
-                        }
                 </div>
                     {
                         data.supplement ?

@@ -438,5 +438,7 @@ export default {
     advanceSearch: 'Advance Search',
     slideUp: 'Slide Up',
     slideDown: 'More',
+    propertyTax: "Property Tax",
+    transactionFee: 'Transaction Fee',
     IPXHome:"Homepage"
 };
