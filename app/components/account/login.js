@@ -266,7 +266,7 @@ class Login extends React.Component {
                     <div className="login_main">
                         <div className="login_mainBox">
                             <Header/>
-                            <div className="ipx_loginBox" style={{'paddingTop':'90px'}}>
+                            <div className="ipx_loginBox" style={{'paddingTop':'90px','paddingBottom':'50px'}}>
                                 <h1 className="ipx_login_tab">
                                     <span onClick={this.changeLogin.bind(this)}>{messages.agencyLogin}</span>
                                     <span className="active">{messages.agentLogin}</span>
