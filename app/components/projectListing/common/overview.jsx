@@ -5,9 +5,9 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import pureRender from "pure-render-decorator";
-import {isEqual, objCopy, encode64, formatMoney, debounce} from 'LIB/tool';
+import {isEqual, objCopy, encode64, formatMoney, debounce, getLocalStorage} from 'LIB/tool';
 import {injectIntl} from 'react-intl';
-import {setCountry, setProjectList} from 'REDUX/actions/project';
+import {setCountry, setProjectList, setSearchOption} from 'REDUX/actions/project';
 import {showToast} from 'REDUX/actions/global';
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
@@ -25,6 +25,7 @@ class Overview extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            userInfo: getLocalStorage('userInfo'),
             value: [0, 100],
             params: this.props.params,
             start: 1,
@@ -37,7 +38,7 @@ class Overview extends React.Component {
     componentWillMount() {
         if (Number(this.context.router.location.query.isFresh) === 1) {
             this.context.router.push({
-                pathname: '/projectListing/' + (this.context.router.params.type || Number(this.props.params.type) === 1?1:2) +'/country.000/overview',
+                pathname: '/projectListing/' + (this.state.userInfo.allFlag ? 1 : 2 ) +'/country.000/overview',
                 query: {isFresh: 0}
             });
             setTimeout(() => (window.location.reload(true)));
@@ -45,10 +46,17 @@ class Overview extends React.Component {
     }
 
     componentDidMount() {
-        this.getProjectList({
-            countryCode: this.state.params.country,
-            type: this.state.params.type
-        }, 'init');
+        const searchOption = this.context.router.location.state && this.context.router.location.state.searchOption ? this.context.router.location.state.searchOption : '';
+        if (searchOption){
+            // 如果路由有记录搜索条件，则回填数据
+            this.props.dispatch(setSearchOption(searchOption));
+            setTimeout(() => (this.getProjectList(searchOption, 'init')), 10);
+        } else {
+            this.getProjectList({
+                countryCode: this.state.params.country,
+                type: this.state.params.type
+            }, 'init');
+        }
         window.addEventListener('resize', debounce(() => (this.autoImage()), 300));
         this.refs.projectDiv.scrollTop = 0;
     }
@@ -73,7 +81,6 @@ class Overview extends React.Component {
         }
         // 项目列表数据变化
         if (nextProps.project.projectList && !isEqual(nextProps.project.projectList, this.state.projectList)) {
-            console.log('---------121321321321');
             this.setState({
                 projectList: nextProps.project.projectList
             });
@@ -83,15 +90,23 @@ class Overview extends React.Component {
         if (nextProps.project.searchOption && !isEqual(nextProps.project.searchOption, this.state.searchOption)) {
             console.log('searchOption======>>>>>>>>>>>');
             console.log(nextProps.project.searchOption);
-            // 同步子组件状态
+            let searchOption = nextProps.project.searchOption;
+            searchOption.countryCode = this.state.params.country;
             this.setState({
-                searchOption: nextProps.project.searchOption,
+                searchOption: searchOption,
                 start: 1,
                 length: 10,
                 beforeScrollTop:0
             });
+            // 更新路由状态
+            this.context.router.replace({
+                pathname: '/projectListing/'+ this.state.params.type + '/' + this.state.params.country + '/overview',
+                state: {
+                    searchOption: searchOption
+                }
+            });
             this.refs.projectDiv.scrollTop = 0;
-            this.getProjectList(nextProps.project.searchOption, 'update');
+            this.getProjectList(searchOption, 'update');
         }
         // 视图类型变化
         if (nextProps.global.formRadioType && !isEqual(nextProps.global.formRadioType, this.state.formRadioType)) {
@@ -104,6 +119,13 @@ class Overview extends React.Component {
     // 不动产项目列表查询
     getProjectList(option, force) {
         const {messages} = this.props.intl;
+        let req = objCopy(option);
+        delete req.timeStamp;
+        delete req.regionFirst;
+        delete req.regionSecond;
+        this.setState({
+            searchOption: option
+        });
         if (force === 'append'){
             this.setState({
                 loadMoreState: true
@@ -119,8 +141,8 @@ class Overview extends React.Component {
             });
             return false;
         }
-        if (option.countryCode === 'country.000'){
-            option.countryCode = 'ALL';
+        if (req.countryCode === 'country.000'){
+            req.countryCode = 'ALL';
         }
         let responseHandler = async function () {
             const start = (force === 'append' && this.state.hasNextPage) ? (this.state.start + 1) : 1;
@@ -128,7 +150,7 @@ class Overview extends React.Component {
             let response = await asyncAwaitCall({
                 url: {value: INTERFACE.PROJECTLIST + start + '/' + this.state.length, key: 'PROJECTLIST'},
                 method: 'post',
-                data: option,
+                data: req,
                 dataSerialize: true
             });
             if (force === 'append'){
@@ -250,7 +272,8 @@ class Overview extends React.Component {
                 title: encode64(obj.title)
             },
             state: {
-                propertyIds: obj.propertyIds
+                propertyIds: obj.propertyIds,
+                searchOption: this.state.searchOption
             }
         });
     };
@@ -318,13 +341,13 @@ class Overview extends React.Component {
                                 <h3 className="text-elps">{obj.title}</h3>
                                 <ul className="proj_box_toplist">
                                     <li>
-                                        <Link to={{pathname: "projectListing/view/property", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
+                                        <Link to={{pathname: "projectListing/view/property", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}, state: {searchOption: this.state.searchOption}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
                                     </li>
                                     <li>
-                                        <Link to={{pathname: "projectListing/view/sales", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
+                                        <Link to={{pathname: "projectListing/view/sales", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}, state: {searchOption: this.state.searchOption}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
                                     </li>
                                     <li>
-                                        <Link to={{pathname: "projectListing/view/detail/msg", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
+                                        <Link to={{pathname: "projectListing/view/detail/msg", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}, state: {searchOption: this.state.searchOption}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -397,13 +420,13 @@ class Overview extends React.Component {
                                                     <div className="proj_box_m_img" style={{height: obj.lineHeight ? (obj.lineHeight + 'px') : 'auto'}}>
                                                         <ul className="proj_box_m_imglist">
                                                             <li>
-                                                                <Link to={{pathname: "projectListing/view/property", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
+                                                                <Link to={{pathname: "projectListing/view/property", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}, state: {searchOption: this.state.searchOption}}} className="iconfont icon-list01"> {messages.propertyList}</Link>
                                                             </li>
                                                             <li>
-                                                                <Link to={{pathname: "projectListing/view/sales", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
+                                                                <Link to={{pathname: "projectListing/view/sales", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}, state: {searchOption: this.state.searchOption}}} className="iconfont icon-sellgrid"> {messages.pinChart}</Link>
                                                             </li>
                                                             <li>
-                                                                <Link to={{pathname: "projectListing/view/detail/msg", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
+                                                                <Link to={{pathname: "projectListing/view/detail/msg", query: {projectId: obj.projectId, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title), countryCode: obj.countryCode}, state: {searchOption: this.state.searchOption}}} className="iconfont icon-details"> {messages.projectDetail}</Link>
                                                             </li>
                                                         </ul>
                                                         <b className="proj_box_M_tag">{messages['projectType' + obj.projectType]}</b>

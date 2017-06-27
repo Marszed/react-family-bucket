@@ -70,6 +70,12 @@ import App from './components/app.jsx';
  * @param replace 跳转api
  * @return next
  */
+let loginUserInfo = null;
+try {
+    loginUserInfo = JSON.parse(window.localStorage.getItem("userInfo"));
+} catch (e){
+    console.log('获取登陆用户信息失败');
+}
 let globalAuth = (option, nextState, replace) => {
     // 登录拦截
     if (!window.localStorage.getItem("isLogin") || !window.localStorage.getItem("userInfo")) {
@@ -81,7 +87,6 @@ let globalAuth = (option, nextState, replace) => {
  * 路由配置
  * 通过getComponent做路由懒加载, require.ensure 做 webpack chunk
  */
-
 const routes = <Route path="/" component={App}>
     <IndexRedirect to={ROUTER.LOGIN}/>
     <Route path={ROUTER.LOGIN}
@@ -116,7 +121,7 @@ const routes = <Route path="/" component={App}>
                    callback(null, require("./components/projectListing/home")['default']);
                }, "projectListing");
            }}>
-        <IndexRedirect to={'/' + ROUTER.PROJECTLISTING + '/1/country.000/' + ROUTER.OVERVIEW}/>
+        <IndexRedirect to={'/' + ROUTER.PROJECTLISTING + '/' + (loginUserInfo && loginUserInfo.allFlag ? '1' : '2') + '/country.000/' + ROUTER.OVERVIEW}/>
         <Route path={':type/:country/' + ROUTER.OVERVIEW}
                getComponent={(nextState, callback) => {
                    require.ensure([], (require) => {
