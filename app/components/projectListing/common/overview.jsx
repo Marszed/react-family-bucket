@@ -5,7 +5,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import pureRender from "pure-render-decorator";
-import {isEqual, objCopy, encode64, formatMoney, debounce} from 'LIB/tool';
+import {isEqual, objCopy, encode64, formatMoney, debounce, getLocalStorage} from 'LIB/tool';
 import {injectIntl} from 'react-intl';
 import {setCountry, setProjectList} from 'REDUX/actions/project';
 import {showToast} from 'REDUX/actions/global';
@@ -25,6 +25,7 @@ class Overview extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            userInfo: getLocalStorage('userInfo'),
             value: [0, 100],
             params: this.props.params,
             start: 1,
@@ -37,7 +38,7 @@ class Overview extends React.Component {
     componentWillMount() {
         if (Number(this.context.router.location.query.isFresh) === 1) {
             this.context.router.push({
-                pathname: '/projectListing/' + (this.context.router.params.type || Number(this.props.params.type) === 1?1:2) +'/country.000/overview',
+                pathname: '/projectListing/' + (this.state.userInfo.allFlag ? 1 : 2 ) +'/country.000/overview',
                 query: {isFresh: 0}
             });
             setTimeout(() => (window.location.reload(true)));
@@ -73,7 +74,6 @@ class Overview extends React.Component {
         }
         // 项目列表数据变化
         if (nextProps.project.projectList && !isEqual(nextProps.project.projectList, this.state.projectList)) {
-            console.log('---------121321321321');
             this.setState({
                 projectList: nextProps.project.projectList
             });
