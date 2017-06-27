@@ -99,7 +99,7 @@ class SecuritySetting extends React.Component {
         this.validateInit(event.target.value,event.type);
     };
 
-    validateNew = (value) => {
+    validateNew = (value,type) => {
         if (ValidateTool.isEmpty(value) && type === 'blur') {
             this.setState({
                 newPasswordClass: "clearfix warning",
@@ -127,7 +127,7 @@ class SecuritySetting extends React.Component {
         }
     };
 
-    validateConfirm = (value) => {
+    validateConfirm = (value,type) => {
         if (ValidateTool.isEmpty(value) && type === 'blur') {
             this.setState({
                 confirmPasswordClass: "clearfix warning",

@@ -310,7 +310,7 @@ class PersonInfo extends React.Component {
                             </label>
                         </div>
                         <div className="ipx_setting_tr clearfix">
-                            <div className={"ipx_setting_td width96per " + (this.state.mobilePhone ? "warning" : "")}>
+                            <div className={"ipx_setting_td width96per " + (this.state.telephoneInfo ? "warning" : "")}>
                                 <h4>{messages.telephone}</h4>
                                 <input type="text" className="ipxTxt"
                                        onChange={this.changeTelephone.bind(this)}

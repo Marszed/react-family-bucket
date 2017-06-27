@@ -336,17 +336,38 @@ class Login extends React.Component {
                         </div>
                     </div>
                 </form>
-                <div className="login_foot">
-                    <ul>
-                        <li><a href="http://ipx.net" target="_blank">{messages.IPXHome}</a></li>
-                        <li><a href="http://ipx.net/about_us" target="_blank">{messages.aboutUs}</a></li>
-                    </ul>
-                    <p>
-                        <span>Copyright © 2017 </span>
-                        <a href="http://ipx.net" target="_blank">IPX.net</a>
-                        <span> {messages.rightReserved}</span>
-                    </p>
-                </div>
+                {
+                    langPackageInject() == 'en_US'?
+                        <div className="login_foot">
+                            <ul>
+                                <li>
+                                    <a href="http://index.ipx.net/en/index.html" target="_blank">{messages.homePage}</a>
+                                </li>
+                                <li>
+                                    <a href="http://index.ipx.net/en/about.html" target="_blank">{messages.aboutUs}</a>
+                                </li>
+                                <li className="hide"><a href="#" target="_blank">帮助中心</a></li>
+                                <li className="hide"><a href="#" target="_blank">联系我们</a></li>
+                                <li className="hide"><a href="#" target="_blank">法律申明</a></li>
+                            </ul>
+                            <p>Copyright © 2017  <a href="http://index.ipx.net/en/index.html" target="_blank">IPX.net </a>{messages.rightReserved}</p>
+                        </div>
+                        :
+                        <div className="login_foot">
+                            <ul>
+                                <li>
+                                    <a href="http://index.ipx.net/cn/index.html" target="_blank">{messages.homePage}</a>
+                                </li>
+                                <li>
+                                    <a href="http://index.ipx.net/cn/about.html" target="_blank">{messages.aboutUs}</a>
+                                </li>
+                                <li className="hide"><a href="#" target="_blank">帮助中心</a></li>
+                                <li className="hide"><a href="#" target="_blank">联系我们</a></li>
+                                <li className="hide"><a href="#" target="_blank">法律申明</a></li>
+                            </ul>
+                            <p>Copyright © 2017  <a href="http://index.ipx.net/cn/index.html" target="_blank">IPX.net </a> {messages.rightReserved}</p>
+                        </div>
+                }
             </div>
         );
     }

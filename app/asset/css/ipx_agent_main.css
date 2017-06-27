@@ -44,6 +44,7 @@ body *{
 .ipx_signbox_td a.float_rt {color:#00afb4; padding-right:3px}
 .ipx_loginBox button.ipx_btn {display:block; width:220px; margin:40px auto 0}
 .ipx_loginBox .ipx_sign_tips {font-size:13px; margin:15px auto;  text-align:center; }
+.ipx_sign_dl p.warningTxt {margin-bottom:12px; padding-left:51px}
 /*注册框*/
 .ipx_signBox {top:10px;}
 .ipx_signBox .ipx_sign_dl dd {margin-bottom:5px}
@@ -969,6 +970,7 @@ ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:1
 .ipx_setting_password>p,.ipx_setting_email>p {font-size:13px; margin-bottom:50px;}
 .ipx_setting_password>p a {color:#00afb4;}
 .ipx_setting_password>button.ipx_blue_btn,.ipx_setting_email>button.ipx_blue_btn {margin:50px 0 0 40px; width:160px}
+.ipx_setting_td.warning input.ipxTxt {border-color:#ff978c}
 
 @media (max-width:1280px){
     .ipx_setting_password,.ipx_setting_email {width:100%; float:inherit}
