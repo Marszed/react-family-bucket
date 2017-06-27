@@ -13,22 +13,6 @@
 <body>
 <div id="app"></div>
 <script type="text/javascript">
-    window.onload = function(){
-        let language = getLanguage();
-        let googleLanguage = 'zh-cn';
-        if (language === 'zh_CN') {
-            document.title = 'IPX-经纪人-Agent';
-            googleLanguage = 'zh-cn';
-        } else {
-            document.title = 'IPX-Agent';
-            googleLanguage = 'en-us';
-        }
-        let googleScript = document.createElement('script');
-        googleScript.type = "text/javascript";
-        googleScript.src = window.location.protocol + '//maps.google.cn/maps/api/js?key=AIzaSyCypGckZ5e0FtzEVU-9BpxzY_P_lYb_Bzc&sensor=false&libraries=places&language=' + googleLanguage;
-        document.body.appendChild(googleScript);
-    };
-
     let getLanguage = function(){
         if (cookie('language')) {
             return cookie('language');
@@ -89,6 +73,20 @@
             return cookieValue;
         }
     };
+
+    let language = getLanguage();
+    let googleLanguage = 'zh-cn';
+    if (language === 'zh_CN') {
+        document.title = 'IPX-经纪人-Agent';
+        googleLanguage = 'zh-cn';
+    } else {
+        document.title = 'IPX-Agent';
+        googleLanguage = 'en-us';
+    }
+    let googleScript = document.createElement('script');
+    googleScript.type = "text/javascript";
+    googleScript.src = window.location.protocol + '//maps.google.cn/maps/api/js?key=AIzaSyCypGckZ5e0FtzEVU-9BpxzY_P_lYb_Bzc&sensor=false&libraries=places&language=' + googleLanguage;
+    document.body.appendChild(googleScript);
 </script>
 </body>
 </html>
