@@ -37,7 +37,7 @@ class Overview extends React.Component {
     componentWillMount() {
         if (Number(this.context.router.location.query.isFresh) === 1) {
             this.context.router.push({
-                pathname: '/projectListing/' + (this.context.router.params.type || 1) +'/country.000/overview',
+                pathname: '/projectListing/' + (this.context.router.params.type || Number(this.props.params.type) === 1?1:2) +'/country.000/overview',
                 query: {isFresh: 0}
             });
             setTimeout(() => (window.location.reload(true)));

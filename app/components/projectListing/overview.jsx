@@ -17,7 +17,6 @@ class Overview extends React.Component {
     }
     render() {
         const {params} = this.props;
-
         return <div>
             <Header params={params}/>
             {

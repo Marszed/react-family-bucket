@@ -12,7 +12,12 @@
 </head>
 <body>
 <div id="app"></div>
-<script src="http://maps.google.cn/maps/api/js?key=AIzaSyCypGckZ5e0FtzEVU-9BpxzY_P_lYb_Bzc&sensor=false&libraries=places"></script>
+<script type="text/javascript">
+    let googleScript = document.createElement('script');
+    googleScript.type = "text/javascript";
+    googleScript.src = window.location.protocol + '//maps.google.cn/maps/api/js?key=AIzaSyCypGckZ5e0FtzEVU-9BpxzY_P_lYb_Bzc&sensor=false&libraries=places';
+    document.body.appendChild(googleScript);
+</script>
 <script>
     window.onload = function(){
         let language = getLanguage();
