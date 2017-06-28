@@ -341,7 +341,7 @@ class Login extends React.Component {
                         <div className="login_foot">
                             <ul>
                                 <li>
-                                    <a href="http://index.ipx.net/en/index.html" target="_blank">{messages.homePage}</a>
+                                    <a href="http://index.ipx.net/en/index.html" target="_blank">{messages.IPXHome}</a>
                                 </li>
                                 <li>
                                     <a href="http://index.ipx.net/en/about.html" target="_blank">{messages.aboutUs}</a>
@@ -356,7 +356,7 @@ class Login extends React.Component {
                         <div className="login_foot">
                             <ul>
                                 <li>
-                                    <a href="http://index.ipx.net/cn/index.html" target="_blank">{messages.homePage}</a>
+                                    <a href="http://index.ipx.net/cn/index.html" target="_blank">{messages.IPXHome}</a>
                                 </li>
                                 <li>
                                     <a href="http://index.ipx.net/cn/about.html" target="_blank">{messages.aboutUs}</a>
