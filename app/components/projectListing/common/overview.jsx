@@ -210,10 +210,6 @@ class Overview extends React.Component {
             }
         }.bind(this)();
     }
-    // 查看项目详情
-    gaveAgencyHandler = (obj) => {
-        this.context.router.push({pathname: "projectListing/view/detail/msg", query: {projectId: obj.projectId, countryCode: obj.countryCode, projectType: obj.projectType, authorizeNumber: obj.authorizeNumber, title: encode64(obj.title)}});
-    };
     // 已阅读并且同意协议
     agreementHandler = (flag) => {
         if (flag === false){
@@ -386,7 +382,7 @@ class Overview extends React.Component {
                                                                     <span onClick={this.collect.bind(this, obj)} className={"float_lf" + (obj.favoriteFlag === 1 ? ' checked' : '')}>
                                                                         <i className={"iconfont" + (obj.favoriteFlag === 1 ? ' icon-favorite2' : ' icon-favorite1')}/> {obj.favoriteFlag === 1?messages.bookmarked:messages.marked}
                                                                     </span>
-                                        <button onClick={this.gaveAgencyHandler.bind(this, obj)}
+                                        <button onClick={this.onLinkTo.bind(this, obj, 'projectListing/view/detail/msg')}
                                                 className={"ipx_btn ipx_M_btn float_rt " + (obj.authorizeNumber === 0 || obj.authorizeNumber === null ? 'ipx_bluebd_btn' : 'ipx_white_btn')}>
                                             {obj.authorizeNumber === 0 || obj.authorizeNumber === null ? messages.view : (messages.available)}
                                         </button>
@@ -447,7 +443,7 @@ class Overview extends React.Component {
                                                              obj.currencyName + ' ' + obj.minPrice + ' - ' + obj.maxPrice
                                                          }
                                                      </span>
-                                                        <button onClick={this.gaveAgencyHandler.bind(this, obj)}
+                                                        <button onClick={this.onLinkTo.bind(this, obj, 'projectListing/view/detail/msg')}
                                                                 className={"ipx_btn ipx_M_btn float_rt " + (obj.authorizeNumber === 0 || obj.authorizeNumber === null ? 'ipx_bluebd_btn' : 'ipx_white_btn')}>
                                                             {obj.authorizeNumber === 0 || obj.authorizeNumber === null ? messages.view : (messages.available1)}
                                                             </button>
