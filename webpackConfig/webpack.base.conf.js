@@ -11,7 +11,6 @@ module.exports = {
         // 框架 / 类库 分离打包
         // ================================
         vendor: [
-
             'babel-polyfill',
             'intl',
             'react',
@@ -121,12 +120,13 @@ module.exports = {
     },
 
     plugins: [
-        // 进度条
+        // 打包进度条
         new NyanProgressPlugin({
             nyanCatSays: function (progress) {
                 return progress === 1 && 'Marszed!';
             }
         }),
+        // 允许创建一个在编译时可以配置的全局常量。会对开发模式和发布模式的构建允许不同的行为非常有用
         new webpack.DefinePlugin({
             'process.env': { // React/Redux 打包环境配置
                 NODE_ENV: JSON.stringify('production')
