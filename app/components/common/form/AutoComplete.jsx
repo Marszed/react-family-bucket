@@ -124,6 +124,23 @@ class Radio extends React.Component {
             // 更新父组件缓存
             this.props.onChange('regionSecondCode', undefined);
         }
+        // 搜索条件变化
+        if (nextProps.project.searchOption && !isEqual(nextProps.project.searchOption, this.state.searchOption)) {
+            this.setState({
+                searchOption: nextProps.project.searchOption
+            });
+            if (nextProps.project.searchOption.regionFirst){
+                this.setState({
+                    value1: nextProps.project.searchOption.regionFirst
+                });
+            }
+            if (nextProps.project.searchOption.regionSecond){
+                this.setState({
+                    value2: nextProps.project.searchOption.regionSecond,
+                    disabled2: true
+                });
+            }
+        }
     }
 
     // 获取区域信息中的子级区域列表
@@ -164,18 +181,20 @@ class Radio extends React.Component {
                         disabled2: false
                     });
                 }
+
                 document.getElementsByClassName('ant-input ant-input ant-select-search__field')[1].focus();
             }
         }.bind(this)();
     }
 
     // 自动完成变化
-    onChange = (value) => {
+    onChange = (type,value) => {
         console.log(value);
     };
 
     // 自动完成选中
     onSelect = (type, value) => {
+        console.log(type, value);
         if (type === 1){
             if (value === '') {
                 this.props.onChange('regionFirstCode', '');
@@ -186,6 +205,7 @@ class Radio extends React.Component {
                 });
                 return false;
             }
+
             this.state.dataSourceObj1.map((obj) => {
                 if (value === obj.dicValue){
                     this.setState({
@@ -232,7 +252,8 @@ class Radio extends React.Component {
                         dataSource={this.state.dataSource1}
                         className="ipx_select"
                         style={{
-                            width: 200
+                            width: 200,
+                            marginBottom: 10 + 'px'
                         }}
                         value={this.state.value1}
                         disabled={this.state.disabled1}
@@ -245,7 +266,6 @@ class Radio extends React.Component {
                 <div id="IPXArea2" style={{
                     width: 200,
                     position: 'relative',
-                    maginTop:40,
                     height: 40
                 }}>
                     <AutoComplete

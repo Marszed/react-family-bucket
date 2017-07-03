@@ -31,6 +31,17 @@ class Search extends React.Component {
             // 移除组件更新指令
             this.props.dispatch(setFormSearch(''));
         }
+        // 搜索条件变化
+        if (nextProps.project.searchOption && !isEqual(nextProps.project.searchOption, this.state.searchOption)) {
+            this.setState({
+                searchOption: nextProps.project.searchOption
+            });
+            if (nextProps.project.searchOption.title){
+                this.setState({
+                    data: nextProps.project.searchOption.title
+                });
+            }
+        }
     }
 
     onInput = (e) => {
@@ -50,14 +61,12 @@ class Search extends React.Component {
     onSubmit = () => {
         this.props.onSubmit({});
     };
-
     keyDown = (event) => {
         if (event.keyCode == 13) {
             this.props.onChange(this.props.name, this.state.data);
             setTimeout( () => {this.props.onSubmit({});},50);
         }
     };
-
 
     render() {
         return (

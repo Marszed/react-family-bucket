@@ -83,8 +83,24 @@ class _Slider extends React.Component {
             this.props.dispatch(setFormSlider(''));
         }
 
-        const {messages} = this.props.intl;
-        this.setState(this.getTitleProps(messages, nextProps.data));
+        // 搜索条件变化
+        if (nextProps.project.searchOption && !isEqual(nextProps.project.searchOption, this.state.searchOption)) {
+            this.setState({
+                searchOption: nextProps.project.searchOption
+            });
+            const min = (this.props.name).replace('Max', '');
+            const max = (this.props.name).replace('Min', '');
+            if (nextProps.project.searchOption[min] !== undefined && nextProps.project.searchOption[max] !== undefined){
+                if (nextProps.project.searchOption.commissionType !== undefined && this.props.name === 'commissionMinMax'){
+                    const type = nextProps.project.searchOption.commissionType === 1 ? '$' : '%';
+                    this.recoverHandler(type, [nextProps.project.searchOption[min], nextProps.project.searchOption[max]]);
+                } else {
+                    this.setState({
+                        value: [nextProps.project.searchOption[min], nextProps.project.searchOption[max]]
+                    })
+                }
+            }
+        }
     }
 
     onChange = (option,commissionType) => {
@@ -101,6 +117,23 @@ class _Slider extends React.Component {
             this.props.onChange(this.props.name, option);
         }
     };
+
+    recoverHandler(option, value){
+        const {data} = this.props;
+        let temp = this.getDefaultProps(this.props.intl.messages, Object.assign(objCopy(data), {
+            markUnit: option,
+            step: option === '%' ? data.step : data.moneyStep,
+            defaultValue: option === '%' ? data.defaultValue : data.moneyValue,
+            value: value,
+            min: option === '%' ? data.defaultValue[0] : data.moneyValue[0],
+            max: option === '%' ? data.defaultValue[1] : data.moneyValue[1],
+            markMin: option === '%' ? data.defaultValue[0] : data.moneyValue[0],
+            markMax: option === '%' ? data.defaultValue[1] : data.moneyValue[1],
+            commissionType: option === '%' ? 0 : 1
+        }));
+        temp.value = value;
+        this.setState(temp);
+    }
 
     switchHandler(option, event){
         event.stopPropagation();

@@ -70,6 +70,20 @@ class Select extends React.Component {
             // 移除组件更新指令
             this.props.dispatch(setFormSelect(''));
         }
+        // 搜索条件变化
+        if (nextProps.project.searchOption && !isEqual(nextProps.project.searchOption, this.state.searchOption)) {
+            this.setState({
+                searchOption: nextProps.project.searchOption
+            });
+            // 同步子组件状态
+            if (nextProps.project.searchOption[this.props.name] !== undefined){
+                let value = nextProps.project.searchOption[this.props.name];
+                if (this.props.name === 'abroadFlag'){
+                    value = value === 0 ? 1 : (value === 1 ? 2 : 0)
+                }
+                this.onChange({value: value})
+            }
+        }
     }
 
     onChange(option) {

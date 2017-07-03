@@ -176,16 +176,16 @@ class NavCountry extends React.Component {
     onChange(name, value, _name, _value) {
         let option = {};
         const propertyMinMax = [{min: 1, max: 50}, {min: 51, max: 200}, {min: 201, max: 0}];
-        if (name === 'propertyMinMax' && value > 0) {
+        if (name === 'propertyMinMax') {
             this.setState({
-                propertyMax: propertyMinMax[value - 1].max,
-                propertyMin: propertyMinMax[value - 1].min
+                propertyMax: !value || value === -1 ? 0 : propertyMinMax[value - 1].max,
+                propertyMin: !value || value === -1 ? 0 : propertyMinMax[value - 1].min
             });
         } else if (name === 'abroadFlag') {
             option[name] = value - 1;
             this.setState(option);
         } else {
-            let _state = this.state;
+            let _state = objCopy(this.state);
             if (name === 'regionFirstCode' && value === ''){
                 delete _state['regionFirstCode'];
                 delete _state['regionFirst'];
@@ -223,7 +223,7 @@ class NavCountry extends React.Component {
     // submit
     onSubmit = (option) => {
         const {params} = this.props;
-        let req = Object.assign(objCopy(this.props.project.searchOption), {
+        const temp = {
             type: params.type,
             countryCode: params.country,
             title: this.state.title,
@@ -253,11 +253,18 @@ class NavCountry extends React.Component {
             regionFirst: this.state.regionFirst,
             regionSecond: this.state.regionSecond,
             timeStamp:new Date().getTime()
-        }, option);
+        };
 
+        for(let key in temp){
+            if (key === 'projectTypes' && !temp[key].length){
+                delete temp[key];
+            } else if (temp[key] === undefined || temp[key] === ''){
+                delete temp[key];
+            }
+        }
+
+        let req = Object.assign(objCopy(this.props.project.searchOption), temp, option);
         this.props.dispatch(setSearchOption(this.parameterFilter(req)));
-
-        // 收起搜索条件
         this.setState({
             expendPX: -344
         });

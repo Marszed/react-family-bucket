@@ -70,6 +70,23 @@ class SelectCheck extends React.Component {
             });
             this.props.dispatch(setFormSelectCheck(''));
         }
+        // 搜索条件变化
+        if (nextProps.project.searchOption && !isEqual(nextProps.project.searchOption, this.state.searchOption)) {
+            const {projectTypes} = nextProps.project.searchOption;
+            this.setState({
+                searchOption: nextProps.project.searchOption
+            });
+            if (projectTypes && projectTypes.length){
+                let tempData = objCopy(this.state.data);
+                if (projectTypes.length === 4){
+                    projectTypes.unshift(0);
+                }
+                tempData.defaultValue = projectTypes;
+                this.setState({
+                    data: tempData
+                });
+            }
+        }
     }
 
     onChange(option) {
@@ -150,7 +167,7 @@ class SelectCheck extends React.Component {
                     }
                 });
                 option.state = stateFlag;
-            })
+            });
         }
 
         return (

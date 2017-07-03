@@ -121,8 +121,8 @@ class NavAll extends React.Component {
         const propertyMinMax = [{min: 1, max: 50}, {min: 51, max: 200}, {min: 201, max: 0}];
         if (name === 'propertyMinMax') {
             this.setState({
-                propertyMax: value === -1 ? 0 : propertyMinMax[value - 1].max,
-                propertyMin: value === -1 ? 0 : propertyMinMax[value - 1].min
+                propertyMax: !value || value === -1 ? 0 : propertyMinMax[value - 1].max,
+                propertyMin: !value || value === -1 ? 0 : propertyMinMax[value - 1].min
             });
         } else if (name === 'abroadFlag') {
             option[name] = value - 1;
@@ -153,8 +153,7 @@ class NavAll extends React.Component {
     // submit
     onSubmit = (option) => {
         const {params} = this.props;
-
-        let req = Object.assign(objCopy(this.props.project.searchOption), {
+        const temp = {
             type: params.type,
             countryCode: params.country,
             title: this.state.title,
@@ -166,8 +165,17 @@ class NavAll extends React.Component {
             baths: this.state.baths,
             studys: this.state.studys,
             timeStamp:new Date().getTime()
-        }, option);
+        };
 
+        for(let key in temp){
+            if (key === 'projectTypes' && !temp[key].length){
+                delete temp[key];
+            } else if (temp[key] === undefined || temp[key] === ''){
+                delete temp[key];
+            }
+        }
+
+        let req = Object.assign(objCopy(this.props.project.searchOption), temp, option);
         this.props.dispatch(setSearchOption(this.parameterFilter(req)));
         // 收起搜索条件
         this.setState({

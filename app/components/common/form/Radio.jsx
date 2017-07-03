@@ -66,13 +66,38 @@ class Radio extends React.Component {
             // 更新父组件缓存
             this.props.onChange(this.props.name, -1);
         }
+        // 搜索条件变化
+        if (nextProps.project.searchOption && !isEqual(nextProps.project.searchOption, this.state.searchOption)) {
+            let value = 0;
+            if (nextProps.project.searchOption.propertyMin >= 51 && nextProps.project.searchOption.propertyMax <= 200 && nextProps.project.searchOption.propertyMax !== 0){
+                value = 2;
+            } else if (nextProps.project.searchOption.propertyMin > 200){
+                value = 3;
+            } else if (nextProps.project.searchOption.propertyMin >= 1 && nextProps.project.searchOption.propertyMax <= 50){
+                value = 1;
+            }
+            this.setState({
+                searchOption: nextProps.project.searchOption
+            });
+            // 避免搜索之后，传递回来的状态覆盖了现有的默认状态
+            if (value !== this.state.data.defaultValue){
+                this.onChange({
+                    value: value
+                });
+            }
+        }
     }
 
     onChange(option) {
+        let value = option.value;
+        // 反选操作
+        if (value === this.state.data.defaultValue){
+            value = 0;
+        }
         this.setState({
-            data: Object.assign(objCopy(this.state.data), {defaultValue: option.value})
+            data: Object.assign(objCopy(this.state.data), {defaultValue: value})
         });
-        this.props.onChange(this.props.name, option.value);
+        this.props.onChange(this.props.name, value);
     }
 
     render() {
