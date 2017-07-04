@@ -440,5 +440,6 @@ export default {
     slideDown: 'More',
     propertyTax: "Property Tax",
     transactionFee: 'Transaction Fee',
-    IPXHome:"Homepage"
+    IPXHome:"Homepage",
+    mobileLoginTip: 'Sorry, the website only support PC'
 };

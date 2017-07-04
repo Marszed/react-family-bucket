@@ -439,5 +439,6 @@ export default {
     slideDown: '展开',
     propertyTax: "房产税",
     transactionFee: "交易费",
-    IPXHome:"IPX首页"
+    IPXHome:"IPX首页",
+    mobileLoginTip: '请使用PC设备登陆'
 };

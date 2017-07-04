@@ -3,12 +3,14 @@
  */
 import React from "react";
 import {Link} from "react-router";
+import {connect} from "react-redux";
+import {showToast} from 'REDUX/actions/global';
 import env from "CONFIG/env";
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
 import pureRender from "pure-render-decorator";
 import {injectIntl} from "react-intl";
-import {langPackageInject, cookie, setLocalStorage} from 'LIB/tool';
+import {langPackageInject, cookie, setLocalStorage, isMobile} from 'LIB/tool';
 import ValidateTool from 'LIB/validationRules';
 import Header from 'COMPONENT/account/header';
 import agent_pic from 'ASSET/img/amtn_agency.png';
@@ -26,7 +28,8 @@ class Login extends React.Component {
             rememberState: false,
             validateInfo: 'empty',
             language: langPackageInject(),
-            verifyCodeSrc: ''
+            verifyCodeSrc: '',
+            isMobile: isMobile()
         };
     }
     //render后
@@ -47,6 +50,16 @@ class Login extends React.Component {
     }
     submit = (event) => {
         event.preventDefault();
+
+        // 移动端登陆提示用户在pc登陆
+        if (this.state.isMobile){
+            this.props.dispatch(showToast({
+                content: this.props.intl.messages.mobileLoginTip,
+                state: 2
+            }));
+            return false;
+        }
+
         //登录验证
         if (!this.validateEmail(this.state.email) || !this.validatePassword(this.state.password) || !this.validateVerifyCode(this.state.verifyCode)) {
             return false;
@@ -251,10 +264,17 @@ class Login extends React.Component {
         this.setState({validateInfo: "empty"});
         return true;
     }
-    changeLogin() {
-        window.location.href = window.location.protocol + '//agency.ipx.net';
-        // window.location.href = 'http://localhost:15554';
-    }
+
+    changeLogin = () => {
+        const {origin, protocol}  = window.location;
+        if (origin.indexOf('_t') !== -1){
+            window.location.href = protocol + '//agency_t.ipx.net:9090';
+        } else if (origin.indexOf('_dev') !== -1){
+            window.location.href = protocol + '//agency_dev.ipx.net';
+        } else {
+            window.location.href = protocol + '//agency.ipx.net';
+        }
+    };
 
     render() {
         const {messages} = this.props.intl;
@@ -373,4 +393,4 @@ class Login extends React.Component {
     }
 }
 
-export default injectIntl(Login);
+export default connect((store) => (store))(injectIntl(Login));
