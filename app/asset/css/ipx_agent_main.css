@@ -1030,7 +1030,7 @@ ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:1
     .login_mainBox {width:100%; height:auto; text-align:center}
     .login_mainBox a.ipxLogin_logo.float_lf {display:block; margin:0; padding:25px 0 20px; float:none!important}
     .login_mainBox a.ipxLogin_logo.float_lf img {display:block; width:40%; margin:0 auto}
-    .login_header .ipx_sign_language {position:static; padding:8px 10px; margin:0 auto 15px; font-size:13px}
+    .login_header .ipx_sign_language,.ipx_sign_language {position:static; display: block; text-align:center; padding:8px 10px; margin:0 auto 15px; font-size:13px}
 
     /*登录框*/
     .ipx_loginBox {margin:0; position:relative; top:0; left:0; padding:0; width:100%; overflow:hidden}
@@ -1050,7 +1050,8 @@ ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:1
 
     .login_foot {font-size:12px; overflow:hidden; background:#eee}
     .login_foot>ul li {margin:0 5px; font-size:12px}
-    .ipx_signbox_succeed { padding:2%}
+    .ipx_signbox_succeed {  padding: 20% 4% 0%; bottom: 0; height: 100%;}
+    .forgetPassword {padding: 20% 4% 0%; bottom: 0; height: 100%; width:100%; box-sizing:border-box}
 
     /*注册协议弹出框*/
     .ipx_pop_contract {width:100%!important; margin-left: 0!important; left: 0!important;}
