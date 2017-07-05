@@ -315,12 +315,12 @@ class NavBread extends React.Component {
         const {messages} = this.props.intl;
         const propertyMinMaxName = [messages.smallScale, messages.middleScale, messages.largeScale];
         const {searchOption, projectList} = this.state;
-        const projectTypes = searchOption.projectTypes ? searchOption.projectTypes.map((obj) => (
-                <li onClick={this.clearSearchOption.bind(this, {
-                    key: 'projectTypes',
-                    value: obj
-                })}>{messages['projectType' + obj]} ×</li>
-            )) : '';
+        const projectTypes = searchOption.projectTypes ? searchOption.projectTypes.map((obj) => {
+                return obj ? <li onClick={this.clearSearchOption.bind(this, {
+                        key: 'projectTypes',
+                        value: obj
+                    })}>{messages['projectType' + obj]} ×</li> : null
+            }) : null;
         const len = this.getFormOptionLength(searchOption);
         let areaUnit, currency;
         if(params.country === 'country.002'){
