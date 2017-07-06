@@ -8,6 +8,7 @@ import { createAction } from '../creater';
  * @type {string}
  */
 export const TOAST = 'TOAST';
+export const GLOBAL_CONFIRM = 'GLOBAL_CONFIRM';
 export const SHOW_HIDE_TOAST = 'SHOW_HIDE_TOAST';
 export const GLOBAL_LOADING = 'GLOBAL_LOADING';
 export const SHOW_HIDE_GLOBAL_LOADING = 'SHOW_HIDE_GLOBAL_LOADING';
@@ -47,6 +48,8 @@ export const setFormSlider = createAction(FORM_SLIDER, 'value');
 export const setFormRadioAuthorize = createAction(FORM_RADIO_AUTHORIZE, 'value');
 // 更新筛选表单 1，2地区选择组件
 export const setAutoComplete = createAction(SET_AUTO_COMPLETE, 'value');
+// 全局确认弹层
+export const setGlobalConfirm = createAction(GLOBAL_CONFIRM, 'value');
 
 // 显示关闭toast
 export const toast = createAction(TOAST, 'value');

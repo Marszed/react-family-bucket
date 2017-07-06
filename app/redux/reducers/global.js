@@ -17,10 +17,16 @@ import {
     FORM_RADIO_AUTHORIZE,
     SET_AUTO_COMPLETE,
     SET_COMPANY_INFO,
-    SET_USER_INFO
+    SET_USER_INFO,
+    GLOBAL_CONFIRM
 } from "../actions/global";
 
 export default combineReducers({
+    globalConfirm: createReducer('', {
+        [GLOBAL_CONFIRM](state, {value}){
+            return value;
+        }
+    }),
     toast: createReducer('', {
         [TOAST](state, {value}){
             return value;

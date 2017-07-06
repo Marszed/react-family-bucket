@@ -1,12 +1,16 @@
 @charset "utf-8";
 /* DANUI */
 
-* {padding:0; margin:0; font-family:Arial, "Microsoft Yahei", 微软雅黑}
-*:hover {-moz-transition: color .2s ease-in,background-color .2s ease-in; -webkit-transition: color .2s ease-in,background-color .2s ease-in; -o-transition: color .2s ease-in,background-color .2s ease-in; transition: color .2s ease-in,background-color .2s ease-in}
+/** {padding:0; margin:0; font-family:Arial, "Microsoft Yahei", 微软雅黑}*/
+body * {padding:0; margin:0; font-family:Arial, "Microsoft Yahei", 微软雅黑; box-sizing: content-box;}
+/**:hover {-moz-transition: color .2s ease-in,background-color .2s ease-in; -webkit-transition: color .2s ease-in,background-color .2s ease-in; -o-transition: color .2s ease-in,background-color .2s ease-in; transition: color .2s ease-in,background-color .2s ease-in}*/
+body *:hover {-moz-transition: color .2s ease-in,background-color .2s ease-in; -webkit-transition: color .2s ease-in,background-color .2s ease-in; -o-transition: color .2s ease-in,background-color .2s ease-in; transition: color .2s ease-in,background-color .2s ease-in}
 img {border:none}
 input,textarea,button,select {outline:none}
 a {text-decoration:none}
+body a {text-decoration:none}
 ol,ul,li {list-style:none;}
+cite{font-style: normal;}
 ::-moz-selection{background:#00afb4; color:#fff;}
 ::selection {background:#00afb4; color:#fff;} 
 

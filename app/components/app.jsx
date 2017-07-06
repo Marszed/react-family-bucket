@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import GlobalLoading from 'COMPONENT/common/globalLoading';
+import GlobalConfirm from 'COMPONENT/common/globalConfirm';
 import Toast from 'COMPONENT/common/toast';
 
 export default class App extends React.Component {
@@ -13,6 +14,7 @@ export default class App extends React.Component {
         return <div>
             {this.props.children}
             <GlobalLoading />
+            <GlobalConfirm />
             <Toast />
         </div>;
     }

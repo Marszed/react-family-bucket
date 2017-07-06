@@ -1060,7 +1060,6 @@ ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:1
 }
 
 /*------------------------------------------预设样式----------------------------------------------*/
-cite{font-style: normal;}
 .hide{display: none !important;}
 .show{display: block !important;}
 .inline_box{display: inline}
@@ -1121,6 +1120,7 @@ cite{font-style: normal;}
 
 
 /*表单预设样式--------------------按钮部分--------------------------*/
+body * {box-sizing: content-box;}
 .ipx_btn {cursor:pointer; box-sizing:border-box;
 -moz-transition:background-color .4s ease,border .4s ease,opacity .4s ease;
 -webkit-transition:background-color .4s ease,border .4s ease,opacity .4s ease;

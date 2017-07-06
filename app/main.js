@@ -12,7 +12,6 @@ import {Router, Route, hashHistory, IndexRedirect} from 'react-router';
 import store from 'REDUX/store/global'; // redux store引入
 import 'ASSET/css/DanUI.css'; // 公共样式引入
 import 'ASSET/css/ipx_agent_main.css';
-import 'ASSET/css/ipxfont.css';
 import 'ASSET/css/jslider.css';
 
 /**
