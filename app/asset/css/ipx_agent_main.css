@@ -71,6 +71,7 @@ body *{
 .ipxsign_title {font-size: 14px; margin: 0 0 30px;}
 .ipx_sign_logo{margin:0 auto;display:block;margin-bottom:40px}
 
+
 /*不动产商注册登录----------------------------------------------------------------------------------------*/
 /*
 .login_header {width:1200px; height:100px; margin:0 auto; background:#fff; position:relative}
@@ -1022,6 +1023,41 @@ ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:1
 .company_person_name {display:inline-block; *display:inline; *zoom:1; vertical-align:middle; font-weight:bold}
 
 
+
+/*登录注册适配移动端*/
+@media (max-width:900px){
+    .login_main {height:auto}
+    .login_mainBox {width:100%; height:auto; text-align:center}
+    .login_mainBox a.ipxLogin_logo.float_lf {display:block; margin:0; padding:25px 0 20px; float:none!important}
+    .login_mainBox a.ipxLogin_logo.float_lf img {display:block; width:40%; margin:0 auto}
+    .login_header .ipx_sign_language,.ipx_sign_language {position:static; display: block; text-align:center; padding:8px 10px; margin:0 auto 15px; font-size:13px}
+
+    /*登录框*/
+    .ipx_loginBox {margin:0; position:relative; top:0; left:0; padding:0; width:100%; overflow:hidden}
+    .ipx_loginBox h1 {margin-top:15px; margin-bottom:20px}
+    .ipx_loginBox .ipx_login_tab {height:50px;  margin-top:0}
+    .ipx_loginBox .ipx_login_tab>span {height:50px; line-height:50px;}
+    .ipx_sign_dl dd .ipx_sign_label {width:15%;}
+    .ipx_sign_dl dd input.ipxTxt {width:80%;}
+    .ipx_sign_dl dd .verificode_img {width:35%; margin-left:3%}
+    .ipx_sign_dl dd .verificode_input {width:42%!important;}
+    .ipx_loginBox>button.ipx_btn {margin:20px auto 0}
+    .ipx_signbox_td,.ipx_sign_return {width:100%; box-sizing:border-box; padding:0 6%}
+    .ipx_signbox_td .float_lf.ipx_checkbox {margin-left:10%}
+    .ipx_sign_dl dd.warning p.warningTxt {    position: static; margin-left: 15%; width:75%; clear: both;}
+    /*动画部分*/
+    .animationbox {display:none}
+
+    .login_foot {font-size:12px; overflow:hidden; background:#eee}
+    .login_foot>ul li {margin:0 5px; font-size:12px}
+    .ipx_signbox_succeed {  padding: 20% 4% 0%; bottom: 0; height: 100%;}
+    .forgetPassword {padding: 20% 4% 0%; bottom: 0; height: 100%; width:100%; box-sizing:border-box}
+
+    /*注册协议弹出框*/
+    .ipx_pop_contract {width:100%!important; margin-left: 0!important; left: 0!important;}
+    .ipx_pop_contract .ipx_pop_body {width: 100%!important; padding: 2%!important;}
+    .ipx_pop_contract .ipx_pop_foot { width:100%!important}
+}
 
 /*------------------------------------------预设样式----------------------------------------------*/
 cite{font-style: normal;}
