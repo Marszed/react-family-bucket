@@ -441,5 +441,10 @@ export default {
     propertyTax: "Property Tax",
     transactionFee: 'Transaction Fee',
     IPXHome:"Homepage",
-    mobileLoginTip: 'Sorry, the website only support PC'
+    mobileLoginTip: 'Sorry, the website only support PC',
+    tips: "Tips",
+    isPlatformTip: "请联系IPX平台，签约后使用此功能",
+    viewCommission: "查看佣金",
+    projectContactPerson: "平台联系人",
+    scanEwm: "扫码添加微信"
 };

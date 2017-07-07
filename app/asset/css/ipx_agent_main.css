@@ -236,11 +236,15 @@ body *{
 /*详情右侧*/
 .ipx_proj_preview_rt {position:absolute; top:0px; right:0px; left:910px}
 /*销售状况*/
-.sales_chart_ul {width:50%; float:left}
+.sales_chart_ul {width:60%; float:left}
 .sales_chart_ul li {font-size:12px; line-height:30px; height:30px}
+.sales_chart_ul li>i {font-size:18px; vertical-align:middle; margin-right:10px}
 .sales_chart_ul li>em {display:inline-block; width:14px; height:14px; margin-right:20px; vertical-align:middle}
 .sales_chart_ul li>span {vertical-align:middle}
-.sales_chart_frame {width:50%; float:left; text-align:center;height: 100px;}
+.sales_chart_frame {width:40%; float:left; text-align:center}
+.sales_chart_frame .qrcode_imgbox {width:120px; height:120px; margin:0 auto}
+.sales_chart_frame .qrcode_imgbox img {width:120px; height:120px}
+.sales_chart_frame .qrcode_imgbox p {font-size:12px; width:120px; text-align:center; color:#999}
 /*交易信息*/
 .preview_sell_information {padding:24px 0 0 0}
 .preview_sell_information h3 {padding:0 24px}

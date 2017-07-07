@@ -301,7 +301,6 @@ class Msg extends React.Component {
                                 <i className={this.state.favoriteFlag?"iconfont icon-favorite2":"iconfont icon-favorite1"}/>{this.state.favoriteFlag?messages.bookmarked:messages.marked}
                             </span>
                         </div>
-
                         {
                             this.state.picList && this.state.picList.length ? <InlineSlider speed={1.5} delay={3} pause={true} autoplay={false} arrows={true} items={this.state.picList.sort(keySort('isFrontImage',true))}/> :
                                 <div className="proj_preview_imgshow">
@@ -311,7 +310,6 @@ class Msg extends React.Component {
                                     <div className="proj_preview_litimgbox"></div>
                                 </div>
                         }
-
                         <div className="preview_common_stylebox base_infomation">
                             <h3 className="preview_common_h3">{messages.baseInfo}</h3>
                             <div className="agency_info_attr_box clearfix">
@@ -378,6 +376,20 @@ class Msg extends React.Component {
                         </div>
                     </div>
                     <div className="ipx_proj_preview_rt">
+                        {
+                            this.state.projectContact ? <div className="preview_common_stylebox clearfix">
+                                    <h3 className="preview_common_h3">{messages.projectContactPerson}</h3>
+                                    <ul className="sales_chart_ul">
+                                        <li><i className="iconfont icon-person"/><span>{this.state.projectContact.contactName}</span></li>
+                                        <li><i className="iconfont icon-cellphone"/><span>{this.state.projectContact.contactPhone}</span></li>
+                                        <li><i className="iconfont icon-email"/><span>{this.state.projectContact.contactEmail}</span></li>
+                                        <li><i className="iconfont icon-weichat"/><span>{this.state.projectContact.contactWechat}</span></li>
+                                    </ul>
+                                    <div className="sales_chart_frame">
+                                        <div className="qrcode_imgbox"><img src={this.state.projectContact.wechatUrl} /><p>{messages.scanEwm}</p></div>
+                                    </div>
+                                </div> : null
+                        }
                         <div className="preview_common_stylebox clearfix">
                             <h3 className="preview_common_h3">{messages.salesStatus}</h3>
                             <ul className="sales_chart_ul">
