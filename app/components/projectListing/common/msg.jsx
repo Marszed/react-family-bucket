@@ -397,7 +397,7 @@ class Msg extends React.Component {
                                 <li><em className="ipxyellow_bg"/><span> {messages.reserved} <b className="ipxyellow_txt">{this.state.reserved}</b></span></li>
                                 <li><em className="ipxred_bg"/><span> {messages.sold} <b className="ipxred_txt">{this.state.sold}</b></span></li>
                             </ul>
-                            <div className="sales_chart_frame" id="projectChart">
+                            <div className="sales_echart_frame" id="projectChart">
                             </div>
                         </div>
                         <div className="preview_common_stylebox preview_sell_information">

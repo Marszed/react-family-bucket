@@ -241,6 +241,7 @@ body *{
 .sales_chart_ul li>i {font-size:18px; vertical-align:middle; margin-right:10px}
 .sales_chart_ul li>em {display:inline-block; width:14px; height:14px; margin-right:20px; vertical-align:middle}
 .sales_chart_ul li>span {vertical-align:middle}
+.sales_echart_frame {width:40%; float:left; text-align:center;height: 100px;}
 .sales_chart_frame {width:40%; float:left; text-align:center}
 .sales_chart_frame .qrcode_imgbox {width:120px; height:120px; margin:0 auto}
 .sales_chart_frame .qrcode_imgbox img {width:120px; height:120px}
