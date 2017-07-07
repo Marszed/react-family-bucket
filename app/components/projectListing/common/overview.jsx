@@ -8,7 +8,7 @@ import pureRender from "pure-render-decorator";
 import {isEqual, objCopy, encode64, formatMoney, debounce, getLocalStorage} from 'LIB/tool';
 import {injectIntl} from 'react-intl';
 import {setCountry, setProjectList, setSearchOption} from 'REDUX/actions/project';
-import {showToast} from 'REDUX/actions/global';
+import {showToast, setFormRadioType} from 'REDUX/actions/global';
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall} from 'HTTP';
 import NavBread from './navBread';
@@ -62,6 +62,10 @@ class Overview extends React.Component {
     }
 
     componentWillUnmount() {
+        this.props.dispatch(setFormRadioType({
+            key: 'viewType',
+            value: 0
+        }));
         this.props.dispatch(setSearchOption(''));
         window.removeEventListener('resize', this.autoImage);
     }
@@ -211,7 +215,6 @@ class Overview extends React.Component {
             }
         }.bind(this)();
     }
-
     // 已阅读并且同意协议
     agreementHandler = (flag) => {
         if (flag === false){
