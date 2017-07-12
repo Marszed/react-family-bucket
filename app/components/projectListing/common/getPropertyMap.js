@@ -607,7 +607,8 @@ const propertyMap = ((messages, ValidateTool)=>{
                     {"id": 6, "data": messages.waterView},
                     {"id": 7, "data": messages.forestView},
                     {"id": 8, "data": messages.mountainView},
-                    {"id": 9, "data": messages.parkView}
+                    {"id": 9, "data": messages.parkView},
+                    {"id": 10, "data": messages.other}
                 ],
                 required: obj.required !== undefined ? obj.required :false
             }
@@ -1883,7 +1884,7 @@ const propertyMap = ((messages, ValidateTool)=>{
         // 房屋朝向
         aspectName: [messages.EAST, messages.WEST, messages.SOUTH, messages.NORTH, messages.SOUTHEAST, messages.NORTHEAST, messages.SOUTHWEST, messages.NORTHWEST, messages.EAST_WEST, messages.NORTH_SOUTH, messages.central],
         // 房屋景观 城市中心景观, 海滩景观, 海景，河景，湖景，水景，森林景观，山景
-        houseViewName: [messages.cityView, messages.beachView, messages.seaView, messages.riverView, messages.lakeView, messages.waterView, messages.forestView, messages.mountainView, messages.parkView],
+        houseViewName: [messages.cityView, messages.beachView, messages.seaView, messages.riverView, messages.lakeView, messages.waterView, messages.forestView, messages.mountainView, messages.parkView, messages.other],
         // propertyStatusName
         propertyStatusName: [messages.available, messages.reserved, messages.sold],
         // yesNo
