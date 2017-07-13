@@ -16,7 +16,7 @@ let hostConfig = {
         // origin: 'http://172.23.1.11:8080' // 詹铁强
         // origin: 'http://localhost:8080' // 本地服务器
         // origin: 'http://agent_dev.ipx.net' // 开发服务器
-        origin: 'http://agent_t.ipx.net' // 测试服务器
+        origin: 'https://agent_t.ipx.net' // 测试服务器
         // origin: 'https://agent.ipx.net' // 正式服务器
     }
 };
