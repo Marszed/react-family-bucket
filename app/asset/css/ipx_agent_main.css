@@ -1312,3 +1312,18 @@ transition: background-color .4s ease,border .4s ease,opacity .4s ease}
 
 /*css3 自适应水平垂直居中*/
 .center-middle{text-align: center;  display: -webkit-box;  -webkit-box-align: center;  -webkit-box-pack: center;  display: -moz-box;  -moz-box-align: center;  -moz-box-pack: center;  display: -o-box;  -o-box-align: center;  -o-box-pack: center;  display: -ms-box;  -ms-box-align: center;  -ms-box-pack: center;  display: box;  box-align: center;  box-pack: center;  }
+
+/*头像裁剪确认弹出框*/
+.ipx_pop_imageCrop {width:600px; margin-left:-300px; top: 200px; z-index: 999}
+.ipx_pop_imageCrop .ipx_pop_body {width:100%; min-height: 100px;text-align: center; color: #666;}
+.ipx_pop_imageCrop .ipx_pop_foot {padding:0 20px 20px;text-align: center;}
+/*方形裁剪*/
+.ipx_pop_imageCrop .ipx_imageCrop_square .imageCrop_square_box{max-width: 430px; max-height: 430px;margin-right: 8px;}
+.ipx_pop_imageCrop .ipx_imageCrop_square .imageCrop_preview_box{width: 100px; max-height: 100px;overflow: hidden;border: 1px solid #666}
+.ipx_pop_imageCrop .ipx_imageCrop_square .ReactCrop__image{max-width: 430px; max-height: 430px;}
+/*矩形裁剪*/
+.ipx_pop_imageCrop .imageCrop_rectangle_box{text-align: left}
+.ipx_pop_imageCrop .imageCrop_rectangle_box .ReactCrop__image{max-width: 540px; max-height: 162.4px;}
+.ipx_pop_imageCrop .ipx_imageCrop_rectangle .ipx_imageCrop_preview{margin-top: 20px;font-size: 14px;}
+.ipx_pop_imageCrop .ipx_imageCrop_rectangle .ipx_imageCrop_preview span{font-size: 14px;color: #666; margin-right: 8px;}
+.ipx_pop_imageCrop .ipx_imageCrop_rectangle .imageCrop_preview_box{width: 266px; height: 80px; overflow: hidden;border: 1px solid #666}

@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {injectIntl} from "react-intl";
 import INTERFACE from "INTERFACE/config";
 import {asyncAwaitCall, getUploader} from 'HTTP';
-import {setUserInfo, showToast} from "REDUX/actions/global";
+import {setUserInfo, showToast, setImageCropRequest, setImageCropResponse} from "REDUX/actions/global";
 import {getLocalStorage, setLocalStorage, objCopy, isEqual, langPackageInject} from "LIB/tool";
 import ValidateTool from 'LIB/validationRules';
 import Loading from "ASSET/img/ipx-loading.gif";
@@ -37,6 +37,69 @@ class PersonInfo extends React.Component {
             })
         };
     }
+
+    // 监听数据变化
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.global.imageCropResponse && nextProps.global.imageCropResponse.key === 'personInfo' && !isEqual(nextProps.global.imageCropResponse, this.state.imageCropResponse)) {
+            this.setState({
+                imageCropResponse: nextProps.global.imageCropResponse
+            });
+            this.fileUploadHandler(nextProps.global.imageCropResponse);
+        }
+    }
+
+    // 执行文件上传
+    fileUploadHandler = (file) => {
+        let formData = new FormData();
+        // 开启上传loading
+        this.setState({
+            userInfo: Object.assign(objCopy(this.state.userInfo), {profileImage: Loading})
+        });
+        formData.append(file.cropFileName, file.cropFile, file.cropFileName);
+        let ajaxAsync = async function () {
+            let response = await asyncAwaitCall({
+                url: {
+                    value: INTERFACE["UPLOAD_PERSON_LOGO"],
+                    key: "UPLOAD_PERSON_LOGO"
+                },
+                method: 'post',
+                data: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                loading: false
+            });
+            if (!response.errType) {
+                const temp = Object.assign(objCopy(this.state.userInfo), {profileImage: response.data.data + "?v=" + (new Date()).getTime()});
+                // 从接口返回中取出url替换loading
+                this.setState({
+                    userInfo: temp
+                });
+                //维护redux中的用户信息
+                setLocalStorage('userInfo', temp);
+                this.props.dispatch(setUserInfo(temp));
+                // 提示用户,上传成功
+                this.props.dispatch(showToast({
+                    content: this.props.intl.messages.uploadSuccess,
+                    state: 1
+                }));
+            } else {
+                // 上传报错移除loading
+                this.setState({
+                    userInfo: Object.assign(objCopy(this.state.userInfo), {profileImage: userInfo.profileImage})
+                });
+                // 提示用户,上传失败
+                this.props.dispatch(showToast({
+                    content: this.props.intl.messages.uploadFail,
+                    state: 2
+                }));
+            }
+        }.bind(this)();
+    };
+
+    componentWillUnmount() {
+        this.props.dispatch(setImageCropResponse(""));
+    };
 
     changeSex = (sex) => {
         let info = this.state.userInfo ;
@@ -168,69 +231,25 @@ class PersonInfo extends React.Component {
             }));
             return false;
         }
-        return isFile && fileSize;
-    };
-
-    handleChange = (info) => {
-        if (info.file.status === 'uploading') {
-            // 添加上传loading
-            this.setState({
-                userInfo: Object.assign(objCopy(this.state.userInfo), {profileImage: Loading})
-            });
-        } else if (info.file.status === 'done') {
-            /*
-             // 直接读取图片文件的base64数据
-             this.getBase64(info.file.originFileObj, imageUrl => this.setState({
-             companyInfo: Object.assign(objCopy(this.state.companyInfo), {companyLogo: info.file.reponse.data.url})
-             }));
-             */
-            if (info.file.response.header && info.file.response.header.code === '0000'){
-                const temp = Object.assign(objCopy(this.state.userInfo), {profileImage: objCopy(info.file.response).data + "?v=" + (new Date()).getTime()});
-                // 从接口返回中取出url替换loading
-                this.setState({
-                    userInfo: temp
-                });
-                //维护redux中的用户信息
-                setLocalStorage('userInfo', temp);
-                this.props.dispatch(setUserInfo(temp));
-                // 提示用户,上传成功
-                this.props.dispatch(showToast({
-                    content: this.props.intl.messages.uploadSuccess,
-                    state: 1
-                }));
-            } else {
-                // 上传报错移除loading
-                this.setState({
-                    userInfo: Object.assign(objCopy(this.state.userInfo), {profileImage: userInfo.profileImage})
-                });
-                // 提示用户,上传失败
-                this.props.dispatch(showToast({
-                    content: this.props.intl.messages.uploadFail,
-                    state: 2
-                }));
-            }
-
-        } else if (info.file.status === 'error') {
-            // 上传报错移除loading
-            this.setState({
-                userInfo: Object.assign(objCopy(this.state.userInfo), {profileImage: userInfo.profileImage})
-            });
-            // 提示用户,上传失败
-            this.props.dispatch(showToast({
-                content: this.props.intl.messages.uploadFail,
-                state: 2
+        // 取消上传执行手动上传
+        if (isFile && fileSize){
+            this.props.dispatch(setImageCropRequest({
+                key: 'personInfo',
+                cropTime: (new Date()).getTime(),
+                cropFile: file,
+                crop: {
+                    x: 0,
+                    y: 0,
+                    width: 160,
+                    height: 160,
+                    aspect: 1
+                },
+                imageSquare: true,
+                imageAlt: file.name
             }));
         }
+        return false;
     };
-    /*
-     // 获取图片base64数据
-     getBase64 = (img, callback) => {
-     const reader = new FileReader();
-     reader.addEventListener('load', () => callback(reader.result));
-     reader.readAsDataURL(img);
-     };
-     */
-    //==============文件上传============
 
     render() {
         const {messages} = this.props.intl;

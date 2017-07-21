@@ -446,5 +446,10 @@ export default {
     isPlatformTip: "You need to sign contract before you use the service",
     viewCommission: "View Commission",
     projectContactPerson: "Contact",
-    scanEwm: "Scan and add Wechat friend"
+    scanEwm: "Scan and add Wechat friend",
+    uploadedFailure: '上传失败，请重试',
+    fileUploadNumberTip: '每次最大上传数量为',
+    imageCrop: '图像裁剪',
+    uploadStart: '开始上传',
+    uploadPreview: '预览'
 };

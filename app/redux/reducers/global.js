@@ -18,7 +18,9 @@ import {
     SET_AUTO_COMPLETE,
     SET_COMPANY_INFO,
     SET_USER_INFO,
-    GLOBAL_CONFIRM
+    GLOBAL_CONFIRM,
+    IMAGE_CROP_REQUEST,
+    IMAGE_CROP_RESPONSE
 } from "../actions/global";
 
 export default combineReducers({
@@ -105,5 +107,11 @@ export default combineReducers({
         [SET_AUTO_COMPLETE](state, {value}){
             return value;
         }
+    }),
+    imageCropRequest: createReducer('', {
+        ['IMAGE_CROP_REQUEST'](state, {value}){return value}
+    }),
+    imageCropResponse: createReducer('', {
+        ['IMAGE_CROP_RESPONSE'](state, {value}){return value}
     })
 });

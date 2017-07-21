@@ -25,6 +25,8 @@ export const FORM_RADIO_AUTHORIZE = 'FORM_RADIO_AUTHORIZE';
 export const SET_AUTO_COMPLETE = 'SET_AUTO_COMPLETE';
 export const SET_COMPANY_INFO = 'SET_COMPANY_INFO';
 export const SET_USER_INFO = 'SET_USER_INFO';
+export const IMAGE_CROP_REQUEST = "IMAGE_CROP_REQUEST";
+export const IMAGE_CROP_RESPONSE = "IMAGE_CROP_RESPONSE";
 
 // 设置公司信息
 export const setCompanyInfo = createAction(SET_COMPANY_INFO,'value');
@@ -50,6 +52,10 @@ export const setFormRadioAuthorize = createAction(FORM_RADIO_AUTHORIZE, 'value')
 export const setAutoComplete = createAction(SET_AUTO_COMPLETE, 'value');
 // 全局确认弹层
 export const setGlobalConfirm = createAction(GLOBAL_CONFIRM, 'value');
+// 图片裁剪输入
+export const setImageCropRequest = createAction(IMAGE_CROP_REQUEST,'value');
+// 图片裁剪输出
+export const setImageCropResponse = createAction(IMAGE_CROP_RESPONSE,'value');
 
 // 显示关闭toast
 export const toast = createAction(TOAST, 'value');

@@ -445,5 +445,10 @@ export default {
     isPlatformTip: "请联系IPX平台，签约后使用此功能",
     viewCommission: "查看佣金",
     projectContactPerson: "平台联系人",
-    scanEwm: "扫码添加微信"
+    scanEwm: "扫码添加微信",
+    uploadedFailure: '上传失败，请重试',
+    fileUploadNumberTip: '每次最大上传数量为',
+    imageCrop: '图像裁剪',
+    uploadStart: '开始上传',
+    uploadPreview: '预览'
 };

@@ -36,5 +36,6 @@ export default {
     "EXPORT": '/agent/property/export', // 不动产列表导出
     "PROPERTYDETAIL": '/agent/property/', // 获取项目不动产详情
     "CHART": '/agent/property/sales/chart/', // 展示项目销控图
-    "REGION": '/agent/region/sub/list/' // 获取区域信息中的子级区域列表
+    "REGION": '/agent/region/sub/list/', // 获取区域信息中的子级区域列表
+    "UPLOAD_PERSON_LOGO": "/agent/sys/personal/profileImage", //修改个人头像
 };
