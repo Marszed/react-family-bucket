@@ -17,7 +17,7 @@ import 'ASSET/css/jslider.css';
 /**
  * 自定义工具方法库
  */
-import {langPackageInject} from "LIB/tool";
+import {langPackageInject, getQueryString} from "LIB/tool";
 
 /**
  * 国际化
@@ -30,9 +30,13 @@ import globalZHCN from "LANG/global_zh";
 import globalEnUS from "LANG/global_en";
 
 addLocaleData([...en, ...zh]);
-let globalLang = (langPackageInject().indexOf('zh') !== -1) ? globalZHCN : globalEnUS;
-
-let globalLocale = (langPackageInject().indexOf('zh') !== -1) ? "zh" : "en";
+const clientHrefLang = getQueryString("language");
+const clientLang = clientHrefLang || langPackageInject();
+const globalLang = (clientLang.indexOf('zh') !== -1) ? globalZHCN : globalEnUS;
+const globalLocale = (clientLang.indexOf('zh') !== -1) ? "zh" : "en";
+if (clientHrefLang){
+    cookie('language', clientHrefLang, {expires: 360});
+}
 
 // 路由配置表
 import ROUTER from "ROUTER";
