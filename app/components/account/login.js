@@ -267,10 +267,10 @@ class Login extends React.Component {
 
     changeLogin = () => {
         const {origin, protocol}  = window.location;
-        if (origin.indexOf('_t') !== -1){
-            window.location.href = protocol + '//agency_t.ipx.net:9091';
-        } else if (origin.indexOf('_dev') !== -1){
-            window.location.href = protocol + '//agency_dev.ipx.net';
+        if (origin.indexOf('-t') !== -1){
+            window.location.href = protocol + '//agency-t.ipx.net:9091';
+        } else if (origin.indexOf('-dev') !== -1){
+            window.location.href = protocol + '//agency-dev.ipx.net';
         } else {
             window.location.href = protocol + '//agency.ipx.net';
         }
