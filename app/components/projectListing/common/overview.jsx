@@ -199,13 +199,24 @@ class Overview extends React.Component {
                     content: option.favoriteFlag !== 1? messages.markedSuccess : messages.cancelMarked,
                     state: 1
                 }));
-                let temp = objCopy(this.state.projectList);
-                temp.list.map((obj) => {
-                    if (obj.projectId === option.projectId){
-                        obj.favoriteFlag = option.favoriteFlag === 1 ? 0 : 1;
-                        return false;
-                    }
-                });
+                let temp = objCopy(this.state.projectList), array = [];
+                // 如果是已收藏列，需要移除
+                if (this.props.params.type == 3){
+                    temp.list.map((obj) => {
+                        if (obj.projectId !== option.projectId){
+                            array.push(obj);
+                        }
+                    });
+                    temp.list = array;
+                    temp.total -= 1;
+                } else {
+                    temp.list.map((obj) => {
+                        if (obj.projectId === option.projectId){
+                            obj.favoriteFlag = option.favoriteFlag === 1 ? 0 : 1;
+                            return false;
+                        }
+                    });
+                }
                 temp.favoriteNumber = option.favoriteFlag === 1 ? (temp.favoriteNumber - 1) : (temp.favoriteNumber + 1);
                 this.props.dispatch(setProjectList(temp));
             }
