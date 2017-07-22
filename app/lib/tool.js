@@ -9,7 +9,7 @@ export function getQueryString(name) {
     let locationHref = window.location.href;
     let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     let r = locationHref.split('?')[1] ? locationHref.split('?')[1].match(reg) : '';
-    if (r !== null) {
+    if (r !== null && r !== '') {
         return decodeURI(r[2]);
     }
     return null;
