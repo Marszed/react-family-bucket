@@ -69,11 +69,15 @@ class _Slider extends React.Component {
         };
     };
 
-    getTitleProps = (messages, props) => {
-        return {title: props.title || messages.all};
-    };
-
     componentWillReceiveProps(nextProps) {
+        // 总价父组件传递数据变化
+        if (nextProps.data && !isEqual(nextProps.data, this.state.data) && this.props.name === 'unitPriceMinMax') {
+            this.setState({
+                data: nextProps.data,
+                title: nextProps.data.title
+            });
+        }
+
         // formSlider 变化并且 更新的key与组件的name一致
         if (nextProps.global.formSlider && nextProps.global.formSlider.key === this.props.name) {
             this.setState({
