@@ -378,7 +378,7 @@ class Property extends React.Component {
             tbody = this.state.list.map((obj, _index) => {
                 if (splitIndex && (_index == splitIndex)){
                     return <div className="proj_propty_tr clearfix" key="splitIndex">
-                        <a href="javascript:;" className="proj_property_control_btn" onClick={this.openList}>{messages.slideDown} <i className="iconfont icon-arrowdown"/></a>
+                        <a href="javascript:;" className="proj_property_control_btn" onClick={this.openList}>{messages.seeMore} <i className="iconfont icon-arrowdown"/></a>
                     </div>
                 }
                 return (<div className={"proj_propty_tr clearfix" + (_index >= splitIndex && splitIndex ? ' hide' : '')} key={obj.propertyId}>
