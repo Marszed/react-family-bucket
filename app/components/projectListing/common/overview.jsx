@@ -133,16 +133,12 @@ class Overview extends React.Component {
         });
         if (force === 'append'){
             this.setState({
-                loadMoreState: true
+                loadMoreState: 1 // 0 隐藏 1 加载中 2 没有更多记录了
             });
         }
         if (this.state.hasNextPage === false && force === 'append') {
-            this.props.dispatch(showToast({
-                content: messages.noMore,
-                state: 2
-            }));
             this.setState({
-                loadMoreState: false
+                loadMoreState: 2
             });
             return false;
         }
@@ -160,7 +156,7 @@ class Overview extends React.Component {
             });
             if (force === 'append'){
                 this.setState({
-                    loadMoreState: false
+                    loadMoreState: 0
                 });
             }
             if (!response.errType) {
@@ -465,7 +461,7 @@ class Overview extends React.Component {
                                 }
                             </div>
                     }
-                    <p className={"loadmore " + (this.state.loadMoreState ? '' : 'hide')}>{messages.loadMore}</p>
+                    <p className={"loadmore " + (this.state.loadMoreState ? '' : 'hide')}>{this.state.loadMoreState === 1 ? messages.loadMore : messages.noMore}</p>
                 </div>
                 <Agreement ref="agreement" messages={messages} submit={this.agreementHandler.bind(this)}/>
                 <GaveAgency data={this.state.agentData} messages={messages} agentTime={this.state.agentTime}/>
