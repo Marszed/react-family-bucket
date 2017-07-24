@@ -187,14 +187,14 @@ class NavCountry extends React.Component {
         } else {
             let _state = objCopy(this.state);
             if (name === 'regionFirstCode' && value === ''){
-                delete _state['regionFirstCode'];
-                delete _state['regionFirst'];
-                delete _state['regionSecondCode'];
-                delete _state['regionSecond'];
+                _state.regionFirstCode=undefined;
+                _state.regionFirst=undefined;
+                _state.regionSecondCode=undefined;
+                _state.regionSecond=undefined;
                 this.setState(_state);
             } else if (name === 'regionSecondCode' && value === ''){
-                delete _state['regionSecondCode'];
-                delete _state['regionSecond'];
+                _state.regionSecondCode=undefined;
+                _state.regionSecond=undefined;
                 this.setState(_state);
             } else {
                 option[name] = value;
@@ -257,8 +257,6 @@ class NavCountry extends React.Component {
 
         for(let key in temp){
             if (key === 'projectTypes' && !temp[key].length){
-                delete temp[key];
-            } else if (temp[key] === undefined || temp[key] === ''){
                 delete temp[key];
             }
         }
