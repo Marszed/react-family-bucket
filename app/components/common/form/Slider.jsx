@@ -69,10 +69,6 @@ class _Slider extends React.Component {
         };
     };
 
-    getTitleProps = (messages, props) => {
-        return {title: props.title || messages.all};
-    };
-
     componentWillReceiveProps(nextProps) {
         // formSlider 变化并且 更新的key与组件的name一致
         if (nextProps.global.formSlider && nextProps.global.formSlider.key === this.props.name) {
@@ -157,7 +153,7 @@ class _Slider extends React.Component {
         const range = this.state.defaultValue instanceof Array;
         return (
             <div className="proj_screen_cont_td" style={Object.assign({overflow: 'hidden'},this.state.style || {})}>
-                <h3>{this.state.title}</h3>
+                <h3>{this.props.data.title}</h3>
                 {
                     this.state.switchType ? <ul className="proj_scale clearfix float_lf">
                             {
