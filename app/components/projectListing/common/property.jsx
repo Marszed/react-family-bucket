@@ -338,7 +338,7 @@ class Property extends React.Component {
             <span className={'propty_pricelist_span_' + key}>{obj[key] == true ? messages.yes : messages.no}</span>
         )};
         const spanPrice = (obj,key) => {return (
-            <span className={'propty_pricelist_span_' + key}>{obj[key] !== undefined ? formatMoney(obj[key], 2) : ''}</span>
+            <span className={'propty_pricelist_span_' + key}>{obj[key] !== undefined && obj[key] !== "" ? formatMoney(obj[key], 2) : ''}</span>
         )};
         const spanArea = (obj,key) => {return (
             <span className={'propty_pricelist_span_' + key}>{obj[key] !== undefined ? obj[key] : ''}</span>
