@@ -156,7 +156,10 @@ class ViewProperty extends React.Component {
                                         } else {
                                             return <tr>
                                                 <td>{messages[obj.key]}</td>
-                                                <td>{obj.unit === 'mon' ? formatMoney(detail[obj.key] || 0) : detail[obj.key]} {obj.unit ? (obj.unit === 'area' ? areaUnit[country] : (obj.unit === 'percent' ? '%' : (obj.unit === 'len' ? lengthUnit[country] : currencyName))) : null}</td>
+                                                {
+                                                    (obj.unit === 'mon' || obj.unit === 'percent') && !detail[obj.key] ? <td/> :
+                                                        <td>{obj.unit === 'mon' ? formatMoney(detail[obj.key] || 0) : detail[obj.key]} {obj.unit ? (obj.unit === 'area' ? areaUnit[country] : (obj.unit === 'percent' ? '%' : (obj.unit === 'len' ? lengthUnit[country] : currencyName))) : null}</td>
+                                                }
                                             </tr>
                                         }
                                     })
@@ -194,7 +197,10 @@ class ViewProperty extends React.Component {
                                             } else {
                                                 return <tr>
                                                     <td>{messages[obj.key]}</td>
-                                                    <td>{obj.unit === 'mon' ? formatMoney(detail[obj.key] || 0) : detail[obj.key]} {obj.unit ? (obj.unit === 'area' ? areaUnit[country] : (obj.unit === 'percent' ? '%' : (obj.unit === 'len' ? lengthUnit[country] : currencyName))) : null}</td>
+                                                    {
+                                                        (obj.unit === 'mon' || obj.unit === 'percent') && !detail[obj.key] ? <td/> :
+                                                            <td>{obj.unit === 'mon' ? formatMoney(detail[obj.key] || 0) : detail[obj.key]} {obj.unit ? (obj.unit === 'area' ? areaUnit[country] : (obj.unit === 'percent' ? '%' : (obj.unit === 'len' ? lengthUnit[country] : currencyName))) : null}</td>
+                                                    }
                                                 </tr>
                                             }
                                         })
@@ -233,7 +239,10 @@ class ViewProperty extends React.Component {
                                         } else {
                                             return <tr>
                                                 <td>{messages[obj.key]}</td>
-                                                <td>{obj.unit === 'mon' ? formatMoney(detail[obj.key] || 0) : detail[obj.key]} {obj.unit ? (obj.unit === 'area' ? areaUnit[country] : (obj.unit === 'percent' ? '%' : (obj.unit === 'len' ? lengthUnit[country] : currencyName))) : null}</td>
+                                                {
+                                                    (obj.unit === 'mon' || obj.unit === 'percent') && !detail[obj.key] ? <td/> :
+                                                        <td>{obj.unit === 'mon' ? formatMoney(detail[obj.key] || 0) : detail[obj.key]} {obj.unit ? (obj.unit === 'area' ? areaUnit[country] : (obj.unit === 'percent' ? '%' : (obj.unit === 'len' ? lengthUnit[country] : currencyName))) : null}</td>
+                                                }
                                             </tr>
                                         }
                                     })
