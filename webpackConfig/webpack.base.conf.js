@@ -2,7 +2,6 @@ process.traceDeprecation = true;
 process.noDeprecation = true;
 
 let webpack = require('webpack'),
-    NyanProgressPlugin = require('nyan-progress-webpack-plugin'),
     commonPath = require('./commonPath');
 
 module.exports = {
@@ -19,8 +18,7 @@ module.exports = {
             'react-router',
             'redux',
             'redux-thunk',
-            'rc-form',
-            'react-datetime'
+            'rc-form'
         ],
         app: commonPath.path.join(commonPath.src, 'main.js')
     },
@@ -120,12 +118,6 @@ module.exports = {
     },
 
     plugins: [
-        // 打包进度条
-        new NyanProgressPlugin({
-            nyanCatSays: function (progress) {
-                return progress === 1 && 'Marszed!';
-            }
-        }),
         // 允许创建一个在编译时可以配置的全局常量。会对开发模式和发布模式的构建允许不同的行为非常有用
         new webpack.DefinePlugin({
             'process.env': { // React/Redux 打包环境配置

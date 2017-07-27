@@ -3,7 +3,8 @@ let commonPath = require('./commonPath'),
     config = require('./webpack.base.conf.js'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     ExtractTextPlugin = require('extract-text-webpack-plugin'),
-    BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+    NyanProgressPlugin = require('nyan-progress-webpack-plugin'),
+    BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 config.output.filename = '[name].js';
 config.output.chunkFilename = '[id].js';
@@ -70,6 +71,15 @@ config.plugins.push(
         notify: false
     }, {
         reload: false
+    })
+);
+
+config.plugins.unshift(
+    // 打包进度条
+    new NyanProgressPlugin({
+        nyanCatSays: function (progress) {
+            return progress === 1 && 'Marszed!';
+        }
     })
 );
 
