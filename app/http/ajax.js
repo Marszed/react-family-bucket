@@ -172,7 +172,7 @@ export function asyncAwaitCall(obj) {
             // 更新loading token, 关闭loading
             tokenHandler.updateToken(obj, loadingToken);
             if (error.response && error.response.status === 401) {
-                toastHandler({toastContent: obj.toastContent || "Unauthorized", state: 2, toast: obj.toast});
+                toastHandler({toastContent: obj.toastContent || "Timed Out", state: 2, toast: obj.toast});
                 //登录超时或者伪造token等情况
                 setTimeout(() => {
                     window.localStorage.clear();
