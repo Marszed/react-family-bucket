@@ -199,7 +199,7 @@ class ViewProperty extends React.Component {
                                                     <td>{messages[obj.key]}</td>
                                                     {
                                                         (obj.unit === 'mon' || obj.unit === 'percent') && !detail[obj.key] ? <td/> :
-                                                            <td>{obj.unit === 'mon' ? formatMoney(detail[obj.key] || 0) : detail[obj.key]} {obj.unit ? (obj.unit === 'area' ? areaUnit[country] : (obj.unit === 'percent' ? '%' : (obj.unit === 'len' ? lengthUnit[country] : currencyName))) : null}</td>
+                                                            <td>{obj.unit === 'mon' ? formatMoney(detail[obj.key] || "") : (detail[obj.key] || "")} {obj.unit ? (obj.unit === 'area' ? (detail[obj.key] ? areaUnit[country] : "") : (obj.unit === 'percent' ? (detail[obj.key] ? "%" : "") : (obj.unit === 'len' ? (detail[obj.key] ? lengthUnit[country] : "") : currencyName))) : null}</td>
                                                     }
                                                 </tr>
                                             }
