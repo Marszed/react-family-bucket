@@ -338,16 +338,16 @@ class Property extends React.Component {
             <span className={'propty_pricelist_span_' + key}>{obj[key] == true ? messages.yes : messages.no}</span>
         )};
         const spanPrice = (obj,key) => {return (
-            <span className={'propty_pricelist_span_' + key}>{obj[key] !== undefined && obj[key] !== "" ? formatMoney(obj[key], 2) : ''}</span>
+            <span className={'propty_pricelist_span_' + key}>{obj[key] ? formatMoney(obj[key], 2) : ''}</span>
         )};
         const spanArea = (obj,key) => {return (
-            <span className={'propty_pricelist_span_' + key}>{obj[key] !== undefined ? obj[key] : ''}</span>
+            <span className={'propty_pricelist_span_' + key}>{obj[key] ? obj[key] : ''}</span>
         )};
         const spanLength = (obj,key) => {return (
             <span className={'propty_pricelist_span_' + key}>{obj[key] !== undefined ? obj[key] : ''}</span>
         )};
         const spanPercent = (obj,key) => {return (
-            <span className={'propty_pricelist_span_' + key}>{obj[key] !== undefined ? obj[key] : ''}</span>
+            <span className={'propty_pricelist_span_' + key}>{obj[key] ? obj[key] : ''}</span>
         )};
         const spanAspectName = (obj,key) => {return (
             <span className={'propty_pricelist_span_' + key}>{this.state.propertyMap.aspectName[obj[key]-0-1]}</span>
