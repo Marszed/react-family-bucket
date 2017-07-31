@@ -179,8 +179,8 @@ class ImageCrop extends React.Component {
                         </div>
                         {
                             imageSquare ?
-                                <div className="ipx_pop_body clearfix ipx_imageCrop_square">
-                                    <div className="imageCrop_square_box float_lf">
+                                <div className="ipx_pop_body ipx_imageCrop_square">
+                                    <div className="imageCrop_square_box inline_block_box">
                                         <ReactCrop
                                             {...this.state}
                                             onImageLoaded={crop => this.onImageLoaded(crop)}
@@ -189,7 +189,7 @@ class ImageCrop extends React.Component {
                                             onChange={this.onCropChange}
                                         />
                                     </div>
-                                    <div className="float_rt">
+                                    <div className="inline_block_box">
                                         <p style={{marginBottom: '10px'}}>{messages.uploadPreview}</p>
                                         <div className="imageCrop_preview_box">
                                             <img src={this.state.src} alt={this.state.imageAlt} style={this.state.imagePreview}/>
@@ -197,7 +197,7 @@ class ImageCrop extends React.Component {
                                     </div>
                                 </div> :
                                 <div className="ipx_pop_body ipx_imageCrop_rectangle">
-                                    <div className="imageCrop_rectangle_box">
+                                    <div className="imageCrop_rectangle_box inline_block_box v_align_bottom">
                                         <ReactCrop
                                             {...this.state}
                                             onImageLoaded={crop => this.onImageLoaded(crop)}
@@ -206,7 +206,7 @@ class ImageCrop extends React.Component {
                                             onChange={this.onCropChange}
                                         />
                                     </div>
-                                    <div className="ipx_imageCrop_preview clearfix">
+                                    <div className="ipx_imageCrop_preview clearfix inline_block_box v_align_bottom" style={{marginLeft: '10px'}}>
                                         <span className="float_lf">{messages.uploadPreview}</span>
                                         <div className="imageCrop_preview_box float_lf">
                                             <img src={this.state.src} alt={this.state.imageAlt} style={this.state.imagePreview}/>

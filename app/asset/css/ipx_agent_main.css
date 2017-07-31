@@ -1076,7 +1076,9 @@ ul.Property_details_iconbox li em {display:block; font-style:normal; font-size:1
 .positn_ab {position:absolute;}.positn_rl {position:relative;}.positn_fx {position:fixed;}
 .float_lf {float:left}.float_rt {float:right}.float_no {float:none}
 .align_lf {text-align:left}.align_rt {text-align:right}.align_ct {text-align:center}
-.v_align_mid {vertical-align:middle;}.v_align_base {vertical-align:baseline;}
+.v_align_mid {vertical-align:middle;}
+.v_align_bottom {vertical-align:bottom;}
+.v_align_base {vertical-align:baseline;}
 .text-elps {overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 .in_block {display:inline-block; *display:inline; *zoom:1;}
 .font_normal {font-weight:normal}

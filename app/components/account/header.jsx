@@ -15,7 +15,7 @@ class Header extends React.Component {
         let language = this.state.language.indexOf('en') !== -1 ? 'zh_CN' : 'en_US';
         this.setState({language: language});
         cookie('language', language);
-        setTimeout(() => (window.location.reload(true)), 0);
+        setTimeout(() => (window.location.href = window.location.origin), 0);
     };
     render(){
         const languageMessage = this.state.language.indexOf('en') !== -1 ? '切换为中文' : 'Switch to English';
