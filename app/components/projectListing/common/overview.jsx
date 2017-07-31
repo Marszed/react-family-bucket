@@ -312,7 +312,7 @@ class Overview extends React.Component {
                         </div>;
                 }
                 let areaUnit;
-                if(obj.country === 'country.004') {
+                if(obj.countryCode === 'country.004') {
                     areaUnit = " ㎡";
                 } else {
                     areaUnit = " ft²";
