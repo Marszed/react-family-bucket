@@ -86,6 +86,8 @@ function toastHandler(obj) {
 
 
 export function asyncAwaitCall(obj) {
+    // 清除接口缓存
+    const cleanHttpCache = {"v": (new Date()).getTime() + '' + (~~(Math.random() * 100000))};
     //从localStorage中取出token
     let token = window.localStorage.getItem("token");
     //TODO 登录不需要token,获取验证码和判断账号是否需要验证码都不需要token
@@ -141,7 +143,7 @@ export function asyncAwaitCall(obj) {
 
             // `params` are the URL parameters to be sent with the request
             // Must be a plain object or a URLSearchParams object
-            params: obj.params || '',
+            params: obj.params ? Object.assign(obj.params, cleanHttpCache) : cleanHttpCache,
 
             // `auth` indicates that HTTP Basic auth should be used, and supplies credentials.
             // This will set an `Authorization` header, overwriting any existing

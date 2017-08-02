@@ -451,8 +451,8 @@ class Overview extends React.Component {
                                                     <div className="proj_box_m_btn clearfix">
                                                      <span className="float_lf">
                                                          {obj.minPrice === obj.maxPrice && obj.minPrice === 0 ? "-" : obj.minPrice === obj.maxPrice?
-                                                             obj.currencyName + ' ' + obj.maxPrice:
-                                                             obj.currencyName + ' ' + obj.minPrice + ' - ' + obj.maxPrice
+                                                             obj.currencyName + ' ' + formatMoney(obj.maxPrice):
+                                                             obj.currencyName + ' ' + formatMoney(obj.minPrice) + ' - ' + formatMoney(obj.maxPrice)
                                                          }
                                                      </span>
                                                         <button onClick={this.onLinkTo.bind(this, obj, '/projectListing/view/detail/msg')}
