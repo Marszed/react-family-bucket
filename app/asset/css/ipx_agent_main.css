@@ -1316,8 +1316,8 @@ transition: background-color .4s ease,border .4s ease,opacity .4s ease}
 .center-middle{text-align: center;  display: -webkit-box;  -webkit-box-align: center;  -webkit-box-pack: center;  display: -moz-box;  -moz-box-align: center;  -moz-box-pack: center;  display: -o-box;  -o-box-align: center;  -o-box-pack: center;  display: -ms-box;  -ms-box-align: center;  -ms-box-pack: center;  display: box;  box-align: center;  box-pack: center;  }
 
 /*头像裁剪确认弹出框*/
-.ipx_pop_imageCrop {width:600px; margin-left:-300px; top: 200px; z-index: 999}
-.ipx_pop_imageCrop .ipx_pop_body {width:100%; min-height: 100px;text-align: center; color: #666;}
+.ipx_pop_imageCrop {width:600px;-webkit-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);transform: translate(-50%,-50%); z-index: 999}
+.ipx_pop_imageCrop .ipx_pop_body {width:100%; min-height: 100px;text-align: left; color: #666;}
 .ipx_pop_imageCrop .ipx_pop_foot {padding:0 20px 20px;text-align: center;}
 /*方形裁剪*/
 .ipx_pop_imageCrop .ipx_imageCrop_square .imageCrop_square_box{max-width: 430px; max-height: 430px;margin-right: 8px;}
