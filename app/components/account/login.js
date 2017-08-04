@@ -361,31 +361,31 @@ class Login extends React.Component {
                         <div className="login_foot">
                             <ul>
                                 <li>
-                                    <a href="http://index.ipx.net/en/index.html" target="_blank">{messages.IPXHome}</a>
+                                    <a href="http://ipx.net/en/index.html" target="_blank">{messages.IPXHome}</a>
                                 </li>
                                 <li>
-                                    <a href="http://index.ipx.net/en/about.html" target="_blank">{messages.aboutUs}</a>
+                                    <a href="http://ipx.net/en/about.html" target="_blank">{messages.aboutUs}</a>
                                 </li>
-                                <li className="hide"><a href="#" target="_blank">帮助中心</a></li>
+                                {/*<li className="hide"><a href="#" target="_blank">帮助中心</a></li>
                                 <li className="hide"><a href="#" target="_blank">联系我们</a></li>
-                                <li className="hide"><a href="#" target="_blank">法律申明</a></li>
+                                <li className="hide"><a href="#" target="_blank">法律申明</a></li>*/}
                             </ul>
-                            <p>Copyright © 2017  <a href="http://index.ipx.net/en/index.html" target="_blank">IPX.net </a>{messages.rightReserved}</p>
+                            <p>Copyright © 2017  <a href="http://ipx.net/en/index.html" target="_blank">IPX.net </a>{messages.rightReserved}</p>
                         </div>
                         :
                         <div className="login_foot">
                             <ul>
                                 <li>
-                                    <a href="http://index.ipx.net/cn/index.html" target="_blank">{messages.IPXHome}</a>
+                                    <a href="http://ipx.net/cn/index.html" target="_blank">{messages.IPXHome}</a>
                                 </li>
                                 <li>
-                                    <a href="http://index.ipx.net/cn/about.html" target="_blank">{messages.aboutUs}</a>
+                                    <a href="http://ipx.net/cn/about.html" target="_blank">{messages.aboutUs}</a>
                                 </li>
-                                <li className="hide"><a href="#" target="_blank">帮助中心</a></li>
+                                {/*<li className="hide"><a href="#" target="_blank">帮助中心</a></li>
                                 <li className="hide"><a href="#" target="_blank">联系我们</a></li>
-                                <li className="hide"><a href="#" target="_blank">法律申明</a></li>
+                                <li className="hide"><a href="#" target="_blank">法律申明</a></li>*/}
                             </ul>
-                            <p>Copyright © 2017  <a href="http://index.ipx.net/cn/index.html" target="_blank">IPX.net </a> {messages.rightReserved}</p>
+                            <p>Copyright © 2017  <a href="http://ipx.net/cn/index.html" target="_blank">IPX.net </a> {messages.rightReserved}</p>
                         </div>
                 }
             </div>
