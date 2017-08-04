@@ -17,6 +17,7 @@ import hospital from "ASSET/img/icon-hospital.png";
 import bus_station from "ASSET/img/icon-station.png";
 import grocery_or_supermarket from "ASSET/img/icon-shopping.png";
 import DefaultImg from 'ASSET/img/defaultProject.jpg';
+import iconMarker from "ASSET/img/icon-marker.png";
 
 let markers = [];
 
@@ -48,13 +49,6 @@ class Msg extends React.Component {
         };
 
         let map = new google.maps.Map(document.getElementById("container"), mapProp);
-
-        let projectMarker = new google.maps.Marker({
-            position: myLatlng,
-            map: map,
-            draggable: false,
-            title: title
-        });
     };
 
     getProjectDetail = () => {
@@ -191,7 +185,7 @@ class Msg extends React.Component {
     };
 
     addMarker = (map,position,title,type) =>{
-        let icon = null;
+        let icon = iconMarker;
         if (type === 'school'){
             icon = school;
         } else if (type === 'food'){
