@@ -13,7 +13,12 @@ import {injectIntl} from "react-intl";
 import {langPackageInject, cookie, setLocalStorage, isMobile} from 'LIB/tool';
 import ValidateTool from 'LIB/validationRules';
 import Header from 'COMPONENT/account/header';
-import agent_pic from 'ASSET/img/amtn_agency.png';
+import agencyDraw1 from 'ASSET/img/agency_draw1.png';
+import agencyDraw2 from 'ASSET/img/agency_draw2.png';
+import agencyDraw3 from 'ASSET/img/agency_draw3.png';
+import agencyDraw4 from 'ASSET/img/agency_draw4.png';
+import agencyDraw5 from 'ASSET/img/agency_draw5.png';
+import agencyDraw6 from 'ASSET/img/agency_draw6.png';
 
 
 @pureRender
@@ -350,8 +355,25 @@ class Login extends React.Component {
                                 </div>
                                 <button className="ipx_btn ipx_blue_btn ipx_XL_btn" type="submit" onClick={this.submit}>{messages.loginSpace}</button>
                             </div>
-                            <div className="animationbox vendors_animation">
-                                <img src={agent_pic}  style={{position:"absolute",top:"95px", left:"-48px"}}/>
+                            <div className="animationbox">
+                                <div className="Agency_drawbox">
+                                    <div className="agency_draw1">
+                                        <span>{messages.propertySearch}</span><b className="myAuthorize">{messages.Authorize}</b><img src={agencyDraw1}/>
+                                    </div>
+                                    <div className="agency_draw2">
+                                        <span>{messages.IPXEvents}</span><img src={agencyDraw2}/>
+                                    </div>
+                                    <div className="agency_draw3">
+                                        <span>{messages.liveSupport}</span><img src={agencyDraw3}/>
+                                    </div>
+                                    <div className="agency_draw4">
+                                        <span>{messages.socialSharing}</span><img src={agencyDraw4}/>
+                                    </div>
+                                    <div className="agency_draw5">
+                                        <span>{messages.salesData}</span><img src={agencyDraw5}/>
+                                    </div>
+                                    <img className="agency_draw6" src={agencyDraw6}/>
+                                </div>
                             </div>
                         </div>
                     </div>

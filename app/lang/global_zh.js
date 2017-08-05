@@ -453,5 +453,12 @@ export default {
     fileUploadNumberTip: '每次最大上传数量为',
     imageCrop: '图像裁剪',
     uploadStart: '开始上传',
-    uploadPreview: '预览'
+    uploadPreview: '预览',
+    // 登录左侧翻译
+    propertySearch: "不动产搜索",
+    IPXEvents: "IPX活动",
+    liveSupport: "一站对接",
+    socialSharing: "信息分享",
+    salesData: "交易数据",
+    Authorize: "授权"
 };

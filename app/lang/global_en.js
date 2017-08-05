@@ -454,5 +454,12 @@ export default {
     fileUploadNumberTip: 'Maximum Upload Amount',
     imageCrop: 'Image Crop',
     uploadStart: 'Upload',
-    uploadPreview: 'Preview'
+    uploadPreview: 'Preview',
+    // 登录左侧翻译
+    propertySearch: "Property Search",
+    IPXEvents: "IPX Events",
+    liveSupport: "Live Support",
+    socialSharing: "Social Sharing",
+    salesData: "Sales Data",
+    Authorize: "Authorize"
 };

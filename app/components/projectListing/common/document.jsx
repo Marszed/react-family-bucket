@@ -115,9 +115,9 @@ class Document extends React.Component {
                         <tr className="proj_file_list_head">
                             <th className="proj_file_head_plus"><i className="iconfont icon-layout font_24px"/></th>
                             <th className="proj_file_head_tit"><b className="v_align_mid">{messages.apartmentRenderings}</b></th>
-                            <th>{messages.fileType}</th>
-                            <th>{messages.fileSize}</th>
-                            <th>{messages.operation}</th>
+                            <th className="proj_file_head_format">{messages.fileType}</th>
+                            <th className="proj_file_head_size">{messages.fileSize}</th>
+                            <th className="proj_file_head_control">{messages.operation}</th>
                         </tr>
                         {
                             this.state.resourceList8 ? this.state.resourceList8.map((obj) => (
@@ -139,9 +139,9 @@ class Document extends React.Component {
                 <tr className="proj_file_list_head">
                     <th className="proj_file_head_plus"><i className="iconfont icon-layout font_24px"/></th>
                     <th className="proj_file_head_tit"><b className="v_align_mid">{messages.brochure}</b></th>
-                    <th>{messages.fileType}</th>
-                    <th>{messages.fileSize}</th>
-                    <th>{messages.operation}</th>
+                    <th className="proj_file_head_format">{messages.fileType}</th>
+                    <th className="proj_file_head_size">{messages.fileSize}</th>
+                    <th className="proj_file_head_control">{messages.operation}</th>
                 </tr>
                 {
                     this.state.resourceList1 ? this.state.resourceList1.map((obj) => (
@@ -164,9 +164,9 @@ class Document extends React.Component {
                         <tr className="proj_file_list_head">
                             <th className="proj_file_head_plus"><i className="iconfont icon-layout font_24px"/></th>
                             <th className="proj_file_head_tit"><b className="v_align_mid">{messages.businessContract}</b></th>
-                            <th>{messages.fileType}</th>
-                            <th>{messages.fileSize}</th>
-                            <th>{messages.operation}</th>
+                            <th className="proj_file_head_format">{messages.fileType}</th>
+                            <th className="proj_file_head_size">{messages.fileSize}</th>
+                            <th className="proj_file_head_control">{messages.operation}</th>
                         </tr>
                         {
                             this.state.resourceList4 ? this.state.resourceList4.map((obj) => (
@@ -190,9 +190,9 @@ class Document extends React.Component {
                         <tr className="proj_file_list_head">
                             <th className="proj_file_head_plus"><i className="iconfont icon-layout font_24px"/></th>
                             <th className="proj_file_head_tit"><b className="v_align_mid">{messages.landContract}</b></th>
-                            <th>{messages.fileType}</th>
-                            <th>{messages.fileSize}</th>
-                            <th>{messages.operation}</th>
+                            <th className="proj_file_head_format">{messages.fileType}</th>
+                            <th className="proj_file_head_size">{messages.fileSize}</th>
+                            <th className="proj_file_head_control">{messages.operation}</th>
                         </tr>
                         {
                             this.state.resourceList9 ? this.state.resourceList9.map((obj) => (
@@ -216,9 +216,9 @@ class Document extends React.Component {
                         <tr className="proj_file_list_head">
                             <th className="proj_file_head_plus"><i className="iconfont icon-layout font_24px"/></th>
                             <th className="proj_file_head_tit"><b className="v_align_mid">{messages.buildingContract}</b></th>
-                            <th>{messages.fileType}</th>
-                            <th>{messages.fileSize}</th>
-                            <th>{messages.operation}</th>
+                            <th className="proj_file_head_format">{messages.fileType}</th>
+                            <th className="proj_file_head_size">{messages.fileSize}</th>
+                            <th className="proj_file_head_control">{messages.operation}</th>
                         </tr>
                         {
                             this.state.resourceList10 ? this.state.resourceList10.map((obj) => (
