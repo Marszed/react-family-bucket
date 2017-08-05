@@ -203,6 +203,7 @@ export default {
     landContract: 'Land contract',
     buildingContract: 'Construction contract',
     video: 'Video',
+    downLoadToAuth: 'Need Authorization To Download',
     // 不动产列表
     listUpdateTime: 'Update Time',
     delete: 'Delete',
