@@ -61,6 +61,10 @@ body *{
 .agency_draw5 {position:absolute; left: 17px; top: 140px;}
 .agency_draw6 {position:absolute; left:70px; bottom:50px; }
 .myAuthorize {width:63px; height:16px; line-height:15px; text-align:center; position:absolute; top:91px; left:14px; font-size:12px}
+.myAvailable {width:33.91%; height:12.17%; line-height:8px; text-align:left; position:absolute; top:38%; left:39.6%; font-size:8px; font-weight:normal}
+.myReserved {width:33.91%; height:12.17%; line-height:8px; text-align:left; position:absolute;top: 52.5%; left: 39.6%; font-size:8px; font-weight:normal}
+.mySold {width:33.91%; height:12.17%; line-height:8px; text-align:left; position:absolute; top:68%; left:39.6%; font-size:8px; font-weight:normal}
+
 /*动画部分*/
 .animationbox {position:absolute; top:0; left:0; width:1200px; height:600px; z-index:1}
 .amtn_3people {top:135px; left:0; position:absolute; }

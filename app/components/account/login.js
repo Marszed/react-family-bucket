@@ -370,7 +370,11 @@ class Login extends React.Component {
                                         <span>{messages.socialSharing}</span><img src={agencyDraw4}/>
                                     </div>
                                     <div className="agency_draw5">
-                                        <span>{messages.salesData}</span><img src={agencyDraw5}/>
+                                        <span>{messages.salesData}</span>
+                                        <b className="myAvailable">{messages.available}</b>
+                                        <b className="myReserved">{messages.reserved}</b>
+                                        <b className="mySold">{messages.sold}</b>
+                                        <img src={agencyDraw5}/>
                                     </div>
                                     <img className="agency_draw6" src={agencyDraw6}/>
                                 </div>
