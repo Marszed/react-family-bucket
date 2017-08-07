@@ -21,6 +21,7 @@ class Header extends React.Component {
             } else {
                 window.location.href = window.location.href.replace(/language=zh_CN/, "language=" + language);
             }
+            window.location.reload(true);
         }, 0);
     };
     render(){
