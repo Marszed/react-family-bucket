@@ -15,7 +15,13 @@ class Header extends React.Component {
         let language = this.state.language.indexOf('en') !== -1 ? 'zh_CN' : 'en_US';
         this.setState({language: language});
         cookie('language', language);
-        setTimeout(() => (window.location.href = window.location.origin), 0);
+        setTimeout(() => {
+            if (language === 'zh_CN'){
+                window.location.href = window.location.href.replace(/language=en_US/, "language=" + language);
+            } else {
+                window.location.href = window.location.href.replace(/language=zh_CN/, "language=" + language);
+            }
+        }, 0);
     };
     render(){
         const languageMessage = this.state.language.indexOf('en') !== -1 ? '切换为中文' : 'Switch to English';
