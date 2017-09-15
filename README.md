@@ -26,7 +26,7 @@ const openFileInput = () => {
     }
 };
 ```
-3: 获取文件流，设置表单域，通过ajax模拟表单提交，需设置请求头`'Content-Type': 'multipart/form-data'`，超时时间尽量长
+3: 获取文件流，设置表单域，通过ajax模拟表单提交，需设置请求头`'Content-Type': 'multipart/form-data'`，超时时间尽量长<br>
 4: 收到成功响应，通过redux通知业务组件追加一条新纪录
 
 
@@ -45,7 +45,7 @@ function getFileExtension(filename) {
 
 
 
-#### `问题3: web端直传阿里OSS<强烈推荐👍>`
+#### `问题3: web端直传阿里OSS(强烈推荐👍)`
 解决方案：[服务端签名直传并设置上传回调](https://help.aliyun.com/document_detail/31927.html)
 一个服务端的签名只能对应一个文件，所以如果需要批量上传得让后台批量生产签名与callback以及业务中的唯一ID
 
