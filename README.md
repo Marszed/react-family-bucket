@@ -52,12 +52,13 @@ function getFileExtension(filename) {
 
 
 #### `问题4: 上传进度条处理方案`
-利用xmlRequest2 的onUploadProgress监听文件上传的进度`不是上传完成的进度`，只表示客户端文件流发送的进度，真正意义上的上传完成进度需要
+利用xmlRequest2 的onprogress监听文件上传的进度`不是上传完成的进度`，只表示客户端文件流发送的进度，真正意义上的上传完成进度需要
+[文档链接](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/upload)
 
 
 
 #### `问题5: 本地图像裁剪上传问题`
-解决原理: file -> base64 -> canvas crop -> file -> upload
+解决原理: file -> base64 -> canvas crop -> file -> upload<br>
 1: 根据文件流获取图片base64
 ```javascript
 export function getBase64ByFile(file) {
